@@ -35,12 +35,14 @@ index = {"Config": "00_config.ipynb",
          "decode_line": "02_pdstools.indexes.ipynb",
          "find_mixed_type_cols": "02_pdstools.indexes.ipynb",
          "fix_hirise_edrcumindex": "02_pdstools.indexes.ipynb",
+         "CubeFile": "03_isis.cubefile.ipynb",
          "__all__": "03_isis.specialpixels.ipynb",
          "SPECIAL_PIXELS": "03_isis.specialpixels.ipynb"}
 
 modules = ["config.py",
            "utils.py",
            "pdstools/indexes.py",
+           "isis/cubefile.py",
            "isis/specialpixels.py"]
 
 doc_url = "https://michaelaye.github.io/planetarypy/"
