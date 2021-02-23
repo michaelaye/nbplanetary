@@ -14,7 +14,10 @@ from .specialpixels import SPECIAL_PIXELS
 
 class CubeFile(object):
 
-    """A Isis Cube file reader."""
+    """A Isis Cube file reader.
+
+    Copied from the `pysis` package.
+    """
 
     PIXEL_TYPES = {
         'UnsignedByte': numpy.dtype('uint8'),

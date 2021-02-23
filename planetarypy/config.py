@@ -30,7 +30,13 @@ class Config:
         self.get_config()
 
     def get_config(self):
-        "Read the configfile and store config dict."
+        """Read the configfile and store config dict.
+
+        If found, load config via `toml` and set each found (key, value) pair as
+        (attribute, value) pair in the `config` object.
+
+        At a minimum, `planetarypy` needs a `data_archive` path.
+        """
         p = self.path
         if not p.exists():
             self.not_found()
@@ -43,13 +49,17 @@ class Config:
                 for k, v in self.d.items():
                     setattr(self, k, v)
 
+    @property
+    def data_archive_path(self):
+        return Path(self.data_archive)
+
     def not_found(self):
         """Use input to ask user for the archive_path.
 
         The path will be stored in the config file `Class.path` (either default or as given
         during init.)
         """
-        path = input("Provide path where all package data will be stored:")
+        path = input("Provide path where all downloaded and created data will be stored:")
         d = {}
         d["archive_path"] = path
         self.archive_path = path

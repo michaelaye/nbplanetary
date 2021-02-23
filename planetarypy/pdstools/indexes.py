@@ -14,7 +14,7 @@ import pandas as pd
 import pvl
 import toml
 from dateutil import parser
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 from planetarypy import utils
 from ..config import config

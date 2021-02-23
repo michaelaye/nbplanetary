@@ -35,6 +35,7 @@ index = {"Config": "00_config.ipynb",
          "decode_line": "02_pdstools.indexes.ipynb",
          "find_mixed_type_cols": "02_pdstools.indexes.ipynb",
          "fix_hirise_edrcumindex": "02_pdstools.indexes.ipynb",
+         "CTXIndex": "02a_pdstools.ctx_index.ipynb",
          "CubeFile": "03_isis.cubefile.ipynb",
          "__all__": "03_isis.specialpixels.ipynb",
          "SPECIAL_PIXELS": "03_isis.specialpixels.ipynb"}
@@ -42,6 +43,7 @@ index = {"Config": "00_config.ipynb",
 modules = ["config.py",
            "utils.py",
            "pdstools/indexes.py",
+           "pdstools/ctx_index.py",
            "isis/cubefile.py",
            "isis/specialpixels.py"]
 

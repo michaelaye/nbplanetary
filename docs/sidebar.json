@@ -4,6 +4,7 @@
     "Config": "config.html",
     "Utils": "utils.html",
     "PDSTools Indexes": "pdstools.indexes.html",
+    "CTX Index": "pdstools.ctx_index.html",
     "Title": "isis.cubefile.html",
     "Constants for Isis Special Pixels": "isis.specialpixels.html"
   }
