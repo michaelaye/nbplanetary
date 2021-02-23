@@ -47,7 +47,7 @@ modules = ["config.py",
            "isis/cubefile.py",
            "isis/specialpixels.py"]
 
-doc_url = "https://michaelaye.github.io/planetarypy/"
+doc_url = "https://michaelaye.github.io/nbplanetarypy/"
 
 git_url = "https://github.com/michaelaye/nbplanetarypy/tree/{branch}/"
 
