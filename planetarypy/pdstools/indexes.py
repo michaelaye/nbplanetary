@@ -14,10 +14,10 @@ import pandas as pd
 import pvl
 import toml
 from dateutil import parser
-from tqdm.auto import tqdm
-
 from planetarypy import utils
 from ..config import config
+from tqdm.auto import tqdm
+
 # from .scraper import CTXIndex
 
 try:
