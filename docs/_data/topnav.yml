@@ -2,7 +2,7 @@ topnav:
 - title: Topnav
   items:
     - title: github
-      external_url: https://github.com/michaelaye/planetarypy/tree/{branch}/
+      external_url: https://github.com/michaelaye/nbplanetarypy/tree/{branch}/
 
 #Topnav dropdowns
 topnav_dropdowns:

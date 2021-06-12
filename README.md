@@ -1,24 +1,15 @@
 # PlanetaryPy
-> Summary description here.
+> This is the core package of the <a href='https://planetarypy.org/'>PlanetaryPy</a> organisation.
 
 
-This file will become your README and also the index of your documentation.
+## Current focus
+
+* Enable finding PDS data by downloading and managing PDS3 index files
+  * Conversion of these index files to `pandas.DataFrames` for search and filtering
+* Downloading and local management of PDS3 data as identified via the index files or directly via data/product IDs.
 
 ## Install
 
 `pip install nbplanetary`
 
 ## How to use
-
-Fill me in please! Don't forget code examples:
-
-```python
-1+1
-```
-
-
-
-
-    2
-
-
