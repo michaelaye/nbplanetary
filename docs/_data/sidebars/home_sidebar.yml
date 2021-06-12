@@ -21,12 +21,6 @@ entries:
     - output: web,pdf
       title: CTX Index
       url: pdstools.ctx_index.html
-    - output: web,pdf
-      title: Title
-      url: isis.cubefile.html
-    - output: web,pdf
-      title: Constants for Isis Special Pixels
-      url: isis.specialpixels.html
     output: web
     title: planetarypy
   output: web
