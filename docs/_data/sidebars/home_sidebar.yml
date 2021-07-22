@@ -17,10 +17,16 @@ entries:
       url: utils.html
     - output: web,pdf
       title: PDSTools Indexes
-      url: pdstools.indexes.html
+      url: pds.indexes.html
     - output: web,pdf
       title: CTX Index
-      url: pdstools.ctx_index.html
+      url: pds.ctx_index.html
+    - output: web,pdf
+      title: Apps
+      url: pds.apps.html
+    - output: web,pdf
+      title: Title
+      url: apps_demo.html
     output: web
     title: planetarypy
   output: web

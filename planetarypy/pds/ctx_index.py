@@ -38,7 +38,6 @@ class CTXIndex:
         This could be replaced by cached properties.
         """
         if not self.scraped_tables:
-            print("Scraping volumes page ...")
             self._list_of_scraped_tables = pd.read_html(self.volumes_url)
             self.scraped_tables = True
         return self._list_of_scraped_tables

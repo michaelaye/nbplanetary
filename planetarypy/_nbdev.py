@@ -3,7 +3,8 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Config": "00_config.ipynb",
-         "logger": "02_pdstools.indexes.ipynb",
+         "config": "00_config.ipynb",
+         "logger": "02a_pds.indexes.ipynb",
          "nasa_date_format": "01_utils.ipynb",
          "nasa_dt_format": "01_utils.ipynb",
          "nasa_dt_format_with_ms": "01_utils.ipynb",
@@ -22,23 +23,25 @@ index = {"Config": "00_config.ipynb",
          "download": "01_utils.ipynb",
          "url_retrieve": "01_utils.ipynb",
          "height_from_shadow": "01_utils.ipynb",
-         "indices_root": "02_pdstools.indexes.ipynb",
-         "Index": "02_pdstools.indexes.ipynb",
-         "IndexDB": "02_pdstools.indexes.ipynb",
-         "indexdb": "02_pdstools.indexes.ipynb",
-         "list_available_index_files": "02_pdstools.indexes.ipynb",
-         "PVLColumn": "02_pdstools.indexes.ipynb",
-         "IndexLabel": "02_pdstools.indexes.ipynb",
-         "index_to_df": "02_pdstools.indexes.ipynb",
-         "decode_line": "02_pdstools.indexes.ipynb",
-         "find_mixed_type_cols": "02_pdstools.indexes.ipynb",
-         "fix_hirise_edrcumindex": "02_pdstools.indexes.ipynb",
-         "CTXIndex": "02a_pdstools.ctx_index.ipynb"}
+         "storage_root": "02a_pds.indexes.ipynb",
+         "dynamic_urls": "02a_pds.indexes.ipynb",
+         "PVLColumn": "02a_pds.indexes.ipynb",
+         "IndexLabel": "02a_pds.indexes.ipynb",
+         "index_to_df": "02a_pds.indexes.ipynb",
+         "Index": "02a_pds.indexes.ipynb",
+         "decode_line": "02a_pds.indexes.ipynb",
+         "find_mixed_type_cols": "02a_pds.indexes.ipynb",
+         "fix_hirise_edrcumindex": "02a_pds.indexes.ipynb",
+         "CTXIndex": "02b_pds.ctx_index.ipynb",
+         "find_indexes": "02c_pds.apps.ipynb",
+         "get_index": "02c_pds.apps.ipynb",
+         "find_instruments": "02c_pds.apps.ipynb"}
 
 modules = ["config.py",
            "utils.py",
-           "pdstools/indexes.py",
-           "pdstools/ctx_index.py"]
+           "pds/indexes.py",
+           "pds/ctx_index.py",
+           "pds/apps.py"]
 
 doc_url = "https://michaelaye.github.io/nbplanetary/"
 

@@ -3,7 +3,9 @@
     "Overview": "/",
     "Config": "config.html",
     "Utils": "utils.html",
-    "PDSTools Indexes": "pdstools.indexes.html",
-    "CTX Index": "pdstools.ctx_index.html"
+    "PDSTools Indexes": "pds.indexes.html",
+    "CTX Index": "pds.ctx_index.html",
+    "Apps": "pds.apps.html",
+    "Title": "apps_demo.html"
   }
 }

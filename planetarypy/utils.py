@@ -167,7 +167,7 @@ def url_retrieve(url: str, outfile: str, chunk_size: int = 128):
     This downloader has built-in progress bar using tqdm and using the `requests`
     package it improves standard `urllib` behavior by adding time-out capability.
 
-    I tested different chunk_sizes and most of the time 128 was actually fastest, YYMV.
+    I tested different chunk_sizes and most of the time 128 was actually fastest, YMMV.
 
     Parameters
     ----------
@@ -190,7 +190,7 @@ def url_retrieve(url: str, outfile: str, chunk_size: int = 128):
         "write",
         miniters=1,
         total=int(R.headers.get("content-length", 0)),
-        desc=str(Path(outfile).name),
+        desc=str(Path(outfile).name)+'\n',
     ) as fd:
         for chunk in R.iter_content(chunk_size=chunk_size):
             fd.write(chunk)
