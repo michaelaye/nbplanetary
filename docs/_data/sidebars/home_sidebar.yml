@@ -25,6 +25,9 @@ entries:
       title: Apps
       url: pds.apps.html
     - output: web,pdf
+      title: CTX
+      url: ctx.html
+    - output: web,pdf
       title: Title
       url: apps_demo.html
     output: web

@@ -63,7 +63,6 @@ class CTXIndex:
         This is necessary because a release usually has more that one volume.
         """
         if not self.release_scraped:
-            print("Scraping latest release page ...")
             alist = pd.read_html(self.release_url)
             # get last row of 4th table
             row = alist[3].iloc[-1]

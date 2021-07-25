@@ -2,8 +2,9 @@
 
 __all__ = ['logger', 'nasa_date_format', 'nasa_dt_format', 'nasa_dt_format_with_ms', 'standard_date_format',
            'standard_dt_format', 'standard_dt_format_with_ms', 'nasa_date_to_iso', 'iso_to_nasa_date',
-           'nasa_datetime_to_iso', 'iso_to_nasa_datetime', 'replace_all_nasa_times', 'get_gdal_center_coords',
-           'ProgressBar', 'parse_http_date', 'get_remote_timestamp', 'download', 'url_retrieve', 'height_from_shadow']
+           'nasa_datetime_to_iso', 'iso_to_nasa_datetime', 'replace_all_nasa_times', 'ProgressBar', 'parse_http_date',
+           'get_remote_timestamp', 'download', 'url_retrieve', 'height_from_shadow', 'get_gdal_center_coords',
+           'file_variations']
 
 # Cell
 import datetime as dt
@@ -38,7 +39,7 @@ standard_dt_format_with_ms = standard_dt_format + ".%f"
 
 # Cell
 def nasa_date_to_iso(datestr, with_hours=False):
-    """Convert the day-number based NASA format to ISO.
+    """Convert the day-number based NASA date format to ISO.
 
     Parameters
     ----------
@@ -57,11 +58,35 @@ def nasa_date_to_iso(datestr, with_hours=False):
 
 # Cell
 def iso_to_nasa_date(datestr):
+    """Convert iso date to day-number based NASA date.
+
+    Parameters
+    ----------
+    datestr : str
+        Date string in the form Y-m-d
+
+    Returns
+    -------
+    Datestring in NASA standard yyyy-jjj
+    """
     date = dt.datetime.strptime(datestr, standard_date_format)
     return date.strftime(nasa_date_format)
 
 # Cell
 def nasa_datetime_to_iso(dtimestr):
+    """Convert the day-number based NASA datetime format to ISO.
+
+    Note: This is dateTIME vs `nasa_date_to_iso` which is just DATE.
+
+    Parameters
+    ----------
+    dtimestr : str
+        Datetime string in the form Y-jTH:M:S
+
+    Returns
+    -------
+    Datestring in ISO standard yyyy-mm-ddTHH:MM:SS.MMMMMM
+    """
     try:
         dtimestr.split(".")[1]
     except IndexError:
@@ -73,6 +98,18 @@ def nasa_datetime_to_iso(dtimestr):
 
 # Cell
 def iso_to_nasa_datetime(dtimestr):
+    """Convert iso datetime to day-number based NASA datetime.
+
+    Parameters
+    ----------
+    dtimestr : str
+        Datetime string in the form yyyy-mm-ddTHH-MM-SS
+
+    Returns
+    -------
+    Datestring in NASA standard yyyy-jjjTHH-MM-SS
+    """
+
     try:
         dtimestr.split(".")[1]
     except IndexError:
@@ -86,19 +123,26 @@ def iso_to_nasa_datetime(dtimestr):
 
 # Cell
 def replace_all_nasa_times(df):
+    """Find all NASA times in dataframe and replace with ISO.
+
+    Changes will be implemented on incoming dataframe!
+
+    This will be done for all columns with the word TIME in the column name.
+
+    Parameters
+    ----------
+    df: pandas.DataFrame
+        DataFrame with NASA time columns.
+
+    Returns
+    -------
+    Nothing (Changes implemented in-place)
+    """
     for col in [col for col in df.columns if "TIME" in col]:
         if "T" in df[col].iloc[0]:
             df[col] = pd.to_datetime(df[col].map(nasa_datetime_to_iso))
 
-
-def get_gdal_center_coords(imgpath):
-    if not GDAL_INSTALLED:
-        logger.error("GDAL not installed. Returning")
-        return
-    ds = gdal.Open(str(imgpath))
-    xmean = ds.RasterXSize // 2
-    ymean = ds.RasterYSize // 2
-    return xmean, ymean
+# Cell
 
 
 class ProgressBar(tqdm):
@@ -190,11 +234,12 @@ def url_retrieve(url: str, outfile: str, chunk_size: int = 128):
         "write",
         miniters=1,
         total=int(R.headers.get("content-length", 0)),
-        desc=str(Path(outfile).name)+'\n',
+        desc=str(Path(outfile).name) + "\n",
     ) as fd:
         for chunk in R.iter_content(chunk_size=chunk_size):
             fd.write(chunk)
 
+# Cell
 
 def height_from_shadow(shadow_in_pixels, sun_elev):
     """Calculate height of an object from its shadow length.
@@ -214,3 +259,48 @@ def height_from_shadow(shadow_in_pixels, sun_elev):
     height [meter]
     """
     return tan(radians(sun_elev)) * shadow_in_pixels
+
+# export
+
+
+def get_gdal_center_coords(imgpath):
+    """Get center rows/cols pixel coordinate for GDAL-readable dataset.
+
+    Check CLI `gdalinfo --formats` to see all formats that GDAL can open.
+
+    Parameters
+    ----------
+    imgpath: str, pathlib.Path
+        Path to raster image that is readable by GDLA
+    """
+    if not GDAL_INSTALLED:
+        logger.error("GDAL not installed. Returning")
+        return
+    ds = gdal.Open(str(imgpath))
+    xmean = ds.RasterXSize // 2
+    ymean = ds.RasterYSize // 2
+    return xmean, ymean
+
+
+def file_variations(filename, extensions):
+    """Create a variation of file names.
+
+    Generate a list of variations on a filename by replacing the extension with
+    the provided list.
+
+    Parameters
+    ----------
+    filename: str, pathlib.Path
+        The original file name to use as a base.
+    extensions: list-like
+        A list of file extensions to generate new filenames.
+
+    Returns
+    -------
+    list of pathlib.Paths
+
+    Notes
+    -----
+    Adapted from T. Olsens `file_variations of the pysis module for using pathlib.
+    """
+    return [Path(filename).with_suffix(extension) for extension in extensions]

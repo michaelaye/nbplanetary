@@ -21,7 +21,7 @@ class Config:
 
     The key, value pairs found in the config file become attributes of the
     class instance after initialization.
-    At minimum, there should be the `archive_path` attribute for storing data
+    At minimum, there should be the `storage_root` attribute for storing data
     for this package.
     """
 
@@ -84,8 +84,9 @@ class Config:
 
     def save(self):
         "Write the YAML dict to file."
-        with self.path.open("w") as f:
-            f.write(self.yamldic.as_yaml())
+        self.path.write_text(self.yamldic.as_yaml())
+#         with self.path.open("w") as f:
+#             f.write(self.yamldic.as_yaml())
 
     def ask_storage_root(self):
         """Use input() to ask user for the storage_root path.
