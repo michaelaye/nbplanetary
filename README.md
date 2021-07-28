@@ -21,11 +21,38 @@ This will pull in these other dependencies and their dependencies:
 ## PDS tools
 
 Look at the `Apps` docs to see what `pds.apps` exist for easily getting PDS indexes.
+The `find_index` app is specifically useful when you don't know what index files exist.
+
+So far, the following indexes are supported (but not necessarily all tested within PLPY):
+
+* Cassini
+  * ISS (all)
+  * UVIS (all)
+* MRO
+  * CTX
+      EDR
+  * HiRISE
+    * EDR, RDR, DTM
+      * EDR index has a bug (as delivered by the team, reported), where I need to activate an existing fix for it.
+* LRO
+  * Diviner (DLRE)
+    * EDR, RDR
+  * LOLA
+    * EDR, RDR
+    
+### More indexes
+More indexes of other instruments can be easily added by following the existing structure of what has been copied into your config at `~/.planetarypy_config.yaml`.
+
+Please consider submitting a pull request for adding further PDS index files into the config file at its source: https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/data/planetarypy_config.yaml
 
 ## Utils
 Find something in `Utils` for working with NASA timestamps and a well working URL download function `url_retrieve`, among other stuff.
 
 ## Experiment/Instrument Specific
 
-So war, `planetarypy` supports CTX EDR and HiRISE RGB.NOMAP data.
+So far, `planetarypy` supports CTX EDR and HiRISE RGB.NOMAP data.
 Look at the `CTX` and `HiRISE` pages for descriptions of classes for working with these data.
+
+## Bug reports
+
+Please submit bug reports at https://github.com/michaelaye/nbplanetary/issues
