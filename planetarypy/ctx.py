@@ -22,10 +22,13 @@ from .pds.apps import get_index
 from .utils import file_variations, url_retrieve
 from tqdm.auto import tqdm
 from yarl import URL
-
+import warnings
+import rasterio
+warnings.filterwarnings("ignore", category=rasterio.errors.NotGeoreferencedWarning)
 baseurl = URL(
     "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/"
 )
+
 storage_root = config.storage_root / "mro/ctx"
 edrindex = get_index("mro.ctx.indexes.edr")
 
@@ -138,6 +141,8 @@ class CTXEDR:
 
     def read_edr(self):
         "`da` stands for dataarray, standard abbr. within xarray."
+        if not self.local_path.exists():
+            raise FileNotFoundError("EDR not downloaded yet.")
         if not self.is_read:
             self.edr_da = xr.open_rasterio(self.local_path)
             self.is_read = True
@@ -162,7 +167,10 @@ class CTXEDR:
         s = f"PRODUCT_ID: {self.product_id}\n"
         s += f"URL: {self.url}\n"
         s += f"Local: {self.local_path}\n"
-        s += f"Shape: {self.read_edr().shape}"
+        try:
+            s += f"Shape: {self.read_edr().shape}"
+        except FileNotFoundError:
+            s += f"Not downloaded yet."
         return s
 
     def __repr__(self):
