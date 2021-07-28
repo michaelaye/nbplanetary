@@ -37,6 +37,7 @@ nb_path: "notebooks/index.ipynb"
 </ul>
 </li>
 <li>Downloading and local management of PDS3 data as identified via the index files or directly via data/product IDs.</li>
+<li>CTX and HiRISE specific tools</li>
 </ul>
 
 </div>
@@ -44,13 +45,19 @@ nb_path: "notebooks/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2>
+<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2><p><code>pip install planetarypy</code></p>
+<p>This will pull in these other dependencies and their dependencies:</p>
+<p><code>strictyaml pandas pvl numpy python-dateutil tqdm lxml yarl hirise-tools kalasiris</code></p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>pip install planetarypy</code></p>
+<h2 id="PDS-tools">PDS tools<a class="anchor-link" href="#PDS-tools"> </a></h2><p>Look at the <code>Apps</code> docs to see what <a href="/nbplanetary/pds.apps.html"><code>pds.apps</code></a> exist for easily getting PDS indexes.</p>
+<h2 id="Utils">Utils<a class="anchor-link" href="#Utils"> </a></h2><p>Find something in <code>Utils</code> for working with NASA timestamps and a well working URL download function <a href="/nbplanetary/utils.html#url_retrieve"><code>url_retrieve</code></a>, among other stuff.</p>
+<h2 id="Experiment/Instrument-Specific">Experiment/Instrument Specific<a class="anchor-link" href="#Experiment/Instrument-Specific"> </a></h2><p>So war, <code>planetarypy</code> supports CTX EDR and HiRISE RGB.NOMAP data.
+Look at the <code>CTX</code> and <code>HiRISE</code> pages for descriptions of classes for working with these data.</p>
 
 </div>
 </div>

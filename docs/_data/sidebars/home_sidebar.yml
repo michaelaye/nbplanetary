@@ -16,7 +16,7 @@ entries:
       title: Utils
       url: utils.html
     - output: web,pdf
-      title: PDSTools Indexes
+      title: PDS Indexes
       url: pds.indexes.html
     - output: web,pdf
       title: CTX Index
@@ -31,7 +31,7 @@ entries:
       title: HiRISE tools
       url: hirise.html
     - output: web,pdf
-      title: Title
+      title: Apps Demos
       url: apps_demo.html
     output: web
     title: planetarypy

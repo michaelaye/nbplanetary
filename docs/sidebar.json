@@ -3,11 +3,11 @@
     "Overview": "/",
     "Config": "config.html",
     "Utils": "utils.html",
-    "PDSTools Indexes": "pds.indexes.html",
+    "PDS Indexes": "pds.indexes.html",
     "CTX Index": "pds.ctx_index.html",
     "Apps": "pds.apps.html",
     "CTX": "ctx.html",
     "HiRISE tools": "hirise.html",
-    "Title": "apps_demo.html"
+    "Apps Demos": "apps_demo.html"
   }
 }
