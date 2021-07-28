@@ -24,7 +24,7 @@ index = {"Config": "00_config.ipynb",
          "height_from_shadow": "01_utils.ipynb",
          "get_gdal_center_coords": "01_utils.ipynb",
          "file_variations": "01_utils.ipynb",
-         "storage_root": "03_ctx.ipynb",
+         "storage_root": "04_hirise.ipynb",
          "dynamic_urls": "02a_pds.indexes.ipynb",
          "PVLColumn": "02a_pds.indexes.ipynb",
          "IndexLabel": "02a_pds.indexes.ipynb",
@@ -37,18 +37,22 @@ index = {"Config": "00_config.ipynb",
          "find_indexes": "02c_pds.apps.ipynb",
          "get_index": "02c_pds.apps.ipynb",
          "find_instruments": "02c_pds.apps.ipynb",
-         "baseurl": "03_ctx.ipynb",
+         "baseurl": "04_hirise.ipynb",
          "edrindex": "03_ctx.ipynb",
          "catch_isis_error": "03_ctx.ipynb",
          "CTXEDR": "03_ctx.ipynb",
-         "CTXEDRCollection": "03_ctx.ipynb"}
+         "CTXEDRCollection": "03_ctx.ipynb",
+         "rdrindex": "04_hirise.ipynb",
+         "RGB_NOMAP": "04_hirise.ipynb",
+         "RGB_NOMAPCollection": "04_hirise.ipynb"}
 
 modules = ["config.py",
            "utils.py",
            "pds/indexes.py",
            "pds/ctx_index.py",
            "pds/apps.py",
-           "ctx.py"]
+           "ctx.py",
+           "hirise.py"]
 
 doc_url = "https://michaelaye.github.io/nbplanetary/"
 

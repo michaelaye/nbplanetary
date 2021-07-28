@@ -1,5 +1,5 @@
 # PlanetaryPy
-> This is the core package of the <a href='https://planetarypy.org/'>PlanetaryPy</a> organisation.
+> This will become (part of) the core package of the <a href='https://planetarypy.org/'>PlanetaryPy</a> organisation.
 
 
 ## Current focus
@@ -10,6 +10,4 @@
 
 ## Install
 
-`pip install nbplanetary`
-
-## How to use
+`pip install planetarypy`

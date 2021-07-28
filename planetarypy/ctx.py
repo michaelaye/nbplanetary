@@ -150,8 +150,8 @@ class CTXEDR:
             self.is_calibd_read = True
         return self.cal_da
 
-    def plot_da(self, da):
-        return da.isel(band=0, drop=True).hvplot(
+    def plot_da(self):
+        return self.edr_da.isel(band=0, drop=True).hvplot(
             x="y", y="x", rasterize=True, cmap="gray", data_aspect=1
         )
 
@@ -186,7 +186,6 @@ class CTXEDRCollection:
         urls = []
         for p_id in self.product_ids:
             ctx = CTXEDR(p_id)
-            ctx.product_id = p_id
             urls.append(ctx.url)
         self.urls = urls
         return urls

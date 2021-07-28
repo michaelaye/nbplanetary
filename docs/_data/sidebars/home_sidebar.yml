@@ -28,6 +28,9 @@ entries:
       title: CTX
       url: ctx.html
     - output: web,pdf
+      title: HiRISE tools
+      url: hirise.html
+    - output: web,pdf
       title: Title
       url: apps_demo.html
     output: web
