@@ -3,20 +3,22 @@
 __all__ = ['logger', 'nasa_date_format', 'nasa_dt_format', 'nasa_dt_format_with_ms', 'standard_date_format',
            'standard_dt_format', 'standard_dt_format_with_ms', 'nasa_date_to_iso', 'iso_to_nasa_date',
            'nasa_datetime_to_iso', 'iso_to_nasa_datetime', 'replace_all_nasa_times', 'ProgressBar', 'parse_http_date',
-           'get_remote_timestamp', 'download', 'url_retrieve', 'height_from_shadow', 'get_gdal_center_coords',
-           'file_variations']
+           'get_remote_timestamp', 'download', 'url_retrieve', 'have_internet', 'height_from_shadow',
+           'get_gdal_center_coords', 'file_variations']
 
 # Cell
 import datetime as dt
 import email.utils as eut
+import http.client as httplib
 import logging
 from math import radians, tan
 from pathlib import Path
 from urllib.request import urlopen, urlretrieve
 
-import pandas as pd
 import requests
 from tqdm.auto import tqdm
+
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 try:
@@ -238,6 +240,17 @@ def url_retrieve(url: str, outfile: str, chunk_size: int = 128):
     ) as fd:
         for chunk in R.iter_content(chunk_size=chunk_size):
             fd.write(chunk)
+
+
+def have_internet():
+    conn = httplib.HTTPConnection("www.google.com", timeout=5)
+    try:
+        conn.request("HEAD", "/")
+        conn.close()
+        return True
+    except:
+        conn.close()
+        return False
 
 # Cell
 
