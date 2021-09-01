@@ -243,6 +243,10 @@ def url_retrieve(url: str, outfile: str, chunk_size: int = 128):
 
 
 def have_internet():
+    """Fastest way to check for active internet connection.
+
+    From https://stackoverflow.com/a/29854274/680232
+    """
     conn = httplib.HTTPConnection("www.google.com", timeout=5)
     try:
         conn.request("HEAD", "/")
