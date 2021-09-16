@@ -25,11 +25,23 @@ entries:
       title: Apps
       url: pds.apps.html
     - output: web,pdf
+      title: OPUSAPI class
+      url: pds.opusapi.html
+    - output: web,pdf
       title: CTX
       url: ctx.html
     - output: web,pdf
       title: HiRISE tools
       url: hirise.html
+    - output: web,pdf
+      title: Title
+      url: cassini_uvis.html
+    - output: web,pdf
+      title: Cassini ISS
+      url: cassini_iss.html
+    - output: web,pdf
+      title: DB Manager
+      url: database.html
     - output: web,pdf
       title: Apps Demos
       url: apps_demo.html

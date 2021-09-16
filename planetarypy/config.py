@@ -7,7 +7,7 @@ import os
 import shutil
 from functools import reduce
 from importlib.resources import path as resource_path
-from pathlib import Path
+from fastcore.utils import Path
 
 import strictyaml as yaml
 
@@ -25,14 +25,15 @@ class Config:
     for this package.
     """
 
-    # This enables a config path location override using env PYCISS_CONFIG
+    # This part enables a config path location override using env PYCISS_CONFIG
     fname = "planetarypy_config.yaml"
+    # separating fname from fpath so that resource_path below is correct.
     path = Path(os.getenv("PLANETARYPY_CONFIG", Path.home() / f".{fname}"))
 
-    def __init__(self, other_config=None):
-        "Switch to other config file location with `other_config`."
-        if other_config is not None:
-            self.path = Path(other_config)
+    def __init__(self, config_path=None):
+        "Switch to other config file location with `config_path`."
+        if config_path is not None:
+            self.path = Path(config_path)
         if not self.path.exists():
             with resource_path("planetarypy.data", self.fname) as p:
                 shutil.copy(p, self.path)
@@ -65,7 +66,7 @@ class Config:
         """
         return reduce(lambda c, k: c[k], key.split("."), self.d)
 
-    def set_value(self, nested_key, value):
+    def set_value(self, nested_key, value, save=True):
         """Set sub-dic using dotted key.
 
         Parameters
@@ -80,13 +81,12 @@ class Config:
         for key in keys[:-1]:
             dic = dic[key]
         dic[keys[-1]] = value
-        self.save()
+        if save:
+            self.save()
 
     def save(self):
         "Write the YAML dict to file."
         self.path.write_text(self.yamldic.as_yaml())
-#         with self.path.open("w") as f:
-#             f.write(self.yamldic.as_yaml())
 
     def ask_storage_root(self):
         """Use input() to ask user for the storage_root path.
@@ -103,20 +103,24 @@ class Config:
         self.save()
 
     def list_missions(self):
-        return list(self.d['missions'].keys())
+        return list(self.d["missions"].keys())
 
     def list_instruments(self, mission):
-        if not mission.startswith('missions'):
-            mission = 'missions.' + mission
+        if not mission.startswith("missions"):
+            mission = "missions." + mission
         instruments = self.get_value(mission)
         return list(instruments.keys())
 
     def list_indexes(self, instrument):
         "instrument key needs to be <mission>.<instrument>"
-        if not instrument.startswith('missions'):
-            instrument = 'missions.' + instrument
-        indexes = self.get_value(instrument+'.indexes')
+        if not instrument.startswith("missions"):
+            instrument = "missions." + instrument
+        indexes = self.get_value(instrument + ".indexes")
         return list(indexes)
+
+    def get_copy(self, new_path):
+        Path(new_path).write_text(self.yamldic.as_yaml())
+        return Config(config_path=new_path)
 
 # Cell
 config = Config()

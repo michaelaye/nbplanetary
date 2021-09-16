@@ -6,8 +6,12 @@
     "PDS Indexes": "pds.indexes.html",
     "CTX Index": "pds.ctx_index.html",
     "Apps": "pds.apps.html",
+    "OPUSAPI class": "pds.opusapi.html",
     "CTX": "ctx.html",
     "HiRISE tools": "hirise.html",
+    "Title": "cassini_uvis.html",
+    "Cassini ISS": "cassini_iss.html",
+    "DB Manager": "database.html",
     "Apps Demos": "apps_demo.html"
   }
 }
