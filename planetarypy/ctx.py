@@ -30,7 +30,7 @@ baseurl = URL(
 )
 
 storage_root = config.storage_root / "mro/ctx"
-edrindex = get_index("mro.ctx.indexes.edr")
+edrindex = get_index("mro.ctx", "edr")
 
 # Cell
 def catch_isis_error(func):

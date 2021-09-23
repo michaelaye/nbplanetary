@@ -30,8 +30,11 @@ class DataManager:
             self.download()
 
     def query_pid(self, pid):
-        opus = OPUS()
-        self.query_result = opus.query_image_id(pid)[0]
+        opus = OPUS(silent=True)
+        try:
+            self.query_result = opus.query_image_id(pid)[0]
+        except IndexError:
+            raise FileNotFoundError("Project ID not found on PDS server.")
         self.opus_id = self.query_result[0]
         self.dict = self.query_result[1]
 
@@ -63,6 +66,10 @@ class DataManager:
     @property
     def calib_corr_path(self):
         return self.raw_data_path.with_name(self.raw_data_path.stem + "_CAL_3.DAT")
+
+    @property
+    def calib_label_path(self):
+        return self.calib_corr_path.with_suffix(".LBL")
 
     @property
     def original_pid_file(self):

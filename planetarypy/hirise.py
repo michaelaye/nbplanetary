@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore", category=rasterio.errors.NotGeoreferencedWarni
 # Cell
 storage_root = config.storage_root / "mro/hirise"
 baseurl = URL("https://hirise-pds.lpl.arizona.edu/download/PDS")
-rdrindex = get_index("mro.hirise.indexes.rdr")
+rdrindex = get_index("mro.hirise", "rdr")
 
 # Cell
 

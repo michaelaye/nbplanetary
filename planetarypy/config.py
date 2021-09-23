@@ -118,8 +118,17 @@ class Config:
         indexes = self.get_value(instrument + ".indexes")
         return list(indexes)
 
-    def get_copy(self, new_path):
-        Path(new_path).write_text(self.yamldic.as_yaml())
+    def get_clean_copy(self, new_path):
+        "Create a clean copy without timestamps for repo upload."
+        dic = self.yamldic.copy()
+        missions = dic['missions']
+        for mission in missions.keys():
+            mdict = missions[mission]
+            for instr in mdict.keys():
+                instrdict = mdict[instr]
+                for index in instrdict['indexes']:
+                    instrdict['indexes'][index]['timestamp']=''
+        Path(new_path).write_text(dic.as_yaml())
         return Config(config_path=new_path)
 
 # Cell

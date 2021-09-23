@@ -8,6 +8,7 @@ from .indexes import Index
 
 # Cell
 
+
 def find_indexes(instrument):
     """Find existing indexes for an instrument.
 
@@ -25,26 +26,30 @@ def find_indexes(instrument):
 
 # Cell
 
-def get_index(key):
-    """example key: cassini.iss.indexes.index
+
+def get_index(instr, index_name):
+    """Example: get_index("cassini.iss", "index")
 
     Parameters
     ----------
-    key: str
-        Dotted index in form of cassini.iss.indexes.index
+    instr: str
+        Dotted index in form of cassini.iss
+    index_name: str
+        Index name, for exmample 'moon_summary'
 
     Returns
     -------
     pandas.DataFrame
         The PDS index converted to a pandas DataFrame.
     """
-    index = Index(key)
+    index = Index(instr + ".indexes." + index_name)
     if not index.local_table_path.exists():
         index.download()
         index.convert_to_hdf()
     return index.df
 
 # Cell
+
 
 def find_instruments(mission):
     """Find existing instruments for a mission.
