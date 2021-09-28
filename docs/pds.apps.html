@@ -47,20 +47,17 @@ nb_path: "notebooks/02c_pds.apps.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="find_indexes" class="doc_header"><code>find_indexes</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/apps.py#L12" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_indexes</code>(<strong><code>instrument</code></strong>)</p>
+<h4 id="find_indexes" class="doc_header"><code>find_indexes</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/apps.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_indexes</code>(<strong><code>instrument</code></strong>:<code>str</code>)</p>
 </blockquote>
-
-<pre><code>Find existing indexes for an instrument.
-
-Parameters
-----------
-instrument: str
-    Dotted mission.instrument key, e.g. cassini.iss
-
-Returns
--------
-list
-    List of configured index names</code></pre>
+<p>Find existing indexes for an instrument.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>instrument</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>Dotted mission.instrument key, e.g. cassini.iss</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'list'&gt;</code></em>   <p>List of configured index names</p></li>
+</ul>
 
 </div>
 
@@ -123,22 +120,20 @@ list
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_index" class="doc_header"><code>get_index</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/apps.py#L30" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_index</code>(<strong><code>instr</code></strong>, <strong><code>index_name</code></strong>)</p>
+<h4 id="get_index" class="doc_header"><code>get_index</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/apps.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_index</code>(<strong><code>instr</code></strong>:<code>str</code>, <strong><code>index_name</code></strong>:<code>str</code>)</p>
 </blockquote>
-
-<pre><code>Example: get_index("cassini.iss", "index")
-
-Parameters
-----------
-instr: str
-    Dotted index in form of cassini.iss
-index_name: str
-    Index name, for exmample 'moon_summary'
-
-Returns
--------
-pandas.DataFrame
-    The PDS index converted to a pandas DataFrame.</code></pre>
+<p>Example: get_index("cassini.iss", "index")</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>instr</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>  <p>Dotted instrument index, e.g. cassini.iss</p></li>
+</ul>
+<ul>
+<li><strong><code>index_name</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>Index name, for exmample 'moon_summary'</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'pandas.core.frame.DataFrame'&gt;</code></em>    <p>The PDS index convert to pandas DataFrame</p></li>
+</ul>
 
 </div>
 
@@ -902,20 +897,17 @@ pandas.DataFrame
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="find_instruments" class="doc_header"><code>find_instruments</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/apps.py#L54" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_instruments</code>(<strong><code>mission</code></strong>)</p>
+<h4 id="find_instruments" class="doc_header"><code>find_instruments</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/apps.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_instruments</code>(<strong><code>mission</code></strong>:<code>str</code>)</p>
 </blockquote>
-
-<pre><code>Find existing instruments for a mission.
-
-Parameters
-----------
-mission: str
-    E.g. 'cassini'
-
-Returns
--------
-list
-    List of configured instrument names</code></pre>
+<p>Find existing instruments for a mission.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>mission</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>Mission string, e.g. "cassini"</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'list'&gt;</code></em>   <p>List of configured instrument names</p></li>
+</ul>
 
 </div>
 
@@ -990,218 +982,6 @@ list
 
 <div class="output_text output_subarea output_execute_result">
 <pre>[&#39;hirise&#39;, &#39;ctx&#39;]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>pd.to_datetime<span class="o">?</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea ">
-<pre><span class="ansi-red-fg">Signature:</span>
-pd<span class="ansi-blue-fg">.</span>to_datetime<span class="ansi-blue-fg">(</span>
-    arg<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;DatetimeScalarOrArrayConvertible&#39;</span><span class="ansi-blue-fg">,</span>
-    errors<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;str&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;raise&#39;</span><span class="ansi-blue-fg">,</span>
-    dayfirst<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;bool&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span>
-    yearfirst<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;bool&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span>
-    utc<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;bool | None&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    format<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;str | None&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    exact<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;bool&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span>
-    unit<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;str | None&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    infer_datetime_format<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;bool&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span>
-    origin<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;unix&#39;</span><span class="ansi-blue-fg">,</span>
-    cache<span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;bool&#39;</span> <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">-&gt;</span> <span class="ansi-blue-fg">&#39;DatetimeIndex | Series | DatetimeScalar | NaTType | None&#39;</span>
-<span class="ansi-red-fg">Docstring:</span>
-Convert argument to datetime.
-
-Parameters
-----------
-arg : int, float, str, datetime, list, tuple, 1-d array, Series, DataFrame/dict-like
-    The object to convert to a datetime.
-errors : {&#39;ignore&#39;, &#39;raise&#39;, &#39;coerce&#39;}, default &#39;raise&#39;
-    - If &#39;raise&#39;, then invalid parsing will raise an exception.
-    - If &#39;coerce&#39;, then invalid parsing will be set as NaT.
-    - If &#39;ignore&#39;, then invalid parsing will return the input.
-dayfirst : bool, default False
-    Specify a date parse order if `arg` is str or its list-likes.
-    If True, parses dates with the day first, eg 10/11/12 is parsed as
-    2012-11-10.
-    Warning: dayfirst=True is not strict, but will prefer to parse
-    with day first (this is a known bug, based on dateutil behavior).
-yearfirst : bool, default False
-    Specify a date parse order if `arg` is str or its list-likes.
-
-    - If True parses dates with the year first, eg 10/11/12 is parsed as
-      2010-11-12.
-    - If both dayfirst and yearfirst are True, yearfirst is preceded (same
-      as dateutil).
-
-    Warning: yearfirst=True is not strict, but will prefer to parse
-    with year first (this is a known bug, based on dateutil behavior).
-utc : bool, default None
-    Return UTC DatetimeIndex if True (converting any tz-aware
-    datetime.datetime objects as well).
-format : str, default None
-    The strftime to parse time, eg &#34;%d/%m/%Y&#34;, note that &#34;%f&#34; will parse
-    all the way up to nanoseconds.
-    See strftime documentation for more information on choices:
-    https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior.
-exact : bool, True by default
-    Behaves as:
-    - If True, require an exact format match.
-    - If False, allow the format to match anywhere in the target string.
-
-unit : str, default &#39;ns&#39;
-    The unit of the arg (D,s,ms,us,ns) denote the unit, which is an
-    integer or float number. This will be based off the origin.
-    Example, with unit=&#39;ms&#39; and origin=&#39;unix&#39; (the default), this
-    would calculate the number of milliseconds to the unix epoch start.
-infer_datetime_format : bool, default False
-    If True and no `format` is given, attempt to infer the format of the
-    datetime strings based on the first non-NaN element,
-    and if it can be inferred, switch to a faster method of parsing them.
-    In some cases this can increase the parsing speed by ~5-10x.
-origin : scalar, default &#39;unix&#39;
-    Define the reference date. The numeric values would be parsed as number
-    of units (defined by `unit`) since this reference date.
-
-    - If &#39;unix&#39; (or POSIX) time; origin is set to 1970-01-01.
-    - If &#39;julian&#39;, unit must be &#39;D&#39;, and origin is set to beginning of
-      Julian Calendar. Julian day number 0 is assigned to the day starting
-      at noon on January 1, 4713 BC.
-    - If Timestamp convertible, origin is set to Timestamp identified by
-      origin.
-cache : bool, default True
-    If True, use a cache of unique, converted dates to apply the datetime
-    conversion. May produce significant speed-up when parsing duplicate
-    date strings, especially ones with timezone offsets. The cache is only
-    used when there are at least 50 values. The presence of out-of-bounds
-    values will render the cache unusable and may slow down parsing.
-
-    .. versionchanged:: 0.25.0
-        - changed default value from False to True.
-
-Returns
--------
-datetime
-    If parsing succeeded.
-    Return type depends on input:
-
-    - list-like: DatetimeIndex
-    - Series: Series of datetime64 dtype
-    - scalar: Timestamp
-
-    In case when it is not possible to return designated types (e.g. when
-    any element of input is before Timestamp.min or after Timestamp.max)
-    return will have datetime.datetime type (or corresponding
-    array/Series).
-
-See Also
---------
-DataFrame.astype : Cast argument to a specified dtype.
-to_timedelta : Convert argument to timedelta.
-convert_dtypes : Convert dtypes.
-
-Examples
---------
-Assembling a datetime from multiple columns of a DataFrame. The keys can be
-common abbreviations like [&#39;year&#39;, &#39;month&#39;, &#39;day&#39;, &#39;minute&#39;, &#39;second&#39;,
-&#39;ms&#39;, &#39;us&#39;, &#39;ns&#39;]) or plurals of the same
-
-&gt;&gt;&gt; df = pd.DataFrame({&#39;year&#39;: [2015, 2016],
-...                    &#39;month&#39;: [2, 3],
-...                    &#39;day&#39;: [4, 5]})
-&gt;&gt;&gt; pd.to_datetime(df)
-0   2015-02-04
-1   2016-03-05
-dtype: datetime64[ns]
-
-If a date does not meet the `timestamp limitations
-&lt;https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html
-#timeseries-timestamp-limits&gt;`_, passing errors=&#39;ignore&#39;
-will return the original input instead of raising any exception.
-
-Passing errors=&#39;coerce&#39; will force an out-of-bounds date to NaT,
-in addition to forcing non-dates (or non-parseable dates) to NaT.
-
-&gt;&gt;&gt; pd.to_datetime(&#39;13000101&#39;, format=&#39;%Y%m%d&#39;, errors=&#39;ignore&#39;)
-datetime.datetime(1300, 1, 1, 0, 0)
-&gt;&gt;&gt; pd.to_datetime(&#39;13000101&#39;, format=&#39;%Y%m%d&#39;, errors=&#39;coerce&#39;)
-NaT
-
-Passing infer_datetime_format=True can often-times speedup a parsing
-if its not an ISO8601 format exactly, but in a regular format.
-
-&gt;&gt;&gt; s = pd.Series([&#39;3/11/2000&#39;, &#39;3/12/2000&#39;, &#39;3/13/2000&#39;] * 1000)
-&gt;&gt;&gt; s.head()
-0    3/11/2000
-1    3/12/2000
-2    3/13/2000
-3    3/11/2000
-4    3/12/2000
-dtype: object
-
-&gt;&gt;&gt; %timeit pd.to_datetime(s, infer_datetime_format=True)  # doctest: +SKIP
-100 loops, best of 3: 10.4 ms per loop
-
-&gt;&gt;&gt; %timeit pd.to_datetime(s, infer_datetime_format=False)  # doctest: +SKIP
-1 loop, best of 3: 471 ms per loop
-
-Using a unix epoch time
-
-&gt;&gt;&gt; pd.to_datetime(1490195805, unit=&#39;s&#39;)
-Timestamp(&#39;2017-03-22 15:16:45&#39;)
-&gt;&gt;&gt; pd.to_datetime(1490195805433502912, unit=&#39;ns&#39;)
-Timestamp(&#39;2017-03-22 15:16:45.433502912&#39;)
-
-.. warning:: For float arg, precision rounding might happen. To prevent
-    unexpected behavior use a fixed-width exact type.
-
-Using a non-unix epoch origin
-
-&gt;&gt;&gt; pd.to_datetime([1, 2, 3], unit=&#39;D&#39;,
-...                origin=pd.Timestamp(&#39;1960-01-01&#39;))
-DatetimeIndex([&#39;1960-01-02&#39;, &#39;1960-01-03&#39;, &#39;1960-01-04&#39;],
-              dtype=&#39;datetime64[ns]&#39;, freq=None)
-
-In case input is list-like and the elements of input are of mixed
-timezones, return will have object type Index if utc=False.
-
-&gt;&gt;&gt; pd.to_datetime([&#39;2018-10-26 12:00 -0530&#39;, &#39;2018-10-26 12:00 -0500&#39;])
-Index([2018-10-26 12:00:00-05:30, 2018-10-26 12:00:00-05:00], dtype=&#39;object&#39;)
-
-&gt;&gt;&gt; pd.to_datetime([&#39;2018-10-26 12:00 -0530&#39;, &#39;2018-10-26 12:00 -0500&#39;],
-...                utc=True)
-DatetimeIndex([&#39;2018-10-26 17:30:00+00:00&#39;, &#39;2018-10-26 17:00:00+00:00&#39;],
-              dtype=&#39;datetime64[ns, UTC]&#39;, freq=None)
-<span class="ansi-red-fg">File:</span>      ~/miniconda3/envs/py38/lib/python3.8/site-packages/pandas/core/tools/datetimes.py
-<span class="ansi-red-fg">Type:</span>      function
-</pre>
 </div>
 
 </div>

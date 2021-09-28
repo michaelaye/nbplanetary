@@ -92,7 +92,7 @@ for this package.</code></pre>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># This part enables a config path location override using env PYCISS_CONFIG</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;planetarypy_config.yaml&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;planetarypy_config.toml&quot;</span>
     <span class="c1"># separating fname from fpath so that resource_path below is correct.</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PLANETARYPY_CONFIG&quot;</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
 
@@ -104,23 +104,23 @@ for this package.</code></pre>
             <span class="k">with</span> <span class="n">resource_path</span><span class="p">(</span><span class="s2">&quot;planetarypy.data&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
                 <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">read_config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_missions</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">read_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Read the configfile and store config dict.</span>
 
-<span class="sd">        If found, load config via `yaml` and store YAML dict as `d`.</span>
 <span class="sd">        `storage_root` will be stored as attribute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yamldic</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">yamldic</span><span class="p">[</span><span class="s2">&quot;storage_root&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span> <span class="o">=</span> <span class="n">toml</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span><span class="p">[</span><span class="s2">&quot;storage_root&quot;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ask_storage_root</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">storage_root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yamldic</span><span class="p">[</span><span class="s2">&quot;storage_root&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">storage_root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span><span class="p">[</span><span class="s2">&quot;storage_root&quot;</span><span class="p">])</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="s2">&quot;get the Python dic from YAML dict.&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">yamldic</span><span class="o">.</span><span class="n">data</span>
+        <span class="s2">&quot;get the Python dic from&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span>
 
     <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get sub-dictionary by nested key.</span>
@@ -130,7 +130,12 @@ for this package.</code></pre>
 <span class="sd">        nested_key: str</span>
 <span class="sd">            A nested key in dotted format, e.g. cassini.uvis.indexes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;missions&#39;</span><span class="p">):</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;missions.&#39;</span> <span class="o">+</span> <span class="n">key</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">toml</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NonExistentKey</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nested_key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set sub-dic using dotted key.</span>
@@ -142,7 +147,7 @@ for this package.</code></pre>
 <span class="sd">        value: convertable to string</span>
 <span class="sd">            Value for the given key to be stored.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yamldic</span>
+        <span class="n">dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="n">nested_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
             <span class="n">dic</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
@@ -151,24 +156,25 @@ for this package.</code></pre>
             <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="s2">&quot;Write the YAML dict to file.&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yamldic</span><span class="o">.</span><span class="n">as_yaml</span><span class="p">())</span>
+        <span class="s2">&quot;Write the TOML doc to file.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">toml</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">ask_storage_root</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Use input() to ask user for the storage_root path.</span>
 
-<span class="sd">        The path will be stored in the YAML-dict and saved into existing config file</span>
+<span class="sd">        The path will be stored in the TOML-dict and saved into existing config file</span>
 <span class="sd">        at `Class.path`, either default or as given during init.</span>
 <span class="sd">        `storage_root` attribute is set as well.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">path</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
             <span class="s2">&quot;Provide the root storage path where all downloaded and produced data will be stored:&quot;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yamldic</span><span class="p">[</span><span class="s2">&quot;storage_root&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span><span class="p">[</span><span class="s2">&quot;storage_root&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">storage_root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">list_missions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">missions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;missions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">list_instruments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mission</span><span class="p">):</span>
@@ -184,18 +190,49 @@ for this package.</code></pre>
         <span class="n">indexes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">instrument</span> <span class="o">+</span> <span class="s2">&quot;.indexes&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">indexes</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_clean_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_path</span><span class="p">):</span>
-        <span class="s2">&quot;Create a clean copy without timestamps for repo upload.&quot;</span>
-        <span class="n">dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yamldic</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">missions</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;missions&#39;</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">_copy_clean_to_resource</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&quot;Copy a clean config file without timestamps into resource path for repo commit.&quot;</span>
+        <span class="n">dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">missions</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s2">&quot;missions&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">mission</span> <span class="ow">in</span> <span class="n">missions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">mdict</span> <span class="o">=</span> <span class="n">missions</span><span class="p">[</span><span class="n">mission</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">instr</span> <span class="ow">in</span> <span class="n">mdict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">instrdict</span> <span class="o">=</span> <span class="n">mdict</span><span class="p">[</span><span class="n">instr</span><span class="p">]</span>
-                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">instrdict</span><span class="p">[</span><span class="s1">&#39;indexes&#39;</span><span class="p">]:</span>
-                    <span class="n">instrdict</span><span class="p">[</span><span class="s1">&#39;indexes&#39;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-        <span class="n">Path</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">dic</span><span class="o">.</span><span class="n">as_yaml</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">Config</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="n">new_path</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">instrdict</span><span class="p">[</span><span class="s2">&quot;indexes&quot;</span><span class="p">]:</span>
+                    <span class="n">instrdict</span><span class="p">[</span><span class="s2">&quot;indexes&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">resource_path</span><span class="p">(</span><span class="s2">&quot;planetarypy.data&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">toml</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dic</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">update_missions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&quot;Check if a new version with more URLs exist at resource path.&quot;</span>
+        <span class="k">with</span> <span class="n">resource_path</span><span class="p">(</span><span class="s2">&quot;planetarypy.data&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">toml</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">())[</span><span class="s2">&quot;missions&quot;</span><span class="p">]</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span><span class="p">[</span><span class="s2">&quot;missions&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">mission</span> <span class="ow">in</span> <span class="n">new</span><span class="p">:</span>
+            <span class="n">missiondata</span> <span class="o">=</span> <span class="n">new</span><span class="p">[</span><span class="n">mission</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">mission</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">old</span><span class="p">:</span>
+                <span class="n">old</span><span class="p">[</span><span class="n">mission</span><span class="p">]</span> <span class="o">=</span> <span class="n">missiondata</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">instr</span> <span class="ow">in</span> <span class="n">missiondata</span><span class="p">:</span>
+                <span class="n">instrdata</span> <span class="o">=</span> <span class="n">missiondata</span><span class="p">[</span><span class="n">instr</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">instr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">old</span><span class="p">[</span><span class="n">mission</span><span class="p">]:</span>
+                    <span class="n">old</span><span class="p">[</span><span class="n">mission</span><span class="p">][</span><span class="n">instr</span><span class="p">]</span> <span class="o">=</span> <span class="n">instrdata</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">instrdata</span><span class="p">[</span><span class="s2">&quot;indexes&quot;</span><span class="p">]:</span>
+                    <span class="n">indexdata</span> <span class="o">=</span> <span class="n">instrdata</span><span class="p">[</span><span class="s2">&quot;indexes&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">old</span><span class="p">[</span><span class="n">mission</span><span class="p">][</span><span class="n">instr</span><span class="p">][</span><span class="s2">&quot;indexes&quot;</span><span class="p">]:</span>
+                        <span class="n">old</span><span class="p">[</span><span class="n">mission</span><span class="p">][</span><span class="n">instr</span><span class="p">][</span><span class="s2">&quot;indexes&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">indexdata</span>
+                        <span class="k">continue</span>
+                    <span class="n">oldindexdata</span> <span class="o">=</span> <span class="n">old</span><span class="p">[</span><span class="n">mission</span><span class="p">][</span><span class="n">instr</span><span class="p">][</span><span class="s2">&quot;indexes&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">indexdata</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">oldindexdata</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]:</span>
+                        <span class="n">oldindexdata</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">indexdata</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">populate_timestamps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">AttrDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -208,16 +245,6 @@ for this package.</code></pre>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     {% endraw %}
@@ -229,41 +256,7 @@ for this package.</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dic</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">yamldic</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">clean_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_clean_copy</span><span class="p">(</span><span class="s2">&quot;test_config.yaml&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">clean_config</span><span class="o">.</span><span class="n">path</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span>
 </pre></div>
 
     </div>
@@ -278,49 +271,69 @@ for this package.</code></pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;test_config.yaml&#39;)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Reference">Reference<a class="anchor-link" href="#Reference"> </a></h2><p>The nested structure code was taken from this brilliant blog post:</p>
-<p><a href="https://nvie.com/posts/modifying-deeply-nested-structures">https://nvie.com/posts/modifying-deeply-nested-structures</a></p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">missions</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s1">&#39;missions&#39;</span><span class="p">]</span>
-<span class="n">missions</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>YAML({&#39;cassini&#39;: {&#39;iss&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl&#39;, &#39;timestamp&#39;: &#39;&#39;}, &#39;inventory&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl&#39;, &#39;timestamp&#39;: &#39;&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2019-06-08T16:28:22&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2019-06-08T16:29:20&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2019-06-08T16:30:12&#39;}}}, &#39;uvis&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl&#39;, &#39;timestamp&#39;: &#39;2021-01-20T19:57:23&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2018-08-22T02:40:11&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2018-08-22T02:40:56&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2018-08-22T02:41:14&#39;}, &#39;supplemental_index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_supplemental_index.lbl&#39;, &#39;timestamp&#39;: &#39;2021-01-21T00:55:20&#39;}, &#39;versions&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_versions.lbl&#39;, &#39;timestamp&#39;: &#39;2021-02-21T20:02:40&#39;}}}}, &#39;mro&#39;: {&#39;hirise&#39;: {&#39;indexes&#39;: {&#39;dtm&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/DTMCUMINDEX.LBL&#39;, &#39;timestamp&#39;: &#39;&#39;}, &#39;edr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL&#39;, &#39;timestamp&#39;: &#39;&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL&#39;, &#39;timestamp&#39;: &#39;2021-07-28T03:09:28&#39;}}}, &#39;ctx&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;timestamp&#39;: &#39;2021-04-20T21:18:41&#39;}}}}, &#39;lro&#39;: {&#39;diviner&#39;: {&#39;indexes&#39;: {&#39;edr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0001/index/index.lbl&#39;, &#39;timestamp&#39;: &#39;&#39;}, &#39;edr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0002/index/index.lbl&#39;, &#39;timestamp&#39;: &#39;&#39;}, &#39;rdr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1001/index/rdrindex.lbl&#39;, &#39;timestamp&#39;: &#39;&#39;}, &#39;rdr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1002/index/rdrindex.lbl&#39;, &#39;timestamp&#39;: &#39;&#39;}}}, &#39;lola&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-2-edr-v1/lrolol_0xxx/index/edrindex.lbl&#39;, &#39;timestamp&#39;: &#39;&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/index/rdrindex.lbl&#39;, &#39;timestamp&#39;: &#39;&#39;}}}}})</pre>
+<pre>- storage_root: /home/maye/big_drive/planetary_data
+- missions: 
+  - cassini: 
+    - iss: 
+      - indexes: 
+        - index: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl
+        - inventory: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl
+        - moon_summary: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl
+        - ring_summary: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl
+        - saturn_summary: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl
+    - uvis: 
+      - indexes: 
+        - index: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl
+        - moon_summary: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl
+        - ring_summary: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl
+        - saturn_summary: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl
+        - supplemental_index: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_supplemental_index.lbl
+        - versions: 
+          - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_versions.lbl
+  - mro: 
+    - hirise: 
+      - indexes: 
+        - dtm: 
+          - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/DTMCUMINDEX.LBL
+        - edr: 
+          - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL
+        - rdr: 
+          - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL
+    - ctx: 
+      - indexes: 
+        - edr: 
+          - url: 
+  - lro: 
+    - diviner: 
+      - indexes: 
+        - edr1: 
+          - url: https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0001/index/index.lbl
+        - edr2: 
+          - url: https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0002/index/index.lbl
+        - rdr1: 
+          - url: https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1001/index/rdrindex.lbl
+        - rdr2: 
+          - url: https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1002/index/rdrindex.lbl
+    - lola: 
+      - indexes: 
+        - edr: 
+          - url: http://pds-geosciences.wustl.edu/lro/lro-l-lola-2-edr-v1/lrolol_0xxx/index/edrindex.lbl
+        - rdr: 
+          - url: http://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/index/rdrindex.lbl
+    - lroc: 
+      - indexes: 
+        - edr: 
+          - url: http://pds.lroc.asu.edu/data/LRO-L-LROC-2-EDR-V1.0/LROLRC_0048C/INDEX/CUMINDEX.LBL</pre>
 </div>
 
 </div>
@@ -342,8 +355,8 @@ for this package.</code></pre>
     <span class="n">mdict</span> <span class="o">=</span> <span class="n">missions</span><span class="p">[</span><span class="n">mission</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">instr</span> <span class="ow">in</span> <span class="n">mdict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">instrdict</span> <span class="o">=</span> <span class="n">mdict</span><span class="p">[</span><span class="n">instr</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">instrdict</span><span class="p">[</span><span class="s1">&#39;indexes&#39;</span><span class="p">]:</span>
-            <span class="n">instrdict</span><span class="p">[</span><span class="s1">&#39;indexes&#39;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;test&#39;</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">instrdict</span><span class="p">[</span><span class="s2">&quot;indexes&quot;</span><span class="p">]:</span>
+            <span class="n">instrdict</span><span class="p">[</span><span class="s2">&quot;indexes&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
 </pre></div>
 
     </div>
@@ -353,51 +366,6 @@ for this package.</code></pre>
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">missions</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>YAML({&#39;cassini&#39;: {&#39;iss&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;inventory&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}}}, &#39;uvis&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;supplemental_index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_supplemental_index.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;versions&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_versions.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}}}}, &#39;mro&#39;: {&#39;hirise&#39;: {&#39;indexes&#39;: {&#39;dtm&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/DTMCUMINDEX.LBL&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;edr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL&#39;, &#39;timestamp&#39;: &#39;test&#39;}}}, &#39;ctx&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;timestamp&#39;: &#39;test&#39;}}}}, &#39;lro&#39;: {&#39;diviner&#39;: {&#39;indexes&#39;: {&#39;edr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0001/index/index.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;edr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0002/index/index.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;rdr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1001/index/rdrindex.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;rdr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1002/index/rdrindex.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}}}, &#39;lola&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-2-edr-v1/lrolol_0xxx/index/edrindex.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/index/rdrindex.lbl&#39;, &#39;timestamp&#39;: &#39;test&#39;}}}}})</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Config()-object">The Config() object<a class="anchor-link" href="#The-Config()-object"> </a></h2><p>The <a href="/nbplanetary/config.html"><code>config</code></a> module instantiates a <a href="/nbplanetary/config.html"><code>config</code></a> object from the Config class.
-Its attributes can be used to access several aspects relevant to the configuration of <code>planetarypy</code>.
-Using an object approach enables easy growth and nesting over time.
-{% include note.html content='Any cell that starts with an <code># export</code> becomes part of the library.' %}  Any other cells become automatically part of tests.
-  <code>exports</code> also adds the exported code to the docs.
-{% include note.html content='A good "First issue" for collaborators would be to improve the Config class to be able to merge a new larger index catalog with an existing one the user might have configured. This will need to take care of existing timestamps and possible other indexes that were put in by the user.' %}</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -408,7 +376,7 @@ Using an object approach enables easy growth and nesting over time.
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">mission</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">list_missions</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">list_instruments</span><span class="p">(</span><span class="n">mission</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">list_indexes</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mission</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">):</span>
-<span class="c1">#             key = &quot;.&quot;.join([&#39;missions&#39;, mission, instrument, index])</span>
+            <span class="c1">#             key = &quot;.&quot;.join([&#39;missions&#39;, mission, instrument, index])</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 </pre></div>
 
@@ -453,6 +421,18 @@ rdr
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Config()-object">The Config() object<a class="anchor-link" href="#The-Config()-object"> </a></h2><p>The <a href="/nbplanetary/config.html"><code>config</code></a> module instantiates a <a href="/nbplanetary/config.html"><code>config</code></a> object from the Config class.
+Its attributes can be used to access several aspects relevant to the configuration of <code>planetarypy</code>.
+Using an object approach enables easy growth and nesting over time.
+{% include note.html content='Any cell that starts with an <code># export</code> becomes part of the library.' %}  Any other cells become automatically part of tests.
+  <code>exports</code> also adds the exported code to the docs.
+{% include note.html content='A good "First issue" for collaborators would be to improve the Config class to be able to merge a new larger index catalog with an existing one the user might have configured. This will need to take care of existing timestamps and possible other indexes that were put in by the user.' %}</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -460,10 +440,43 @@ rdr
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s1">&#39;test_config.yaml&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s2">&quot;test_config.toml&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">storage_root</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Path(&#39;/home/maye/big_drive/planetary_data&#39;)</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -521,52 +534,17 @@ rdr
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.read_config" class="doc_header"><code>Config.read_config</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L42" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.read_config</code>()</p>
+<h4 id="Config.read_config" class="doc_header"><code>Config.read_config</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.read_config</code>()</p>
 </blockquote>
 
 <pre><code>Read the configfile and store config dict.
 
-If found, load config via `yaml` and store YAML dict as `d`.
 `storage_root` will be stored as attribute.</code></pre>
 
 </div>
 
 </div>
 
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">yamldic</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -611,7 +589,7 @@ nested_key: str
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;missions.cassini.iss.indexes.moon_summary&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">index</span> <span class="o">=</span> <span class="s2">&quot;missions.cassini.iss.indexes.moon_summary&quot;</span>
 </pre></div>
 
     </div>
@@ -643,8 +621,7 @@ nested_key: str
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;,
- &#39;timestamp&#39;: &#39;2019-06-08T16:28:22&#39;}</pre>
+<pre>{&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;}</pre>
 </div>
 
 </div>
@@ -666,7 +643,7 @@ nested_key: str
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.set_value" class="doc_header"><code>Config.set_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.set_value</code>(<strong><code>nested_key</code></strong>, <strong><code>value</code></strong>, <strong><code>save</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="Config.set_value" class="doc_header"><code>Config.set_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.set_value</code>(<strong><code>nested_key</code></strong>, <strong><code>value</code></strong>, <strong><code>save</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 
 <pre><code>Set sub-dic using dotted key.
@@ -699,10 +676,10 @@ value: convertable to string
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.save" class="doc_header"><code>Config.save</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.save</code>()</p>
+<h4 id="Config.save" class="doc_header"><code>Config.save</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L92" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.save</code>()</p>
 </blockquote>
 
-<pre><code>Write the YAML dict to file.</code></pre>
+<pre><code>Write the TOML doc to file.</code></pre>
 
 </div>
 
@@ -736,8 +713,7 @@ value: convertable to string
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;,
- &#39;timestamp&#39;: &#39;2019-06-08T16:28:22&#39;}</pre>
+<pre>{&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;}</pre>
 </div>
 
 </div>
@@ -759,12 +735,12 @@ value: convertable to string
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.ask_storage_root" class="doc_header"><code>Config.ask_storage_root</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.ask_storage_root</code>()</p>
+<h4 id="Config.ask_storage_root" class="doc_header"><code>Config.ask_storage_root</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.ask_storage_root</code>()</p>
 </blockquote>
 
 <pre><code>Use input() to ask user for the storage_root path.
 
-The path will be stored in the YAML-dict and saved into existing config file
+The path will be stored in the TOML-dict and saved into existing config file
 at `Class.path`, either default or as given during init.
 `storage_root` attribute is set as well.</code></pre>
 
@@ -785,7 +761,7 @@ at `Class.path`, either default or as given during init.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">list_missions</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">missions</span>
 </pre></div>
 
     </div>
@@ -833,7 +809,7 @@ at `Class.path`, either default or as given during init.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;planetarypy_config.yaml&#39;</pre>
+<pre>&#39;planetarypy_config.toml&#39;</pre>
 </div>
 
 </div>
@@ -866,7 +842,7 @@ at `Class.path`, either default or as given during init.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/.planetarypy_config.yaml&#39;)</pre>
+<pre>Path(&#39;/home/maye/.planetarypy_config.toml&#39;)</pre>
 </div>
 
 </div>
@@ -884,7 +860,7 @@ at `Class.path`, either default or as given during init.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">list_instruments</span><span class="p">(</span><span class="s1">&#39;cassini&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">list_instruments</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -917,7 +893,7 @@ at `Class.path`, either default or as given during init.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">list_indexes</span><span class="p">(</span><span class="s1">&#39;cassini.iss&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">list_indexes</span><span class="p">(</span><span class="s2">&quot;cassini.iss&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -965,153 +941,11 @@ at `Class.path`, either default or as given during init.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;storage_root&#39;: &#39;/home/maye/big_drive/planetary_data&#39;,
- &#39;missions&#39;: {&#39;cassini&#39;: {&#39;iss&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl&#39;,
-      &#39;timestamp&#39;: &#39;&#39;},
-     &#39;inventory&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl&#39;,
-      &#39;timestamp&#39;: &#39;&#39;},
-     &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2019-06-08T16:28:22&#39;},
-     &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2019-06-08T16:29:20&#39;},
-     &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2019-06-08T16:30:12&#39;}}},
-   &#39;uvis&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2021-01-20T19:57:23&#39;},
-     &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2018-08-22T02:40:11&#39;},
-     &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2018-08-22T02:40:56&#39;},
-     &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2018-08-22T02:41:14&#39;},
-     &#39;supplemental_index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_supplemental_index.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2021-01-21T00:55:20&#39;},
-     &#39;versions&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_versions.lbl&#39;,
-      &#39;timestamp&#39;: &#39;2021-02-21T20:02:40&#39;}}}},
-  &#39;mro&#39;: {&#39;hirise&#39;: {&#39;indexes&#39;: {&#39;dtm&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/DTMCUMINDEX.LBL&#39;,
-      &#39;timestamp&#39;: &#39;&#39;},
-     &#39;edr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL&#39;,
-      &#39;timestamp&#39;: &#39;&#39;},
-     &#39;rdr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL&#39;,
-      &#39;timestamp&#39;: &#39;2021-07-28T03:09:28&#39;}}},
-   &#39;ctx&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;timestamp&#39;: &#39;2021-04-20T21:18:41&#39;}}}},
-  &#39;lro&#39;: {&#39;diviner&#39;: {&#39;indexes&#39;: {&#39;edr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0001/index/index.lbl&#39;,
-      &#39;timestamp&#39;: &#39;&#39;},
-     &#39;edr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0002/index/index.lbl&#39;,
-      &#39;timestamp&#39;: &#39;&#39;},
-     &#39;rdr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1001/index/rdrindex.lbl&#39;,
-      &#39;timestamp&#39;: &#39;&#39;},
-     &#39;rdr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1002/index/rdrindex.lbl&#39;,
-      &#39;timestamp&#39;: &#39;&#39;}}},
-   &#39;lola&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-2-edr-v1/lrolol_0xxx/index/edrindex.lbl&#39;,
-      &#39;timestamp&#39;: &#39;&#39;},
-     &#39;rdr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/index/rdrindex.lbl&#39;,
-      &#39;timestamp&#39;: &#39;&#39;}}}}}}</pre>
+<pre>{&#39;storage_root&#39;: &#39;/home/maye/big_drive/planetary_data&#39;, &#39;missions&#39;: {&#39;cassini&#39;: {&#39;iss&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl&#39;}, &#39;inventory&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl&#39;}}}, &#39;uvis&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl&#39;}, &#39;supplemental_index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_supplemental_index.lbl&#39;}, &#39;versions&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_versions.lbl&#39;}}}}, &#39;mro&#39;: {&#39;hirise&#39;: {&#39;indexes&#39;: {&#39;dtm&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/DTMCUMINDEX.LBL&#39;}, &#39;edr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL&#39;}}}, &#39;ctx&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;&#39;}}}}, &#39;lro&#39;: {&#39;diviner&#39;: {&#39;indexes&#39;: {&#39;edr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0001/index/index.lbl&#39;}, &#39;edr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0002/index/index.lbl&#39;}, &#39;rdr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1001/index/rdrindex.lbl&#39;}, &#39;rdr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1002/index/rdrindex.lbl&#39;}}}, &#39;lola&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-2-edr-v1/lrolol_0xxx/index/edrindex.lbl&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/index/rdrindex.lbl&#39;}}}}}}</pre>
 </div>
 
 </div>
 
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">mission</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">list_missions</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">list_instruments</span><span class="p">(</span><span class="n">mission</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">toclean</span><span class="p">[</span><span class="s1">&#39;missions&#39;</span><span class="p">][</span><span class="n">mission</span><span class="p">][</span><span class="n">instrument</span><span class="p">][</span><span class="s1">&#39;indexes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;missions&#39;</span><span class="p">,</span> <span class="n">mission</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">index</span><span class="p">])</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;strictyaml.representation.YAML&#39;&gt;
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">/tmp/ipykernel_72629/3151869597.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span>     <span class="ansi-green-fg">for</span> instrument <span class="ansi-green-fg">in</span> toclean<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;missions&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>mission<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span>         <span class="ansi-green-fg">for</span> index <span class="ansi-green-fg">in</span> toclean<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;missions&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>mission<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>instrument<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;indexes&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg">             </span>key <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#34;.&#34;</span><span class="ansi-blue-fg">.</span>join<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;missions&#39;</span><span class="ansi-blue-fg">,</span> mission<span class="ansi-blue-fg">,</span> instrument<span class="ansi-blue-fg">,</span> index<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span>             print<span class="ansi-blue-fg">(</span>key<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">TypeError</span>: sequence item 1: expected str instance, YAML found</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">list_missions</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[&#39;cassini&#39;, &#39;mro&#39;, &#39;lro&#39;]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">config_path</span><span class="o">=</span><span class="s1">&#39;test_config.yaml&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 

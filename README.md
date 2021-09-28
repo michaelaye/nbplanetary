@@ -15,7 +15,7 @@
 
 This will pull in these other dependencies and their dependencies:
 
-`strictyaml pandas pvl numpy python-dateutil tqdm lxml yarl hirise-tools kalasiris`
+`tomlkit pandas pvl numpy python-dateutil tqdm lxml yarl hirise-tools kalasiris`
 
 
 ## PDS tools
@@ -41,9 +41,9 @@ So far, the following indexes are supported (but not necessarily all tested with
     * EDR, RDR
     
 ### More indexes
-More indexes of other instruments can be easily added by following the existing structure of what has been copied into your config at `~/.planetarypy_config.yaml`.
+More indexes of other instruments can be easily added by following the existing structure of what has been copied into your config at `~/.planetarypy_config.toml`.
 
-Please consider submitting a pull request for adding further PDS index files into the config file at its source: https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/data/planetarypy_config.yaml
+Please consider submitting a pull request for adding further PDS index files into the config file at its source: https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/data/planetarypy_config.toml
 
 ## Utils
 Find something in `Utils` for working with NASA timestamps and a well working URL download function `url_retrieve`, among other stuff.

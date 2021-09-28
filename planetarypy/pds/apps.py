@@ -3,45 +3,27 @@
 __all__ = ['find_indexes', 'get_index', 'find_instruments']
 
 # Cell
+import pandas as pd
 from ..config import config
 from .indexes import Index
 
 # Cell
 
 
-def find_indexes(instrument):
-    """Find existing indexes for an instrument.
-
-    Parameters
-    ----------
-    instrument: str
-        Dotted mission.instrument key, e.g. cassini.iss
-
-    Returns
-    -------
-    list
-        List of configured index names
-    """
+def find_indexes(
+    instrument: str,  # Dotted mission.instrument key, e.g. cassini.iss
+) -> list:  # List of configured index names
+    "Find existing indexes for an instrument."
     return config.list_indexes(instrument)
 
 # Cell
 
 
-def get_index(instr, index_name):
-    """Example: get_index("cassini.iss", "index")
-
-    Parameters
-    ----------
-    instr: str
-        Dotted index in form of cassini.iss
-    index_name: str
-        Index name, for exmample 'moon_summary'
-
-    Returns
-    -------
-    pandas.DataFrame
-        The PDS index converted to a pandas DataFrame.
-    """
+def get_index(
+    instr: str,  # Dotted instrument index, e.g. cassini.iss
+    index_name: str,  # Index name, for exmample 'moon_summary'
+) -> pd.DataFrame:  # The PDS index convert to pandas DataFrame
+    """Example: get_index("cassini.iss", "index")"""
     index = Index(instr + ".indexes." + index_name)
     if not index.local_table_path.exists():
         index.download()
@@ -51,17 +33,8 @@ def get_index(instr, index_name):
 # Cell
 
 
-def find_instruments(mission):
-    """Find existing instruments for a mission.
-
-    Parameters
-    ----------
-    mission: str
-        E.g. 'cassini'
-
-    Returns
-    -------
-    list
-        List of configured instrument names
-    """
+def find_instruments(
+    mission: str,  # Mission string, e.g. "cassini"
+) -> list:  # List of configured instrument names
+    "Find existing instruments for a mission."
     return config.list_instruments(mission)

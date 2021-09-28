@@ -28,6 +28,12 @@ entries:
       title: OPUSAPI class
       url: pds.opusapi.html
     - output: web,pdf
+      title: LROC Index
+      url: pds.lroc_index.html
+    - output: web,pdf
+      title: PDS Utils
+      url: pds.utils.html
+    - output: web,pdf
       title: CTX
       url: ctx.html
     - output: web,pdf
