@@ -7,9 +7,10 @@ import os
 import shutil
 from functools import reduce
 from importlib.resources import path as resource_path
+from typing import Union
 
-from fastcore.utils import AttrDict, Path, dict2obj
 import tomlkit as toml
+from fastcore.utils import AttrDict, Path, dict2obj
 
 # Cell
 class Config:
@@ -30,7 +31,10 @@ class Config:
     # separating fname from fpath so that resource_path below is correct.
     path = Path(os.getenv("PLANETARYPY_CONFIG", Path.home() / f".{fname}"))
 
-    def __init__(self, config_path=None):
+    def __init__(
+        self,
+        config_path:str=None  # str or pathlib.Path
+    ):
         "Switch to other config file location with `config_path`."
         if config_path is not None:
             self.path = Path(config_path)
@@ -56,14 +60,11 @@ class Config:
         "get the Python dic from"
         return self.tomldoc
 
-    def get_value(self, key):
-        """Get sub-dictionary by nested key.
-
-        Parameters
-        ----------
-        nested_key: str
-            A nested key in dotted format, e.g. cassini.uvis.indexes
-        """
+    def get_value(
+        self,
+        key:str  # A nested key in dotted format, e.g. cassini.uvis.indexes
+    ):
+        """Get sub-dictionary by nested key."""
         if not key.startswith('missions'):
             key = 'missions.' + key
         try:
@@ -71,16 +72,13 @@ class Config:
         except toml.exceptions.NonExistentKey:
             return None
 
-    def set_value(self, nested_key, value, save=True):
-        """Set sub-dic using dotted key.
-
-        Parameters
-        ----------
-        key: str
-            A nested key in dotted format, e.g. cassini.uvis.ring_summary
-        value: convertable to string
-            Value for the given key to be stored.
-        """
+    def set_value(
+        self,
+        nested_key:str,  # A nested key in dotted format, e.g. cassini.uvis.ring_summary
+        value:Union[float, str],  # Value for the given key to be stored
+        save:bool=True  # Switch to control writing out to disk
+    ):
+        "Set value in sub-dic using dotted key."
         dic = self.tomldoc
         keys = nested_key.split(".")
         for key in keys[:-1]:

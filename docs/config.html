@@ -47,7 +47,7 @@ nb_path: "notebooks/00_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>config_path</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>config_path</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Manage config stuff.</p>
 <h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p>path: pathlib.Path</p>
@@ -57,7 +57,11 @@ At minimum, there should be the <a href="/nbplanetary/cassini_iss.html#storage_r
 for this package.</p>
 <p><strong>Parameters:</strong></p>
 <ul>
+<<<<<<< HEAD
 <li><strong><code>config_path</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></li>
+=======
+<li><strong><code>config_path</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em>    <p>str or pathlib.Path</p></li>
+>>>>>>> 9231eef (add package_data successfully and others:)
 </ul>
 
 </div>
@@ -95,7 +99,10 @@ for this package.</p>
     <span class="c1"># separating fname from fpath so that resource_path below is correct.</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PLANETARYPY_CONFIG&quot;</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">config_path</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span>  <span class="c1"># str or pathlib.Path</span>
+    <span class="p">):</span>
         <span class="s2">&quot;Switch to other config file location with `config_path`.&quot;</span>
         <span class="k">if</span> <span class="n">config_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
@@ -121,14 +128,11 @@ for this package.</p>
         <span class="s2">&quot;get the Python dic from&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span>
 
-    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get sub-dictionary by nested key.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        nested_key: str</span>
-<span class="sd">            A nested key in dotted format, e.g. cassini.uvis.indexes</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">:</span><span class="nb">str</span>  <span class="c1"># A nested key in dotted format, e.g. cassini.uvis.indexes</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get sub-dictionary by nested key.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;missions&#39;</span><span class="p">):</span>
             <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;missions.&#39;</span> <span class="o">+</span> <span class="n">key</span>
         <span class="k">try</span><span class="p">:</span>
@@ -136,16 +140,13 @@ for this package.</p>
         <span class="k">except</span> <span class="n">toml</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NonExistentKey</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nested_key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set sub-dic using dotted key.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        key: str</span>
-<span class="sd">            A nested key in dotted format, e.g. cassini.uvis.ring_summary</span>
-<span class="sd">        value: convertable to string</span>
-<span class="sd">            Value for the given key to be stored.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">nested_key</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>  <span class="c1"># A nested key in dotted format, e.g. cassini.uvis.ring_summary </span>
+        <span class="n">value</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>  <span class="c1"># Value for the given key to be stored</span>
+        <span class="n">save</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Switch to control writing out to disk</span>
+    <span class="p">):</span>
+        <span class="s2">&quot;Set value in sub-dic using dotted key.&quot;</span>
         <span class="n">dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tomldoc</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="n">nested_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
@@ -281,8 +282,10 @@ for this package.</p>
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl
         - moon_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl
+          - timestamp: 2021-07-23T22:11:38.904571
         - ring_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl
+          - timestamp: 2021-07-01T09:47:46.753035
         - saturn_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl
     - uvis: 
@@ -308,10 +311,12 @@ for this package.</p>
           - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL
         - rdr: 
           - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL
+          - timestamp: 2021-07-27T23:02:51.210991
     - ctx: 
       - indexes: 
         - edr: 
           - url: 
+          - timestamp: 2021-07-21T19:55:32.014076
   - lro: 
     - diviner: 
       - indexes: 
@@ -533,7 +538,7 @@ Using an object approach enables easy growth and nesting over time.
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.read_config" class="doc_header"><code>Config.read_config</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.read_config</code>()</p>
+<h4 id="Config.read_config" class="doc_header"><code>Config.read_config</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L47" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.read_config</code>()</p>
 </blockquote>
 <p>Read the configfile and store config dict.</p>
 <p><a href="/nbplanetary/cassini_iss.html#storage_root"><code>storage_root</code></a> will be stored as attribute.</p>
@@ -559,14 +564,20 @@ Using an object approach enables easy growth and nesting over time.
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.get_value" class="doc_header"><code>Config.get_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.get_value</code>(<strong><code>key</code></strong>)</p>
+<h4 id="Config.get_value" class="doc_header"><code>Config.get_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L63" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.get_value</code>(<strong><code>key</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Get sub-dictionary by nested key.</p>
+<<<<<<< HEAD
 <h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>nested_key: str
     A nested key in dotted format, e.g. cassini.uvis.indexes</p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><strong><code>key</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+=======
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>key</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>A nested key in dotted format, e.g. cassini.uvis.indexes</p></li>
+>>>>>>> 9231eef (add package_data successfully and others:)
 </ul>
 
 </div>
@@ -640,8 +651,9 @@ Using an object approach enables easy growth and nesting over time.
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.set_value" class="doc_header"><code>Config.set_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.set_value</code>(<strong><code>nested_key</code></strong>, <strong><code>value</code></strong>, <strong><code>save</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="Config.set_value" class="doc_header"><code>Config.set_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.set_value</code>(<strong><code>nested_key</code></strong>:<code>str</code>, <strong><code>value</code></strong>:<code>Union</code>[<code>float</code>, <code>str</code>], <strong><code>save</code></strong>:<code>bool</code>=<em><code>True</code></em>)</p>
 </blockquote>
+<<<<<<< HEAD
 <p>Set sub-dic using dotted key.</p>
 <h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>key: str
     A nested key in dotted format, e.g. cassini.uvis.ring_summary
@@ -655,6 +667,18 @@ value: convertable to string
 </li>
 <li><p><strong><code>save</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em></p>
 </li>
+=======
+<p>Set value in sub-dic using dotted key.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>nested_key</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>A nested key in dotted format, e.g. cassini.uvis.ring_summary</p></li>
+</ul>
+<ul>
+<li><strong><code>value</code></strong> : <em><code>typing.Union[float, str]</code></em>   <p>Value for the given key to be stored</p></li>
+</ul>
+<ul>
+<li><strong><code>save</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>  <p>Switch to control writing out to disk</p></li>
+>>>>>>> 9231eef (add package_data successfully and others:)
 </ul>
 
 </div>
@@ -678,7 +702,7 @@ value: convertable to string
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.save" class="doc_header"><code>Config.save</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L92" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.save</code>()</p>
+<h4 id="Config.save" class="doc_header"><code>Config.save</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.save</code>()</p>
 </blockquote>
 <p>Write the TOML doc to file.</p>
 
@@ -736,7 +760,7 @@ value: convertable to string
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Config.ask_storage_root" class="doc_header"><code>Config.ask_storage_root</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.ask_storage_root</code>()</p>
+<h4 id="Config.ask_storage_root" class="doc_header"><code>Config.ask_storage_root</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.ask_storage_root</code>()</p>
 </blockquote>
 <p>Use input() to ask user for the storage_root path.</p>
 <p>The path will be stored in the TOML-dict and saved into existing config file

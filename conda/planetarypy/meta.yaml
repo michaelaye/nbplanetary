@@ -1,0 +1,54 @@
+package:
+  name: planetarypy
+  version: 0.14.1
+source:
+  sha256: fad1ee7bf9d753aa2b0727bc65eb2309bed3bb055a62d12b34d62ac265a3f5e7
+  url: https://files.pythonhosted.org/packages/4a/43/5be5dcb618e0caa0610b1abee1507b4b0f0d0abfe08a685a03758a84be7d/planetarypy-0.14.1.tar.gz
+about:
+  dev_url: https://michaelaye.github.io
+  doc_url: https://michaelaye.github.io
+  home: https://michaelaye.github.io
+  license: Apache Software
+  license_family: APACHE
+  summary: Python Tools for Planetary Science
+build:
+  noarch: python
+  number: '0'
+  script: '{{ PYTHON }} -m pip install . -vv'
+extra:
+  recipe-maintainers:
+  - michaelaye
+requirements:
+  host:
+  - pip
+  - python
+  - packaging
+  - tomlkit
+  - pandas
+  - pvl
+  - numpy
+  - python-dateutil
+  - tqdm
+  - lxml
+  - yarl
+  - hirise-tools
+  - kalasiris
+  - dask
+  run:
+  - pip
+  - python
+  - packaging
+  - tomlkit
+  - pandas
+  - pvl
+  - numpy
+  - python-dateutil
+  - tqdm
+  - lxml
+  - yarl
+  - hirise-tools
+  - kalasiris
+  - dask
+test:
+  imports:
+  - planetarypy
