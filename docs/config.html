@@ -49,17 +49,16 @@ nb_path: "notebooks/00_config.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>config_path</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-
-<pre><code>Manage config stuff.
-
-Attributes
--------
-path: pathlib.Path
-
-The key, value pairs found in the config file become attributes of the
+<p>Manage config stuff.</p>
+<h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p>path: pathlib.Path</p>
+<p>The key, value pairs found in the config file become attributes of the
 class instance after initialization.
-At minimum, there should be the `storage_root` attribute for storing data
-for this package.</code></pre>
+At minimum, there should be the <a href="/nbplanetary/cassini_iss.html#storage_root"><code>storage_root</code></a> attribute for storing data
+for this package.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>config_path</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></li>
+</ul>
 
 </div>
 
@@ -536,10 +535,8 @@ Using an object approach enables easy growth and nesting over time.
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.read_config" class="doc_header"><code>Config.read_config</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.read_config</code>()</p>
 </blockquote>
-
-<pre><code>Read the configfile and store config dict.
-
-`storage_root` will be stored as attribute.</code></pre>
+<p>Read the configfile and store config dict.</p>
+<p><a href="/nbplanetary/cassini_iss.html#storage_root"><code>storage_root</code></a> will be stored as attribute.</p>
 
 </div>
 
@@ -564,13 +561,13 @@ Using an object approach enables easy growth and nesting over time.
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.get_value" class="doc_header"><code>Config.get_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.get_value</code>(<strong><code>key</code></strong>)</p>
 </blockquote>
-
-<pre><code>Get sub-dictionary by nested key.
-
-Parameters
-----------
-nested_key: str
-    A nested key in dotted format, e.g. cassini.uvis.indexes</code></pre>
+<p>Get sub-dictionary by nested key.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>nested_key: str
+    A nested key in dotted format, e.g. cassini.uvis.indexes</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>key</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
 
 </div>
 
@@ -645,15 +642,20 @@ nested_key: str
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.set_value" class="doc_header"><code>Config.set_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.set_value</code>(<strong><code>nested_key</code></strong>, <strong><code>value</code></strong>, <strong><code>save</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
-
-<pre><code>Set sub-dic using dotted key.
-
-Parameters
-----------
-key: str
+<p>Set sub-dic using dotted key.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>key: str
     A nested key in dotted format, e.g. cassini.uvis.ring_summary
 value: convertable to string
-    Value for the given key to be stored.</code></pre>
+    Value for the given key to be stored.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><strong><code>nested_key</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
+</li>
+<li><p><strong><code>value</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
+</li>
+<li><p><strong><code>save</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em></p>
+</li>
+</ul>
 
 </div>
 
@@ -678,8 +680,7 @@ value: convertable to string
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.save" class="doc_header"><code>Config.save</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L92" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.save</code>()</p>
 </blockquote>
-
-<pre><code>Write the TOML doc to file.</code></pre>
+<p>Write the TOML doc to file.</p>
 
 </div>
 
@@ -737,12 +738,10 @@ value: convertable to string
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.ask_storage_root" class="doc_header"><code>Config.ask_storage_root</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/config.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.ask_storage_root</code>()</p>
 </blockquote>
-
-<pre><code>Use input() to ask user for the storage_root path.
-
-The path will be stored in the TOML-dict and saved into existing config file
-at `Class.path`, either default or as given during init.
-`storage_root` attribute is set as well.</code></pre>
+<p>Use input() to ask user for the storage_root path.</p>
+<p>The path will be stored in the TOML-dict and saved into existing config file
+at <code>Class.path</code>, either default or as given during init.
+<a href="/nbplanetary/cassini_iss.html#storage_root"><code>storage_root</code></a> attribute is set as well.</p>
 
 </div>
 
@@ -954,8 +953,4 @@ at `Class.path`, either default or as given during init.
 
 </div>
  
-
-<script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 2, "version_minor": 0}
-</script>
 

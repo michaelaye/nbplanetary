@@ -46,9 +46,6 @@ entries:
       title: Cassini ISS
       url: cassini_iss.html
     - output: web,pdf
-      title: DB Manager
-      url: database.html
-    - output: web,pdf
       title: Apps Demos
       url: apps_demo.html
     output: web

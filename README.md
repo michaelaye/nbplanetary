@@ -61,11 +61,11 @@ Please submit bug reports at https://github.com/michaelaye/nbplanetary/issues
 
 ### Indexes
 
-```python
+```
 from planetarypy.pds.apps import get_index
 ```
 
-```python
+```
 ctrindex = get_index("mro.ctx.indexes.edr")
 ctrindex.sample(5)
 ```
@@ -242,7 +242,7 @@ ctrindex.sample(5)
 
 
 
-```python
+```
 hirise_rdr = get_index("mro.hirise.indexes.rdr")
 hirise_rdr.sample(5)
 ```
@@ -423,7 +423,7 @@ hirise_rdr.sample(5)
 
 ### CTX
 
-```python
+```
 from planetarypy.ctx import CTXEDR
 ```
 
@@ -435,7 +435,7 @@ from planetarypy.ctx import CTXEDR
 
 
 
-```python
+```
 pid = ctrindex.sample().squeeze().PRODUCT_ID
 pid
 ```
@@ -447,11 +447,11 @@ pid
 
 
 
-```python
+```
 ctxedr = CTXEDR(pid)
 ```
 
-```python
+```
 ctxedr.local_path
 ```
 
@@ -462,7 +462,7 @@ ctxedr.local_path
 
 
 
-```python
+```
 ctxedr
 ```
 
@@ -476,11 +476,11 @@ ctxedr
 
 
 
-```python
+```
 ctxedr.download()
 ```
 
-```python
+```
 ctxedr
 ```
 

@@ -30,6 +30,8 @@ rdrindex = get_index("mro.hirise", "rdr")
 class RGB_NOMAP:
     def __init__(self, obsid):
         self.obsid = obsid
+        if self.local_path.exists():
+            self.read()  # this is fine, as it's using dask chunks, cheap op
 
     @property
     def product_id(self):
@@ -75,13 +77,21 @@ class RGB_NOMAP:
         self.da = xr.open_rasterio(self.local_path, chunks=(1, 2024, 2024))
         return self.da
 
-    def plot_da(self):
-        return self.da.hvplot.image(
-            x="y",
-            y="x",
+    def plot_da(self, xslice=None, yslice=None):
+        if xslice is not None or yslice is not None:
+            data = self.da.isel(x=xslice, y=yslice)
+        else:
+            data = self.da
+
+        return data.hvplot.image(
+            x="x",
+            y="y",
             rasterize=True,
             widget_location="top_left",
             cmap="gray",
+            frame_height=800,
+            frame_width=800,
+            flip_yaxis=True
         )
 
 # Cell

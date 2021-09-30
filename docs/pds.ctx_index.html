@@ -40,15 +40,13 @@ nb_path: "notebooks/02b_pds.ctx_index.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CTXIndex" class="doc_header"><code>class</code> <code>CTXIndex</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/ctx_index.py#L13" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CTXIndex</code>(<strong><code>volumes_url</code></strong>:<code>str</code>=<em><code>'https://pds-imaging.jpl.nasa.gov/volumes/mro.html'</code></em>, <strong><code>release_url_template</code></strong>:<code>Template</code>=<em><code>&lt;string.Template object at 0x7f9ac1aed9d0&gt;</code></em>, <strong><code>volume_url_template</code></strong>:<code>Template</code>=<em><code>&lt;string.Template object at 0x7f9ac1a5e190&gt;</code></em>, <strong><code>scraped_tables</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>release_scraped</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h2 id="CTXIndex" class="doc_header"><code>class</code> <code>CTXIndex</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/ctx_index.py#L13" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CTXIndex</code>(<strong><code>volumes_url</code></strong>:<code>str</code>=<em><code>'https://pds-imaging.jpl.nasa.gov/volumes/mro.html'</code></em>, <strong><code>release_url_template</code></strong>:<code>Template</code>=<em><code>&lt;string.Template object at 0x7fa03af59430&gt;</code></em>, <strong><code>volume_url_template</code></strong>:<code>Template</code>=<em><code>&lt;string.Template object at 0x7fa03af59640&gt;</code></em>, <strong><code>scraped_tables</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>release_scraped</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
-
-<pre><code>Class to determine the URL for the latest cumulative index.
-
-This is a 2 step process, where first the MRO release page is scraped
+<p>Class to determine the URL for the latest cumulative index.</p>
+<p>This is a 2 step process, where first the MRO release page is scraped
 for the latest CTX release, and then the latest release page is scraped
 for the latest volume.
-From that latest volume the latest index URL is constructed.</code></pre>
+From that latest volume the latest index URL is constructed.</p>
 
 </div>
 
@@ -95,13 +93,10 @@ From that latest volume the latest index URL is constructed.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="CTXIndex.web_tables_list" class="doc_header"><code>CTXIndex.web_tables_list</code><a href="" class="source_link" style="float:right">[source]</a></h4>
-<pre><code>Use the pandas scraper to read in the MRO data release table.
-
-The scraper returns several tables in a list and the last one
-lists all the CTX volumes.
-
-This could be replaced by cached properties.</code></pre>
+<h4 id="CTXIndex.web_tables_list" class="doc_header"><code>CTXIndex.web_tables_list</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>Use the pandas scraper to read in the MRO data release table.</p>
+<p>The scraper returns several tables in a list and the last one
+lists all the CTX volumes.</p>
+<p>This could be replaced by cached properties.</p>
 
 </div>
 
@@ -254,10 +249,8 @@ This could be replaced by cached properties.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="CTXIndex.release_number" class="doc_header"><code>CTXIndex.release_number</code><a href="" class="source_link" style="float:right">[source]</a></h4>
-<pre><code>Fishes out the release number.
-
-This is needed to construct the exact URL to the latest cumulative index file.</code></pre>
+<h4 id="CTXIndex.release_number" class="doc_header"><code>CTXIndex.release_number</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>Fishes out the release number.</p>
+<p>This is needed to construct the exact URL to the latest cumulative index file.</p>
 
 </div>
 
@@ -314,8 +307,7 @@ This is needed to construct the exact URL to the latest cumulative index file.</
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="CTXIndex.release_url" class="doc_header"><code>CTXIndex.release_url</code><a href="" class="source_link" style="float:right">[source]</a></h4>
-<pre><code>Constructs the release URL from the release number.</code></pre>
+<h4 id="CTXIndex.release_url" class="doc_header"><code>CTXIndex.release_url</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>Constructs the release URL from the release number.</p>
 
 </div>
 
@@ -388,10 +380,8 @@ This is needed to construct the exact URL to the latest cumulative index file.</
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="CTXIndex.latest_volume_url" class="doc_header"><code>CTXIndex.latest_volume_url</code><a href="" class="source_link" style="float:right">[source]</a></h4>
-<pre><code>Scrape the Release URL for the latest volume URL in that.
-
-This is necessary because a release usually has more that one volume.</code></pre>
+<h4 id="CTXIndex.latest_volume_url" class="doc_header"><code>CTXIndex.latest_volume_url</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>Scrape the Release URL for the latest volume URL in that.</p>
+<p>This is necessary because a release usually has more that one volume.</p>
 
 </div>
 
@@ -472,8 +462,7 @@ This is necessary because a release usually has more that one volume.</code></pr
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="CTXIndex.latest_index_label_url" class="doc_header"><code>CTXIndex.latest_index_label_url</code><a href="" class="source_link" style="float:right">[source]</a></h4>
-<pre><code>Construct the URL for the latest cumulative index.</code></pre>
+<h4 id="CTXIndex.latest_index_label_url" class="doc_header"><code>CTXIndex.latest_index_label_url</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>Construct the URL for the latest cumulative index.</p>
 
 </div>
 
