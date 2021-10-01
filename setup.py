@@ -36,9 +36,9 @@ setuptools.setup(
     url = cfg['git_url'],
     packages = setuptools.find_packages(),
     package_data = {
-        cfg['lib_name']: ['data/*.toml']
+        '': ['data/*.toml']
     },
-    include_package_data = True,
+    # include_package_data = True,
     install_requires = requirements,
     dependency_links = cfg.get('dep_links','').split(),
     python_requires  = '>=' + cfg['min_python'],
