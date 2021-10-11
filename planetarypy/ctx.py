@@ -4,32 +4,37 @@ __all__ = ['baseurl', 'storage_root', 'edrindex', 'catch_isis_error', 'CTXEDR', 
 
 # Cell
 
-from subprocess import CalledProcessError
+import warnings
 
-import hvplot.xarray
-import xarray as xr
+import rasterio
 from dask import compute, delayed
-from kalasiris.pysis import (
-    ProcessError,
-    ctxcal,
-    ctxevenodd,
-    getkey,
-    mroctx2isis,
-    spiceinit,
-)
+from tqdm.auto import tqdm
+from yarl import URL
+
+import hvplot.xarray  # noqa
+import xarray as xr
 from .config import config
 from .pds.apps import get_index
 from .utils import file_variations, url_retrieve
-from tqdm.auto import tqdm
-from yarl import URL
-import warnings
-import rasterio
+
+try:
+    from kalasiris.pysis import (
+        ProcessError,
+        ctxcal,
+        ctxevenodd,
+        getkey,
+        mroctx2isis,
+        spiceinit,
+    )
+except KeyError:
+    warnings.warn("kalasiris has a problem initialing ISIS")
+
 warnings.filterwarnings("ignore", category=rasterio.errors.NotGeoreferencedWarning)
 baseurl = URL(
     "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/"
 )
 
-storage_root = config.storage_root / "mro/ctx"
+storage_root = config.storage_root / "missions/mro/ctx"
 edrindex = get_index("mro.ctx", "edr")
 
 # Cell
@@ -38,15 +43,14 @@ def catch_isis_error(func):
         try:
             func(*args, **kwargs)
         except ProcessError as err:
-            print('Had ISIS error:')
-            print(' '.join(err.cmd))
+            print("Had ISIS error:")
+            print(" ".join(err.cmd))
             print(err.stdout)
             print(err.stderr)
+
     return inner
 
 # Cell
-
-
 class CTXEDR:
     storage = storage_root / "edr"
 
@@ -56,7 +60,8 @@ class CTXEDR:
         (self.cub_name, self.cal_name, self.destripe_name) = file_variations(
             self.local_path, [".cub", ".cal.cub", ".dst.cal.cub"]
         )
-        self.is_read=False
+        self.is_read = False
+        self.is_calib_read = False
 
     @property
     def product_id(self):
@@ -64,7 +69,7 @@ class CTXEDR:
 
     @product_id.setter
     def product_id(self, value):
-        self.is_read=False
+        self.is_read = False
         self._product_id = value
 
     @property
@@ -80,7 +85,7 @@ class CTXEDR:
 
     @property
     def local_folder(self):
-        return self.storage / self.meta.volume_id / self.id
+        return self.storage / self.id
 
     @property
     def local_path(self):
@@ -155,8 +160,9 @@ class CTXEDR:
             self.is_calibd_read = True
         return self.cal_da
 
-    def plot_da(self):
-        return self.edr_da.isel(band=0, drop=True).hvplot(
+    def plot_da(self, data=None):
+        data = self.edr_da if data is None else data
+        return data.isel(band=0, drop=True).hvplot(
             x="y", y="x", rasterize=True, cmap="gray", data_aspect=1
         )
 
@@ -178,8 +184,10 @@ class CTXEDR:
 
 # Cell
 
+
 class CTXEDRCollection:
     """Class to deal with a set of CTX products."""
+
     def __init__(self, product_ids):
         self.product_ids = product_ids
 

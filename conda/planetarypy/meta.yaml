@@ -1,9 +1,9 @@
 package:
   name: planetarypy
-  version: 0.14.2
+  version: 0.14.3
 source:
-  sha256: b8a485a968ebb5df496e7cdbe11c7119d5d04aad4ef7e560a56376ff82d84a36
-  url: https://files.pythonhosted.org/packages/f9/42/4bd8be2b12815a6f0b4c01a93aea2d3ae9f75e679a9436bf71c88b9061eb/planetarypy-0.14.2.tar.gz
+  sha256: ae41f8574a0f63f0ca2497f5787e18372b7689879657b7f66c2a8f1481978a57
+  url: https://files.pythonhosted.org/packages/ab/ee/1633e389d945d7e1d57cf8a3d4a3a5e2ce6768cfb0f3acc5793b6a56a42e/planetarypy-0.14.3.tar.gz
 about:
   dev_url: https://michaelaye.github.io
   doc_url: https://michaelaye.github.io

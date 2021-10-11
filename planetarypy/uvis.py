@@ -9,9 +9,10 @@ from .config import config
 from yarl import URL
 import tomlkit
 from fastcore.utils import Path
+from nbverbose.showdoc import show_doc
 
 # Cell
-storage_root = config.storage_root / "cassini/uvis"
+storage_root = config.storage_root / "missions/cassini/uvis"
 storage_root
 
 # Cell
@@ -26,13 +27,15 @@ def get_user_guide():
 class DataManager:
     def __init__(self, pid):
         self.pid = pid
+        self.dict = None
         if not self.raw_data_path.exists():
             self.download()
 
-    def query_pid(self, pid):
+    def query(self, pds_id=None):
+        pds_id = pds_id if pds_id is not None else self.pds_id
         opus = OPUS(silent=True)
         try:
-            self.query_result = opus.query_image_id(pid)[0]
+            self.query_result = opus.query_image_id(pds_id)[0]
         except IndexError:
             raise FileNotFoundError("Project ID not found on PDS server.")
         self.opus_id = self.query_result[0]
@@ -49,10 +52,14 @@ class DataManager:
 
     @property
     def raw_data_url(self):
+        if not self.dict:
+            self.query()
         return URL(self.dict["couvis_raw"][0])
 
     @property
     def raw_label_url(self):
+        if not self.dict:
+            self.query()
         return URL(self.dict["couvis_raw"][1])
 
     @property
@@ -83,7 +90,7 @@ class DataManager:
         if self.raw_data_path.exists() and not overwrite:
             print("Local files exists. Use `overwrite=True` to download fresh.")
             return
-        self.query_pid(self.pds_id)
+        self.query()
         self.original_pid_file.mk_write(self.pid)
         self.results_file.mk_write(tomlkit.dumps(self.dict))
         self.raw_data_path.parent.mkdir(parents=True, exist_ok=True)

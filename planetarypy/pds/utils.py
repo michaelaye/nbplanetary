@@ -31,17 +31,17 @@ def index_to_df(indexpath, label, convert_times=True):
         indexpath, header=None, names=label.colnames, colspecs=label.colspecs
     )
     if convert_times:
-        for column in [i for i in df.columns if "TIME" in i and "COUNT" not in i]:
-            if column == "LOCAL_TIME":
-                # don't convert local time
+        for column in [col for col in df.columns if "TIME" in col]:
+            if column in ["LOCAL_TIME", "DWELL_TIME"]:
                 continue
-            print(f"Converting times for column {column}.")
             try:
                 df[column] = pd.to_datetime(df[column])
             except ValueError:
                 df[column] = pd.to_datetime(
                     df[column], format=utils.nasa_dt_format_with_ms, errors="coerce"
                 )
+            except KeyError:
+                raise KeyError(f"{column} not in {df.columns}")
         print("Done.")
     return df
 
@@ -135,7 +135,7 @@ class IndexLabel(object):
         if not p.exists():
             import warnings
 
-            warnings.warn("Fudging to lower case.")
+            warnings.warn("Fudging path name to lower case, opposing label value. (PDS data inconsistency)")
             p = self.path.parent / self.index_name.lower()
         if not p.exists():
             warnings.warn("`index_path` still doesn't exist.")

@@ -211,11 +211,20 @@ class Index:
             self.remote_timestamp
         )  # `new` was set by `needs_download` check
         self.update_timestamp()
+
         if convert_to_hdf is True:
-            self.convert_to_hdf()
-            print(f"Downloaded and converted to pandas HDF:\n{self.local_hdf_path}")
+            try:
+                self.convert_to_hdf()
+                print(f"Downloaded and converted to pandas HDF:\n{self.local_hdf_path}")
+            except:  # any conversion error simpy leads to HDF marked as missing
+                self.set_hdf_available(False)
+            else:
+                self.set_hdf_available(True)
         else:
             print(f"Downloaded {local_label_path} and {local_data_path}")
+
+    def set_hdf_available(self, status):
+        config.set_value(f"{self.key}.hdf_available", status)
 
     def update_timestamp(self):
         # Note: the config object writes itself out after setting any value

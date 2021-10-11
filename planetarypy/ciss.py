@@ -10,7 +10,7 @@ from fastcore.utils import Path
 from yarl import URL
 
 # Cell
-storage_root = config.storage_root / "cassini/iss"
+storage_root = config.storage_root / "missions/cassini/iss"
 opus_keys = [
     "coiss_raw",
     "coiss_calib",

@@ -8,31 +8,25 @@ from ..config import config
 from .indexes import Index
 
 # Cell
-
-
 def find_indexes(
     instrument: str,  # Dotted mission.instrument key, e.g. cassini.iss
-) -> list:  # List of configured index names
+) -> list:            # List of configured index names
     "Find existing indexes for an instrument."
     return config.list_indexes(instrument)
 
 # Cell
-
-
 def get_index(
     instr: str,  # Dotted instrument index, e.g. cassini.iss
     index_name: str,  # Index name, for exmample 'moon_summary'
 ) -> pd.DataFrame:  # The PDS index convert to pandas DataFrame
     """Example: get_index("cassini.iss", "index")"""
     index = Index(instr + ".indexes." + index_name)
-    if not index.local_table_path.exists():
+    if not index.local_hdf_path.exists():
         index.download()
         index.convert_to_hdf()
     return index.df
 
 # Cell
-
-
 def find_instruments(
     mission: str,  # Mission string, e.g. "cassini"
 ) -> list:  # List of configured instrument names
