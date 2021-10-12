@@ -20,7 +20,7 @@ from yarl import URL
 warnings.filterwarnings("ignore", category=rasterio.errors.NotGeoreferencedWarning)
 
 # Cell
-storage_root = config.storage_root / "mro/hirise"
+storage_root = config.storage_root / "missions/mro/hirise"
 baseurl = URL("https://hirise-pds.lpl.arizona.edu/download/PDS")
 rdrindex = get_index("mro.hirise", "rdr")
 
@@ -64,7 +64,8 @@ class RGB_NOMAP:
 
     @property
     def local_path(self):
-        return storage_root / self.nomap_jp2_path
+        tokens = Path(self.nomap_jp2_path).parts
+        return storage_root / "/".join([*tokens[:2], *tokens[-2:]])
 
     def download(self, overwrite=False):
         self.local_path.parent.mkdir(parents=True, exist_ok=True)
