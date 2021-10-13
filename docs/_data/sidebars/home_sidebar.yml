@@ -50,9 +50,6 @@ entries:
       title: Cassini ISS
       url: /cassini_iss
     - output: web,pdf
-      title: DB Manager
-      url: /database
-    - output: web,pdf
       title: Apps Demos
       url: /apps_demo
     output: web

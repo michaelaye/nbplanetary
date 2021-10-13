@@ -2,18 +2,19 @@
 
 __all__ = ['logger', 'nasa_date_format', 'nasa_dt_format', 'nasa_dt_format_with_ms', 'standard_date_format',
            'standard_dt_format', 'standard_dt_format_with_ms', 'nasa_date_to_iso', 'iso_to_nasa_date',
-           'nasa_datetime_to_iso', 'iso_to_nasa_datetime', 'replace_all_nasa_times', 'ProgressBar', 'parse_http_date',
-           'get_remote_timestamp', 'download', 'url_retrieve', 'have_internet', 'height_from_shadow',
-           'get_gdal_center_coords', 'file_variations']
+           'nasa_datetime_to_iso', 'iso_to_nasa_datetime', 'replace_all_nasa_times', 'parse_http_date',
+           'get_remote_timestamp', 'url_retrieve', 'have_internet', 'height_from_shadow', 'get_gdal_center_coords',
+           'file_variations']
 
 # Cell
 import datetime as dt
 import email.utils as eut
 import http.client as httplib
 import logging
+from typing import Union, Tuple
 from math import radians, tan
 from pathlib import Path
-from urllib.request import urlopen, urlretrieve
+from urllib.request import urlopen
 
 import requests
 from tqdm.auto import tqdm
@@ -40,18 +41,11 @@ standard_dt_format = standard_date_format + "T%H:%M:%S"
 standard_dt_format_with_ms = standard_dt_format + ".%f"
 
 # Cell
-def nasa_date_to_iso(datestr, with_hours=False):
-    """Convert the day-number based NASA date format to ISO.
-
-    Parameters
-    ----------
-    datestr : str
-        Date string in the form Y-j
-
-    Returns
-    -------
-    Datestring in ISO standard yyyy-mm-ddTHH:MM:SS.MMMMMM
-    """
+def nasa_date_to_iso(
+    datestr: str,  # Date string of the form Y-j
+    with_hours: bool = False,  # Switch if return is wanted with hours (i.e. isoformat)
+) -> str:  # Datestring in either Y-m-d or ISO-format.
+    "Convert the day-number based NASA date format to ISO."
     date = dt.datetime.strptime(datestr, nasa_date_format)
     if with_hours:
         return date.isoformat()
@@ -59,35 +53,20 @@ def nasa_date_to_iso(datestr, with_hours=False):
         return date.strftime(standard_date_format)
 
 # Cell
-def iso_to_nasa_date(datestr):
-    """Convert iso date to day-number based NASA date.
-
-    Parameters
-    ----------
-    datestr : str
-        Date string in the form Y-m-d
-
-    Returns
-    -------
-    Datestring in NASA standard yyyy-jjj
-    """
+def iso_to_nasa_date(
+    datestr: str,  # Date string of the form Y-m-d
+) -> str:  # Datestring in NASA standard yyyy-jjj
+    "Convert iso date to day-number based NASA date."
     date = dt.datetime.strptime(datestr, standard_date_format)
     return date.strftime(nasa_date_format)
 
 # Cell
-def nasa_datetime_to_iso(dtimestr):
+def nasa_datetime_to_iso(
+    dtimestr: str,  # Datetime string of the form Y-jTH-M-S
+):  # Datestring in ISO standard yyyy-mm-ddTHH:MM:SS.xxxxxx
     """Convert the day-number based NASA datetime format to ISO.
 
     Note: This is dateTIME vs `nasa_date_to_iso` which is just DATE.
-
-    Parameters
-    ----------
-    dtimestr : str
-        Datetime string in the form Y-jTH:M:S
-
-    Returns
-    -------
-    Datestring in ISO standard yyyy-mm-ddTHH:MM:SS.MMMMMM
     """
     try:
         dtimestr.split(".")[1]
@@ -99,19 +78,10 @@ def nasa_datetime_to_iso(dtimestr):
     return time.isoformat()
 
 # Cell
-def iso_to_nasa_datetime(dtimestr):
-    """Convert iso datetime to day-number based NASA datetime.
-
-    Parameters
-    ----------
-    dtimestr : str
-        Datetime string in the form yyyy-mm-ddTHH-MM-SS
-
-    Returns
-    -------
-    Datestring in NASA standard yyyy-jjjTHH-MM-SS
-    """
-
+def iso_to_nasa_datetime(
+    dtimestr: str,  # Datetime string of the form yyyy-mm-ddTHH-MM-SS
+):  # Datestring in NASA standard yyyy-jjjTHH-MM-SS
+    "Convert iso datetime to day-number based NASA datetime."
     try:
         dtimestr.split(".")[1]
     except IndexError:
@@ -124,90 +94,45 @@ def iso_to_nasa_datetime(dtimestr):
     return date.strftime(target_format)
 
 # Cell
-def replace_all_nasa_times(df):
+def replace_all_nasa_times(
+    df: pd.DataFrame,  # DataFrame with NASA time columns
+):
     """Find all NASA times in dataframe and replace with ISO.
 
     Changes will be implemented on incoming dataframe!
 
     This will be done for all columns with the word TIME in the column name.
-
-    Parameters
-    ----------
-    df: pandas.DataFrame
-        DataFrame with NASA time columns.
-
-    Returns
-    -------
-    Nothing (Changes implemented in-place)
     """
     for col in [col for col in df.columns if "TIME" in col]:
         if "T" in df[col].iloc[0]:
             df[col] = pd.to_datetime(df[col].map(nasa_datetime_to_iso))
 
 # Cell
-
-
-class ProgressBar(tqdm):
-    """Provides `update_to(n)` which uses `tqdm.update(delta_n)`."""
-
-    def update_to(self, b=1, bsize=1, tsize=None):
-        """
-        b  : int, optional
-            Number of blocks transferred so far [default: 1].
-        bsize  : int, optional
-            Size of each block (in tqdm units) [default: 1].
-        tsize  : int, optional
-            Total size (in tqdm units). If [default: None] remains unchanged.
-        """
-        if tsize is not None:
-            self.total = tsize
-        self.update(b * bsize - self.n)  # will also set self.n = b * bsize
-
-
-def parse_http_date(text):
+def parse_http_date(
+    text: str,  # datestring from urllib.request
+) -> dt.datetime:  # dt.datetime object from given datetime string
     "Parse date string retrieved via urllib.request."
     return dt.datetime(*eut.parsedate(text)[:6])
 
 
-def get_remote_timestamp(url):
-    conn = urlopen(url, timeout=10)
-    t = parse_http_date(conn.headers["last-modified"])
-    conn.close()
+def get_remote_timestamp(
+    url: str,  # URL to check timestamp for
+) -> dt.datetime:
+    """Get the timestamp of a remote file.
+
+    Useful for checking if there's an updated file available.
+    """
+    with urlopen(url, timeout=10) as conn:
+        t = parse_http_date(conn.headers["last-modified"])
     return t
 
 
-def download(url, local_dir=".", use_tqdm=True, **kwargs):
-    """Simple wrapper of urlretrieve
-
-    Adding a default path to urlretrieve
-
-    Parameters:
-    ----------
-    url : str
-        HTTP(S) URL to download
-    local_dir : str,pathlib.Path
-        Local directory where to store the download.
-    **kwargs : {dict}
-        Keyword args to be handed to urlretrieve.
-    Returns
-    -------
-    Tuple
-        Tuple returned by urlretrieve
-    """
-    name = url.split("/")[-1]
-    local = Path(local_dir)
-    savepath = local / name if local.is_dir() else local
-    logger.debug("Downloading %s into %s", url, savepath)
-    if use_tqdm:
-        with ProgressBar(
-            unit="B", unit_scale=True, miniters=1, desc=url.split("/")[-1]
-        ) as t:  # all optional kwargs
-            return urlretrieve(url, savepath, reporthook=t.update_to)
-    else:
-        return urlretrieve(url, savepath, **kwargs)
-
-
-def url_retrieve(url: str, outfile: str, chunk_size: int = 128):
+def url_retrieve(
+    url: str,  # The URL to download
+    outfile: str,  # The path where to store the downloaded file.
+    # The size of the chunk for the request.iter_content call. Default: 128
+    chunk_size: int = 128,
+):
     """Improved urlretrieve with progressbar, timeout and chunker.
 
     This downloader has built-in progress bar using tqdm and using the `requests`
@@ -215,17 +140,6 @@ def url_retrieve(url: str, outfile: str, chunk_size: int = 128):
 
     I tested different chunk_sizes and most of the time 128 was actually fastest, YMMV.
 
-    Parameters
-    ----------
-    url : str, urlpath.URL
-        The URL to download
-    outfile: str, pathlib.Path
-        The path where to store the downloaded file.
-    chunk_size : int, optional
-        The size of the chunk for the request.iter_content call. Default: 128
-
-    See also
-    --------
     Inspired by https://stackoverflow.com/a/61575758/680232
     """
     R = requests.get(url, stream=True, allow_redirects=True)
@@ -257,38 +171,24 @@ def have_internet():
         return False
 
 # Cell
-
-def height_from_shadow(shadow_in_pixels, sun_elev):
+def height_from_shadow(
+    shadow_in_pixels: float,  # Measured length of shadow in pixels
+    sun_elev: float,  # Ange of sun over horizon in degrees
+) -> float:  # Height [meter]
     """Calculate height of an object from its shadow length.
 
     Note, that your image might have been binned.
     You need to correct `shadow_in_pixels` for that.
-
-    Parameters
-    ----------
-    shadow_in_pixels : float
-        Measured length of shadow in pixels
-    sun_elev : angle(float)
-        Angle of sun over horizon
-
-    Returns
-    -------
-    height [meter]
     """
     return tan(radians(sun_elev)) * shadow_in_pixels
 
-# export
 
-
-def get_gdal_center_coords(imgpath):
+def get_gdal_center_coords(
+    imgpath: Union[str, Path],  # Path to raster image that is readable by GDLA
+) -> Tuple[int, int]:  # center row/col coordinates.
     """Get center rows/cols pixel coordinate for GDAL-readable dataset.
 
     Check CLI `gdalinfo --formats` to see all formats that GDAL can open.
-
-    Parameters
-    ----------
-    imgpath: str, pathlib.Path
-        Path to raster image that is readable by GDLA
     """
     if not GDAL_INSTALLED:
         logger.error("GDAL not installed. Returning")
@@ -299,25 +199,15 @@ def get_gdal_center_coords(imgpath):
     return xmean, ymean
 
 
-def file_variations(filename, extensions):
+def file_variations(
+    filename: Union[str, Path],  # The original filename to use as a base.
+    extensions: list
+) -> list:  # list of Paths
     """Create a variation of file names.
 
     Generate a list of variations on a filename by replacing the extension with
     the provided list.
 
-    Parameters
-    ----------
-    filename: str, pathlib.Path
-        The original file name to use as a base.
-    extensions: list-like
-        A list of file extensions to generate new filenames.
-
-    Returns
-    -------
-    list of pathlib.Paths
-
-    Notes
-    -----
     Adapted from T. Olsens `file_variations of the pysis module for using pathlib.
     """
     return [Path(filename).with_suffix(extension) for extension in extensions]

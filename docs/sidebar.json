@@ -17,7 +17,6 @@
         "HiRISE tools": "/hirise",
         "UVIS": "/cassini_uvis",
         "Cassini ISS": "/cassini_iss",
-        "DB Manager": "/database",
         "Apps Demos": "/apps_demo"
     }
 }
