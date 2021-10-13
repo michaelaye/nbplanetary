@@ -76,6 +76,6 @@ modules = ["config.py",
 
 doc_url = "https://michaelaye.github.io/nbplanetary/"
 
-git_url = "https://github.com/michaelaye/nbplanetary/tree/{branch}/"
+git_url = "https://github.com/michaelaye/nbplanetary/tree/master/"
 
 def custom_doc_links(name): return None

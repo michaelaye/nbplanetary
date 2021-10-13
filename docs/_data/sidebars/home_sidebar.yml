@@ -11,47 +11,51 @@ entries:
       url: /
     - output: web,pdf
       title: Config
-      url: config.html
+      url: /config
     - output: web,pdf
       title: Utils
-      url: utils.html
-    - output: web,pdf
-      title: PDS Indexes
-      url: pds.indexes.html
-    - output: web,pdf
-      title: CTX Index
-      url: pds.ctx_index.html
-    - output: web,pdf
-      title: Apps
-      url: pds.apps.html
-    - output: web,pdf
-      title: OPUSAPI class
-      url: pds.opusapi.html
-    - output: web,pdf
-      title: LROC Index
-      url: pds.lroc_index.html
-    - output: web,pdf
-      title: PDS Utils
-      url: pds.utils.html
+      url: /utils
+      subfolders:
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: PDS Indexes
+          url: /pds.indexes
+        - output: web,pdf
+          title: CTX Index
+          url: /pds.ctx_index
+        - output: web,pdf
+          title: Apps
+          url: /pds.apps
+        - output: web,pdf
+          title: OPUSAPI class
+          url: /pds.opusapi
+        - output: web,pdf
+          title: LROC Index
+          url: /pds.lroc_index
+        - output: web,pdf
+          title: PDS Utils
+          url: /pds.utils
+        title: PDS
     - output: web,pdf
       title: CTX
-      url: ctx.html
+      url: /ctx
     - output: web,pdf
       title: HiRISE tools
-      url: hirise.html
+      url: /hirise
     - output: web,pdf
-      title: Title
-      url: cassini_uvis.html
+      title: UVIS
+      url: /cassini_uvis
     - output: web,pdf
       title: Cassini ISS
-      url: cassini_iss.html
+      url: /cassini_iss
     - output: web,pdf
       title: DB Manager
-      url: database.html
+      url: /database
     - output: web,pdf
       title: Apps Demos
-      url: apps_demo.html
+      url: /apps_demo
     output: web
-    title: planetarypy
+    title: PlanetaryPy
   output: web
   title: Sidebar

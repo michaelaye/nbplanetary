@@ -8,7 +8,6 @@ from .utils import url_retrieve, have_internet
 from .config import config
 from yarl import URL
 import tomlkit
-from fastcore.utils import Path
 from nbverbose.showdoc import show_doc
 
 # Cell

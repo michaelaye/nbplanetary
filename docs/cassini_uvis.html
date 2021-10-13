@@ -1,13 +1,13 @@
 ---
 
-title: Title
+title: UVIS
 
 
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "Data management for Cassini UVIS."
+description: "Data management for Cassini UVIS."
 nb_path: "notebooks/05_cassini_uvis.ipynb"
 ---
 <!--
@@ -70,7 +70,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_user_guide" class="doc_header"><code>get_user_guide</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/uvis.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_user_guide</code>()</p>
+<h4 id="get_user_guide" class="doc_header"><code>get_user_guide</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/uvis.py#L18" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_user_guide</code>()</p>
 </blockquote>
 
 </div>
@@ -134,7 +134,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="DataManager" class="doc_header"><code>class</code> <code>DataManager</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/uvis.py#L27" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DataManager</code>(<strong><code>pid</code></strong>)</p>
+<h2 id="DataManager" class="doc_header"><code>class</code> <code>DataManager</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/uvis.py#L26" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DataManager</code>(<strong><code>pid</code></strong>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -182,60 +182,10 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pid</span> <span class="o">=</span> <span class="s2">&quot;EUV2005_172_03_35&quot;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">raw_data_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -264,7 +214,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>URL(&#39;https://opus.pds-rings.seti.org/holdings/volumes/COUVIS_0xxx/COUVIS_0011/DATA/D2005_172/EUV2005_172_03_35.LBL&#39;)</pre>
+<pre>URL(&#39;https://opus.pds-rings.seti.org/holdings/volumes/COUVIS_0xxx/COUVIS_0004/DATA/D2002_198/EUV2002_198_03_26.LBL&#39;)</pre>
 </div>
 
 </div>
@@ -345,7 +295,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/big_drive/planetary_data/cassini/uvis/EUV2002_198_03_26/original_pid.txt&#39;)</pre>
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/missions/cassini/uvis/EUV2002_198_03_26/original_pid.txt&#39;)</pre>
 </div>
 
 </div>
@@ -385,7 +335,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/big_drive/planetary_data/cassini/uvis/EUV2002_198_03_26/urls.toml&#39;)</pre>
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/missions/cassini/uvis/EUV2002_198_03_26/urls.toml&#39;)</pre>
 </div>
 
 </div>
@@ -449,7 +399,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/big_drive/planetary_data/cassini/uvis/EUV2002_198_03_26/EUV2002_198_03_26.DAT&#39;)</pre>
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/missions/cassini/uvis/EUV2002_198_03_26/EUV2002_198_03_26.DAT&#39;)</pre>
 </div>
 
 </div>
@@ -482,7 +432,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/big_drive/planetary_data/cassini/uvis/EUV2002_198_03_26/EUV2002_198_03_26_CAL_3.DAT&#39;)</pre>
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/missions/cassini/uvis/EUV2002_198_03_26/EUV2002_198_03_26_CAL_3.DAT&#39;)</pre>
 </div>
 
 </div>
@@ -504,7 +454,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_data_path" class="doc_header"><code>get_data_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/uvis.py#L108" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_data_path</code>(<strong><code>pid</code></strong>)</p>
+<h4 id="get_data_path" class="doc_header"><code>get_data_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/uvis.py#L107" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_data_path</code>(<strong><code>pid</code></strong>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -532,7 +482,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_label_path" class="doc_header"><code>get_label_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/uvis.py#L112" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_label_path</code>(<strong><code>pid</code></strong>)</p>
+<h4 id="get_label_path" class="doc_header"><code>get_label_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/uvis.py#L111" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_label_path</code>(<strong><code>pid</code></strong>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -578,7 +528,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/big_drive/planetary_data/cassini/uvis/EUV2002_198_03_26/EUV2002_198_03_26.DAT&#39;)</pre>
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/missions/cassini/uvis/EUV2002_198_03_26/EUV2002_198_03_26.DAT&#39;)</pre>
 </div>
 
 </div>
@@ -611,7 +561,7 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/big_drive/planetary_data/cassini/uvis/EUV2002_198_03_26/EUV2002_198_03_26.LBL&#39;)</pre>
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/missions/cassini/uvis/EUV2002_198_03_26/EUV2002_198_03_26.LBL&#39;)</pre>
 </div>
 
 </div>
@@ -624,4 +574,8 @@ nb_path: "notebooks/05_cassini_uvis.ipynb"
 
 </div>
  
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script>
 

@@ -47,7 +47,7 @@ nb_path: "notebooks/02f_pds.utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="index_to_df" class="doc_header"><code>index_to_df</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/utils.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>index_to_df</code>(<strong><code>indexpath</code></strong>, <strong><code>label</code></strong>, <strong><code>convert_times</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="index_to_df" class="doc_header"><code>index_to_df</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>index_to_df</code>(<strong><code>indexpath</code></strong>, <strong><code>label</code></strong>, <strong><code>convert_times</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>The main reader function for PDS Indexfiles.</p>
 <p>In conjunction with an IndexLabel object that figures out the column widths,
@@ -97,7 +97,7 @@ convert_times : bool
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PVLColumn" class="doc_header"><code>class</code> <code>PVLColumn</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/utils.py#L49" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PVLColumn</code>(<strong><code>pvlobj</code></strong>)</p>
+<h2 id="PVLColumn" class="doc_header"><code>class</code> <code>PVLColumn</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L49" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PVLColumn</code>(<strong><code>pvlobj</code></strong>)</p>
 </blockquote>
 <p>Manages just one of the columns in a table that is described via PVL.</p>
 <p><strong>Parameters:</strong></p>
@@ -133,7 +133,7 @@ convert_times : bool
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IndexLabel" class="doc_header"><code>class</code> <code>IndexLabel</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/utils.py#L115" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexLabel</code>(<strong><code>labelpath</code></strong>)</p>
+<h2 id="IndexLabel" class="doc_header"><code>class</code> <code>IndexLabel</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L115" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexLabel</code>(<strong><code>labelpath</code></strong>)</p>
 </blockquote>
 <p>Support working with label files of PDS Index tables.</p>
 <h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>labelpath : str, pathlib.Path
@@ -172,7 +172,7 @@ convert_times : bool
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="decode_line" class="doc_header"><code>decode_line</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/utils.py#L188" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decode_line</code>(<strong><code>linedata</code></strong>, <strong><code>labelpath</code></strong>)</p>
+<h4 id="decode_line" class="doc_header"><code>decode_line</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L188" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decode_line</code>(<strong><code>linedata</code></strong>, <strong><code>labelpath</code></strong>)</p>
 </blockquote>
 <p>Decode one line of tabbed data with the appropriate label file.</p>
 <h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>linedata : str
@@ -215,7 +215,7 @@ labelpath : str or pathlib.Path
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="find_mixed_type_cols" class="doc_header"><code>find_mixed_type_cols</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/utils.py#L204" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_mixed_type_cols</code>(<strong><code>df</code></strong>, <strong><code>fix</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="find_mixed_type_cols" class="doc_header"><code>find_mixed_type_cols</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L204" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_mixed_type_cols</code>(<strong><code>df</code></strong>, <strong><code>fix</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>For a given dataframe, find the columns that are of mixed type.</p>
 <p>Tool to help with the performance warning when trying to save a pandas DataFrame as a HDF.
@@ -261,7 +261,7 @@ fix : bool
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="fix_hirise_edrcumindex" class="doc_header"><code>fix_hirise_edrcumindex</code><a href="https://github.com/michaelaye/nbplanetary/tree/{branch}/planetarypy/pds/utils.py#L232" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>fix_hirise_edrcumindex</code>(<strong><code>infname</code></strong>, <strong><code>outfname</code></strong>)</p>
+<h4 id="fix_hirise_edrcumindex" class="doc_header"><code>fix_hirise_edrcumindex</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L232" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>fix_hirise_edrcumindex</code>(<strong><code>infname</code></strong>, <strong><code>outfname</code></strong>)</p>
 </blockquote>
 <p>Fix HiRISE EDRCUMINDEX.</p>
 <p>The HiRISE EDRCUMINDEX has some broken lines where the SCAN_EXPOSURE_DURATION is of format
@@ -299,4 +299,8 @@ outfname : str
 
 </div>
  
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script>
 

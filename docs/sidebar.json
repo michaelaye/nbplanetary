@@ -1,19 +1,23 @@
 {
-  "planetarypy": {
-    "Overview": "/",
-    "Config": "config.html",
-    "Utils": "utils.html",
-    "PDS Indexes": "pds.indexes.html",
-    "CTX Index": "pds.ctx_index.html",
-    "Apps": "pds.apps.html",
-    "OPUSAPI class": "pds.opusapi.html",
-    "LROC Index": "pds.lroc_index.html",
-    "PDS Utils": "pds.utils.html",
-    "CTX": "ctx.html",
-    "HiRISE tools": "hirise.html",
-    "Title": "cassini_uvis.html",
-    "Cassini ISS": "cassini_iss.html",
-    "DB Manager": "database.html",
-    "Apps Demos": "apps_demo.html"
-  }
+    "PlanetaryPy" : {
+        "Overview": "/",
+        "Config": "/config",
+        "Utils": "/utils",
+        "": {
+            "PDS" : {
+                "PDS Indexes": "/pds.indexes",
+                "CTX Index": "/pds.ctx_index",
+                "Apps": "/pds.apps",
+                "OPUSAPI class": "/pds.opusapi",
+                "LROC Index": "/pds.lroc_index",
+                "PDS Utils": "/pds.utils"
+            }
+        },
+        "CTX": "/ctx",
+        "HiRISE tools": "/hirise",
+        "UVIS": "/cassini_uvis",
+        "Cassini ISS": "/cassini_iss",
+        "DB Manager": "/database",
+        "Apps Demos": "/apps_demo"
+    }
 }
