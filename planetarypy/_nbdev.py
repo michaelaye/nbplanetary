@@ -57,8 +57,7 @@ index = {"Config": "00_config.ipynb",
          "get_label_path": "05_cassini_uvis.ipynb",
          "get_user_guide": "05_cassini_uvis.ipynb",
          "opus_keys": "06_cassini_iss.ipynb",
-         "ISSOpus": "06_cassini_iss.ipynb",
-         "timestring_to_url": "07_diviner.ipynb"}
+         "ISSOpus": "06_cassini_iss.ipynb"}
 
 modules = ["config.py",
            "utils.py",

@@ -14,9 +14,9 @@ from dateutil import parser
 import pandas as pd
 from planetarypy import utils
 from ..config import config
-from .utils import IndexLabel
 from .ctx_index import CTXIndex
 from .lroc_index import LROCIndex
+from .utils import IndexLabel
 
 logger = logging.getLogger(__name__)
 
@@ -178,50 +178,46 @@ class Index:
         return self.local_table_path.with_suffix(".hdf")
 
     @property
+    def local_parq_path(self):
+        return self.local_table_path.with_suffix(".parq")
+
+    @property
     def df(self):
         return pd.read_hdf(self.local_hdf_path)
 
-    def download(self, local_dir="", convert_to_hdf=True, force_update=False):
-        """Wrapping URLs for downloading PDS indices and their label files.
+    @property
+    def parquet(self):
+        return pd.read_parquet(self.local_parq_path)
 
-        Parameters
-        ----------
-        key : str, optional
-            Period-separated key into the available index files, e.g. cassini.uvis.moon_summary
-        label_url : str, optional
-            Alternative to using the index system, the user can provide the URL to a label
-            for an index. The table file has to be in the same folder, as usual.
-        local_dir: str, pathlib.Path, optional
-            Path for local storage. Default: current directory and filename from URL
-        convert_to_hdf : bool
-            Switch to convert the index automatically to a faster loading HDF file
-        """
-        if not local_dir:
-            local_dir = self.local_dir
+    def download(
+        self,
+        convert_to_hdf: bool = False,  # Switch to enable conversion to HDF
+        convert_to_parquet: bool = True,  # Switch to enable conversion to parquet
+        force_update: bool = False,  # Switch to enable a fresh download and conversion
+    ):
+        """Wrapping URLs for downloading PDS indices and their label files."""
         # check timestamp
         if not self.needs_download and not force_update:
             print("Stored index is up-to-date.")
             return
         label_url = self.url
         logger.info("Downloading %s." % label_url)
-        local_label_path, _ = utils.download(label_url, local_dir)
+        utils.url_retrieve(label_url, self.local_label_path)
         logger.info("Downloading %s.", self.table_url)
-        local_data_path, _ = utils.download(self.table_url, local_dir)
-        self.timestamp = (
-            self.remote_timestamp
-        )  # `new` was set by `needs_download` check
+        utils.url_retrieve(self.table_url, self.local_table_path)
+        print(f"Downloaded {self.local_label_path} and {self.local_table_path}")
+        self.timestamp = self.remote_timestamp
         self.update_timestamp()
 
         if convert_to_hdf is True:
             try:
                 self.convert_to_hdf()
-                print(f"Downloaded and converted to pandas HDF:\n{self.local_hdf_path}")
+                self.convert_to_parqet()
+                print(f"Converted to pandas HDF:\n{self.local_hdf_path}")
             except:  # any conversion error simpy leads to HDF marked as missing
                 self.set_hdf_available(False)
             else:
                 self.set_hdf_available(True)
-        else:
-            print(f"Downloaded {local_label_path} and {local_data_path}")
 
     def set_hdf_available(self, status):
         config.set_value(f"{self.key}.hdf_available", status)
@@ -234,6 +230,12 @@ class Index:
         label = IndexLabel(self.local_label_path)
         df = label.read_index_data()
         df.to_hdf(self.local_hdf_path, "df")
+
+    def convert_to_parquet(self):
+        label = IndexLabel(self.local_label_path)
+        df = label.read_index_data()
+        df = df.convert_dtypes()
+        df.to_parquet(self.local_parq_path)
 
     def __str__(self):
         s = f"Key: {self.key}\n"
