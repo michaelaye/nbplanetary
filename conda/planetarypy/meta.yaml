@@ -1,9 +1,9 @@
 package:
   name: planetarypy
-  version: 0.16.0
+  version: 0.17.0
 source:
-  sha256: bb7aca8f2f99d7721bd9c290b45b9bf950be5aa11372368d84386c1b56587f22
-  url: https://files.pythonhosted.org/packages/ac/c1/4eca247ddbcf8b095e83c3fe59c05c23ad003eeb7685e74196ee22b1f1d8/planetarypy-0.16.0.tar.gz
+  sha256: cc816533828276755465171ca08e738179c9be6b72b563da6541770157b049ad
+  url: https://files.pythonhosted.org/packages/e7/67/c6b5af2782b74a34cad5b5efd278a8206c0f9853b4d94859132d4c9d595d/planetarypy-0.17.0.tar.gz
 about:
   dev_url: https://michaelaye.github.io
   doc_url: https://michaelaye.github.io
@@ -34,6 +34,7 @@ requirements:
   - hirise-tools
   - kalasiris
   - dask
+  - fastparquet
   run:
   - pip
   - python
@@ -49,6 +50,7 @@ requirements:
   - hirise-tools
   - kalasiris
   - dask
+  - fastparquet
 test:
   imports:
   - planetarypy
