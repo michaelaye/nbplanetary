@@ -7,6 +7,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
+from urllib.request import URLError
 
 import tomlkit as toml
 from dateutil import parser
@@ -94,7 +95,10 @@ class Index:
         bool
             Boolean indicating if download shall happen.
         """
-        self.remote_timestamp = utils.get_remote_timestamp(self.url)
+        try:
+            self.remote_timestamp = utils.get_remote_timestamp(self.url)
+        except URLError:
+            return None
         if self.timestamp:
             if self.remote_timestamp > self.timestamp:
                 return True
@@ -197,7 +201,11 @@ class Index:
     ):
         """Wrapping URLs for downloading PDS indices and their label files."""
         # check timestamp
-        if not self.needs_download and not force_update:
+        ret = self.needs_download
+        if ret is None:
+            print("Could not check for any index updates, maybe server is offline?")
+            return
+        if not ret and not force_update:
             print("Stored index is up-to-date.")
             return
         label_url = self.url
