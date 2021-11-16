@@ -64,14 +64,6 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="nasa_date_to_datetime" class="doc_header"><code>nasa_date_to_datetime</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L44" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nasa_date_to_datetime</code>(<strong><code>datestr</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>datestr</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>Date string of the form Y-j</p></li>
-</ul>
-<p><strong>Returns</strong>:</p>
-<ul>
-<li><em><code>&lt;class 'datetime.datetime'&gt;</code></em></li>
-</ul>
 
 </div>
 
@@ -103,18 +95,8 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="nasa_date_to_iso" class="doc_header"><code>nasa_date_to_iso</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nasa_date_to_iso</code>(<strong><code>datestr</code></strong>:<code>str</code>, <strong><code>with_hours</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
-<p>Convert the day-number based NASA date format to ISO.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>datestr</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>Date string of the form Y-j</p></li>
-</ul>
-<ul>
-<li><strong><code>with_hours</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>    <p>Switch if return is wanted with hours (i.e. isoformat)</p></li>
-</ul>
-<p><strong>Returns</strong>:</p>
-<ul>
-<li><em><code>&lt;class 'str'&gt;</code></em>    <p>Datestring in either Y-m-d or ISO-format.</p></li>
-</ul>
+
+<pre><code>Convert the day-number based NASA date format to ISO.</code></pre>
 
 </div>
 
@@ -215,15 +197,8 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="iso_to_nasa_date" class="doc_header"><code>iso_to_nasa_date</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L62" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iso_to_nasa_date</code>(<strong><code>datestr</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p>Convert iso date to day-number based NASA date.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>datestr</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>Date string of the form Y-m-d</p></li>
-</ul>
-<p><strong>Returns</strong>:</p>
-<ul>
-<li><em><code>&lt;class 'str'&gt;</code></em>    <p>Datestring in NASA standard yyyy-jjj</p></li>
-</ul>
+
+<pre><code>Convert iso date to day-number based NASA date.</code></pre>
 
 </div>
 
@@ -272,12 +247,10 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="nasa_datetime_to_iso" class="doc_header"><code>nasa_datetime_to_iso</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nasa_datetime_to_iso</code>(<strong><code>dtimestr</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p>Convert the day-number based NASA datetime format to ISO.</p>
-<p>Note: This is dateTIME vs <a href="/nbplanetary/utils.html#nasa_date_to_iso"><code>nasa_date_to_iso</code></a> which is just DATE.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>dtimestr</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>   <p>Datetime string of the form Y-jTH-M-S</p></li>
-</ul>
+
+<pre><code>Convert the day-number based NASA datetime format to ISO.
+
+Note: This is dateTIME vs `nasa_date_to_iso` which is just DATE.</code></pre>
 
 </div>
 
@@ -347,11 +320,8 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="iso_to_nasa_datetime" class="doc_header"><code>iso_to_nasa_datetime</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iso_to_nasa_datetime</code>(<strong><code>dtimestr</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p>Convert iso datetime to day-number based NASA datetime.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>dtimestr</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>   <p>Datetime string of the form yyyy-mm-ddTHH-MM-SS</p></li>
-</ul>
+
+<pre><code>Convert iso datetime to day-number based NASA datetime.</code></pre>
 
 </div>
 
@@ -401,13 +371,12 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="replace_all_nasa_times" class="doc_header"><code>replace_all_nasa_times</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L103" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>replace_all_nasa_times</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
 </blockquote>
-<p>Find all NASA times in dataframe and replace with ISO.</p>
-<p>Changes will be implemented on incoming dataframe!</p>
-<p>This will be done for all columns with the word TIME in the column name.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>df</code></strong> : <em><code>&lt;class 'pandas.core.frame.DataFrame'&gt;</code></em> <p>DataFrame with NASA time columns</p></li>
-</ul>
+
+<pre><code>Find all NASA times in dataframe and replace with ISO.
+
+Changes will be implemented on incoming dataframe!
+
+This will be done for all columns with the word TIME in the column name.</code></pre>
 
 </div>
 
@@ -445,15 +414,8 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="parse_http_date" class="doc_header"><code>parse_http_date</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L117" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse_http_date</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p>Parse date string retrieved via urllib.request.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>text</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>   <p>datestring from urllib.request</p></li>
-</ul>
-<p><strong>Returns</strong>:</p>
-<ul>
-<li><em><code>&lt;class 'datetime.datetime'&gt;</code></em>  <p>dt.datetime object from given datetime string</p></li>
-</ul>
+
+<pre><code>Parse date string retrieved via urllib.request.</code></pre>
 
 </div>
 
@@ -478,16 +440,10 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="get_remote_timestamp" class="doc_header"><code>get_remote_timestamp</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L124" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_remote_timestamp</code>(<strong><code>url</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p>Get the timestamp of a remote file.</p>
-<p>Useful for checking if there's an updated file available.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>url</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>URL to check timestamp for</p></li>
-</ul>
-<p><strong>Returns</strong>:</p>
-<ul>
-<li><em><code>&lt;class 'datetime.datetime'&gt;</code></em></li>
-</ul>
+
+<pre><code>Get the timestamp of a remote file.
+
+Useful for checking if there's an updated file available.</code></pre>
 
 </div>
 
@@ -512,21 +468,15 @@ nb_path: "notebooks/01_utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="url_retrieve" class="doc_header"><code>url_retrieve</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>url_retrieve</code>(<strong><code>url</code></strong>:<code>str</code>, <strong><code>outfile</code></strong>:<code>str</code>, <strong><code>chunk_size</code></strong>:<code>int</code>=<em><code>128</code></em>)</p>
 </blockquote>
-<p>Improved urlretrieve with progressbar, timeout and chunker.</p>
-<p>This downloader has built-in progress bar using tqdm and using the <code>requests</code>
-package it improves standard <code>urllib</code> behavior by adding time-out capability.</p>
-<p>I tested different chunk_sizes and most of the time 128 was actually fastest, YMMV.</p>
-<p>Inspired by <a href="https://stackoverflow.com/a/61575758/680232">https://stackoverflow.com/a/61575758/680232</a></p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>url</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>The URL to download</p></li>
-</ul>
-<ul>
-<li><strong><code>outfile</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>The path where to store the downloaded file.</p></li>
-</ul>
-<ul>
-<li><strong><code>chunk_size</code></strong> : <em><code>&lt;class 'int'&gt;</code></em>, <em>optional</em> <p>The size of the chunk for the request.iter_content call. Default: 128</p></li>
-</ul>
+
+<pre><code>Improved urlretrieve with progressbar, timeout and chunker.
+
+This downloader has built-in progress bar using tqdm and using the `requests`
+package it improves standard `urllib` behavior by adding time-out capability.
+
+I tested different chunk_sizes and most of the time 128 was actually fastest, YMMV.
+
+Inspired by https://stackoverflow.com/a/61575758/680232</code></pre>
 
 </div>
 
@@ -551,8 +501,10 @@ package it improves standard <code>urllib</code> behavior by adding time-out cap
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="have_internet" class="doc_header"><code>have_internet</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L165" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>have_internet</code>()</p>
 </blockquote>
-<p>Fastest way to check for active internet connection.</p>
-<p>From <a href="https://stackoverflow.com/a/29854274/680232">https://stackoverflow.com/a/29854274/680232</a></p>
+
+<pre><code>Fastest way to check for active internet connection.
+
+From https://stackoverflow.com/a/29854274/680232</code></pre>
 
 </div>
 
@@ -590,20 +542,11 @@ package it improves standard <code>urllib</code> behavior by adding time-out cap
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="height_from_shadow" class="doc_header"><code>height_from_shadow</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L180" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>height_from_shadow</code>(<strong><code>shadow_in_pixels</code></strong>:<code>float</code>, <strong><code>sun_elev</code></strong>:<code>float</code>)</p>
 </blockquote>
-<p>Calculate height of an object from its shadow length.</p>
-<p>Note, that your image might have been binned.
-You need to correct <code>shadow_in_pixels</code> for that.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>shadow_in_pixels</code></strong> : <em><code>&lt;class 'float'&gt;</code></em> <p>Measured length of shadow in pixels</p></li>
-</ul>
-<ul>
-<li><strong><code>sun_elev</code></strong> : <em><code>&lt;class 'float'&gt;</code></em> <p>Ange of sun over horizon in degrees</p></li>
-</ul>
-<p><strong>Returns</strong>:</p>
-<ul>
-<li><em><code>&lt;class 'float'&gt;</code></em>  <p>Height [meter]</p></li>
-</ul>
+
+<pre><code>Calculate height of an object from its shadow length.
+
+Note, that your image might have been binned.
+You need to correct `shadow_in_pixels` for that.</code></pre>
 
 </div>
 
@@ -628,16 +571,10 @@ You need to correct <code>shadow_in_pixels</code> for that.</p>
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="get_gdal_center_coords" class="doc_header"><code>get_gdal_center_coords</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L192" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_gdal_center_coords</code>(<strong><code>imgpath</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>])</p>
 </blockquote>
-<p>Get center rows/cols pixel coordinate for GDAL-readable dataset.</p>
-<p>Check CLI <code>gdalinfo --formats</code> to see all formats that GDAL can open.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>imgpath</code></strong> : <em><code>typing.Union[str, pathlib.Path]</code></em>  <p>Path to raster image that is readable by GDLA</p></li>
-</ul>
-<p><strong>Returns</strong>:</p>
-<ul>
-<li><em><code>typing.Tuple[int, int]</code></em>   <p>center row/col coordinates.</p></li>
-</ul>
+
+<pre><code>Get center rows/cols pixel coordinate for GDAL-readable dataset.
+
+Check CLI `gdalinfo --formats` to see all formats that GDAL can open.</code></pre>
 
 </div>
 
@@ -662,21 +599,13 @@ You need to correct <code>shadow_in_pixels</code> for that.</p>
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="file_variations" class="doc_header"><code>file_variations</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L208" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>file_variations</code>(<strong><code>filename</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>], <strong><code>extensions</code></strong>:<code>list</code>)</p>
 </blockquote>
-<p>Create a variation of file names.</p>
-<p>Generate a list of variations on a filename by replacing the extension with
-the provided list.</p>
-<p>Adapted from T. Olsens `file_variations of the pysis module for using pathlib.</p>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>filename</code></strong> : <em><code>typing.Union[str, pathlib.Path]</code></em> <p>The original filename to use as a base.</p></li>
-</ul>
-<ul>
-<li><strong><code>extensions</code></strong> : <em><code>&lt;class 'list'&gt;</code></em></li>
-</ul>
-<p><strong>Returns</strong>:</p>
-<ul>
-<li><em><code>&lt;class 'list'&gt;</code></em>   <p>list of Paths</p></li>
-</ul>
+
+<pre><code>Create a variation of file names.
+
+Generate a list of variations on a filename by replacing the extension with
+the provided list.
+
+Adapted from T. Olsens `file_variations of the pysis module for using pathlib.</code></pre>
 
 </div>
 

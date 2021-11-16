@@ -1,6 +1,8 @@
 # PlanetaryPy
+> Beta release: This will become (part of) the core package of the <a href='https://planetarypy.org/'>PlanetaryPy</a> organisation.
 
 
+Potential logo:![image.png](images/epilup_with_python_logo_with_axis.png)
 
 ## Install
 
