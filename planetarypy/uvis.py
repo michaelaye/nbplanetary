@@ -19,10 +19,11 @@ class DataManager:
     def __init__(
         self,
         pid: str,  # Product ID. If longer than PDS_ID, will be cut in attribute `pds_id`
+        skip_download: bool=False  # skip trying to download
     ):
         self.pid = pid
         self.dict = None
-        if not self.raw_data_path.exists():
+        if not self.raw_data_path.exists() and not skip_download:
             self.download()
 
     def query(self, pds_id=None):
@@ -99,9 +100,9 @@ class DataManager:
         return s
 
 # Cell
-def get_data_path(pid):
-    dm = DataManager(pid)
-    return dm.raw_data_path
+def get_data_path(pid, skip_download=False):
+    dm = DataManager(pid, skip_download=skip_download)
+    return dm.raw_data_path if dm.raw_data_path.exists() else None
 
 
 def get_label_path(pid):
