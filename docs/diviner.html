@@ -34,10 +34,10 @@ nb_path: "notebooks/07_diviner.ipynb"
 
 
 
-<div id="c6b54b1f-3252-40fe-8328-40c97d9d0cf8"></div>
+<div id="6f0df46d-aa43-4a45-ab3e-fa0519f622e5"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c6b54b1f-3252-40fe-8328-40c97d9d0cf8');
+var element = $('#6f0df46d-aa43-4a45-ab3e-fa0519f622e5');
 
 (function(root) {
   function now() {
@@ -1675,10 +1675,10 @@ var element = $('#c6b54b1f-3252-40fe-8328-40c97d9d0cf8');
 
 
 
-<div id="bd184c04-f396-4c29-bb96-353a8eae6b42"></div>
+<div id="81ac4c58-9742-475c-944b-0c27f49eee26"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#bd184c04-f396-4c29-bb96-353a8eae6b42');
+var element = $('#81ac4c58-9742-475c-944b-0c27f49eee26');
 
 if ((window.PyViz === undefined) || (window.PyViz instanceof HTMLElement)) {
   window.PyViz = {comms: {}, comm_status:{}, kernels:{}, receivers: {}, plot_index: []}
@@ -1949,6 +1949,13 @@ if (window.Jupyter !== undefined) {
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2003,6 +2010,56 @@ if (window.Jupyter !== undefined) {
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="s2">&quot;2010010110&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">local_path</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/missions/lro/diviner/2010/201001/20100101/2010010110_edr.tab&#39;)</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -2081,10 +2138,41 @@ if (window.Jupyter !== undefined) {
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="n">tstr</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="s2">&quot;2010010110&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>File exists. Use `overwrite=True` to get a fresh copy.
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -2113,7 +2201,7 @@ if (window.Jupyter !== undefined) {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>2</pre>
+<pre>1</pre>
 </div>
 
 </div>
@@ -2146,7 +2234,7 @@ if (window.Jupyter !== undefined) {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>URL(&#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0002/data/2018/201801/20180101/2018010110_edr.tab&#39;)</pre>
+<pre>URL(&#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0001/data/2010/201001/20100101/2010010110_edr.tab&#39;)</pre>
 </div>
 
 </div>
@@ -2164,24 +2252,14 @@ if (window.Jupyter !== undefined) {
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">read_l1a_data</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">dm</span><span class="o">.</span><span class="n">local_path</span><span class="p">,</span>
+    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span>
+    <span class="c1"># names=L1AHeader.columns,</span>
+    <span class="n">na_values</span><span class="o">=</span><span class="s2">&quot;-9999&quot;</span><span class="p">,</span>
+    <span class="n">skipinitialspace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2213,100 +2291,247 @@ if (window.Jupyter !== undefined) {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th>q</th>
-      <th>date</th>
-      <th>utc</th>
-      <th>sclk</th>
-      <th>sounding</th>
-      <th>from_pkt</th>
-      <th>pkt_count</th>
-      <th>safing</th>
-      <th>safed</th>
-      <th>freezing</th>
+      <th>Q</th>
+      <th>DATE</th>
+      <th>UTC</th>
+      <th>SCLK</th>
+      <th>SOUNDING</th>
+      <th>FROM_PKT</th>
+      <th>PKT_COUNT</th>
+      <th>SAFING</th>
+      <th>SAFED</th>
+      <th>FREEZING</th>
+      <th>FROZEN</th>
+      <th>ROLLING</th>
+      <th>DUMPING</th>
+      <th>MOVING</th>
+      <th>TEMP_FAULT</th>
+      <th>MODE</th>
+      <th>SC_TIME_SECS</th>
+      <th>SC_TIME_SUBS</th>
+      <th>TICKS_PKT_START</th>
+      <th>TICKS_AT_SC_TIME</th>
+      <th>RAM_CRC</th>
+      <th>FSW_VERSION</th>
+      <th>RESET_COUNT</th>
+      <th>MISSING_TIMES</th>
+      <th>OST_INDEX</th>
+      <th>EST_INDEX</th>
+      <th>SST_INDEX</th>
+      <th>LAST_AZ_CMD</th>
+      <th>LAST_EL_CMD</th>
+      <th>FPA_TEMP</th>
+      <th>FPB_TEMP</th>
+      <th>BAFFLE_A_TEMP</th>
+      <th>BAFFLE_B_TEMP</th>
+      <th>BB_1_TEMP</th>
+      <th>OBA_1_TEMP</th>
+      <th>ROTATING_VALUE_1</th>
+      <th>ROTATING_VALUE_2</th>
+      <th>ROTATING_INDEX_1</th>
+      <th>ROTATING_INDEX_2</th>
+      <th>ERROR_TIME</th>
+      <th>ERROR_ID</th>
+      <th>ERROR_DETAIL</th>
+      <th>ERROR_COUNT</th>
+      <th>COMMANDS_RECEIVED</th>
+      <th>COMMANDS_EXECUTED</th>
+      <th>COMMANDS_REJECTED</th>
+      <th>LAST_COMMAND_REC</th>
+      <th>CMD</th>
+      <th>REQ_ID</th>
+      <th>LAST_TIME_COMMAND</th>
+      <th>LAST_EQX_PREDICTION</th>
+      <th>DREB_MODE</th>
+      <th>DREB_RAM_CRC</th>
+      <th>DREB_FSW_VERSION</th>
+      <th>DREB_RESET_COUNT</th>
+      <th>DREB_MISSING_TIMES</th>
+      <th>DREB_ERROR_TIME</th>
+      <th>DREB_ERROR_ID</th>
+      <th>DREB_ERROR_DETAIL</th>
+      <th>DREB_ERROR_COUNT</th>
+      <th>DREB_COMMANDS_RECEIVED</th>
+      <th>DREB_COMMANDS_EXECUTED</th>
+      <th>DREB_COMMANDS_REJECTED</th>
+      <th>DREB_COMMANDS_PASSED</th>
+      <th>DREB_LAST_COMMAND_REC</th>
+      <th>DREB_CMD</th>
+      <th>DREB_REQ_ID</th>
+      <th>DREB_LAST_TIME_COMMAND</th>
+      <th>VREF_C2</th>
+      <th>VREF_C1</th>
+      <th>PRT_NARROW_C2</th>
+      <th>PRT_NARROW_C1</th>
+      <th>PRT_WIDE_C2</th>
+      <th>PRT_WIDE_C1</th>
+      <th>HYBRID_TEMP</th>
+      <th>FPA_TEMP_CYC</th>
+      <th>FPB_TEMP_CYC</th>
+      <th>BAFFLE_A_TEMP_CYC</th>
+      <th>BAFFLE_B_TEMP_CYC</th>
+      <th>OBA_1_TEMP_CYC</th>
+      <th>OBA_2_TEMP</th>
+      <th>BB_1_TEMP_CYC</th>
+      <th>BB_2_TEMP</th>
+      <th>SOLAR_TARGET_TEMP</th>
+      <th>YOKE_TEMP</th>
+      <th>EL_ACTUATOR_TEMP</th>
+      <th>AZ_ACTUATOR_TEMP</th>
+      <th>MIN_15V</th>
+      <th>PLU_15V</th>
+      <th>SOLAR_BASE_TEMP</th>
+      <th>PLU_5V</th>
+      <th>AREF1</th>
+      <th>AREF2</th>
+      <th>BREF</th>
+      <th>A1_01</th>
+      <th>A1_02</th>
+      <th>A1_03</th>
+      <th>A1_04</th>
+      <th>A1_05</th>
+      <th>A1_06</th>
       <th>...</th>
-      <th>b3_12</th>
-      <th>b3_13</th>
-      <th>b3_14</th>
-      <th>b3_15</th>
-      <th>b3_16</th>
-      <th>b3_17</th>
-      <th>b3_18</th>
-      <th>b3_19</th>
-      <th>b3_20</th>
-      <th>b3_21</th>
+      <th>A5_06</th>
+      <th>A5_07</th>
+      <th>A5_08</th>
+      <th>A5_09</th>
+      <th>A5_10</th>
+      <th>A5_11</th>
+      <th>A5_12</th>
+      <th>A5_13</th>
+      <th>A5_14</th>
+      <th>A5_15</th>
+      <th>A5_16</th>
+      <th>A5_17</th>
+      <th>A5_18</th>
+      <th>A5_19</th>
+      <th>A5_20</th>
+      <th>A5_21</th>
+      <th>A6_01</th>
+      <th>A6_02</th>
+      <th>A6_03</th>
+      <th>A6_04</th>
+      <th>A6_05</th>
+      <th>A6_06</th>
+      <th>A6_07</th>
+      <th>A6_08</th>
+      <th>A6_09</th>
+      <th>A6_10</th>
+      <th>A6_11</th>
+      <th>A6_12</th>
+      <th>A6_13</th>
+      <th>A6_14</th>
+      <th>A6_15</th>
+      <th>A6_16</th>
+      <th>A6_17</th>
+      <th>A6_18</th>
+      <th>A6_19</th>
+      <th>A6_20</th>
+      <th>A6_21</th>
+      <th>B1_01</th>
+      <th>B1_02</th>
+      <th>B1_03</th>
+      <th>B1_04</th>
+      <th>B1_05</th>
+      <th>B1_06</th>
+      <th>B1_07</th>
+      <th>B1_08</th>
+      <th>B1_09</th>
+      <th>B1_10</th>
+      <th>B1_11</th>
+      <th>B1_12</th>
+      <th>B1_13</th>
+      <th>B1_14</th>
+      <th>B1_15</th>
+      <th>B1_16</th>
+      <th>B1_17</th>
+      <th>B1_18</th>
+      <th>B1_19</th>
+      <th>B1_20</th>
+      <th>B1_21</th>
+      <th>B2_01</th>
+      <th>B2_02</th>
+      <th>B2_03</th>
+      <th>B2_04</th>
+      <th>B2_05</th>
+      <th>B2_06</th>
+      <th>B2_07</th>
+      <th>B2_08</th>
+      <th>B2_09</th>
+      <th>B2_10</th>
+      <th>B2_11</th>
+      <th>B2_12</th>
+      <th>B2_13</th>
+      <th>B2_14</th>
+      <th>B2_15</th>
+      <th>B2_16</th>
+      <th>B2_17</th>
+      <th>B2_18</th>
+      <th>B2_19</th>
+      <th>B2_20</th>
+      <th>B2_21</th>
+      <th>B3_01</th>
+      <th>B3_02</th>
+      <th>B3_03</th>
+      <th>B3_04</th>
+      <th>B3_05</th>
+      <th>B3_06</th>
+      <th>B3_07</th>
+      <th>B3_08</th>
+      <th>B3_09</th>
+      <th>B3_10</th>
+      <th>B3_11</th>
+      <th>B3_12</th>
+      <th>B3_13</th>
+      <th>B3_14</th>
+      <th>B3_15</th>
+      <th>B3_16</th>
+      <th>B3_17</th>
+      <th>B3_18</th>
+      <th>B3_19</th>
+      <th>B3_20</th>
+      <th>B3_21</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th rowspan="5" valign="top">0</th>
-      <th rowspan="5" valign="top">01-Jan-2018</th>
-      <th>10:00:01.728</th>
-      <th>5.364936e+08</th>
-      <th>5</th>
-      <th>341</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>-9999</th>
-      <th>-9999</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>27597.0</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
+      <th>0</th>
+      <td>0</td>
+      <td>01-Jan-2010</td>
+      <td>10:00:00.886</td>
+      <td>2.840328e+08</td>
+      <td>1</td>
+      <td>5787</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>14.0</td>
+      <td>1.0</td>
+      <td>3376.0</td>
+      <td>2782.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -2317,54 +2542,15 @@ if (window.Jupyter !== undefined) {
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>...</td>
-      <td>27579</td>
-      <td>27607</td>
-      <td>27604</td>
-      <td>27562</td>
-      <td>27596</td>
-      <td>27604</td>
-      <td>27583</td>
-      <td>27615</td>
-      <td>27659</td>
-      <td>27654</td>
-    </tr>
-    <tr>
-      <th>10:00:01.856</th>
-      <th>5.364936e+08</th>
-      <th>6</th>
-      <th>342</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>-9999</th>
-      <th>-9999</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>-9999</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -2373,190 +2559,1037 @@ if (window.Jupyter !== undefined) {
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>...</td>
-      <td>27576</td>
-      <td>27603</td>
-      <td>27604</td>
-      <td>27561</td>
-      <td>27596</td>
-      <td>27606</td>
-      <td>27584</td>
-      <td>27614</td>
-      <td>27657</td>
-      <td>27653</td>
-    </tr>
-    <tr>
-      <th>10:00:01.984</th>
-      <th>5.364936e+08</th>
-      <th>7</th>
-      <th>342</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>-9999</th>
-      <th>-9999</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>27104.0</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>-9999</td>
       <td>NaN</td>
       <td>-9999</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>29321.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>22422</td>
+      <td>22330</td>
+      <td>27457</td>
+      <td>22071</td>
+      <td>22023</td>
+      <td>22015</td>
+      <td>22028</td>
+      <td>22054</td>
+      <td>22049</td>
       <td>...</td>
-      <td>27575</td>
-      <td>27602</td>
-      <td>27605</td>
-      <td>27563</td>
-      <td>27598</td>
-      <td>27607</td>
-      <td>27589</td>
-      <td>27620</td>
-      <td>27659</td>
-      <td>27656</td>
-    </tr>
-    <tr>
-      <th>10:00:02.112</th>
-      <th>5.364936e+08</th>
-      <th>8</th>
-      <th>343</th>
-      <th>21334.0</th>
-      <th>0.0</th>
-      <th>0.0</th>
-      <th>0.0</th>
-      <th>0.0</th>
-      <th>0.0</th>
-      <th>0.0</th>
-      <th>NaN</th>
-      <th>0.0</th>
-      <th>0x00</th>
-      <th>536493562.0</th>
-      <th>16954.0</th>
-      <th>-631974561.0</th>
-      <th>-631975805.0</th>
-      <th>0x1C08</th>
-      <th>49</th>
-      <th>1.0</th>
-      <th>1.0</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <td>19849.0</td>
-      <td>27438.0</td>
-      <td>6.0</td>
-      <td>7.0</td>
-      <td>536468997.0</td>
-      <td>36.0</td>
-      <td>0x000000</td>
-      <td>6975.0</td>
-      <td>47594.0</td>
-      <td>44897.0</td>
-      <td>...</td>
-      <td>27573</td>
-      <td>27604</td>
-      <td>27602</td>
-      <td>27562</td>
-      <td>27596</td>
-      <td>27607</td>
-      <td>27588</td>
-      <td>27618</td>
-      <td>27662</td>
-      <td>27657</td>
-    </tr>
-    <tr>
-      <th>10:00:02.240</th>
-      <th>5.364936e+08</th>
-      <th>9</th>
-      <th>343</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>-9999</th>
-      <th>-9999</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <th>27345.0</th>
-      <th>NaN</th>
-      <th>NaN</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>-9999</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
+      <td>23128</td>
+      <td>23201</td>
+      <td>23183</td>
+      <td>23185</td>
+      <td>23233</td>
+      <td>23153</td>
+      <td>23157</td>
+      <td>23152</td>
+      <td>23162</td>
+      <td>23131</td>
+      <td>23163</td>
+      <td>23134</td>
+      <td>23174</td>
+      <td>23153</td>
+      <td>23123</td>
+      <td>23093</td>
+      <td>25186</td>
+      <td>26006</td>
+      <td>26065</td>
+      <td>26029</td>
+      <td>26033</td>
+      <td>26041</td>
+      <td>26231</td>
+      <td>26189</td>
+      <td>26273</td>
+      <td>26222</td>
+      <td>26288</td>
+      <td>26114</td>
+      <td>26142</td>
+      <td>26277</td>
+      <td>26202</td>
+      <td>26246</td>
+      <td>26239</td>
+      <td>26287</td>
+      <td>25947</td>
+      <td>25992</td>
+      <td>25603</td>
+      <td>29404</td>
+      <td>29637</td>
+      <td>29626</td>
+      <td>29810</td>
+      <td>29782</td>
+      <td>29825</td>
+      <td>30034</td>
+      <td>30318</td>
+      <td>30064</td>
+      <td>29832</td>
+      <td>29784</td>
+      <td>29818</td>
+      <td>30080</td>
+      <td>29929</td>
+      <td>29884</td>
+      <td>29867</td>
+      <td>29718</td>
+      <td>29648</td>
+      <td>29671</td>
+      <td>29406</td>
+      <td>29158</td>
+      <td>28003</td>
+      <td>27989</td>
+      <td>28024</td>
+      <td>28015</td>
+      <td>27977</td>
+      <td>28024</td>
+      <td>28022</td>
+      <td>28097</td>
+      <td>28050</td>
+      <td>28012</td>
+      <td>28010</td>
+      <td>27960</td>
+      <td>27982</td>
+      <td>28003</td>
+      <td>27977</td>
+      <td>27919</td>
+      <td>27854</td>
+      <td>27866</td>
+      <td>27799</td>
+      <td>27776</td>
+      <td>27649</td>
       <td>27577</td>
-      <td>27601</td>
-      <td>27601</td>
-      <td>27561</td>
-      <td>27598</td>
-      <td>27604</td>
-      <td>27588</td>
-      <td>27615</td>
-      <td>27662</td>
-      <td>27656</td>
+      <td>27581</td>
+      <td>27582</td>
+      <td>27579</td>
+      <td>27568</td>
+      <td>27578</td>
+      <td>27536</td>
+      <td>27576</td>
+      <td>27547</td>
+      <td>27585</td>
+      <td>27592</td>
+      <td>27534</td>
+      <td>27555</td>
+      <td>27562</td>
+      <td>27523</td>
+      <td>27544</td>
+      <td>27551</td>
+      <td>27524</td>
+      <td>27542</td>
+      <td>27574</td>
+      <td>27552</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>01-Jan-2010</td>
+      <td>10:00:01.014</td>
+      <td>2.840328e+08</td>
+      <td>2</td>
+      <td>5787</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>22424</td>
+      <td>22328</td>
+      <td>27456</td>
+      <td>22074</td>
+      <td>22020</td>
+      <td>22016</td>
+      <td>22030</td>
+      <td>22051</td>
+      <td>22046</td>
+      <td>...</td>
+      <td>23129</td>
+      <td>23194</td>
+      <td>23184</td>
+      <td>23192</td>
+      <td>23234</td>
+      <td>23153</td>
+      <td>23155</td>
+      <td>23148</td>
+      <td>23157</td>
+      <td>23129</td>
+      <td>23166</td>
+      <td>23133</td>
+      <td>23168</td>
+      <td>23158</td>
+      <td>23127</td>
+      <td>23088</td>
+      <td>25185</td>
+      <td>26010</td>
+      <td>26071</td>
+      <td>26035</td>
+      <td>26043</td>
+      <td>26046</td>
+      <td>26237</td>
+      <td>26186</td>
+      <td>26272</td>
+      <td>26224</td>
+      <td>26286</td>
+      <td>26115</td>
+      <td>26134</td>
+      <td>26284</td>
+      <td>26215</td>
+      <td>26256</td>
+      <td>26241</td>
+      <td>26293</td>
+      <td>25954</td>
+      <td>25992</td>
+      <td>25606</td>
+      <td>29395</td>
+      <td>29623</td>
+      <td>29628</td>
+      <td>29805</td>
+      <td>29774</td>
+      <td>29824</td>
+      <td>30033</td>
+      <td>30318</td>
+      <td>30063</td>
+      <td>29828</td>
+      <td>29785</td>
+      <td>29816</td>
+      <td>30075</td>
+      <td>29933</td>
+      <td>29885</td>
+      <td>29864</td>
+      <td>29720</td>
+      <td>29648</td>
+      <td>29674</td>
+      <td>29409</td>
+      <td>29157</td>
+      <td>28003</td>
+      <td>27982</td>
+      <td>28030</td>
+      <td>28012</td>
+      <td>27983</td>
+      <td>28031</td>
+      <td>28024</td>
+      <td>28093</td>
+      <td>28048</td>
+      <td>28013</td>
+      <td>28007</td>
+      <td>27961</td>
+      <td>27982</td>
+      <td>28003</td>
+      <td>27977</td>
+      <td>27921</td>
+      <td>27860</td>
+      <td>27857</td>
+      <td>27800</td>
+      <td>27777</td>
+      <td>27652</td>
+      <td>27579</td>
+      <td>27577</td>
+      <td>27578</td>
+      <td>27574</td>
+      <td>27569</td>
+      <td>27578</td>
+      <td>27541</td>
+      <td>27571</td>
+      <td>27543</td>
+      <td>27586</td>
+      <td>27594</td>
+      <td>27534</td>
+      <td>27559</td>
+      <td>27560</td>
+      <td>27515</td>
+      <td>27544</td>
+      <td>27549</td>
+      <td>27525</td>
+      <td>27543</td>
+      <td>27573</td>
+      <td>27555</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>01-Jan-2010</td>
+      <td>10:00:01.142</td>
+      <td>2.840328e+08</td>
+      <td>3</td>
+      <td>5788</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>29322.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>22426</td>
+      <td>22329</td>
+      <td>27459</td>
+      <td>22071</td>
+      <td>22019</td>
+      <td>22015</td>
+      <td>22027</td>
+      <td>22051</td>
+      <td>22045</td>
+      <td>...</td>
+      <td>23130</td>
+      <td>23197</td>
+      <td>23186</td>
+      <td>23193</td>
+      <td>23239</td>
+      <td>23153</td>
+      <td>23158</td>
+      <td>23147</td>
+      <td>23161</td>
+      <td>23128</td>
+      <td>23168</td>
+      <td>23131</td>
+      <td>23170</td>
+      <td>23152</td>
+      <td>23124</td>
+      <td>23088</td>
+      <td>25186</td>
+      <td>26012</td>
+      <td>26072</td>
+      <td>26035</td>
+      <td>26050</td>
+      <td>26051</td>
+      <td>26238</td>
+      <td>26190</td>
+      <td>26272</td>
+      <td>26224</td>
+      <td>26282</td>
+      <td>26111</td>
+      <td>26140</td>
+      <td>26285</td>
+      <td>26215</td>
+      <td>26253</td>
+      <td>26241</td>
+      <td>26293</td>
+      <td>25952</td>
+      <td>25990</td>
+      <td>25603</td>
+      <td>29387</td>
+      <td>29622</td>
+      <td>29621</td>
+      <td>29792</td>
+      <td>29770</td>
+      <td>29820</td>
+      <td>30033</td>
+      <td>30319</td>
+      <td>30069</td>
+      <td>29832</td>
+      <td>29784</td>
+      <td>29822</td>
+      <td>30078</td>
+      <td>29933</td>
+      <td>29888</td>
+      <td>29882</td>
+      <td>29716</td>
+      <td>29650</td>
+      <td>29678</td>
+      <td>29408</td>
+      <td>29156</td>
+      <td>27993</td>
+      <td>27986</td>
+      <td>28025</td>
+      <td>28018</td>
+      <td>27980</td>
+      <td>28030</td>
+      <td>28021</td>
+      <td>28096</td>
+      <td>28050</td>
+      <td>28012</td>
+      <td>28010</td>
+      <td>27965</td>
+      <td>27982</td>
+      <td>27999</td>
+      <td>27980</td>
+      <td>27919</td>
+      <td>27859</td>
+      <td>27854</td>
+      <td>27797</td>
+      <td>27777</td>
+      <td>27651</td>
+      <td>27573</td>
+      <td>27580</td>
+      <td>27583</td>
+      <td>27572</td>
+      <td>27571</td>
+      <td>27579</td>
+      <td>27541</td>
+      <td>27572</td>
+      <td>27534</td>
+      <td>27581</td>
+      <td>27593</td>
+      <td>27535</td>
+      <td>27558</td>
+      <td>27554</td>
+      <td>27523</td>
+      <td>27542</td>
+      <td>27548</td>
+      <td>27529</td>
+      <td>27542</td>
+      <td>27574</td>
+      <td>27556</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>01-Jan-2010</td>
+      <td>10:00:01.270</td>
+      <td>2.840328e+08</td>
+      <td>4</td>
+      <td>5788</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>22422</td>
+      <td>22328</td>
+      <td>27458</td>
+      <td>22069</td>
+      <td>22019</td>
+      <td>22016</td>
+      <td>22031</td>
+      <td>22055</td>
+      <td>22048</td>
+      <td>...</td>
+      <td>23130</td>
+      <td>23199</td>
+      <td>23185</td>
+      <td>23185</td>
+      <td>23231</td>
+      <td>23157</td>
+      <td>23155</td>
+      <td>23151</td>
+      <td>23155</td>
+      <td>23134</td>
+      <td>23166</td>
+      <td>23132</td>
+      <td>23174</td>
+      <td>23156</td>
+      <td>23124</td>
+      <td>23092</td>
+      <td>25183</td>
+      <td>26011</td>
+      <td>26076</td>
+      <td>26035</td>
+      <td>26050</td>
+      <td>26053</td>
+      <td>26236</td>
+      <td>26192</td>
+      <td>26276</td>
+      <td>26224</td>
+      <td>26288</td>
+      <td>26114</td>
+      <td>26141</td>
+      <td>26288</td>
+      <td>26217</td>
+      <td>26263</td>
+      <td>26239</td>
+      <td>26298</td>
+      <td>25946</td>
+      <td>25994</td>
+      <td>25605</td>
+      <td>29388</td>
+      <td>29620</td>
+      <td>29617</td>
+      <td>29789</td>
+      <td>29756</td>
+      <td>29811</td>
+      <td>30026</td>
+      <td>30309</td>
+      <td>30065</td>
+      <td>29831</td>
+      <td>29788</td>
+      <td>29822</td>
+      <td>30077</td>
+      <td>29935</td>
+      <td>29896</td>
+      <td>29886</td>
+      <td>29727</td>
+      <td>29639</td>
+      <td>29683</td>
+      <td>29407</td>
+      <td>29154</td>
+      <td>27998</td>
+      <td>27982</td>
+      <td>28029</td>
+      <td>28016</td>
+      <td>27984</td>
+      <td>28027</td>
+      <td>28021</td>
+      <td>28095</td>
+      <td>28051</td>
+      <td>28004</td>
+      <td>28009</td>
+      <td>27962</td>
+      <td>27982</td>
+      <td>27998</td>
+      <td>27978</td>
+      <td>27915</td>
+      <td>27859</td>
+      <td>27859</td>
+      <td>27804</td>
+      <td>27775</td>
+      <td>27652</td>
+      <td>27576</td>
+      <td>27578</td>
+      <td>27585</td>
+      <td>27569</td>
+      <td>27570</td>
+      <td>27575</td>
+      <td>27544</td>
+      <td>27573</td>
+      <td>27541</td>
+      <td>27584</td>
+      <td>27595</td>
+      <td>27536</td>
+      <td>27558</td>
+      <td>27553</td>
+      <td>27514</td>
+      <td>27545</td>
+      <td>27555</td>
+      <td>27526</td>
+      <td>27545</td>
+      <td>27576</td>
+      <td>27551</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>01-Jan-2010</td>
+      <td>10:00:01.398</td>
+      <td>2.840328e+08</td>
+      <td>5</td>
+      <td>5789</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>29174.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>-9999</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>22425</td>
+      <td>22335</td>
+      <td>27460</td>
+      <td>22074</td>
+      <td>22018</td>
+      <td>22015</td>
+      <td>22030</td>
+      <td>22051</td>
+      <td>22049</td>
+      <td>...</td>
+      <td>23133</td>
+      <td>23197</td>
+      <td>23182</td>
+      <td>23192</td>
+      <td>23232</td>
+      <td>23154</td>
+      <td>23159</td>
+      <td>23149</td>
+      <td>23159</td>
+      <td>23132</td>
+      <td>23163</td>
+      <td>23138</td>
+      <td>23175</td>
+      <td>23154</td>
+      <td>23129</td>
+      <td>23093</td>
+      <td>25188</td>
+      <td>26015</td>
+      <td>26074</td>
+      <td>26039</td>
+      <td>26055</td>
+      <td>26053</td>
+      <td>26238</td>
+      <td>26189</td>
+      <td>26280</td>
+      <td>26225</td>
+      <td>26288</td>
+      <td>26115</td>
+      <td>26147</td>
+      <td>26281</td>
+      <td>26216</td>
+      <td>26261</td>
+      <td>26238</td>
+      <td>26301</td>
+      <td>25951</td>
+      <td>26000</td>
+      <td>25614</td>
+      <td>29384</td>
+      <td>29619</td>
+      <td>29610</td>
+      <td>29785</td>
+      <td>29752</td>
+      <td>29811</td>
+      <td>30024</td>
+      <td>30308</td>
+      <td>30071</td>
+      <td>29832</td>
+      <td>29790</td>
+      <td>29822</td>
+      <td>30076</td>
+      <td>29929</td>
+      <td>29900</td>
+      <td>29889</td>
+      <td>29729</td>
+      <td>29647</td>
+      <td>29681</td>
+      <td>29406</td>
+      <td>29157</td>
+      <td>27996</td>
+      <td>27983</td>
+      <td>28030</td>
+      <td>28018</td>
+      <td>27979</td>
+      <td>28029</td>
+      <td>28020</td>
+      <td>28098</td>
+      <td>28043</td>
+      <td>28010</td>
+      <td>28006</td>
+      <td>27958</td>
+      <td>27983</td>
+      <td>28003</td>
+      <td>27978</td>
+      <td>27918</td>
+      <td>27856</td>
+      <td>27861</td>
+      <td>27799</td>
+      <td>27773</td>
+      <td>27648</td>
+      <td>27578</td>
+      <td>27579</td>
+      <td>27582</td>
+      <td>27577</td>
+      <td>27569</td>
+      <td>27580</td>
+      <td>27538</td>
+      <td>27572</td>
+      <td>27543</td>
+      <td>27584</td>
+      <td>27596</td>
+      <td>27536</td>
+      <td>27558</td>
+      <td>27556</td>
+      <td>27515</td>
+      <td>27548</td>
+      <td>27551</td>
+      <td>27529</td>
+      <td>27542</td>
+      <td>27576</td>
+      <td>27550</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 248 columns</p>
+<p>5 rows × 283 columns</p>
 </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>MultiIndex([(0, &#39;01-Jan-2010&#39;, &#39;10:00:01.398&#39;, 284032801.368,  5, 5789, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:01.526&#39;, 284032801.496,  6, 5790, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:01.654&#39;, 284032801.624,  7, 5790, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:01.782&#39;, 284032801.752,  8, 5791, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:01.910&#39;,  284032801.88,  9, 5791, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:02.038&#39;, 284032802.008, 10, 5792, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:02.166&#39;, 284032802.136, 11, 5793, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:02.294&#39;, 284032802.264, 12, 5793, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:02.422&#39;, 284032802.392, 13, 5794, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;10:00:02.550&#39;,  284032802.52, 14, 5794, ...),
+            ...
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:00.072&#39;, 284036400.042,  7, 6976, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:00.200&#39;,  284036400.17,  8, 6977, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:00.328&#39;, 284036400.298,  9, 6977, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:00.456&#39;, 284036400.426, 10, 6978, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:00.584&#39;, 284036400.554, 11, 6979, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:00.712&#39;, 284036400.682, 12, 6979, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:00.840&#39;,  284036400.81, 13, 6980, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:00.968&#39;, 284036400.938, 14, 6980, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:01.096&#39;, 284036401.066, 15, 6981, ...),
+            (0, &#39;01-Jan-2010&#39;, &#39;11:00:01.224&#39;, 284036401.194, 16, 6982, ...)],
+           length=28124)</pre>
 </div>
 
 </div>
@@ -2678,12 +3711,8 @@ if (window.Jupyter !== undefined) {
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_data_path" class="doc_header"><code>get_data_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/diviner.py#L18" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_data_path</code>(<strong><code>tstr</code></strong>)</p>
+<h4 id="get_data_path" class="doc_header"><code>get_data_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/diviner.py#L23" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_data_path</code>(<strong><code>tstr</code></strong>)</p>
 </blockquote>
-<p><strong>Parameters:</strong></p>
-<ul>
-<li><strong><code>tstr</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
-</ul>
 
 </div>
 

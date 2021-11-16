@@ -24,7 +24,7 @@ index = {"Config": "00_config.ipynb",
          "height_from_shadow": "01_utils.ipynb",
          "get_gdal_center_coords": "01_utils.ipynb",
          "file_variations": "01_utils.ipynb",
-         "storage_root": "07_diviner.ipynb",
+         "storage_root": "06_cassini_iss.ipynb",
          "dynamic_urls": "02a_pds.indexes.ipynb",
          "Index": "02a_pds.indexes.ipynb",
          "CTXIndex": "02b_pds.ctx_index.ipynb",
@@ -58,7 +58,8 @@ index = {"Config": "00_config.ipynb",
          "get_label_path": "05_cassini_uvis.ipynb",
          "get_user_guide": "05_cassini_uvis.ipynb",
          "opus_keys": "06_cassini_iss.ipynb",
-         "ISSOpus": "06_cassini_iss.ipynb"}
+         "ISSOpus": "06_cassini_iss.ipynb",
+         "hostname": "07_diviner.ipynb"}
 
 modules = ["config.py",
            "utils.py",
