@@ -25,7 +25,7 @@ release: pypi conda_release
 	nbdev_bump_version
 
 conda_release:
-	fastrelease_conda_package
+	fastrelease_conda_package --mambabuild --upload_user michaelaye
 
 pypi: dist
 	twine upload --repository pypi dist/*
