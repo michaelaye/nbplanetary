@@ -1,13 +1,6 @@
 # PlanetaryPy
-> This will become (part of) the core package of the <a href='https://planetarypy.org/'>PlanetaryPy</a> organisation.
 
 
-## Current focus
-
-* Enable finding PDS data by downloading and managing PDS3 index files
-  * Conversion of these index files to `pandas.DataFrames` for search and filtering
-* Downloading and local management of PDS3 data as identified via the index files or directly via data/product IDs.
-* CTX and HiRISE specific tools
 
 ## Install
 
@@ -17,6 +10,49 @@ This will pull in these other dependencies and their dependencies:
 
 `tomlkit pandas pvl numpy python-dateutil tqdm lxml yarl hirise-tools kalasiris`
 
+
+## Suggested standard abbreviations: 
+* Inside these docs the package will be called `PLPY` for brevity.
+* A standard Python import could be: `plp` or `plpy`
+  * because the last `p` in `plp` can be pronounced out, we consider these equivalent for human conversation and pronounce these "plippy".
+
+## General scope
+
+First and foremost this package should provide support in working with planetary science data.
+
+With `working` we mean:
+
+* locating
+* retrieving
+* reading
+* further processing
+
+of data.
+
+### Locating
+This library manages, via its `PDS tools`, multiple PDS3 index files per instrument that can be used for identifying data of interest.
+These index files are automatically downloaded and converted to the very performant (and cloud-ready) [parquet](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_parquet.html) file format.
+> Parquet is able to store advanced datatypes like nan-capable integer and full datetime objects, as opposed to HDF5.
+
+### Retrieving
+
+The interface to getting data is via a path-retrieving function based on a PDS product-id.
+If that product-id is available locally, the path will be returned.
+If it is not, it will previously be downloaded, stored in a systematic fashion organized by mission and instrument, and then the local path will be returned.
+
+### Reading
+For now, the library only returns the path to the object and the user needs to sort out the reading process.
+A recently funded NASA project `Planetary Data Reader` will be integrated here, so that basic reading into memory can be provided.
+
+As such, we anticipate two classes of reading support:1. basic reading into numpy and/or xarray1. added reader functionality like basic plots and basic geospatial processing, as supported by interested parties
+
+There will exist larger other packages that focus on working with a given instrument's data, in which case that package could become an affiliated package with the `planetarypy` GitHub organization, if so desired.
+
+### Further processing
+In the future, additional frequently used procedures will be added to this library, e.g.
+* frequently used GDAL/rasterio procedures
+* frequently used SPICE operations
+  * like surface illumination on a given body
 
 ## PDS tools
 

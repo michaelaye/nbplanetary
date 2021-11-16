@@ -6,8 +6,8 @@ title: PlanetaryPy
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "This will become (part of) the core package of the <a href='https://planetarypy.org/'>PlanetaryPy</a> organisation."
-description: "This will become (part of) the core package of the <a href='https://planetarypy.org/'>PlanetaryPy</a> organisation."
+
+
 nb_path: "notebooks/index.ipynb"
 ---
 <!--
@@ -31,13 +31,21 @@ nb_path: "notebooks/index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Current-focus">Current focus<a class="anchor-link" href="#Current-focus"> </a></h2><ul>
-<li>Enable finding PDS data by downloading and managing PDS3 index files<ul>
-<li>Conversion of these index files to <code>pandas.DataFrames</code> for search and filtering</li>
+<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2><p><code>pip install planetarypy</code></p>
+<p>This will pull in these other dependencies and their dependencies:</p>
+<p><code>tomlkit pandas pvl numpy python-dateutil tqdm lxml yarl hirise-tools kalasiris</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Suggested-standard-abbreviations:">Suggested standard abbreviations:<a class="anchor-link" href="#Suggested-standard-abbreviations:"> </a></h2><ul>
+<li>Inside these docs the package will be called <code>PLPY</code> for brevity.</li>
+<li>A standard Python import could be: <code>plp</code> or <code>plpy</code><ul>
+<li>because the last <code>p</code> in <code>plp</code> can be pronounced out, we consider these equivalent for human conversation and pronounce these "plippy".</li>
 </ul>
 </li>
-<li>Downloading and local management of PDS3 data as identified via the index files or directly via data/product IDs.</li>
-<li>CTX and HiRISE specific tools</li>
 </ul>
 
 </div>
@@ -45,9 +53,34 @@ nb_path: "notebooks/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2><p><code>pip install planetarypy</code></p>
-<p>This will pull in these other dependencies and their dependencies:</p>
-<p><code>tomlkit pandas pvl numpy python-dateutil tqdm lxml yarl hirise-tools kalasiris</code></p>
+<h2 id="General-scope">General scope<a class="anchor-link" href="#General-scope"> </a></h2><p>First and foremost this package should provide support in working with planetary science data.</p>
+<p>With <code>working</code> we mean:</p>
+<ul>
+<li>locating</li>
+<li>retrieving</li>
+<li>reading</li>
+<li>further processing</li>
+</ul>
+<p>of data.</p>
+<h3 id="Locating">Locating<a class="anchor-link" href="#Locating"> </a></h3><p>This library manages, via its <code>PDS tools</code>, multiple PDS3 index files per instrument that can be used for identifying data of interest.
+These index files are automatically downloaded and converted to the very performant (and cloud-ready) <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_parquet.html">parquet</a> file format.</p>
+<blockquote><p>Parquet is able to store advanced datatypes like nan-capable integer and full datetime objects, as opposed to HDF5.</p>
+</blockquote>
+<h3 id="Retrieving">Retrieving<a class="anchor-link" href="#Retrieving"> </a></h3><p>The interface to getting data is via a path-retrieving function based on a PDS product-id.
+If that product-id is available locally, the path will be returned.
+If it is not, it will previously be downloaded, stored in a systematic fashion organized by mission and instrument, and then the local path will be returned.</p>
+<h3 id="Reading">Reading<a class="anchor-link" href="#Reading"> </a></h3><p>For now, the library only returns the path to the object and the user needs to sort out the reading process.
+A recently funded NASA project <code>Planetary Data Reader</code> will be integrated here, so that basic reading into memory can be provided.</p>
+<p>As such, we anticipate two classes of reading support:1. basic reading into numpy and/or xarray1. added reader functionality like basic plots and basic geospatial processing, as supported by interested parties</p>
+<p>There will exist larger other packages that focus on working with a given instrument's data, in which case that package could become an affiliated package with the <code>planetarypy</code> GitHub organization, if so desired.</p>
+<h3 id="Further-processing">Further processing<a class="anchor-link" href="#Further-processing"> </a></h3><p>In the future, additional frequently used procedures will be added to this library, e.g.</p>
+<ul>
+<li>frequently used GDAL/rasterio procedures</li>
+<li>frequently used SPICE operations<ul>
+<li>like surface illumination on a given body</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -556,10 +589,10 @@ Look at the <code>CTX</code> and <code>HiRISE</code> pages for descriptions of c
 
 
 
-<div id="266ee681-b129-467f-868a-b2aa5b7c6191"></div>
+<div id="c18dc5fe-8d46-4e9f-a11a-e848340664da"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#266ee681-b129-467f-868a-b2aa5b7c6191');
+var element = $('#c18dc5fe-8d46-4e9f-a11a-e848340664da');
 
 (function(root) {
   function now() {
@@ -1782,10 +1815,10 @@ var element = $('#266ee681-b129-467f-868a-b2aa5b7c6191');
 
 
 
-<div id="073cac1a-0c5a-4e9e-b9fc-52928bc848e0"></div>
+<div id="76f64ad1-e0a1-4613-8f69-ea76e7f0a1a0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#073cac1a-0c5a-4e9e-b9fc-52928bc848e0');
+var element = $('#76f64ad1-e0a1-4613-8f69-ea76e7f0a1a0');
 
 if ((window.PyViz === undefined) || (window.PyViz instanceof HTMLElement)) {
   window.PyViz = {comms: {}, comm_status:{}, kernels:{}, receivers: {}, plot_index: []}
@@ -2221,4 +2254,8 @@ Shape: (1, 35840, 5056)</pre>
 
 </div>
  
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script>
 
