@@ -3,11 +3,11 @@
 __all__ = ['storage_root', 'opus_keys', 'ISSOpus']
 
 # Cell
-from .pds.opusapi import OPUS
-from .utils import url_retrieve, have_internet
-from .config import config
-from fastcore.utils import Path
 from yarl import URL
+
+from .config import config
+from .pds.opusapi import OPUS
+from .utils import have_internet, url_retrieve
 
 # Cell
 storage_root = config.storage_root / "missions/cassini/iss"
@@ -28,8 +28,6 @@ opus_keys = [
 ]
 
 # Cell
-
-
 class ISSOpus:
     def __init__(self, pid):
         self.pid = pid
@@ -103,8 +101,12 @@ class ISSOpus:
         url_retrieve(self.raw_data_url, self.local_data_path)
         url_retrieve(self.raw_label_url, self.local_label_path)
 
-    def download_calib(self):
+    def download_calib(self, overwrite=False):
         self.local_calib_path.parent.mkdir(parents=True, exist_ok=True)
+        if self.local_calib_path.exists():
+            if not overwrite:
+                print("File exists. Use `overwrite` to force re-download.")
+                return
         url_retrieve(self.calib_data_url, self.local_calib_path)
 
     def __repr__(self):

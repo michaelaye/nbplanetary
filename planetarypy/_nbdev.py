@@ -59,7 +59,24 @@ index = {"Config": "00_config.ipynb",
          "get_user_guide": "05_cassini_uvis.ipynb",
          "opus_keys": "06_cassini_iss.ipynb",
          "ISSOpus": "06_cassini_iss.ipynb",
-         "hostname": "07_diviner.ipynb"}
+         "hostname": "07_diviner.ipynb",
+         "calculate_image_azimuth": "08_geotools.ipynb",
+         "get_north_shifted_point": "08_geotools.ipynb",
+         "calculate_image_north_azimuth": "08_geotools.ipynb",
+         "get_sun_angles": "08_geotools.ipynb",
+         "debug_srs": "08_geotools.ipynb",
+         "shift_to_center": "08_geotools.ipynb",
+         "pixel_to_meter": "08_geotools.ipynb",
+         "Point": "08_geotools.ipynb",
+         "Window": "08_geotools.ipynb",
+         "ImgData": "08_geotools.ipynb",
+         "Error": "09_exceptions.ipynb",
+         "SomethingNotSetError": "09_exceptions.ipynb",
+         "ProjectionNotSetError": "09_exceptions.ipynb",
+         "GeoTransformNotSetError": "09_exceptions.ipynb",
+         "KMASpiceError": "09_exceptions.ipynb",
+         "SPointNotSetError": "09_exceptions.ipynb",
+         "ObserverNotSetError": "09_exceptions.ipynb"}
 
 modules = ["config.py",
            "utils.py",
@@ -73,7 +90,9 @@ modules = ["config.py",
            "hirise.py",
            "uvis.py",
            "ciss.py",
-           "diviner.py"]
+           "diviner.py",
+           "geotools.py",
+           "exceptions.py"]
 
 doc_url = "https://michaelaye.github.io/nbplanetary/"
 
