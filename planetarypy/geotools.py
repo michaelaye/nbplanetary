@@ -4,15 +4,15 @@ __all__ = ['calculate_image_azimuth', 'get_north_shifted_point', 'calculate_imag
            'debug_srs', 'shift_to_center', 'pixel_to_meter', 'Point', 'Window', 'ImgData']
 
 # Cell
-
-import os
-
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.pyplot import figure, show
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
-from osgeo import gdal, osr
+try:
+    from osgeo import gdal, osr
+except ImportError:
+    print("GDAL not installed. The `geotools` module requires it.")
 
 from .exceptions import ProjectionNotSetError, SomethingNotSetError
 
