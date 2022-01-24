@@ -6,6 +6,7 @@ __all__ = ['Error', 'SomethingNotSetError', 'ProjectionNotSetError', 'GeoTransfo
 # Cell
 class Error(Exception):
     """Base class for exceptions in this module."""
+
     pass
 
 
@@ -26,15 +27,16 @@ class SomethingNotSetError(Error):
 
 
 class ProjectionNotSetError(SomethingNotSetError):
-    what = 'Projection'
+    what = "Projection"
 
 
 class GeoTransformNotSetError(SomethingNotSetError):
-    what = 'GeoTransform'
+    what = "GeoTransform"
 
 
 class KMASpiceError(Exception):
     """Base class for exceptions in this module."""
+
     pass
 
 

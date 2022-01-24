@@ -6,7 +6,9 @@ Potential logo:![image.png](images/epilup_with_python_logo_with_axis.png)
 
 ## Install
 
-`pip install planetarypy`
+```bash
+pip install planetarypy
+```
 
 This will pull in these other dependencies and their dependencies:
 
@@ -99,14 +101,19 @@ Please submit bug reports at https://github.com/michaelaye/nbplanetary/issues
 
 ### Indexes
 
+See [PDS apps](02c_pds.apps.ipynb) for more details.
+
 ```python
 from planetarypy.pds.apps import get_index
 ```
 
 ```python
-ctrindex = get_index("mro.ctx.indexes.edr")
-ctrindex.sample(5)
+ctrindex = get_index("mro.ctx", "edr")
+ctrindex.sample(5, random_state=42)  # setting random_state to always get same files for docs
 ```
+
+    Stored index is up-to-date.
+
 
 
 
@@ -154,124 +161,124 @@ ctrindex.sample(5)
   </thead>
   <tbody>
     <tr>
-      <th>75900</th>
-      <td>MROX_2455</td>
-      <td>DATA/F20_043687_1325_XN_47S294W.IMG</td>
-      <td>4A_04_10DC014000</td>
-      <td>F20_043687_1325_XN_47S294W</td>
-      <td>2015-11-21 14:14:36.567</td>
+      <th>26491</th>
+      <td>MROX_0964</td>
+      <td>DATA/B17_016473_1740_XN_06S018W.IMG</td>
+      <td>4A_04_1050062800</td>
+      <td>B17_016473_1740_XN_06S018W</td>
+      <td>2010-01-31 02:01:44.947</td>
       <td>CTX</td>
       <td>NIFL</td>
-      <td>5056</td>
-      <td>24576</td>
-      <td>1</td>
-      <td>...</td>
-      <td>24.04</td>
-      <td>294.73</td>
-      <td>-47.57</td>
-      <td>249238218.9</td>
-      <td>71.38</td>
-      <td>15.21</td>
-      <td>89.2</td>
-      <td>Hellas Planitia</td>
-      <td>OK</td>
-      <td>43687</td>
-    </tr>
-    <tr>
-      <th>40726</th>
-      <td>MROX_1392</td>
-      <td>DATA/G14_023794_1798_XN_00S092W.IMG</td>
-      <td>4A_04_1076020900</td>
-      <td>G14_023794_1798_XN_00S092W</td>
-      <td>2011-08-24 13:13:49.110</td>
-      <td>CTX</td>
-      <td>NIFL</td>
-      <td>5056</td>
-      <td>43008</td>
-      <td>1</td>
-      <td>...</td>
-      <td>-4.36</td>
-      <td>91.79</td>
-      <td>-0.23</td>
-      <td>229203270.8</td>
-      <td>349.83</td>
-      <td>14.16</td>
-      <td>90.4</td>
-      <td>Terrain north of Tithonium Chasma</td>
-      <td>OK</td>
-      <td>23794</td>
-    </tr>
-    <tr>
-      <th>5325</th>
-      <td>MROX_0205</td>
-      <td>DATA/P11_005346_1735_XI_06S063W.IMG</td>
-      <td>4A_04_1019013500</td>
-      <td>P11_005346_1735_XI_06S063W</td>
-      <td>2007-09-17 00:20:29.319</td>
-      <td>CTX</td>
-      <td>ITL</td>
       <td>5056</td>
       <td>52224</td>
       <td>1</td>
       <td>...</td>
-      <td>-17.67</td>
-      <td>63.21</td>
-      <td>-6.51</td>
-      <td>217090580.2</td>
-      <td>315.16</td>
-      <td>14.26</td>
-      <td>90.2</td>
-      <td>West Juventae Chasma and Ophir Planum</td>
+      <td>17.77</td>
+      <td>16.8</td>
+      <td>-5.91</td>
+      <td>246673937.3</td>
+      <td>45.19</td>
+      <td>14.83</td>
+      <td>89.6</td>
+      <td>Ride-along with HiRISE</td>
       <td>OK</td>
-      <td>5346</td>
+      <td>16473</td>
     </tr>
     <tr>
-      <th>114845</th>
-      <td>MROX_3635</td>
-      <td>DATA/N05_064486_1481_XN_31S039W.IMG</td>
-      <td>4A_04_1146024F00</td>
-      <td>N05_064486_1481_XN_31S039W</td>
-      <td>2020-04-29 06:06:04.787</td>
+      <th>63218</th>
+      <td>MROX_2077</td>
+      <td>DATA/F01_036289_1668_XN_13S296W.IMG</td>
+      <td>4A_04_10B603B000</td>
+      <td>F01_036289_1668_XN_13S296W</td>
+      <td>2014-04-24 04:14:02.581</td>
+      <td>CTX</td>
+      <td>NIFL</td>
+      <td>5056</td>
+      <td>9216</td>
+      <td>1</td>
+      <td>...</td>
+      <td>21.67</td>
+      <td>296.3</td>
+      <td>-13.17</td>
+      <td>240471585.2</td>
+      <td>120.81</td>
+      <td>15.5</td>
+      <td>90.2</td>
+      <td>Ride-along with HiRISE</td>
+      <td>OK</td>
+      <td>36289</td>
+    </tr>
+    <tr>
+      <th>108231</th>
+      <td>MROX_3472</td>
+      <td>DATA/K15_059422_2018_XN_21N035W.IMG</td>
+      <td>4A_04_112C030F00</td>
+      <td>K15_059422_2018_XN_21N035W</td>
+      <td>2019-03-31 15:54:32.383</td>
+      <td>CTX</td>
+      <td>NIFL</td>
+      <td>5056</td>
+      <td>7168</td>
+      <td>1</td>
+      <td>...</td>
+      <td>1.75</td>
+      <td>34.46</td>
+      <td>21.99</td>
+      <td>234469987.0</td>
+      <td>4.06</td>
+      <td>14.08</td>
+      <td>90.1</td>
+      <td>Ride-along with HiRISE</td>
+      <td>OK</td>
+      <td>59422</td>
+    </tr>
+    <tr>
+      <th>70723</th>
+      <td>MROX_2321</td>
+      <td>DATA/F09_039344_1423_XN_37S165W.IMG</td>
+      <td>4A_04_10C6018D00</td>
+      <td>F09_039344_1423_XN_37S165W</td>
+      <td>2014-12-18 04:29:08.464</td>
       <td>CTX</td>
       <td>NIFL</td>
       <td>3776</td>
       <td>8192</td>
       <td>1</td>
       <td>...</td>
-      <td>-5.07</td>
-      <td>39.72</td>
-      <td>-32.00</td>
-      <td>215654598.6</td>
-      <td>191.85</td>
-      <td>15.94</td>
+      <td>-24.5</td>
+      <td>165.27</td>
+      <td>-37.76</td>
+      <td>206661098.9</td>
+      <td>254.74</td>
+      <td>15.34</td>
       <td>90.1</td>
-      <td>Crater north of Argyre</td>
+      <td>Terra Sirenum</td>
       <td>OK</td>
-      <td>64486</td>
+      <td>39344</td>
     </tr>
     <tr>
-      <th>44851</th>
-      <td>MROX_1524</td>
-      <td>DATA/G20_026030_1390_XN_41S290W.IMG</td>
-      <td>4A_04_108201CF00</td>
-      <td>G20_026030_1390_XN_41S290W</td>
-      <td>2012-02-14 18:31:34.526</td>
+      <th>28889</th>
+      <td>MROX_1056</td>
+      <td>DATA/B19_017097_1318_XN_48S126W.IMG</td>
+      <td>4A_04_1054040700</td>
+      <td>B19_017097_1318_XN_48S126W</td>
+      <td>2010-03-20 16:44:39.958</td>
       <td>CTX</td>
       <td>NIFL</td>
-      <td>3776</td>
-      <td>21504</td>
+      <td>5056</td>
+      <td>52224</td>
       <td>1</td>
       <td>...</td>
-      <td>23.91</td>
-      <td>290.76</td>
-      <td>-41.05</td>
-      <td>249226043.2</td>
-      <td>70.55</td>
-      <td>15.23</td>
-      <td>90.2</td>
-      <td>Hellas Planitia</td>
+      <td>23.24</td>
+      <td>126.77</td>
+      <td>-48.24</td>
+      <td>249141981.2</td>
+      <td>66.58</td>
+      <td>15.32</td>
+      <td>90.4</td>
+      <td>Terra Sirenum</td>
       <td>OK</td>
-      <td>26030</td>
+      <td>17097</td>
     </tr>
   </tbody>
 </table>
@@ -281,9 +288,12 @@ ctrindex.sample(5)
 
 
 ```python
-hirise_rdr = get_index("mro.hirise.indexes.rdr")
-hirise_rdr.sample(5)
+hirise_rdr = get_index("mro.hirise", "rdr")
+hirise_rdr.sample(5, random_state=42)
 ```
+
+    Stored index is up-to-date.
+
 
 
 
@@ -331,124 +341,124 @@ hirise_rdr.sample(5)
   </thead>
   <tbody>
     <tr>
-      <th>124314</th>
+      <th>68663</th>
       <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_062500_062599/ESP_062586_1840/ESP_...</td>
+      <td>RDR/ESP/ORB_036800_036899/ESP_036809_2640/ESP_...</td>
       <td>MRO</td>
       <td>HIRISE</td>
-      <td>ESP_062586_1840</td>
-      <td>ESP_062586_1840_RED</td>
+      <td>ESP_036809_2640</td>
+      <td>ESP_036809_2640_COLOR</td>
       <td>1</td>
       <td>MARS</td>
-      <td>62586</td>
+      <td>36809</td>
       <td>Extended Science Phase</td>
       <td>...</td>
-      <td>493636.5</td>
-      <td>-20081462.0</td>
-      <td>3.9142</td>
-      <td>349.5270</td>
-      <td>3.9017</td>
-      <td>349.4270</td>
-      <td>4.1513</td>
-      <td>349.3930</td>
-      <td>4.1640</td>
-      <td>349.4940</td>
+      <td>801810.0</td>
+      <td>1260530.0</td>
+      <td>83.6808</td>
+      <td>237.701</td>
+      <td>83.6727</td>
+      <td>237.516</td>
+      <td>83.9234</td>
+      <td>236.565</td>
+      <td>83.9318</td>
+      <td>236.757</td>
     </tr>
     <tr>
-      <th>112358</th>
+      <th>56127</th>
       <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_056900_056999/ESP_056945_1090/ESP_...</td>
+      <td>RDR/ESP/ORB_030800_030899/ESP_030831_1335/ESP_...</td>
       <td>MRO</td>
       <td>HIRISE</td>
-      <td>ESP_056945_1090</td>
-      <td>ESP_056945_1090_COLOR</td>
+      <td>ESP_030831_1335</td>
+      <td>ESP_030831_1335_RED</td>
       <td>1</td>
       <td>MARS</td>
-      <td>56945</td>
+      <td>30831</td>
       <td>Extended Science Phase</td>
       <td>...</td>
-      <td>405073.5</td>
-      <td>2258479.5</td>
-      <td>-71.0468</td>
-      <td>280.3410</td>
-      <td>-71.0497</td>
-      <td>280.2890</td>
-      <td>-70.7174</td>
-      <td>280.1170</td>
-      <td>-70.7146</td>
-      <td>280.1680</td>
+      <td>-5451830.0</td>
+      <td>11875900.0</td>
+      <td>-46.3981</td>
+      <td>38.0734</td>
+      <td>-46.406</td>
+      <td>37.9435</td>
+      <td>-46.1322</td>
+      <td>37.9086</td>
+      <td>-46.1242</td>
+      <td>38.0378</td>
     </tr>
     <tr>
-      <th>23249</th>
+      <th>18294</th>
       <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_015900_015999/ESP_015916_1640/ESP_...</td>
+      <td>RDR/ESP/ORB_011400_011499/ESP_011400_1680/ESP_...</td>
       <td>MRO</td>
       <td>HIRISE</td>
-      <td>ESP_015916_1640</td>
-      <td>ESP_015916_1640_RED</td>
-      <td>1</td>
+      <td>ESP_011400_1680</td>
+      <td>ESP_011400_1680_COLOR</td>
+      <td>2</td>
       <td>MARS</td>
-      <td>15916</td>
+      <td>11400</td>
       <td>Extended Science Phase</td>
       <td>...</td>
-      <td>-3691490.0</td>
-      <td>24911000.0</td>
-      <td>-15.9461</td>
-      <td>71.3223</td>
-      <td>-15.9568</td>
-      <td>71.2317</td>
-      <td>-15.5863</td>
-      <td>71.1847</td>
-      <td>-15.5756</td>
-      <td>71.2753</td>
+      <td>-1402640.0</td>
+      <td>-7165880.0</td>
+      <td>-12.0828</td>
+      <td>241.439</td>
+      <td>-12.0848</td>
+      <td>241.421</td>
+      <td>-11.8342</td>
+      <td>241.39</td>
+      <td>-11.8321</td>
+      <td>241.407</td>
     </tr>
     <tr>
-      <th>126778</th>
+      <th>96217</th>
       <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_064500_064599/ESP_064551_1745/ESP_...</td>
+      <td>RDR/ESP/ORB_049600_049699/ESP_049673_1000/ESP_...</td>
       <td>MRO</td>
       <td>HIRISE</td>
-      <td>ESP_064551_1745</td>
-      <td>ESP_064551_1745_RED</td>
+      <td>ESP_049673_1000</td>
+      <td>ESP_049673_1000_COLOR</td>
       <td>1</td>
       <td>MARS</td>
-      <td>64551</td>
+      <td>49673</td>
       <td>Extended Science Phase</td>
       <td>...</td>
-      <td>-1267461.5</td>
-      <td>-38647224.0</td>
-      <td>-5.4864</td>
-      <td>343.7370</td>
-      <td>-5.4974</td>
-      <td>343.6490</td>
-      <td>-5.3569</td>
-      <td>343.6310</td>
-      <td>-5.3460</td>
-      <td>343.7190</td>
+      <td>-247898.5</td>
+      <td>-2325763.5</td>
+      <td>-80.0898</td>
+      <td>96.4902</td>
+      <td>-80.0948</td>
+      <td>96.3953</td>
+      <td>-79.8123</td>
+      <td>95.909</td>
+      <td>-79.8074</td>
+      <td>96.0015</td>
     </tr>
     <tr>
-      <th>27793</th>
+      <th>30823</th>
       <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_017100_017199/ESP_017182_1380/ESP_...</td>
+      <td>RDR/ESP/ORB_018300_018399/ESP_018301_2505/ESP_...</td>
       <td>MRO</td>
       <td>HIRISE</td>
-      <td>ESP_017182_1380</td>
-      <td>ESP_017182_1380_COLOR</td>
+      <td>ESP_018301_2505</td>
+      <td>ESP_018301_2505_COLOR</td>
       <td>1</td>
       <td>MARS</td>
-      <td>17182</td>
+      <td>18301</td>
       <td>Extended Science Phase</td>
       <td>...</td>
-      <td>-4928590.0</td>
-      <td>9843080.0</td>
-      <td>-42.0208</td>
-      <td>71.4254</td>
-      <td>-42.0228</td>
-      <td>71.4017</td>
-      <td>-41.6764</td>
-      <td>71.3470</td>
-      <td>-41.6743</td>
-      <td>71.3705</td>
+      <td>1078760.0</td>
+      <td>-4561720.0</td>
+      <td>70.0663</td>
+      <td>103.136</td>
+      <td>70.0631</td>
+      <td>103.073</td>
+      <td>70.3287</td>
+      <td>102.954</td>
+      <td>70.332</td>
+      <td>103.018</td>
     </tr>
   </tbody>
 </table>
@@ -465,14 +475,6 @@ hirise_rdr.sample(5)
 from planetarypy.ctx import CTXEDR
 ```
 
-
-
-
-
-
-
-
-
 ```python
 pid = ctrindex.sample().squeeze().PRODUCT_ID
 pid
@@ -481,7 +483,7 @@ pid
 
 
 
-    'P15_007095_2017_XI_21N299W'
+    'B09_013187_1492_XN_30S303W'
 
 
 
@@ -496,7 +498,7 @@ ctxedr.local_path
 
 
 
-    PosixPath('/home/maye/big_drive/planetary_data/mro/ctx/edr/MROX_0403/P15_007095_2017_XI_21N299W/P15_007095_2017_XI_21N299W.IMG')
+    Path('/home/maye/big_drive/planetary_data/missions/mro/ctx/edr/B09_013187_1492_XN_30S303W/B09_013187_1492_XN_30S303W.IMG')
 
 
 
@@ -507,9 +509,9 @@ ctxedr
 
 
 
-    PRODUCT_ID: P15_007095_2017_XI_21N299W
-    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_0403/data/P15_007095_2017_XI_21N299W.IMG
-    Local: /home/maye/big_drive/planetary_data/mro/ctx/edr/MROX_0403/P15_007095_2017_XI_21N299W/P15_007095_2017_XI_21N299W.IMG
+    PRODUCT_ID: B09_013187_1492_XN_30S303W
+    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_0817/data/B09_013187_1492_XN_30S303W.IMG
+    Local: /home/maye/big_drive/planetary_data/missions/mro/ctx/edr/B09_013187_1492_XN_30S303W/B09_013187_1492_XN_30S303W.IMG
     Not downloaded yet.
 
 
@@ -525,9 +527,9 @@ ctxedr
 
 
 
-    PRODUCT_ID: P15_007095_2017_XI_21N299W
-    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_0403/data/P15_007095_2017_XI_21N299W.IMG
-    Local: /home/maye/big_drive/planetary_data/mro/ctx/edr/MROX_0403/P15_007095_2017_XI_21N299W/P15_007095_2017_XI_21N299W.IMG
-    Shape: (1, 35840, 5056)
+    PRODUCT_ID: B09_013187_1492_XN_30S303W
+    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_0817/data/B09_013187_1492_XN_30S303W.IMG
+    Local: /home/maye/big_drive/planetary_data/missions/mro/ctx/edr/B09_013187_1492_XN_30S303W/B09_013187_1492_XN_30S303W.IMG
+    Shape: (1, 7168, 5056)
 
 

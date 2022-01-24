@@ -4,13 +4,14 @@ __all__ = ['hostname', 'get_data_path']
 
 # Cell
 
-from pathlib import Path
 import socket
-from yarl import URL
+from pathlib import Path
 
 import hvplot.xarray  # noqa
+import pandas as pd
 from .config import config
 from .utils import url_retrieve
+from yarl import URL
 
 # Cell
 hostname = socket.gethostname()

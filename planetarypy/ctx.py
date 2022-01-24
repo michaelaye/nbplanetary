@@ -6,16 +6,15 @@ __all__ = ['baseurl', 'storage_root', 'edrindex', 'catch_isis_error', 'CTXEDR', 
 
 import warnings
 
-import rasterio
-from dask import compute, delayed
-from tqdm.auto import tqdm
-from yarl import URL
-
 import hvplot.xarray  # noqa
-import xarray as xr
+import rasterio
+import rioxarray as rxr
+from dask import compute, delayed
 from .config import config
 from .pds.apps import get_index
 from .utils import file_variations, url_retrieve
+from tqdm.auto import tqdm
+from yarl import URL
 
 try:
     from kalasiris.pysis import (
@@ -149,14 +148,14 @@ class CTXEDR:
         if not self.local_path.exists():
             raise FileNotFoundError("EDR not downloaded yet.")
         if not self.is_read:
-            self.edr_da = xr.open_rasterio(self.local_path)
+            self.edr_da = rxr.open_rasterio(self.local_path)
             self.is_read = True
         return self.edr_da
 
     def read_calibrated(self):
         "`da` stands for dataarray, standard abbr. within xarray."
         if not self.is_calib_read:
-            self.cal_da = xr.open_rasterio(self.cal_name)
+            self.cal_da = rxr.open_rasterio(self.cal_name)
             self.is_calibd_read = True
         return self.cal_da
 

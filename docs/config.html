@@ -36,6 +36,12 @@ nb_path: "notebooks/00_config.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Implement-a-class-for-managing-a-Config-object">Implement a class for managing a Config object<a class="anchor-link" href="#Implement-a-class-for-managing-a-Config-object"> </a></h2>
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -73,7 +79,7 @@ for this package.</code></pre>
 
     {% raw %}
     
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_hide_input">
 <div class="input">
 
 <div class="inner_cell">
@@ -248,7 +254,7 @@ for this package.</code></pre>
 
     {% raw %}
     
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_remove_cell">
 <div class="input">
 
 <div class="inner_cell">
@@ -275,6 +281,7 @@ for this package.</code></pre>
       - indexes: 
         - index: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl
+          - timestamp: 2021-07-01T09:40:52.134251
         - inventory: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl
         - moon_summary: 
@@ -289,10 +296,12 @@ for this package.</code></pre>
       - indexes: 
         - index: 
           - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl
+          - timestamp: 2021-07-15T12:20:15.880577
         - moon_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl
         - ring_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl
+          - timestamp: 2021-07-15T22:21:02.631803
         - saturn_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl
         - supplemental_index: 
@@ -308,12 +317,12 @@ for this package.</code></pre>
           - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL
         - rdr: 
           - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL
-          - timestamp: 2021-07-27T23:02:51.210991
+          - timestamp: 2021-10-06T00:25:01
     - ctx: 
       - indexes: 
         - edr: 
           - url: 
-          - timestamp: 2021-07-21T19:55:32.014076
+          - timestamp: 2021-06-29T20:33:31
   - lro: 
     - diviner: 
       - indexes: 
@@ -337,83 +346,6 @@ for this package.</code></pre>
           - url: http://pds.lroc.asu.edu/data/LRO-L-LROC-2-EDR-V1.0/LROLRC_0048C/INDEX/CUMINDEX.LBL</pre>
 </div>
 
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">mission</span> <span class="ow">in</span> <span class="n">missions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="n">mdict</span> <span class="o">=</span> <span class="n">missions</span><span class="p">[</span><span class="n">mission</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">instr</span> <span class="ow">in</span> <span class="n">mdict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="n">instrdict</span> <span class="o">=</span> <span class="n">mdict</span><span class="p">[</span><span class="n">instr</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">instrdict</span><span class="p">[</span><span class="s2">&quot;indexes&quot;</span><span class="p">]:</span>
-            <span class="n">instrdict</span><span class="p">[</span><span class="s2">&quot;indexes&quot;</span><span class="p">][</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;test&quot;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">mission</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">list_missions</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">list_instruments</span><span class="p">(</span><span class="n">mission</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">list_indexes</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mission</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">instrument</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">):</span>
-            <span class="c1">#             key = &quot;.&quot;.join([&#39;missions&#39;, mission, instrument, index])</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>index
-inventory
-moon_summary
-ring_summary
-saturn_summary
-index
-moon_summary
-ring_summary
-saturn_summary
-supplemental_index
-versions
-dtm
-edr
-rdr
-edr
-edr1
-edr2
-rdr1
-rdr2
-edr
-rdr
-</pre>
-</div>
 </div>
 
 </div>
@@ -617,7 +549,8 @@ Using an object approach enables easy growth and nesting over time.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;}</pre>
+<pre>{&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;,
+ &#39;timestamp&#39;: &#39;2021-07-23T22:11:38.904571&#39;}</pre>
 </div>
 
 </div>
@@ -702,7 +635,8 @@ Using an object approach enables easy growth and nesting over time.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;}</pre>
+<pre>{&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;,
+ &#39;timestamp&#39;: &#39;2021-07-23T22:11:38.904571&#39;}</pre>
 </div>
 
 </div>
@@ -930,7 +864,7 @@ at `Class.path`, either default or as given during init.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;storage_root&#39;: &#39;/home/maye/big_drive/planetary_data&#39;, &#39;missions&#39;: {&#39;cassini&#39;: {&#39;iss&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl&#39;}, &#39;inventory&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl&#39;}}}, &#39;uvis&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl&#39;}, &#39;supplemental_index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_supplemental_index.lbl&#39;}, &#39;versions&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_versions.lbl&#39;}}}}, &#39;mro&#39;: {&#39;hirise&#39;: {&#39;indexes&#39;: {&#39;dtm&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/DTMCUMINDEX.LBL&#39;}, &#39;edr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL&#39;}}}, &#39;ctx&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;&#39;}}}}, &#39;lro&#39;: {&#39;diviner&#39;: {&#39;indexes&#39;: {&#39;edr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0001/index/index.lbl&#39;}, &#39;edr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0002/index/index.lbl&#39;}, &#39;rdr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1001/index/rdrindex.lbl&#39;}, &#39;rdr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1002/index/rdrindex.lbl&#39;}}}, &#39;lola&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-2-edr-v1/lrolol_0xxx/index/edrindex.lbl&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/index/rdrindex.lbl&#39;}}}}}}</pre>
+<pre>{&#39;storage_root&#39;: &#39;/home/maye/big_drive/planetary_data&#39;, &#39;missions&#39;: {&#39;cassini&#39;: {&#39;iss&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl&#39;, &#39;timestamp&#39;: &#39;2021-07-01T09:40:52.134251&#39;}, &#39;inventory&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2021-07-23T22:11:38.904571&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2021-07-01T09:47:46.753035&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl&#39;}}}, &#39;uvis&#39;: {&#39;indexes&#39;: {&#39;index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl&#39;, &#39;timestamp&#39;: &#39;2021-07-15T12:20:15.880577&#39;}, &#39;moon_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl&#39;}, &#39;ring_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl&#39;, &#39;timestamp&#39;: &#39;2021-07-15T22:21:02.631803&#39;}, &#39;saturn_summary&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl&#39;}, &#39;supplemental_index&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_supplemental_index.lbl&#39;}, &#39;versions&#39;: {&#39;url&#39;: &#39;https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_versions.lbl&#39;}}}}, &#39;mro&#39;: {&#39;hirise&#39;: {&#39;indexes&#39;: {&#39;dtm&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/DTMCUMINDEX.LBL&#39;}, &#39;edr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL&#39;, &#39;timestamp&#39;: &#39;2021-10-06T00:25:01&#39;}}}, &#39;ctx&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;&#39;, &#39;timestamp&#39;: &#39;2021-06-29T20:33:31&#39;}}}}, &#39;lro&#39;: {&#39;diviner&#39;: {&#39;indexes&#39;: {&#39;edr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0001/index/index.lbl&#39;}, &#39;edr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_0002/index/index.lbl&#39;}, &#39;rdr1&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1001/index/rdrindex.lbl&#39;}, &#39;rdr2&#39;: {&#39;url&#39;: &#39;https://pds-geosciences.wustl.edu/lro/lro-l-dlre-4-rdr-v1/lrodlr_1002/index/rdrindex.lbl&#39;}}}, &#39;lola&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-2-edr-v1/lrolol_0xxx/index/edrindex.lbl&#39;}, &#39;rdr&#39;: {&#39;url&#39;: &#39;http://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/index/rdrindex.lbl&#39;}}}, &#39;lroc&#39;: {&#39;indexes&#39;: {&#39;edr&#39;: {&#39;url&#39;: &#39;http://pds.lroc.asu.edu/data/LRO-L-LROC-2-EDR-V1.0/LROLRC_0048C/INDEX/CUMINDEX.LBL&#39;}}}}}}</pre>
 </div>
 
 </div>
@@ -943,4 +877,8 @@ at `Class.path`, either default or as given during init.
 
 </div>
  
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script>
 
