@@ -34,10 +34,10 @@ nb_path: "notebooks/04_hirise.ipynb"
 
 
 
-<div id="4c19c611-7fbb-4ed2-85e1-c7831063394b"></div>
+<div id="5964b5a4-57eb-4696-8fc9-45c2b5ee70f2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#4c19c611-7fbb-4ed2-85e1-c7831063394b');
+var element = $('#5964b5a4-57eb-4696-8fc9-45c2b5ee70f2');
 
 (function(root) {
   function now() {
@@ -1687,10 +1687,10 @@ var element = $('#4c19c611-7fbb-4ed2-85e1-c7831063394b');
 
 
 
-<div id="9d9d5be6-aa70-48a4-bcbf-d753e4b6f22d"></div>
+<div id="894070bc-77bc-4b48-836b-9e70e5e2a278"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9d9d5be6-aa70-48a4-bcbf-d753e4b6f22d');
+var element = $('#894070bc-77bc-4b48-836b-9e70e5e2a278');
 
 if ((window.PyViz === undefined) || (window.PyViz instanceof HTMLElement)) {
   window.PyViz = {comms: {}, comm_status:{}, kernels:{}, receivers: {}, plot_index: []}
@@ -1998,7 +1998,7 @@ if (window.Jupyter !== undefined) {
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="OBSERVATION_ID" class="doc_header"><code>class</code> <code>OBSERVATION_ID</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L29" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OBSERVATION_ID</code>(<strong><code>obsid</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="OBSERVATION_ID" class="doc_header"><code>class</code> <code>OBSERVATION_ID</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L30" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OBSERVATION_ID</code>(<strong><code>obsid</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 <pre><code>Manage HiRISE observation ids.
@@ -2159,7 +2159,462 @@ obsid : str, optional
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RGB_NOMAP" class="doc_header"><code>class</code> <code>RGB_NOMAP</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L106" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGB_NOMAP</code>(<strong><code>obsid</code></strong>)</p>
+<h4 id="check_url_exists" class="doc_header"><code>check_url_exists</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L106" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_url_exists</code>(<strong><code>url</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="PRODUCT_ID" class="doc_header"><code>class</code> <code>PRODUCT_ID</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L114" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PRODUCT_ID</code>(<strong><code>initstr</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+
+<pre><code>Manage storage paths for HiRISE RDR products (also EXTRAS.)
+
+Attributes `jp2_path` and `label_path` get you the official RDR product,
+with `kind` steering if you get the COLOR or the RED product.
+All other properties go to the RDR/EXTRAS folder.
+
+Parameters
+----------
+initstr : str, optional
+    PRODUCT_ID string like PSP_003902_0985_RED
+
+Note
+----
+The "PDS" part of the path is handled in the OBSERVATION_ID class.</code></pre>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pid</span> <span class="o">=</span> <span class="n">PRODUCT_ID</span><span class="p">(</span><span class="s1">&#39;ESP_056531_0940_RED&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pid</span><span class="o">.</span><span class="n">obsid</span><span class="p">,</span> <span class="n">OBSERVATION_ID</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">pid</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;RED&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">pid</span><span class="o">.</span><span class="n">label_fname</span> <span class="o">==</span> <span class="s1">&#39;ESP_056531_0940_RED.LBL&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pid</span><span class="o">.</span><span class="n">label_path</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.LBL&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Paths-and-URLS">Paths and URLS<a class="anchor-link" href="#Paths-and-URLS"> </a></h3><p>Each <code>xxx_path</code> attribute is also available as <code>xxx_url</code>, and accessing the <code>_url</code> parameter immediately checks for its existence on the server.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">inspect</span>
+
+
+<span class="k">def</span> <span class="nf">isprop</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_properties</span><span class="p">(</span><span class="n">classname</span><span class="p">,</span> <span class="n">substring</span><span class="p">):</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">name</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">classname</span><span class="p">,</span> <span class="n">isprop</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">substring</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">names</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_properties</span><span class="p">(</span><span class="n">PRODUCT_ID</span><span class="p">,</span> <span class="s2">&quot;_path&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;abrowse_path&#39;,
+ &#39;browse_path&#39;,
+ &#39;jp2_path&#39;,
+ &#39;label_path&#39;,
+ &#39;nomap_browse_path&#39;,
+ &#39;nomap_jp2_path&#39;,
+ &#39;nomap_thumbnail_path&#39;,
+ &#39;quicklook_path&#39;,
+ &#39;thumbnail_path&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">get_properties</span><span class="p">(</span><span class="n">PRODUCT_ID</span><span class="p">,</span> <span class="s2">&quot;_path&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">prop</span><span class="p">))</span>
+    <span class="n">urlattr</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_path&quot;</span><span class="p">,</span> <span class="s2">&quot;_url&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">urlattr</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">urlattr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>abrowse_path
+EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.abrowse.jpg
+abrowse_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.abrowse.jpg
+browse_path
+EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.browse.jpg
+browse_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.browse.jpg
+jp2_path
+RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.JP2
+jp2_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.JP2
+label_path
+RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.LBL
+label_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.LBL
+nomap_browse_path
+EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.NOMAP.browse.jpg
+nomap_browse_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.NOMAP.browse.jpg
+nomap_jp2_path
+EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.NOMAP.JP2
+nomap_jp2_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.NOMAP.JP2
+nomap_thumbnail_path
+EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.NOMAP.thumb.jpg
+nomap_thumbnail_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.NOMAP.thumb.jpg
+quicklook_path
+EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.QLOOK.JP2
+quicklook_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.QLOOK.JP2
+thumbnail_path
+EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.thumb.jpg
+thumbnail_url
+https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.thumb.jpg
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pid</span><span class="o">.</span><span class="n">storage_stem</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pid</span><span class="o">.</span><span class="n">nomap_browse_url</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>URL(&#39;https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RED.NOMAP.browse.jpg&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pid</span> <span class="o">=</span> <span class="n">PRODUCT_ID</span><span class="p">(</span><span class="s1">&#39;ESP_056531_0941_RED&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pid</span><span class="o">.</span><span class="n">abrowse_url</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/tmp/ipykernel_202233/988536391.py:82: UserWarning: https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0941/ESP_056531_0941_RED.abrowse.jpg does not exist on the server.
+  warnings.warn(f&#34;{url} does not exist on the server.&#34;)
+/tmp/ipykernel_202233/988536391.py:82: UserWarning: https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0941/ESP_056531_0941_RED.abrowse.jpg does not exist on the server.
+  warnings.warn(f&#34;{url} does not exist on the server.&#34;)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>URL(&#39;https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0941/ESP_056531_0941_RED.abrowse.jpg&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="RGB_NOMAP" class="doc_header"><code>class</code> <code>RGB_NOMAP</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L276" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGB_NOMAP</code>(<strong><code>obsid</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -2207,6 +2662,39 @@ obsid : str, optional
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rgb</span><span class="o">.</span><span class="n">url</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>URL(&#39;https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599/ESP_056531_0940/ESP_056531_0940_RGB.NOMAP.JP2&#39;)</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -3617,7 +4105,7 @@ Name: 110332, dtype: object</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RGB_NOMAPCollection" class="doc_header"><code>class</code> <code>RGB_NOMAPCollection</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L178" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGB_NOMAPCollection</code>(<strong><code>obsids</code></strong>)</p>
+<h2 id="RGB_NOMAPCollection" class="doc_header"><code>class</code> <code>RGB_NOMAPCollection</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L348" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGB_NOMAPCollection</code>(<strong><code>obsids</code></strong>)</p>
 </blockquote>
 
 <pre><code>Class to deal with a set of RGB_NOMAP products.</code></pre>
