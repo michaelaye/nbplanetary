@@ -2,6 +2,13 @@
 
 <!-- do not remove -->
 
+## 0.21.0
+
+### New Features
+
+- add user functions to spice.kernels ([#7](https://github.com/michaelaye/nbplanetary/issues/7))
+
+
 ## 0.20.0
 
 ### New Features
