@@ -37,6 +37,7 @@ nb_path: "notebooks/10_spice.kernels.ipynb"
 <li>the list of required SPICE kernels for a given mission and date-range</li>
 <li>the automatic download of kernels either into a given location or the <code>planetarypy</code> local archive.</li>
 </ul>
+<p>As always in <code>planetarypy</code> the general design philosophy is to first develop a management class to give the user full control over all the details, and then add easy-to-use function for the end-user that do the most frequently used things in one go. (See section "User Functions")</p>
 
 </div>
 </div>
@@ -420,6 +421,95 @@ Here we set up a table of the currently supported datasets:</p>
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="is_start_valid" class="doc_header"><code>is_start_valid</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L71" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_start_valid</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>Time</code>)</p>
+</blockquote>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>mission</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>mission shorthand label of datasets dataframe</p></li>
+</ul>
+<ul>
+<li><strong><code>start</code></strong> : <em><code>&lt;class 'astropy.time.core.Time'&gt;</code></em>   <p>start time in astropy.Time format</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="is_stop_valid" class="doc_header"><code>is_stop_valid</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L77" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_stop_valid</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>Time</code>)</p>
+</blockquote>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>mission</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>mission shorthand label of datasets dataframe</p></li>
+</ul>
+<ul>
+<li><strong><code>stop</code></strong> : <em><code>&lt;class 'astropy.time.core.Time'&gt;</code></em>    <p>stop time in astropy.Time format</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">is_start_valid</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="n">Time</span><span class="p">(</span><span class="s2">&quot;1998-01-01&quot;</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">True</span>
+<span class="k">assert</span> <span class="n">is_start_valid</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="n">Time</span><span class="p">(</span><span class="s2">&quot;1997-01-01&quot;</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">False</span>
+<span class="k">assert</span> <span class="n">is_stop_valid</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="s2">&quot;2017-01-01&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span>
+<span class="k">assert</span> <span class="n">is_stop_valid</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="s2">&quot;2018-01-01&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now we build a management class for wrapping the Perl script available at below's URL for accessing subsets of these datasets:</p>
@@ -458,14 +548,21 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subsetter" class="doc_header"><code>class</code> <code>Subsetter</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L71" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subsetter</code>(<strong><code>mission</code></strong>, <strong><code>start</code></strong>, <strong><code>stop</code></strong>)</p>
+<h2 id="Subsetter" class="doc_header"><code>class</code> <code>Subsetter</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L87" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subsetter</code>(<strong><code>mission</code></strong>, <strong><code>start</code></strong>, <strong><code>stop</code></strong>=<em><code>None</code></em>, <strong><code>save_location</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-
-<pre><code>Class to manage retrieving subset SPICE kernel lists
-
-Attributes
-----------
-kernel_names: List of</code></pre>
+<p>Class to manage retrieving subset SPICE kernel lists</p>
+<h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p>kernel_names: List of</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p><strong><code>mission</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
+</li>
+<li><p><strong><code>start</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></p>
+</li>
+<li><p><strong><code>stop</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+<li><p><strong><code>save_location</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></p>
+</li>
+</ul>
 
 </div>
 
@@ -491,10 +588,185 @@ kernel_names: List of</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">Subsetter</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="s2">&quot;2014-270&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">kernel_names</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Path(&#39;ck/14001_15001pa_gapfill_v14.bc&#39;),
+ Path(&#39;ck/14212_14279py_as_flown.bc&#39;),
+ Path(&#39;ck/14268_14273ra.bc&#39;),
+ Path(&#39;ck/cas_cda_20150318.bc&#39;),
+ Path(&#39;ck/cas_lemms_05109_20001_v2.bc&#39;),
+ Path(&#39;fk/cas_dyn_v03.tf&#39;),
+ Path(&#39;fk/cas_mimi_v202.tf&#39;),
+ Path(&#39;fk/cas_rocks_v18.tf&#39;),
+ Path(&#39;fk/cas_v41.tf&#39;),
+ Path(&#39;ik/cas_caps_v03.ti&#39;),
+ Path(&#39;ik/cas_cda_v01.ti&#39;),
+ Path(&#39;ik/cas_cirs_v09.ti&#39;),
+ Path(&#39;ik/cas_inms_v02.ti&#39;),
+ Path(&#39;ik/cas_iss_v10.ti&#39;),
+ Path(&#39;ik/cas_mag_v01.ti&#39;),
+ Path(&#39;ik/cas_mimi_v11.ti&#39;),
+ Path(&#39;ik/cas_radar_v11.ti&#39;),
+ Path(&#39;ik/cas_rpws_v01.ti&#39;),
+ Path(&#39;ik/cas_rss_v03.ti&#39;),
+ Path(&#39;ik/cas_sru_v02.ti&#39;),
+ Path(&#39;ik/cas_uvis_v06.ti&#39;),
+ Path(&#39;ik/cas_vims_v06.ti&#39;),
+ Path(&#39;lsk/naif0012.tls&#39;),
+ Path(&#39;pck/pck00010.tpc&#39;),
+ Path(&#39;sclk/cas00172.tsc&#39;),
+ Path(&#39;spk/140809BP_IRRE_00256_25017.bsp&#39;),
+ Path(&#39;spk/150122R_SCPSE_14251_14283.bsp&#39;),
+ Path(&#39;spk/180927AP_RE_90165_18018.bsp&#39;)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Subsetter</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="s2">&quot;2019-01-01&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+Input <span class="ansi-green-fg">In [38]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">Subsetter</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">cassini</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">2019-01-01</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">)</span>
+
+Input <span class="ansi-green-fg">In [34]</span>, in <span class="ansi-cyan-fg">Subsetter.__init__</span><span class="ansi-blue-fg">(self, mission, start, stop, save_location)</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">__init__</span>(<span style="color: rgb(0,135,0)">self</span>, mission, start, stop<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, save_location<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>):
+<span class="ansi-green-intense-fg ansi-bold">     11</span>     store_attr()
+<span class="ansi-green-fg">---&gt; 12</span>     payload <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_get_payload</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     13</span>     r <span style="color: rgb(98,98,98)">=</span> requests<span style="color: rgb(98,98,98)">.</span>get(base_url, params<span style="color: rgb(98,98,98)">=</span>payload, stream<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+<span class="ansi-green-intense-fg ansi-bold">     14</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> r<span style="color: rgb(98,98,98)">.</span>ok:
+
+Input <span class="ansi-green-fg">In [34]</span>, in <span class="ansi-cyan-fg">Subsetter._get_payload</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">     52</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;Put payload together while checking for working time format.</span>
+<span class="ansi-green-intense-fg ansi-bold">     53</span> 
+<span class="ansi-green-intense-fg ansi-bold">     54</span> <span style="color: rgb(175,0,0)">If Time(self.start) doesn&#39;t work, then we assume that the date must be in the</span>
+<span class="ansi-green-intense-fg ansi-bold">     55</span> <span style="color: rgb(175,0,0)">Time-unsupported yyyy-jjj format, which can be converted by `nasa_time_to_iso`</span>
+<span class="ansi-green-intense-fg ansi-bold">     56</span> <span style="color: rgb(175,0,0)">from `planetarypy.utils`.</span>
+<span class="ansi-green-intense-fg ansi-bold">     57</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">     58</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> (
+<span class="ansi-green-intense-fg ansi-bold">     59</span>     is_start_valid(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mission, <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>start)
+<span class="ansi-green-intense-fg ansi-bold">     60</span>     <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> is_stop_valid(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mission, <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>stop)
+<span class="ansi-green-intense-fg ansi-bold">     61</span> ):
+<span class="ansi-green-fg">---&gt; 62</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(
+<span class="ansi-green-intense-fg ansi-bold">     63</span>         <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">One of start/stop is outside the supported date-range. See `datasets`.</span><span style="color: rgb(175,0,0)">&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">     64</span>     )
+<span class="ansi-green-intense-fg ansi-bold">     65</span> payload <span style="color: rgb(98,98,98)">=</span> {
+<span class="ansi-green-intense-fg ansi-bold">     66</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">dataset</span><span style="color: rgb(175,0,0)">&#34;</span>: dataset_ids[<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mission],
+<span class="ansi-green-intense-fg ansi-bold">     67</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">start</span><span style="color: rgb(175,0,0)">&#34;</span>: <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>start<span style="color: rgb(98,98,98)">.</span>iso,
+<span class="ansi-green-intense-fg ansi-bold">     68</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">stop</span><span style="color: rgb(175,0,0)">&#34;</span>: <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>stop<span style="color: rgb(98,98,98)">.</span>iso,
+<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">action</span><span style="color: rgb(175,0,0)">&#34;</span>: <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">Subset</span><span style="color: rgb(175,0,0)">&#34;</span>,
+<span class="ansi-green-intense-fg ansi-bold">     70</span> }
+<span class="ansi-green-intense-fg ansi-bold">     71</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> payload
+
+<span class="ansi-red-fg">ValueError</span>: One of start/stop is outside the supported date-range. See `datasets`.</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">Subsetter</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-02-13&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-02-14&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">urls_file</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;urls_cosp_1000_110213_110214.txt&#39;</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -537,12 +809,34 @@ kernel_names: List of</code></pre>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Subsetter.kernel_names" class="doc_header"><code>Subsetter.kernel_names</code><a href="" class="source_link" style="float:right">[source]</a></h4><p>Return list of names of kernels for the given time range.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mkpath</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">get_metakernel</span><span class="p">()</span>
-<span class="n">mkpath</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">kernel_names</span>
 </pre></div>
 
     </div>
@@ -557,7 +851,34 @@ kernel_names: List of</code></pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/big_drive/planetary_data/spice_kernels/cassini/cas_2011_v17_110213_110214.tm&#39;)</pre>
+<pre>[Path(&#39;ck/11001_12001pa_gapfill_v14.bc&#39;),
+ Path(&#39;ck/11017_11066py_as_flown.bc&#39;),
+ Path(&#39;ck/11044_11049ra.bc&#39;),
+ Path(&#39;ck/cas_cda_20120517.bc&#39;),
+ Path(&#39;ck/cas_lemms_05109_20001_v2.bc&#39;),
+ Path(&#39;fk/cas_dyn_v03.tf&#39;),
+ Path(&#39;fk/cas_mimi_v202.tf&#39;),
+ Path(&#39;fk/cas_rocks_v18.tf&#39;),
+ Path(&#39;fk/cas_v41.tf&#39;),
+ Path(&#39;ik/cas_caps_v03.ti&#39;),
+ Path(&#39;ik/cas_cda_v01.ti&#39;),
+ Path(&#39;ik/cas_cirs_v09.ti&#39;),
+ Path(&#39;ik/cas_inms_v02.ti&#39;),
+ Path(&#39;ik/cas_iss_v10.ti&#39;),
+ Path(&#39;ik/cas_mag_v01.ti&#39;),
+ Path(&#39;ik/cas_mimi_v11.ti&#39;),
+ Path(&#39;ik/cas_radar_v11.ti&#39;),
+ Path(&#39;ik/cas_rpws_v01.ti&#39;),
+ Path(&#39;ik/cas_rss_v03.ti&#39;),
+ Path(&#39;ik/cas_sru_v02.ti&#39;),
+ Path(&#39;ik/cas_uvis_v06.ti&#39;),
+ Path(&#39;ik/cas_vims_v06.ti&#39;),
+ Path(&#39;lsk/naif0012.tls&#39;),
+ Path(&#39;pck/pck00010.tpc&#39;),
+ Path(&#39;sclk/cas00172.tsc&#39;),
+ Path(&#39;spk/110504R_SCPSE_11041_11093.bsp&#39;),
+ Path(&#39;spk/140809BP_IRRE_00256_25017.bsp&#39;),
+ Path(&#39;spk/180927AP_RE_90165_18018.bsp&#39;)]</pre>
 </div>
 
 </div>
@@ -575,7 +896,134 @@ kernel_names: List of</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">spice</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">kernel_urls</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11001_12001pa_gapfill_v14.bc&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11017_11066py_as_flown.bc&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11044_11049ra.bc&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/cas_cda_20120517.bc&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/cas_lemms_05109_20001_v2.bc&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_dyn_v03.tf&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_mimi_v202.tf&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_rocks_v18.tf&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_v41.tf&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_caps_v03.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_cda_v01.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_cirs_v09.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_inms_v02.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_iss_v10.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_mag_v01.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_mimi_v11.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_radar_v11.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_rpws_v01.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_rss_v03.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_sru_v02.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_uvis_v06.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_vims_v06.ti&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/lsk/naif0012.tls&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/pck/pck00010.tpc&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/sclk/cas00172.tsc&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/110504R_SCPSE_11041_11093.bsp&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/140809BP_IRRE_00256_25017.bsp&#39;,
+ &#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/180927AP_RE_90165_18018.bsp&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Subsetter.get_local_path" class="doc_header"><code>Subsetter.get_local_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L163" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_local_path</code>(<strong><code>url</code></strong>)</p>
+</blockquote>
+<p>Calculate local storage path from Kernel URL, using <code>save_location</code> if given.</p>
+<p>If self.save_location is None, the <code>planetarypy</code> archive is being used.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>url</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em> <p>kernel url to determine local storage path</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'pathlib.Path'&gt;</code></em>   <p>full local path where kernel in URL will be stored</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">get_local_path</span><span class="p">(</span><span class="n">subset</span><span class="o">.</span><span class="n">kernel_urls</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/spice_kernels/cassini/ck/11001_12001pa_gapfill_v14.bc&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">save_location</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -592,7 +1040,68 @@ kernel_names: List of</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spice</span><span class="o">.</span><span class="n">furnsh</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mkpath</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">get_local_path</span><span class="p">(</span><span class="n">subset</span><span class="o">.</span><span class="n">kernel_urls</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Path(&#39;ck/11001_12001pa_gapfill_v14.bc&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Subsetter.download_kernels" class="doc_header"><code>Subsetter.download_kernels</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L179" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.download_kernels</code>(<strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+</blockquote>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>overwrite</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em> <p>switch to control if kernels should be downloaded over existing ones</p></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">save_location</span> <span class="o">=</span> <span class="kc">None</span>
 </pre></div>
 
     </div>
@@ -663,16 +1172,6 @@ spk 180927AP_RE_90165_18018.bsp locally available.
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">convert_url_to_local_path</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="n">URL</span><span class="p">(</span><span class="n">subset</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -680,9 +1179,16 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 <div class="output_area">
 
 
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Subsetter.get_metakernel" class="doc_header"><code>Subsetter.get_metakernel</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L191" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_metakernel</code>()</p>
+</blockquote>
+<p>Get metakernel file from NAIF and adapt path to match local storage.</p>
+<p>Use <code>save_location</code> if given, otherwise <code>planetarypy</code> archive.</p>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'pathlib.Path'&gt;</code></em>   <p>return path to metakernel file</p></li>
+</ul>
 
-<div class="output_text output_subarea output_execute_result">
-<pre>Path(&#39;/home/maye/big_drive/planetary_data/spice_kernels/cassini/ck/11001_12001pa_gapfill_v14.bc&#39;)</pre>
 </div>
 
 </div>
@@ -700,7 +1206,8 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span><span class="o">.</span><span class="n">parent</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mkpath</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">get_metakernel</span><span class="p">()</span>
+<span class="n">mkpath</span>
 </pre></div>
 
     </div>
@@ -715,7 +1222,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>URL(&#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck&#39;)</pre>
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/spice_kernels/cassini/cas_2011_v17_110213_110214.tm&#39;)</pre>
 </div>
 
 </div>
@@ -733,7 +1240,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">subset</span><span class="o">.</span><span class="n">urls_file</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat <span class="o">{</span>mkpath<span class="o">}</span>
 </pre></div>
 
     </div>
@@ -745,12 +1252,76 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 <div class="output_area">
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>KPL/MK
 
+   This meta-kernel lists a subset of kernels from the meta-kernel
+   cas_2011_v17.tm provided in the CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive,
+   covering the whole or a part of the customer requested time period
+   from 2011-02-13T00:00:00.000 to 2011-02-14T00:00:00.000.
 
-<div class="output_text output_subarea output_execute_result">
-<pre>b&#39;https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11001_12001pa_gapfill_v14.bc\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11017_11066py_as_flown.bc\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11044_11049ra.bc\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/cas_cda_20120517.bc\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/cas_lemms_05109_20001_v2.bc\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_dyn_v03.tf\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_mimi_v202.tf\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_rocks_v18.tf\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_v41.tf\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_caps_v03.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_cda_v01.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_cirs_v09.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_inms_v02.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_iss_v10.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_mag_v01.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_mimi_v11.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_radar_v11.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_rpws_v01.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_rss_v03.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_sru_v02.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_uvis_v06.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_vims_v06.ti\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/lsk/naif0012.tls\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/pck/pck00010.tpc\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/sclk/cas00172.tsc\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/110504R_SCPSE_11041_11093.bsp\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/140809BP_IRRE_00256_25017.bsp\nhttps://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/180927AP_RE_90165_18018.bsp\n&#39;</pre>
+   The documentation describing these kernels can be found in the
+   complete CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive available at this URL
+
+   https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000
+
+   To use this meta-kernel users may need to modify the value of the
+   PATH_VALUES keyword to point to the actual location of the archive&#39;s
+   ``data&#39;&#39; directory on their system. Replacing ``/&#39;&#39; with ``\&#39;&#39;
+   and converting line terminators to the format native to the user&#39;s
+   system may also be required if this meta-kernel is to be used on a
+   non-UNIX workstation.
+
+   This meta-kernel was created by the NAIF node&#39;s SPICE PDS archive
+   subsetting service version 2.1 on Mon Feb  7 13:25:32 PST 2022.
+
+ 
+   \begindata
+ 
+      PATH_VALUES     = (
+                         &#39;/home/maye/big_drive/planetary_data/spice_kernels/cassini&#39;
+                        )
+ 
+      PATH_SYMBOLS    = (
+                         &#39;KERNELS&#39;
+                        )
+ 
+      KERNELS_TO_LOAD = (
+                         &#39;$KERNELS/lsk/naif0012.tls&#39;
+                         &#39;$KERNELS/pck/pck00010.tpc&#39;
+                         &#39;$KERNELS/fk/cas_rocks_v18.tf&#39;
+                         &#39;$KERNELS/fk/cas_mimi_v202.tf&#39;
+                         &#39;$KERNELS/fk/cas_dyn_v03.tf&#39;
+                         &#39;$KERNELS/fk/cas_v41.tf&#39;
+                         &#39;$KERNELS/ik/cas_caps_v03.ti&#39;
+                         &#39;$KERNELS/ik/cas_cda_v01.ti&#39;
+                         &#39;$KERNELS/ik/cas_cirs_v09.ti&#39;
+                         &#39;$KERNELS/ik/cas_inms_v02.ti&#39;
+                         &#39;$KERNELS/ik/cas_iss_v10.ti&#39;
+                         &#39;$KERNELS/ik/cas_mag_v01.ti&#39;
+                         &#39;$KERNELS/ik/cas_mimi_v11.ti&#39;
+                         &#39;$KERNELS/ik/cas_radar_v11.ti&#39;
+                         &#39;$KERNELS/ik/cas_rpws_v01.ti&#39;
+                         &#39;$KERNELS/ik/cas_rss_v03.ti&#39;
+                         &#39;$KERNELS/ik/cas_sru_v02.ti&#39;
+                         &#39;$KERNELS/ik/cas_uvis_v06.ti&#39;
+                         &#39;$KERNELS/ik/cas_vims_v06.ti&#39;
+                         &#39;$KERNELS/sclk/cas00172.tsc&#39;
+                         &#39;$KERNELS/spk/180927AP_RE_90165_18018.bsp&#39;
+                         &#39;$KERNELS/spk/140809BP_IRRE_00256_25017.bsp&#39;
+                         &#39;$KERNELS/spk/110504R_SCPSE_11041_11093.bsp&#39;
+                         &#39;$KERNELS/ck/11001_12001pa_gapfill_v14.bc&#39;
+                         &#39;$KERNELS/ck/11017_11066py_as_flown.bc&#39;
+                         &#39;$KERNELS/ck/11044_11049ra.bc&#39;
+                         &#39;$KERNELS/ck/cas_cda_20120517.bc&#39;
+                         &#39;$KERNELS/ck/cas_lemms_05109_20001_v2.bc&#39;
+                        )
+ 
+   \begintext
+ 
+
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -759,6 +1330,13 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Loading the metakernel works! :</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -766,12 +1344,9 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;co-s_j_e_v-spice-6-v1.0</span><span class="si">%2F</span><span class="s2">cosp_1000&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2011-02-13&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="s2">&quot;2011-02-14&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;Subset&quot;</span><span class="p">,</span>
-<span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">spice</span>
+
+<span class="n">spice</span><span class="o">.</span><span class="n">furnsh</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mkpath</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -783,8 +1358,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The response of a working request is a zipfile.
-To be able to store that directly into a zipfile object, one needs to switch <code>stream</code> to <code>True</code>:</p>
+<p>Or, with given <code>save_location</code>:</p>
 
 </div>
 </div>
@@ -796,24 +1370,9 @@ To be able to store that directly into a zipfile object, one needs to switch <co
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span><span class="o">.</span><span class="n">ok</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">save_location</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="n">mkpath</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">get_metakernel</span><span class="p">()</span>
+<span class="n">mkpath</span>
 </pre></div>
 
     </div>
@@ -828,7 +1387,7 @@ To be able to store that directly into a zipfile object, one needs to switch <co
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
+<pre>Path(&#39;cas_2011_v17_110213_110214.tm&#39;)</pre>
 </div>
 
 </div>
@@ -839,6 +1398,13 @@ To be able to store that directly into a zipfile object, one needs to switch <co
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The metakernel is correctly adapted, however for these tests, I didn't download the kernels again</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -846,7 +1412,7 @@ To be able to store that directly into a zipfile object, one needs to switch <co
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span><span class="o">.</span><span class="n">status</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat <span class="o">{</span>mkpath<span class="o">}</span>
 </pre></div>
 
     </div>
@@ -858,537 +1424,76 @@ To be able to store that directly into a zipfile object, one needs to switch <co
 
 <div class="output_area">
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>KPL/MK
 
+   This meta-kernel lists a subset of kernels from the meta-kernel
+   cas_2011_v17.tm provided in the CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive,
+   covering the whole or a part of the customer requested time period
+   from 2011-02-13T00:00:00.000 to 2011-02-14T00:00:00.000.
 
-<div class="output_text output_subarea output_execute_result">
-<pre>200</pre>
-</div>
+   The documentation describing these kernels can be found in the
+   complete CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive available at this URL
 
-</div>
+   https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000
 
-</div>
-</div>
+   To use this meta-kernel users may need to modify the value of the
+   PATH_VALUES keyword to point to the actual location of the archive&#39;s
+   ``data&#39;&#39; directory on their system. Replacing ``/&#39;&#39; with ``\&#39;&#39;
+   and converting line terminators to the format native to the user&#39;s
+   system may also be required if this meta-kernel is to be used on a
+   non-UNIX workstation.
 
-</div>
-    {% endraw %}
+   This meta-kernel was created by the NAIF node&#39;s SPICE PDS archive
+   subsetting service version 2.1 on Mon Feb  7 13:25:32 PST 2022.
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+ 
+   \begindata
+ 
+      PATH_VALUES     = (
+                         &#39;.&#39;
+                        )
+ 
+      PATH_SYMBOLS    = (
+                         &#39;KERNELS&#39;
+                        )
+ 
+      KERNELS_TO_LOAD = (
+                         &#39;$KERNELS/lsk/naif0012.tls&#39;
+                         &#39;$KERNELS/pck/pck00010.tpc&#39;
+                         &#39;$KERNELS/fk/cas_rocks_v18.tf&#39;
+                         &#39;$KERNELS/fk/cas_mimi_v202.tf&#39;
+                         &#39;$KERNELS/fk/cas_dyn_v03.tf&#39;
+                         &#39;$KERNELS/fk/cas_v41.tf&#39;
+                         &#39;$KERNELS/ik/cas_caps_v03.ti&#39;
+                         &#39;$KERNELS/ik/cas_cda_v01.ti&#39;
+                         &#39;$KERNELS/ik/cas_cirs_v09.ti&#39;
+                         &#39;$KERNELS/ik/cas_inms_v02.ti&#39;
+                         &#39;$KERNELS/ik/cas_iss_v10.ti&#39;
+                         &#39;$KERNELS/ik/cas_mag_v01.ti&#39;
+                         &#39;$KERNELS/ik/cas_mimi_v11.ti&#39;
+                         &#39;$KERNELS/ik/cas_radar_v11.ti&#39;
+                         &#39;$KERNELS/ik/cas_rpws_v01.ti&#39;
+                         &#39;$KERNELS/ik/cas_rss_v03.ti&#39;
+                         &#39;$KERNELS/ik/cas_sru_v02.ti&#39;
+                         &#39;$KERNELS/ik/cas_uvis_v06.ti&#39;
+                         &#39;$KERNELS/ik/cas_vims_v06.ti&#39;
+                         &#39;$KERNELS/sclk/cas00172.tsc&#39;
+                         &#39;$KERNELS/spk/180927AP_RE_90165_18018.bsp&#39;
+                         &#39;$KERNELS/spk/140809BP_IRRE_00256_25017.bsp&#39;
+                         &#39;$KERNELS/spk/110504R_SCPSE_11041_11093.bsp&#39;
+                         &#39;$KERNELS/ck/11001_12001pa_gapfill_v14.bc&#39;
+                         &#39;$KERNELS/ck/11017_11066py_as_flown.bc&#39;
+                         &#39;$KERNELS/ck/11044_11049ra.bc&#39;
+                         &#39;$KERNELS/ck/cas_cda_20120517.bc&#39;
+                         &#39;$KERNELS/ck/cas_lemms_05109_20001_v2.bc&#39;
+                        )
+ 
+   \begintext
+ 
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span><span class="o">.</span><span class="n">open</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea ">
-<pre><span class="ansi-red-fg">Signature:</span> z<span class="ansi-blue-fg">.</span>open<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;r&#39;</span><span class="ansi-blue-fg">,</span> pwd<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span><span class="ansi-blue-fg">,</span> force_zip64<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-red-fg">Docstring:</span>
-Return file-like object for &#39;name&#39;.
-
-name is a string for the file name within the ZIP file, or a ZipInfo
-object.
-
-mode should be &#39;r&#39; to read a file already in the ZIP file, or &#39;w&#39; to
-write to a file newly added to the archive.
-
-pwd is the password to decrypt files (only used for reading).
-
-When writing, if the file size is not known in advance but may exceed
-2 GiB, pass force_zip64 to use the ZIP64 format, which can handle large
-files.  If the size is known in advance, it is best to pass a ZipInfo
-instance for name, with zinfo.file_size set.
-<span class="ansi-red-fg">File:</span>      ~/miniconda3/envs/py38/lib/python3.8/zipfile.py
-<span class="ansi-red-fg">Type:</span>      method
 </pre>
 </div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">filelist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>zipfile.ZipInfo</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">zipinfo</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">filelist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">zipinfo</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;ZipInfo filename=&#39;cas_2011_v17_110213_110214.tm&#39; compress_type=deflate filemode=&#39;-rw-r--r--&#39; file_size=2897 compress_size=943&gt;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">zipinfo</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;/home/maye/Dropbox/src/nbplanetary/notebooks/cas_2011_v17_110213_110214.tm&#39;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">zipinfo</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>b&#34;KPL/MK\n\n   This meta-kernel lists a subset of kernels from the meta-kernel\n   cas_2011_v17.tm provided in the CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive,\n   covering the whole or a part of the customer requested time period\n   from 2011-02-13T00:00:00.000 to 2011-02-14T00:00:00.000.\n\n   The documentation describing these kernels can be found in the\n   complete CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive available at this URL\n\n   https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000\n\n   To use this meta-kernel users may need to modify the value of the\n   PATH_VALUES keyword to point to the actual location of the archive&#39;s\n   ``data&#39;&#39; directory on their system. Replacing ``/&#39;&#39; with ``\\&#39;&#39;\n   and converting line terminators to the format native to the user&#39;s\n   system may also be required if this meta-kernel is to be used on a\n   non-UNIX workstation.\n\n   This meta-kernel was created by the NAIF node&#39;s SPICE PDS archive\n   subsetting service version 2.1 on Sat Feb  5 12:04:02 PST 2022.\n\n \n   \\begindata\n \n      PATH_VALUES     = (\n                         &#39;./data&#39;\n                        )\n \n      PATH_SYMBOLS    = (\n                         &#39;KERNELS&#39;\n                        )\n \n      KERNELS_TO_LOAD = (\n                         &#39;$KERNELS/lsk/naif0012.tls&#39;\n                         &#39;$KERNELS/pck/pck00010.tpc&#39;\n                         &#39;$KERNELS/fk/cas_rocks_v18.tf&#39;\n                         &#39;$KERNELS/fk/cas_mimi_v202.tf&#39;\n                         &#39;$KERNELS/fk/cas_dyn_v03.tf&#39;\n                         &#39;$KERNELS/fk/cas_v41.tf&#39;\n                         &#39;$KERNELS/ik/cas_caps_v03.ti&#39;\n                         &#39;$KERNELS/ik/cas_cda_v01.ti&#39;\n                         &#39;$KERNELS/ik/cas_cirs_v09.ti&#39;\n                         &#39;$KERNELS/ik/cas_inms_v02.ti&#39;\n                         &#39;$KERNELS/ik/cas_iss_v10.ti&#39;\n                         &#39;$KERNELS/ik/cas_mag_v01.ti&#39;\n                         &#39;$KERNELS/ik/cas_mimi_v11.ti&#39;\n                         &#39;$KERNELS/ik/cas_radar_v11.ti&#39;\n                         &#39;$KERNELS/ik/cas_rpws_v01.ti&#39;\n                         &#39;$KERNELS/ik/cas_rss_v03.ti&#39;\n                         &#39;$KERNELS/ik/cas_sru_v02.ti&#39;\n                         &#39;$KERNELS/ik/cas_uvis_v06.ti&#39;\n                         &#39;$KERNELS/ik/cas_vims_v06.ti&#39;\n                         &#39;$KERNELS/sclk/cas00172.tsc&#39;\n                         &#39;$KERNELS/spk/180927AP_RE_90165_18018.bsp&#39;\n                         &#39;$KERNELS/spk/140809BP_IRRE_00256_25017.bsp&#39;\n                         &#39;$KERNELS/spk/110504R_SCPSE_11041_11093.bsp&#39;\n                         &#39;$KERNELS/ck/11001_12001pa_gapfill_v14.bc&#39;\n                         &#39;$KERNELS/ck/11017_11066py_as_flown.bc&#39;\n                         &#39;$KERNELS/ck/11044_11049ra.bc&#39;\n                         &#39;$KERNELS/ck/cas_cda_20120517.bc&#39;\n                         &#39;$KERNELS/ck/cas_lemms_05109_20001_v2.bc&#39;\n                        )\n \n   \\begintext\n \n\n&#34;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span><span class="o">.</span><span class="n">filelist</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-Input <span class="ansi-green-fg">In [8]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">z</span><span style="color: rgb(98,98,98)">.</span>filelist
-
-<span class="ansi-red-fg">NameError</span>: name &#39;z&#39; is not defined</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-Input <span class="ansi-green-fg">In [28]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span> z <span style="color: rgb(98,98,98)">=</span> zipfile<span style="color: rgb(98,98,98)">.</span>ZipFile(<span class="ansi-yellow-bg">StringIO</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">r</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">content</span><span class="ansi-yellow-bg">)</span>)
-
-<span class="ansi-red-fg">TypeError</span>: initial_value must be str or None, not bytes</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">UnsupportedOperation</span>                      Traceback (most recent call last)
-File <span class="ansi-green-fg">~/miniconda3/envs/py38/lib/python3.8/zipfile.py:1332</span>, in <span class="ansi-cyan-fg">ZipFile._RealGetContents</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1331</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; 1332</span>     endrec <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_EndRecData</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">fp</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1333</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">OSError</span>:
-
-File <span class="ansi-green-fg">~/miniconda3/envs/py38/lib/python3.8/zipfile.py:264</span>, in <span class="ansi-cyan-fg">_EndRecData</span><span class="ansi-blue-fg">(fpin)</span>
-<span class="ansi-green-intense-fg ansi-bold">    263</span> <span style="color: rgb(95,135,135)"># Determine file size</span>
-<span class="ansi-green-fg">--&gt; 264</span> <span class="ansi-yellow-bg">fpin</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">seek</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">0</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">2</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    265</span> filesize <span style="color: rgb(98,98,98)">=</span> fpin<span style="color: rgb(98,98,98)">.</span>tell()
-
-<span class="ansi-red-fg">UnsupportedOperation</span>: seek
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">BadZipFile</span>                                Traceback (most recent call last)
-Input <span class="ansi-green-fg">In [41]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">zipfile</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">ZipFile</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">r</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">raw</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">~/miniconda3/envs/py38/lib/python3.8/zipfile.py:1269</span>, in <span class="ansi-cyan-fg">ZipFile.__init__</span><span class="ansi-blue-fg">(self, file, mode, compression, allowZip64, compresslevel, strict_timestamps)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1267</span> <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-<span class="ansi-green-intense-fg ansi-bold">   1268</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> mode <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">r</span><span style="color: rgb(175,0,0)">&#39;</span>:
-<span class="ansi-green-fg">-&gt; 1269</span>         <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_RealGetContents</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1270</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> mode <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> (<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">w</span><span style="color: rgb(175,0,0)">&#39;</span>, <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">x</span><span style="color: rgb(175,0,0)">&#39;</span>):
-<span class="ansi-green-intense-fg ansi-bold">   1271</span>         <span style="color: rgb(95,135,135)"># set the modified flag so central directory gets written</span>
-<span class="ansi-green-intense-fg ansi-bold">   1272</span>         <span style="color: rgb(95,135,135)"># even if no files are added to the archive</span>
-<span class="ansi-green-intense-fg ansi-bold">   1273</span>         <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_didModify <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>
-
-File <span class="ansi-green-fg">~/miniconda3/envs/py38/lib/python3.8/zipfile.py:1334</span>, in <span class="ansi-cyan-fg">ZipFile._RealGetContents</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1332</span>     endrec <span style="color: rgb(98,98,98)">=</span> _EndRecData(fp)
-<span class="ansi-green-intense-fg ansi-bold">   1333</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">OSError</span>:
-<span class="ansi-green-fg">-&gt; 1334</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> BadZipFile(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">File is not a zip file</span><span style="color: rgb(175,0,0)">&#34;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   1335</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> endrec:
-<span class="ansi-green-intense-fg ansi-bold">   1336</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> BadZipFile(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">File is not a zip file</span><span style="color: rgb(175,0,0)">&#34;</span>)
-
-<span class="ansi-red-fg">BadZipFile</span>: File is not a zip file</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea ">
-<pre>b&#39;PK\x03\x04\x14&#39;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>requests_toolbelt<span class="o">?</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea ">
-<pre><span class="ansi-red-fg">Type:</span>        module
-<span class="ansi-red-fg">String form:</span> &lt;module &#39;requests_toolbelt&#39; from &#39;/home/maye/miniconda3/envs/py38/lib/python3.8/site-packages/requests_toolbelt/__init__.py&#39;&gt;
-<span class="ansi-red-fg">File:</span>        ~/miniconda3/envs/py38/lib/python3.8/site-packages/requests_toolbelt/__init__.py
-<span class="ansi-red-fg">Docstring:</span>  
-requests-toolbelt
-=================
-
-See http://toolbelt.rtfd.org/ for documentation
-
-:copyright: (c) 2014 by Ian Cordasco and Cory Benfield
-:license: Apache v2.0, see LICENSE for more details
-</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>requests.Request<span class="o">?</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea ">
-<pre><span class="ansi-red-fg">Init signature:</span>
-requests<span class="ansi-blue-fg">.</span>Request<span class="ansi-blue-fg">(</span>
-    method<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    url<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    headers<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    files<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    data<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    params<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    auth<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    cookies<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    hooks<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-    json<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-blue-fg">)</span>
-<span class="ansi-red-fg">Docstring:</span>     
-A user-created :class:`Request &lt;Request&gt;` object.
-
-Used to prepare a :class:`PreparedRequest &lt;PreparedRequest&gt;`, which is sent to the server.
-
-:param method: HTTP method to use.
-:param url: URL to send.
-:param headers: dictionary of headers to send.
-:param files: dictionary of {filename: fileobject} files to multipart upload.
-:param data: the body to attach to the request. If a dictionary or
-    list of tuples ``[(key, value)]`` is provided, form-encoding will
-    take place.
-:param json: json for the body to attach to the request (if files or data is not specified).
-:param params: URL parameters to append to the URL. If a dictionary or
-    list of tuples ``[(key, value)]`` is provided, form-encoding will
-    take place.
-:param auth: Auth handler or (user, pass) tuple.
-:param cookies: dictionary or CookieJar of cookies to attach to this request.
-:param hooks: dictionary of callback hooks, for internal usage.
-
-Usage::
-
-  &gt;&gt;&gt; import requests
-  &gt;&gt;&gt; req = requests.Request(&#39;GET&#39;, &#39;https://httpbin.org/get&#39;)
-  &gt;&gt;&gt; req.prepare()
-  &lt;PreparedRequest [GET]&gt;
-<span class="ansi-red-fg">File:</span>           ~/miniconda3/envs/py38/lib/python3.8/site-packages/requests/models.py
-<span class="ansi-red-fg">Type:</span>           type
-<span class="ansi-red-fg">Subclasses:</span>     
-</pre>
-</div>
-
 </div>
 
 </div>
@@ -1401,6 +1506,6 @@ Usage::
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 2, "version_minor": 0}
+{"state": {"0148f293b2e3433eb475ebb4db5f89cd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "060e8d2aa59046d1a08a19b1260a76a7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "168d668f1dc14dffbdbd94a8cf1cfa37": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "19ff2859ff0941d4acd6a38fc80cec68": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_72f205db92b9499eafa11095e9122af2", "IPY_MODEL_463c0a27cd1c478bb42c7d0d554c213a", "IPY_MODEL_a566b820153a49a7884b2b43245f9534"], "layout": "IPY_MODEL_76ee8dc833844bcc85c9b23a46410a9c"}}, "463c0a27cd1c478bb42c7d0d554c213a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_494c415aa32146aab1191e227417dc51", "max": 28, "style": "IPY_MODEL_0148f293b2e3433eb475ebb4db5f89cd", "value": 28}}, "494c415aa32146aab1191e227417dc51": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "5af731252c9a4315812bc96a49c22c39": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "72f205db92b9499eafa11095e9122af2": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_93b55d0d1bbd43bb9839741b202232fb", "style": "IPY_MODEL_5af731252c9a4315812bc96a49c22c39", "value": "Kernels downloaded: 100%"}}, "76ee8dc833844bcc85c9b23a46410a9c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "93b55d0d1bbd43bb9839741b202232fb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "a566b820153a49a7884b2b43245f9534": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_168d668f1dc14dffbdbd94a8cf1cfa37", "style": "IPY_MODEL_060e8d2aa59046d1a08a19b1260a76a7", "value": " 28/28 [00:00&lt;00:00, 837.55it/s]"}}}, "version_major": 2, "version_minor": 0}
 </script>
 

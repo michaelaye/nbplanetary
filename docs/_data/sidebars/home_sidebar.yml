@@ -15,6 +15,9 @@ entries:
     - output: web,pdf
       title: Utils
       url: /utils
+    - output: web,pdf
+      title: SPICE kernels
+      url: /spice.kernels
       subfolders:
       - output: web
         subfolderitems:

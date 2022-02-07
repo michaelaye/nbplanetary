@@ -10,7 +10,7 @@ from importlib.resources import path as resource_path
 from typing import Union
 
 import tomlkit as toml
-from fastcore.utils import AttrDict, Path, dict2obj
+from fastcore.utils import AttrDict, Path
 
 # Cell
 class Config:
