@@ -38,7 +38,7 @@ nb_path: "notebooks/01_utils.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Time-format-strings">Time format strings<a class="anchor-link" href="#Time-format-strings"> </a></h2><p>These are the different format strings these utils convert from and to.</p>
+<h2 id="Time-format-strings">Time format strings<a class="anchor-link" href="#Time-format-strings"> </a></h2><p>First, we define the different format strings these utils convert from and to.</p>
 <p>An identifier with <code>xxx_dt_format_xxx</code> in its name signifies a full <code>datetime</code> format as compared to dates only.</p>
 
 </div>
@@ -51,30 +51,13 @@ nb_path: "notebooks/01_utils.ipynb"
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="nasa_date_to_datetime" class="doc_header"><code>nasa_date_to_datetime</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L44" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nasa_date_to_datetime</code>(<strong><code>datestr</code></strong>:<code>str</code>)</p>
-</blockquote>
-
-</div>
-
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="NASA-date-to-datetime-and-ISO">NASA date to datetime and ISO<a class="anchor-link" href="#NASA-date-to-datetime-and-ISO"> </a></h3><p>What we call NASA data, is the often used <code>YYYY-JJJ</code> based format in the Planetary Data System identifying dates via the running number of the day in the year, e.g. "2010-240".</p>
 
 </div>
 </div>
-
 </div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -93,10 +76,10 @@ nb_path: "notebooks/01_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="nasa_date_to_iso" class="doc_header"><code>nasa_date_to_iso</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nasa_date_to_iso</code>(<strong><code>datestr</code></strong>:<code>str</code>, <strong><code>with_hours</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h4 id="nasa_time_to_datetime" class="doc_header"><code>nasa_time_to_datetime</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L65" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nasa_time_to_datetime</code>(<strong><code>inputstr</code></strong>)</p>
 </blockquote>
 
-<pre><code>Convert the day-number based NASA date format to ISO.</code></pre>
+<pre><code>User function to convert all kinds of NASA PDS datestrings with day_of_year into datetimes.</code></pre>
 
 </div>
 
@@ -115,6 +98,13 @@ nb_path: "notebooks/01_utils.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Example dates and times to test:</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -124,6 +114,12 @@ nb_path: "notebooks/01_utils.ipynb"
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nasa_date</span> <span class="o">=</span> <span class="s2">&quot;2010-110&quot;</span>
 <span class="n">iso_date</span> <span class="o">=</span> <span class="s2">&quot;2010-4-20&quot;</span>
+<span class="n">nasa_datetime</span> <span class="o">=</span> <span class="s2">&quot;2010-110T10:12:14&quot;</span>
+<span class="n">nasa_datetime_with_ms</span> <span class="o">=</span> <span class="n">nasa_datetime</span> <span class="o">+</span> <span class="s2">&quot;.123000&quot;</span>
+<span class="n">iso_datetime</span> <span class="o">=</span> <span class="s2">&quot;2010-04-20T10:12:14&quot;</span>
+<span class="n">iso_datetime_with_ms</span> <span class="o">=</span> <span class="n">iso_datetime</span> <span class="o">+</span> <span class="s2">&quot;.123000&quot;</span>
+<span class="n">nasa_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">nasa_date</span><span class="p">,</span> <span class="n">nasa_datetime</span><span class="p">,</span> <span class="n">nasa_datetime_with_ms</span><span class="p">]</span>
+<span class="n">iso_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">iso_date</span><span class="p">,</span> <span class="n">iso_datetime</span><span class="p">,</span> <span class="n">iso_datetime_with_ms</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -140,26 +136,10 @@ nb_path: "notebooks/01_utils.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nasa_date_to_datetime</span><span class="p">(</span><span class="n">nasa_date</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">nasa_time_to_datetime</span><span class="p">(</span><span class="n">nasa_date</span><span class="p">)</span> <span class="o">==</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>datetime.datetime(2010, 4, 20, 0, 0)</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -173,8 +153,26 @@ nb_path: "notebooks/01_utils.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">nasa_date_to_iso</span><span class="p">(</span><span class="n">nasa_date</span><span class="p">,</span> <span class="n">with_hours</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;2010-04-20T00:00:00&quot;</span>
-<span class="k">assert</span> <span class="n">nasa_date_to_iso</span><span class="p">(</span><span class="n">nasa_date</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;2010-04-20&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">nasa_time_to_datetime</span><span class="p">(</span><span class="n">nasa_datetime</span><span class="p">)</span> <span class="o">==</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">nasa_time_to_datetime</span><span class="p">(</span><span class="n">nasa_datetime_with_ms</span><span class="p">)</span> <span class="o">==</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span>
+    <span class="mi">2010</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">123000</span>
+<span class="p">)</span>
 </pre></div>
 
     </div>
@@ -195,7 +193,155 @@ nb_path: "notebooks/01_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="iso_to_nasa_date" class="doc_header"><code>iso_to_nasa_date</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L62" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iso_to_nasa_date</code>(<strong><code>datestr</code></strong>:<code>str</code>)</p>
+<h4 id="nasa_time_to_iso" class="doc_header"><code>nasa_time_to_iso</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L78" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nasa_time_to_iso</code>(<strong><code>inputstr</code></strong>:<code>str</code>, <strong><code>with_hours</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+</blockquote>
+
+<pre><code>Convert the day-number based NASA datetime format to ISO</code></pre>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Conversions to ISO format, but not providing hours if they are not in input:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nasa_times</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input:&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">nasa_time_to_iso</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input: 2010-110
+2010-04-20
+Input: 2010-110T10:12:14
+2010-04-20T10:12:14
+Input: 2010-110T10:12:14.123000
+2010-04-20T10:12:14.123000
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If hours are wanted in the isostring, use <code>with_hours=True</code>:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nasa_times</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input:&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">nasa_time_to_iso</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">with_hours</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input: 2010-110
+2010-04-20T00:00:00
+Input: 2010-110T10:12:14
+2010-04-20T10:12:14
+Input: 2010-110T10:12:14.123000
+2010-04-20T10:12:14.123000
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">nasa_time_to_iso</span><span class="p">(</span><span class="n">nasa_date</span><span class="p">,</span> <span class="n">with_hours</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;2010-04-20T00:00:00&quot;</span>
+<span class="k">assert</span> <span class="n">nasa_time_to_iso</span><span class="p">(</span><span class="n">nasa_date</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;2010-04-20&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="ISO-date-to-&quot;NASA-format&quot;">ISO date to "NASA-format"<a class="anchor-link" href="#ISO-date-to-&quot;NASA-format&quot;"> </a></h3><p>Again, with NASA-format, we mean the ofen used (in PDS and mission files) YYYY-JJJ format, e.g. "2010-240".</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="iso_to_nasa_time" class="doc_header"><code>iso_to_nasa_time</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iso_to_nasa_time</code>(<strong><code>inputstr</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 <pre><code>Convert iso date to day-number based NASA date.</code></pre>
@@ -220,23 +366,6 @@ nb_path: "notebooks/01_utils.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">iso_to_nasa_date</span><span class="p">(</span><span class="n">iso_date</span><span class="p">)</span> <span class="o">==</span> <span class="n">nasa_date</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -245,80 +374,7 @@ nb_path: "notebooks/01_utils.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="nasa_datetime_to_iso" class="doc_header"><code>nasa_datetime_to_iso</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>nasa_datetime_to_iso</code>(<strong><code>dtimestr</code></strong>:<code>str</code>)</p>
-</blockquote>
-
-<pre><code>Convert the day-number based NASA datetime format to ISO.
-
-Note: This is dateTIME vs `nasa_date_to_iso` which is just DATE.</code></pre>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nasa_datetime</span> <span class="o">=</span> <span class="s2">&quot;2010-110T10:12:14&quot;</span>
-<span class="n">nasa_datetime_with_ms</span> <span class="o">=</span> <span class="n">nasa_datetime</span> <span class="o">+</span> <span class="s2">&quot;.123000&quot;</span>
-<span class="n">iso_datetime</span> <span class="o">=</span> <span class="s2">&quot;2010-04-20T10:12:14&quot;</span>
-<span class="n">iso_datetime_with_ms</span> <span class="o">=</span> <span class="n">iso_datetime</span> <span class="o">+</span> <span class="s2">&quot;.123000&quot;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">nasa_datetime_to_iso</span><span class="p">(</span><span class="n">nasa_datetime</span><span class="p">)</span> <span class="o">==</span> <span class="n">iso_datetime</span>
-<span class="k">assert</span> <span class="n">nasa_datetime_to_iso</span><span class="p">(</span><span class="n">nasa_datetime_with_ms</span><span class="p">)</span> <span class="o">==</span> <span class="n">iso_datetime_with_ms</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="iso_to_nasa_datetime" class="doc_header"><code>iso_to_nasa_datetime</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iso_to_nasa_datetime</code>(<strong><code>dtimestr</code></strong>:<code>str</code>)</p>
+<h4 id="iso_to_nasa_datetime" class="doc_header"><code>iso_to_nasa_datetime</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L114" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iso_to_nasa_datetime</code>(<strong><code>dtimestr</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 <pre><code>Convert iso datetime to day-number based NASA datetime.</code></pre>
@@ -347,8 +403,81 @@ Note: This is dateTIME vs `nasa_date_to_iso` which is just DATE.</code></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">iso_to_nasa_datetime</span><span class="p">(</span><span class="n">iso_datetime</span><span class="p">)</span> <span class="o">==</span> <span class="n">nasa_datetime</span>
-<span class="k">assert</span> <span class="n">iso_to_nasa_datetime</span><span class="p">(</span><span class="n">iso_datetime_with_ms</span><span class="p">)</span> <span class="o">==</span> <span class="n">nasa_datetime_with_ms</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">iso_times</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input:&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iso_to_nasa_time</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Input: 2010-4-20
+2010-110
+Input: 2010-04-20T10:12:14
+2010-110T10:12:14
+Input: 2010-04-20T10:12:14.123000
+2010-110T10:12:14.123000
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">iso_to_nasa_time</span><span class="p">(</span><span class="n">iso_date</span><span class="p">)</span> <span class="o">==</span> <span class="n">nasa_date</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">nasa_time_to_iso</span><span class="p">(</span><span class="n">nasa_datetime</span><span class="p">)</span> <span class="o">==</span> <span class="n">iso_datetime</span>
+<span class="k">assert</span> <span class="n">nasa_time_to_iso</span><span class="p">(</span><span class="n">nasa_datetime_with_ms</span><span class="p">)</span> <span class="o">==</span> <span class="n">iso_datetime_with_ms</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">iso_to_nasa_time</span><span class="p">(</span><span class="n">iso_datetime</span><span class="p">)</span> <span class="o">==</span> <span class="n">nasa_datetime</span>
+<span class="k">assert</span> <span class="n">iso_to_nasa_time</span><span class="p">(</span><span class="n">iso_datetime_with_ms</span><span class="p">)</span> <span class="o">==</span> <span class="n">nasa_datetime_with_ms</span>
 </pre></div>
 
     </div>
@@ -369,7 +498,7 @@ Note: This is dateTIME vs `nasa_date_to_iso` which is just DATE.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="replace_all_nasa_times" class="doc_header"><code>replace_all_nasa_times</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L103" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>replace_all_nasa_times</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
+<h4 id="replace_all_nasa_times" class="doc_header"><code>replace_all_nasa_times</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L130" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>replace_all_nasa_times</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
 </blockquote>
 
 <pre><code>Find all NASA times in dataframe and replace with ISO.
@@ -412,7 +541,7 @@ This will be done for all columns with the word TIME in the column name.</code><
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="parse_http_date" class="doc_header"><code>parse_http_date</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L117" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse_http_date</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
+<h4 id="parse_http_date" class="doc_header"><code>parse_http_date</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L144" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>parse_http_date</code>(<strong><code>text</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 <pre><code>Parse date string retrieved via urllib.request.</code></pre>
@@ -438,7 +567,7 @@ This will be done for all columns with the word TIME in the column name.</code><
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_remote_timestamp" class="doc_header"><code>get_remote_timestamp</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L124" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_remote_timestamp</code>(<strong><code>url</code></strong>:<code>str</code>)</p>
+<h4 id="get_remote_timestamp" class="doc_header"><code>get_remote_timestamp</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L151" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_remote_timestamp</code>(<strong><code>url</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 <pre><code>Get the timestamp of a remote file.
@@ -466,7 +595,7 @@ Useful for checking if there's an updated file available.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="url_retrieve" class="doc_header"><code>url_retrieve</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>url_retrieve</code>(<strong><code>url</code></strong>:<code>str</code>, <strong><code>outfile</code></strong>:<code>str</code>, <strong><code>chunk_size</code></strong>:<code>int</code>=<em><code>128</code></em>)</p>
+<h4 id="url_retrieve" class="doc_header"><code>url_retrieve</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L163" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>url_retrieve</code>(<strong><code>url</code></strong>:<code>str</code>, <strong><code>outfile</code></strong>:<code>str</code>, <strong><code>chunk_size</code></strong>:<code>int</code>=<em><code>128</code></em>)</p>
 </blockquote>
 
 <pre><code>Improved urlretrieve with progressbar, timeout and chunker.
@@ -499,7 +628,7 @@ Inspired by https://stackoverflow.com/a/61575758/680232</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="have_internet" class="doc_header"><code>have_internet</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L165" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>have_internet</code>()</p>
+<h4 id="have_internet" class="doc_header"><code>have_internet</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L192" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>have_internet</code>()</p>
 </blockquote>
 
 <pre><code>Fastest way to check for active internet connection.
@@ -540,7 +669,7 @@ From https://stackoverflow.com/a/29854274/680232</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="height_from_shadow" class="doc_header"><code>height_from_shadow</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L180" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>height_from_shadow</code>(<strong><code>shadow_in_pixels</code></strong>:<code>float</code>, <strong><code>sun_elev</code></strong>:<code>float</code>)</p>
+<h4 id="height_from_shadow" class="doc_header"><code>height_from_shadow</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L207" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>height_from_shadow</code>(<strong><code>shadow_in_pixels</code></strong>:<code>float</code>, <strong><code>sun_elev</code></strong>:<code>float</code>)</p>
 </blockquote>
 
 <pre><code>Calculate height of an object from its shadow length.
@@ -569,7 +698,7 @@ You need to correct `shadow_in_pixels` for that.</code></pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_gdal_center_coords" class="doc_header"><code>get_gdal_center_coords</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L192" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_gdal_center_coords</code>(<strong><code>imgpath</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>])</p>
+<h4 id="get_gdal_center_coords" class="doc_header"><code>get_gdal_center_coords</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L219" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_gdal_center_coords</code>(<strong><code>imgpath</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>])</p>
 </blockquote>
 
 <pre><code>Get center rows/cols pixel coordinate for GDAL-readable dataset.
@@ -597,7 +726,7 @@ Check CLI `gdalinfo --formats` to see all formats that GDAL can open.</code></pr
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="file_variations" class="doc_header"><code>file_variations</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L208" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>file_variations</code>(<strong><code>filename</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>], <strong><code>extensions</code></strong>:<code>list</code>)</p>
+<h4 id="file_variations" class="doc_header"><code>file_variations</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/utils.py#L235" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>file_variations</code>(<strong><code>filename</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>], <strong><code>extensions</code></strong>:<code>list</code>)</p>
 </blockquote>
 
 <pre><code>Create a variation of file names.

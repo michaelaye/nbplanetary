@@ -55,17 +55,16 @@ nb_path: "notebooks/00_config.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Config" class="doc_header"><code>class</code> <code>Config</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/config.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config</code>(<strong><code>config_path</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
 </blockquote>
-
-<pre><code>Manage config stuff.
-
-Attributes
--------
-path: pathlib.Path
-
-The key, value pairs found in the config file become attributes of the
+<p>Manage config stuff.</p>
+<h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p>path: pathlib.Path</p>
+<p>The key, value pairs found in the config file become attributes of the
 class instance after initialization.
-At minimum, there should be the `storage_root` attribute for storing data
-for this package.</code></pre>
+At minimum, there should be the <a href="/nbplanetary/cassini_iss.html#storage_root"><code>storage_root</code></a> attribute for storing data
+for this package.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>config_path</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em>    <p>str or pathlib.Path</p></li>
+</ul>
 
 </div>
 
@@ -274,34 +273,29 @@ for this package.</code></pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>- storage_root: /home/maye/big_drive/planetary_data
+<pre>- storage_root: /Users/klay6683/Dropbox/data
 - missions: 
   - cassini: 
     - iss: 
       - indexes: 
         - index: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_index.lbl
-          - timestamp: 2021-07-01T09:40:52.134251
         - inventory: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_inventory.lbl
         - moon_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_moon_summary.lbl
-          - timestamp: 2021-07-23T22:11:38.904571
         - ring_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_ring_summary.lbl
-          - timestamp: 2021-07-01T09:47:46.753035
         - saturn_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COISS_2xxx/COISS_2999/COISS_2999_saturn_summary.lbl
     - uvis: 
       - indexes: 
         - index: 
           - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_index.lbl
-          - timestamp: 2021-07-15T12:20:15.880577
         - moon_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_moon_summary.lbl
         - ring_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_ring_summary.lbl
-          - timestamp: 2021-07-15T22:21:02.631803
         - saturn_summary: 
           - url: https://pds-rings.seti.org/holdings/metadata/COUVIS_0xxx/COUVIS_0999/COUVIS_0999_saturn_summary.lbl
         - supplemental_index: 
@@ -317,12 +311,10 @@ for this package.</code></pre>
           - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/EDRCUMINDEX.LBL
         - rdr: 
           - url: https://hirise-pds.lpl.arizona.edu/PDS/INDEX/RDRCUMINDEX.LBL
-          - timestamp: 2021-10-06T00:25:01
     - ctx: 
       - indexes: 
         - edr: 
           - url: 
-          - timestamp: 2021-06-29T20:33:31
   - lro: 
     - diviner: 
       - indexes: 
@@ -469,10 +461,8 @@ Using an object approach enables easy growth and nesting over time.
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.read_config" class="doc_header"><code>Config.read_config</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/config.py#L47" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.read_config</code>()</p>
 </blockquote>
-
-<pre><code>Read the configfile and store config dict.
-
-`storage_root` will be stored as attribute.</code></pre>
+<p>Read the configfile and store config dict.</p>
+<p><a href="/nbplanetary/cassini_iss.html#storage_root"><code>storage_root</code></a> will be stored as attribute.</p>
 
 </div>
 
@@ -497,8 +487,11 @@ Using an object approach enables easy growth and nesting over time.
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.get_value" class="doc_header"><code>Config.get_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/config.py#L63" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.get_value</code>(<strong><code>key</code></strong>:<code>str</code>)</p>
 </blockquote>
-
-<pre><code>Get sub-dictionary by nested key.</code></pre>
+<p>Get sub-dictionary by nested key.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>key</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>A nested key in dotted format, e.g. cassini.uvis.indexes</p></li>
+</ul>
 
 </div>
 
@@ -574,8 +567,17 @@ Using an object approach enables easy growth and nesting over time.
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.set_value" class="doc_header"><code>Config.set_value</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/config.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.set_value</code>(<strong><code>nested_key</code></strong>:<code>str</code>, <strong><code>value</code></strong>:<code>Union</code>[<code>float</code>, <code>str</code>], <strong><code>save</code></strong>:<code>bool</code>=<em><code>True</code></em>)</p>
 </blockquote>
-
-<pre><code>Set value in sub-dic using dotted key.</code></pre>
+<p>Set value in sub-dic using dotted key.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>nested_key</code></strong> : <em><code>&lt;class 'str'&gt;</code></em> <p>A nested key in dotted format, e.g. cassini.uvis.ring_summary</p></li>
+</ul>
+<ul>
+<li><strong><code>value</code></strong> : <em><code>typing.Union[float, str]</code></em>   <p>Value for the given key to be stored</p></li>
+</ul>
+<ul>
+<li><strong><code>save</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>  <p>Switch to control writing out to disk</p></li>
+</ul>
 
 </div>
 
@@ -600,8 +602,7 @@ Using an object approach enables easy growth and nesting over time.
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.save" class="doc_header"><code>Config.save</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/config.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.save</code>()</p>
 </blockquote>
-
-<pre><code>Write the TOML doc to file.</code></pre>
+<p>Write the TOML doc to file.</p>
 
 </div>
 
@@ -660,12 +661,10 @@ Using an object approach enables easy growth and nesting over time.
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="Config.ask_storage_root" class="doc_header"><code>Config.ask_storage_root</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/config.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Config.ask_storage_root</code>()</p>
 </blockquote>
-
-<pre><code>Use input() to ask user for the storage_root path.
-
-The path will be stored in the TOML-dict and saved into existing config file
-at `Class.path`, either default or as given during init.
-`storage_root` attribute is set as well.</code></pre>
+<p>Use input() to ask user for the storage_root path.</p>
+<p>The path will be stored in the TOML-dict and saved into existing config file
+at <code>Class.path</code>, either default or as given during init.
+<a href="/nbplanetary/cassini_iss.html#storage_root"><code>storage_root</code></a> attribute is set as well.</p>
 
 </div>
 
