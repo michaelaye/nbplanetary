@@ -658,6 +658,13 @@ Here we set up a table of the currently supported datasets:</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> this should fail: </strong></p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -681,17 +688,17 @@ Here we set up a table of the currently supported datasets:</p>
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-Input <span class="ansi-green-fg">In [38]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">Subsetter</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">cassini</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">2019-01-01</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">)</span>
 
-Input <span class="ansi-green-fg">In [34]</span>, in <span class="ansi-cyan-fg">Subsetter.__init__</span><span class="ansi-blue-fg">(self, mission, start, stop, save_location)</span>
+Input <span class="ansi-green-fg">In [10]</span>, in <span class="ansi-cyan-fg">Subsetter.__init__</span><span class="ansi-blue-fg">(self, mission, start, stop, save_location)</span>
 <span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">__init__</span>(<span style="color: rgb(0,135,0)">self</span>, mission, start, stop<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, save_location<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>):
 <span class="ansi-green-intense-fg ansi-bold">     11</span>     store_attr()
 <span class="ansi-green-fg">---&gt; 12</span>     payload <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_get_payload</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">     13</span>     r <span style="color: rgb(98,98,98)">=</span> requests<span style="color: rgb(98,98,98)">.</span>get(base_url, params<span style="color: rgb(98,98,98)">=</span>payload, stream<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
 <span class="ansi-green-intense-fg ansi-bold">     14</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> r<span style="color: rgb(98,98,98)">.</span>ok:
 
-Input <span class="ansi-green-fg">In [34]</span>, in <span class="ansi-cyan-fg">Subsetter._get_payload</span><span class="ansi-blue-fg">(self)</span>
+Input <span class="ansi-green-fg">In [10]</span>, in <span class="ansi-cyan-fg">Subsetter._get_payload</span><span class="ansi-blue-fg">(self)</span>
 <span class="ansi-green-intense-fg ansi-bold">     52</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;Put payload together while checking for working time format.</span>
 <span class="ansi-green-intense-fg ansi-bold">     53</span> 
 <span class="ansi-green-intense-fg ansi-bold">     54</span> <span style="color: rgb(175,0,0)">If Time(self.start) doesn&#39;t work, then we assume that the date must be in the</span>
@@ -1273,7 +1280,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
    non-UNIX workstation.
 
    This meta-kernel was created by the NAIF node&#39;s SPICE PDS archive
-   subsetting service version 2.1 on Mon Feb  7 13:25:32 PST 2022.
+   subsetting service version 2.1 on Mon Feb  7 14:14:10 PST 2022.
 
  
    \begindata
@@ -1445,7 +1452,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
    non-UNIX workstation.
 
    This meta-kernel was created by the NAIF node&#39;s SPICE PDS archive
-   subsetting service version 2.1 on Mon Feb  7 13:25:32 PST 2022.
+   subsetting service version 2.1 on Mon Feb  7 14:14:10 PST 2022.
 
  
    \begindata
@@ -1502,10 +1509,176 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="User-functions">User functions<a class="anchor-link" href="#User-functions"> </a></h2>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_metakernel_and_files</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">save_location</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">Subsetter</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">save_location</span><span class="p">)</span>
+    <span class="n">subset</span><span class="o">.</span><span class="n">download_kernels</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">subset</span><span class="o">.</span><span class="n">get_metakernel</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mkpath</span> <span class="o">=</span> <span class="n">get_metakernel_and_files</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-02-13&quot;</span><span class="p">,</span> <span class="s2">&quot;2011-02-14&quot;</span><span class="p">)</span>
+<span class="n">mkpath</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ck 11001_12001pa_gapfill_v14.bc locally available.
+ck 11017_11066py_as_flown.bc locally available.
+ck 11044_11049ra.bc locally available.
+ck cas_cda_20120517.bc locally available.
+ck cas_lemms_05109_20001_v2.bc locally available.
+fk cas_dyn_v03.tf locally available.
+fk cas_mimi_v202.tf locally available.
+fk cas_rocks_v18.tf locally available.
+fk cas_v41.tf locally available.
+ik cas_caps_v03.ti locally available.
+ik cas_cda_v01.ti locally available.
+ik cas_cirs_v09.ti locally available.
+ik cas_inms_v02.ti locally available.
+ik cas_iss_v10.ti locally available.
+ik cas_mag_v01.ti locally available.
+ik cas_mimi_v11.ti locally available.
+ik cas_radar_v11.ti locally available.
+ik cas_rpws_v01.ti locally available.
+ik cas_rss_v03.ti locally available.
+ik cas_sru_v02.ti locally available.
+ik cas_uvis_v06.ti locally available.
+ik cas_vims_v06.ti locally available.
+lsk naif0012.tls locally available.
+pck pck00010.tpc locally available.
+sclk cas00172.tsc locally available.
+spk 110504R_SCPSE_11041_11093.bsp locally available.
+spk 140809BP_IRRE_00256_25017.bsp locally available.
+spk 180927AP_RE_90165_18018.bsp locally available.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Path(&#39;/home/maye/big_drive/planetary_data/spice_kernels/cassini/cas_2011_v17_110213_110214.tm&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">list_kernels_for_day</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">Subsetter</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">subset</span><span class="o">.</span><span class="n">kernel_names</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_kernels_for_day</span><span class="p">(</span><span class="s2">&quot;mro&quot;</span><span class="p">,</span> <span class="s2">&quot;2015-02-13&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[Path(&#39;ck/mro_crm_psp_150201_150228.bc&#39;),
+ Path(&#39;ck/mro_hga_psp_150210_150216_v2.bc&#39;),
+ Path(&#39;ck/mro_mcs_psp_150201_150228.bc&#39;),
+ Path(&#39;ck/mro_sa_psp_150210_150216_v2.bc&#39;),
+ Path(&#39;ck/mro_sc_psp_150210_150216_v2.bc&#39;),
+ Path(&#39;fk/mro_v16.tf&#39;),
+ Path(&#39;ik/mro_crism_v10.ti&#39;),
+ Path(&#39;ik/mro_ctx_v11.ti&#39;),
+ Path(&#39;ik/mro_hirise_v12.ti&#39;),
+ Path(&#39;ik/mro_marci_v10.ti&#39;),
+ Path(&#39;ik/mro_mcs_v10.ti&#39;),
+ Path(&#39;ik/mro_onc_v10.ti&#39;),
+ Path(&#39;lsk/naif0012.tls&#39;),
+ Path(&#39;pck/pck00008.tpc&#39;),
+ Path(&#39;sclk/mro_sclkscet_00095_65536.tsc&#39;),
+ Path(&#39;spk/de421.bsp&#39;),
+ Path(&#39;spk/mar097.bsp&#39;),
+ Path(&#39;spk/mro_psp34.bsp&#39;),
+ Path(&#39;spk/mro_psp34_ssd_mro95a.bsp&#39;),
+ Path(&#39;spk/mro_struct_v10.bsp&#39;)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 </div>
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"0148f293b2e3433eb475ebb4db5f89cd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "060e8d2aa59046d1a08a19b1260a76a7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "168d668f1dc14dffbdbd94a8cf1cfa37": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "19ff2859ff0941d4acd6a38fc80cec68": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_72f205db92b9499eafa11095e9122af2", "IPY_MODEL_463c0a27cd1c478bb42c7d0d554c213a", "IPY_MODEL_a566b820153a49a7884b2b43245f9534"], "layout": "IPY_MODEL_76ee8dc833844bcc85c9b23a46410a9c"}}, "463c0a27cd1c478bb42c7d0d554c213a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_494c415aa32146aab1191e227417dc51", "max": 28, "style": "IPY_MODEL_0148f293b2e3433eb475ebb4db5f89cd", "value": 28}}, "494c415aa32146aab1191e227417dc51": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "5af731252c9a4315812bc96a49c22c39": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "72f205db92b9499eafa11095e9122af2": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_93b55d0d1bbd43bb9839741b202232fb", "style": "IPY_MODEL_5af731252c9a4315812bc96a49c22c39", "value": "Kernels downloaded: 100%"}}, "76ee8dc833844bcc85c9b23a46410a9c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "93b55d0d1bbd43bb9839741b202232fb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "a566b820153a49a7884b2b43245f9534": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_168d668f1dc14dffbdbd94a8cf1cfa37", "style": "IPY_MODEL_060e8d2aa59046d1a08a19b1260a76a7", "value": " 28/28 [00:00&lt;00:00, 837.55it/s]"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"021d88b13ce54ba1be5924f221e712d0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_ae29d4329e8d4141b59730b07191300a", "IPY_MODEL_52486d4c0aa4401296f6e13303d6703b", "IPY_MODEL_f0acbf97a21844838a06bf2e4c6efc73"], "layout": "IPY_MODEL_d17e9122d16f40edaaf79ca2e29bdb49"}}, "15290b53cd7749448d63318833bd6cad": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "234deef991444084b9581327e7b32147": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "419221b5d93044e3a8ecec3e778674aa": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "4a25e70e35bd4eeeae2cd3fa6a959a81": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "52486d4c0aa4401296f6e13303d6703b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_6e854a74213b420aaea17d26d31259af", "max": 28, "style": "IPY_MODEL_8ab41211b8d7410580a0b42cd95cebdf", "value": 28}}, "6a82826333bf416c97a49aa50b33eda8": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "6e854a74213b420aaea17d26d31259af": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "86d31c67aaf148e5b60487e870c27731": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_4a25e70e35bd4eeeae2cd3fa6a959a81", "max": 28, "style": "IPY_MODEL_bdf379af26974311942ccb025977bcfc", "value": 28}}, "8ab41211b8d7410580a0b42cd95cebdf": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "ae29d4329e8d4141b59730b07191300a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_df6678e971054f7485bd616bea4f7efb", "style": "IPY_MODEL_e558ea93957c4132bf3c81b9a46b8efc", "value": "Kernels downloaded: 100%"}}, "aef6fe51ba10423196d4e1a9fac0d3bf": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "af6a8645a2de432099305a50ba35f18e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_234deef991444084b9581327e7b32147", "style": "IPY_MODEL_ea8df910ce884494bd9c05a9cb6e39f2", "value": "Kernels downloaded: 100%"}}, "bdf379af26974311942ccb025977bcfc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "cf5f8fad537f46fe9b0fb1ee183141ab": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_d0c174797ea944caae85823d14d53a05", "style": "IPY_MODEL_15290b53cd7749448d63318833bd6cad", "value": " 28/28 [00:00&lt;00:00, 1039.65it/s]"}}, "d0c174797ea944caae85823d14d53a05": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d17e9122d16f40edaaf79ca2e29bdb49": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "df6678e971054f7485bd616bea4f7efb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "e558ea93957c4132bf3c81b9a46b8efc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "ea8df910ce884494bd9c05a9cb6e39f2": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "f0acbf97a21844838a06bf2e4c6efc73": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_aef6fe51ba10423196d4e1a9fac0d3bf", "style": "IPY_MODEL_419221b5d93044e3a8ecec3e778674aa", "value": " 28/28 [00:00&lt;00:00, 745.61it/s]"}}, "fefe9d5e21014efd8c23ed48e7b079ba": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_af6a8645a2de432099305a50ba35f18e", "IPY_MODEL_86d31c67aaf148e5b60487e870c27731", "IPY_MODEL_cf5f8fad537f46fe9b0fb1ee183141ab"], "layout": "IPY_MODEL_6a82826333bf416c97a49aa50b33eda8"}}}, "version_major": 2, "version_minor": 0}
 </script>
 
