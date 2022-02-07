@@ -92,7 +92,13 @@ class Subsetter:
     kernel_names: List of
     """
 
-    def __init__(self, mission, start, stop=None, save_location=None):
+    def __init__(
+        self,
+        mission: str,  # mission shorthand in datasets dataframe
+        start: str,  # start time in either ISO or yyyy-jjj format
+        stop=None,  # stop time in either ISO or yyyy-jjj format
+        save_location=None,  # overwrite default storing in planetarpy archive
+    ):
         store_attr()
         payload = self._get_payload()
         r = requests.get(base_url, params=payload, stream=True)
