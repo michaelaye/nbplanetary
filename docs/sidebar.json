@@ -3,6 +3,7 @@
         "Overview": "/",
         "Config": "/config",
         "Utils": "/utils",
+        "SPICE kernels": "/spice.kernels"
         "": {
             "PDS" : {
                 "PDS Indexes": "/pds.indexes",
