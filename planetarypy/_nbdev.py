@@ -87,7 +87,9 @@ index = {"Config": "00_config.ipynb",
          "datasets": "10_spice.kernels.ipynb",
          "is_start_valid": "10_spice.kernels.ipynb",
          "is_stop_valid": "10_spice.kernels.ipynb",
-         "Subsetter": "10_spice.kernels.ipynb"}
+         "Subsetter": "10_spice.kernels.ipynb",
+         "get_metakernel_and_files": "10_spice.kernels.ipynb",
+         "list_kernels_for_day": "10_spice.kernels.ipynb"}
 
 modules = ["config.py",
            "utils.py",
