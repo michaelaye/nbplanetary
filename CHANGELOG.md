@@ -2,6 +2,15 @@
 
 <!-- do not remove -->
 
+## 0.21.1
+
+
+### Bugs Squashed
+
+- User functions not exported to library ([#8](https://github.com/michaelaye/nbplanetary/issues/8))
+  - I forgot the #export line in the cells with the user functions.
+
+
 
 ## 0.21.0
 

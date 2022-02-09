@@ -34,10 +34,10 @@ nb_path: "notebooks/04_hirise.ipynb"
 
 
 
-<div id="5964b5a4-57eb-4696-8fc9-45c2b5ee70f2"></div>
+<div id="f37b0e0f-e6a0-42c8-926c-78d055cb8b4c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#5964b5a4-57eb-4696-8fc9-45c2b5ee70f2');
+var element = $('#f37b0e0f-e6a0-42c8-926c-78d055cb8b4c');
 
 (function(root) {
   function now() {
@@ -1687,10 +1687,10 @@ var element = $('#5964b5a4-57eb-4696-8fc9-45c2b5ee70f2');
 
 
 
-<div id="894070bc-77bc-4b48-836b-9e70e5e2a278"></div>
+<div id="dbe4f3c5-32b8-401b-90cc-198569eefd22"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#894070bc-77bc-4b48-836b-9e70e5e2a278');
+var element = $('#dbe4f3c5-32b8-401b-90cc-198569eefd22');
 
 if ((window.PyViz === undefined) || (window.PyViz instanceof HTMLElement)) {
   window.PyViz = {comms: {}, comm_status:{}, kernels:{}, receivers: {}, plot_index: []}
@@ -2000,18 +2000,16 @@ if (window.Jupyter !== undefined) {
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="OBSERVATION_ID" class="doc_header"><code>class</code> <code>OBSERVATION_ID</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L30" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OBSERVATION_ID</code>(<strong><code>obsid</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-
-<pre><code>Manage HiRISE observation ids.
-
-For example PSP_003092_0985.
-
-`phase` is set to PSP for orbits &lt; 11000, no setting required.
-
-Parameters
-----------
-obsid : str, optional
+<p>Manage HiRISE observation ids.</p>
+<p>For example PSP_003092_0985.</p>
+<p><code>phase</code> is set to PSP for orbits &lt; 11000, no setting required.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>obsid : str, optional
     One can optionally also create an 'empty' OBSERVATION_ID object and set the
-    properties accordingly to create a new obsid.</code></pre>
+    properties accordingly to create a new obsid.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>obsid</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></li>
+</ul>
 
 </div>
 
@@ -2161,6 +2159,10 @@ obsid : str, optional
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="check_url_exists" class="doc_header"><code>check_url_exists</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L106" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_url_exists</code>(<strong><code>url</code></strong>)</p>
 </blockquote>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>url</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
 
 </div>
 
@@ -2190,23 +2192,19 @@ obsid : str, optional
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PRODUCT_ID" class="doc_header"><code>class</code> <code>PRODUCT_ID</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L114" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PRODUCT_ID</code>(<strong><code>initstr</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="ProductPathfinder" class="doc_header"><code>class</code> <code>ProductPathfinder</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L114" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProductPathfinder</code>(<strong><code>initstr</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-
-<pre><code>Manage storage paths for HiRISE RDR products (also EXTRAS.)
-
-Attributes `jp2_path` and `label_path` get you the official RDR product,
-with `kind` steering if you get the COLOR or the RED product.
-All other properties go to the RDR/EXTRAS folder.
-
-Parameters
-----------
-initstr : str, optional
-    PRODUCT_ID string like PSP_003902_0985_RED
-
-Note
-----
-The "PDS" part of the path is handled in the OBSERVATION_ID class.</code></pre>
+<p>Determine paths and URLs for HiRISE RDR products (also EXTRAS.)</p>
+<p>Attributes <code>jp2_path</code> and <code>label_path</code> get you the official RDR mosaic product,
+with <code>kind</code> steering if you get the COLOR or the RED product.
+All other properties go to the RDR/EXTRAS folder.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p>initstr : str, optional
+    PRODUCT_ID string like PSP_003902_0985_RED</p>
+<h2 id="Note">Note<a class="anchor-link" href="#Note"> </a></h2><p>The "PDS" part of the path is handled in the OBSERVATION_ID class.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>initstr</code></strong> : <em><code>&lt;class 'NoneType'&gt;</code></em>, <em>optional</em></li>
+</ul>
 
 </div>
 
@@ -2614,8 +2612,12 @@ https://hirise-pds.lpl.arizona.edu/download/PDS/EXTRAS/RDR/ESP/ORB_056500_056599
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RGB_NOMAP" class="doc_header"><code>class</code> <code>RGB_NOMAP</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L276" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGB_NOMAP</code>(<strong><code>obsid</code></strong>)</p>
+<h2 id="RGB_NOMAP" class="doc_header"><code>class</code> <code>RGB_NOMAP</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L278" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGB_NOMAP</code>(<strong><code>obsid</code></strong>)</p>
 </blockquote>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>obsid</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
 
 </div>
 
@@ -4105,10 +4107,13 @@ Name: 110332, dtype: object</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RGB_NOMAPCollection" class="doc_header"><code>class</code> <code>RGB_NOMAPCollection</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L348" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGB_NOMAPCollection</code>(<strong><code>obsids</code></strong>)</p>
+<h2 id="RGB_NOMAPCollection" class="doc_header"><code>class</code> <code>RGB_NOMAPCollection</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/hirise.py#L350" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RGB_NOMAPCollection</code>(<strong><code>obsids</code></strong>)</p>
 </blockquote>
-
-<pre><code>Class to deal with a set of RGB_NOMAP products.</code></pre>
+<p>Class to deal with a set of RGB_NOMAP products.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>obsids</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
 
 </div>
 
