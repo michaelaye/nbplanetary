@@ -49,8 +49,13 @@ nb_path: "notebooks/02f_pds.utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="IndexLabel" class="doc_header"><code>class</code> <code>IndexLabel</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L15" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>IndexLabel</code>(<strong><code>labelpath</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>])</p>
 </blockquote>
-
-<pre><code>Support working with label files of PDS Index tables.</code></pre>
+<p>Support working with label files of PDS Index tables.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>labelpath</code></strong> : <em><code>typing.Union[str, pathlib.Path]</code></em>    <p>Path to the labelfile for a PDS Indexfile.
+The actual table should reside in the same folder to be automatically parsed
+when calling the `read_index_data` method.</p></li>
+</ul>
 
 </div>
 
@@ -82,11 +87,20 @@ nb_path: "notebooks/02f_pds.utils.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="index_to_df" class="doc_header"><code>index_to_df</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L89" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>index_to_df</code>(<strong><code>indexpath</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>], <strong><code>label</code></strong>:<a href="/nbplanetary/pds.utils.html#IndexLabel"><code>IndexLabel</code></a>, <strong><code>convert_times</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
-
-<pre><code>The main reader function for PDS Indexfiles.
-
-In conjunction with an IndexLabel object that figures out the column widths,
-this reader should work for all PDS TAB files.</code></pre>
+<p>The main reader function for PDS Indexfiles.</p>
+<p>In conjunction with an IndexLabel object that figures out the column widths,
+this reader should work for all PDS TAB files.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>indexpath</code></strong> : <em><code>typing.Union[str, pathlib.Path]</code></em>    <p>Path to the index TAB file</p></li>
+</ul>
+<ul>
+<li><strong><code>label</code></strong> : <em><code>&lt;class 'planetarypy.pds.utils.IndexLabel'&gt;</code></em> <p>Label object that has both the column names and the columns widths as attributes
+'colnames' and 'colspecs'</p></li>
+</ul>
+<ul>
+<li><strong><code>convert_times</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em> <p>Switch to control if to convert columns with "TIME" in name (unless COUNT is as well in name) to datetime</p></li>
+</ul>
 
 </div>
 
@@ -118,8 +132,11 @@ this reader should work for all PDS TAB files.</code></pre>
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="PVLColumn" class="doc_header"><code>class</code> <code>PVLColumn</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L123" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>PVLColumn</code>(<strong><code>pvlobj</code></strong>)</p>
 </blockquote>
-
-<pre><code>Manages just one of the columns in a table that is described via PVL.</code></pre>
+<p>Manages just one of the columns in a table that is described via PVL.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>pvlobj</code></strong> : <em><code>&lt;class 'inspect._empty'&gt;</code></em></li>
+</ul>
 
 </div>
 
@@ -151,8 +168,14 @@ this reader should work for all PDS TAB files.</code></pre>
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="decode_line" class="doc_header"><code>decode_line</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L189" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>decode_line</code>(<strong><code>linedata</code></strong>:<code>str</code>, <strong><code>labelpath</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>])</p>
 </blockquote>
-
-<pre><code>Decode one line of tabbed data with the appropriate label file.</code></pre>
+<p>Decode one line of tabbed data with the appropriate label file.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>linedata</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>   <p>One line of a .tab data file</p></li>
+</ul>
+<ul>
+<li><strong><code>labelpath</code></strong> : <em><code>typing.Union[str, pathlib.Path]</code></em></li>
+</ul>
 
 </div>
 
@@ -184,11 +207,20 @@ this reader should work for all PDS TAB files.</code></pre>
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="find_mixed_type_cols" class="doc_header"><code>find_mixed_type_cols</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L202" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>find_mixed_type_cols</code>(<strong><code>df</code></strong>:<code>DataFrame</code>, <strong><code>fix</code></strong>:<code>bool</code>=<em><code>True</code></em>)</p>
 </blockquote>
-
-<pre><code>For a given dataframe, find the columns that are of mixed type.
-
-Tool to help with the performance warning when trying to save a pandas DataFrame as a HDF.
-When a column changes datatype somewhere, pickling occurs, slowing down the reading process of the HDF file.</code></pre>
+<p>For a given dataframe, find the columns that are of mixed type.</p>
+<p>Tool to help with the performance warning when trying to save a pandas DataFrame as a HDF.
+When a column changes datatype somewhere, pickling occurs, slowing down the reading process of the HDF file.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>df</code></strong> : <em><code>&lt;class 'pandas.core.frame.DataFrame'&gt;</code></em> <p>Dataframe to be searched for mixed data-types</p></li>
+</ul>
+<ul>
+<li><strong><code>fix</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em>   <p>Switch to control if NaN values in these problem columns should be replaced by the string 'UNKNOWN'</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'list'&gt;</code></em>   <p>List of column names that have data type changes within themselves.</p></li>
+</ul>
 
 </div>
 
@@ -220,13 +252,18 @@ When a column changes datatype somewhere, pickling occurs, slowing down the read
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="fix_hirise_edrcumindex" class="doc_header"><code>fix_hirise_edrcumindex</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/pds/utils.py#L225" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>fix_hirise_edrcumindex</code>(<strong><code>infname</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>], <strong><code>outfname</code></strong>:<code>Union</code>[<code>str</code>, <code>Path</code>])</p>
 </blockquote>
-
-<pre><code>Fix HiRISE EDRCUMINDEX.
-
-The HiRISE EDRCUMINDEX has some broken lines where the SCAN_EXPOSURE_DURATION is of format
+<p>Fix HiRISE EDRCUMINDEX.</p>
+<p>The HiRISE EDRCUMINDEX has some broken lines where the SCAN_EXPOSURE_DURATION is of format
 F10.4 instead of the defined F9.4.
 This function simply replaces those incidences with one less decimal fraction, so 20000.0000
-becomes 20000.000.</code></pre>
+becomes 20000.000.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>infname</code></strong> : <em><code>typing.Union[str, pathlib.Path]</code></em>  <p>Path to broken EDRCUMINDEX.TAB</p></li>
+</ul>
+<ul>
+<li><strong><code>outfname</code></strong> : <em><code>typing.Union[str, pathlib.Path]</code></em> <p>Path where to store the fixed TAB file</p></li>
+</ul>
 
 </div>
 
