@@ -33,7 +33,10 @@ nb_path: "notebooks/10_spice.kernels.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Intro">Intro<a class="anchor-link" href="#Intro"> </a></h2><p>We create tools here to receive:</p>
 <ul>
-<li>the list of supported datasets for automatic retrieval of archived SPICE kernels</li>
+<li>the list of supported datasets for automatic retrieval of archived SPICE kernels<ul>
+<li>The supported datasets are tabled here at NAIF: <a href="https://naif.jpl.nasa.gov/naif/data_archived.html">https://naif.jpl.nasa.gov/naif/data_archived.html</a></li>
+</ul>
+</li>
 <li>the list of required SPICE kernels for a given mission and date-range</li>
 <li>the automatic download of kernels either into a given location or the <code>planetarypy</code> local archive.</li>
 </ul>
@@ -421,6 +424,14 @@ Here we set up a table of the currently supported datasets:</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Receive this datafram via <code>from planetarypy.spice.kernels import datasets</code></p>
+</blockquote>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -463,7 +474,7 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="is_stop_valid" class="doc_header"><code>is_stop_valid</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L77" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_stop_valid</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>Time</code>)</p>
+<h4 id="is_stop_valid" class="doc_header"><code>is_stop_valid</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L78" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_stop_valid</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>Time</code>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -548,7 +559,7 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subsetter" class="doc_header"><code>class</code> <code>Subsetter</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L87" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subsetter</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>=<em><code>None</code></em>, <strong><code>save_location</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="Subsetter" class="doc_header"><code>class</code> <code>Subsetter</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L88" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subsetter</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>=<em><code>None</code></em>, <strong><code>save_location</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Class to manage retrieving subset SPICE kernel lists</p>
 <h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p>kernel_names: List of</p>
@@ -622,34 +633,34 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[Path(&#39;ck/14001_15001pa_gapfill_v14.bc&#39;),
- Path(&#39;ck/14212_14279py_as_flown.bc&#39;),
- Path(&#39;ck/14268_14273ra.bc&#39;),
- Path(&#39;ck/cas_cda_20150318.bc&#39;),
- Path(&#39;ck/cas_lemms_05109_20001_v2.bc&#39;),
- Path(&#39;fk/cas_dyn_v03.tf&#39;),
- Path(&#39;fk/cas_mimi_v202.tf&#39;),
- Path(&#39;fk/cas_rocks_v18.tf&#39;),
- Path(&#39;fk/cas_v41.tf&#39;),
- Path(&#39;ik/cas_caps_v03.ti&#39;),
- Path(&#39;ik/cas_cda_v01.ti&#39;),
- Path(&#39;ik/cas_cirs_v09.ti&#39;),
- Path(&#39;ik/cas_inms_v02.ti&#39;),
- Path(&#39;ik/cas_iss_v10.ti&#39;),
- Path(&#39;ik/cas_mag_v01.ti&#39;),
- Path(&#39;ik/cas_mimi_v11.ti&#39;),
- Path(&#39;ik/cas_radar_v11.ti&#39;),
- Path(&#39;ik/cas_rpws_v01.ti&#39;),
- Path(&#39;ik/cas_rss_v03.ti&#39;),
- Path(&#39;ik/cas_sru_v02.ti&#39;),
- Path(&#39;ik/cas_uvis_v06.ti&#39;),
- Path(&#39;ik/cas_vims_v06.ti&#39;),
- Path(&#39;lsk/naif0012.tls&#39;),
- Path(&#39;pck/pck00010.tpc&#39;),
- Path(&#39;sclk/cas00172.tsc&#39;),
- Path(&#39;spk/140809BP_IRRE_00256_25017.bsp&#39;),
- Path(&#39;spk/150122R_SCPSE_14251_14283.bsp&#39;),
- Path(&#39;spk/180927AP_RE_90165_18018.bsp&#39;)]</pre>
+<pre>[&#39;ck/14001_15001pa_gapfill_v14.bc&#39;,
+ &#39;ck/14212_14279py_as_flown.bc&#39;,
+ &#39;ck/14268_14273ra.bc&#39;,
+ &#39;ck/cas_cda_20150318.bc&#39;,
+ &#39;ck/cas_lemms_05109_20001_v2.bc&#39;,
+ &#39;fk/cas_dyn_v03.tf&#39;,
+ &#39;fk/cas_mimi_v202.tf&#39;,
+ &#39;fk/cas_rocks_v18.tf&#39;,
+ &#39;fk/cas_v41.tf&#39;,
+ &#39;ik/cas_caps_v03.ti&#39;,
+ &#39;ik/cas_cda_v01.ti&#39;,
+ &#39;ik/cas_cirs_v09.ti&#39;,
+ &#39;ik/cas_inms_v02.ti&#39;,
+ &#39;ik/cas_iss_v10.ti&#39;,
+ &#39;ik/cas_mag_v01.ti&#39;,
+ &#39;ik/cas_mimi_v11.ti&#39;,
+ &#39;ik/cas_radar_v11.ti&#39;,
+ &#39;ik/cas_rpws_v01.ti&#39;,
+ &#39;ik/cas_rss_v03.ti&#39;,
+ &#39;ik/cas_sru_v02.ti&#39;,
+ &#39;ik/cas_uvis_v06.ti&#39;,
+ &#39;ik/cas_vims_v06.ti&#39;,
+ &#39;lsk/naif0012.tls&#39;,
+ &#39;pck/pck00010.tpc&#39;,
+ &#39;sclk/cas00172.tsc&#39;,
+ &#39;spk/140809BP_IRRE_00256_25017.bsp&#39;,
+ &#39;spk/150122R_SCPSE_14251_14283.bsp&#39;,
+ &#39;spk/180927AP_RE_90165_18018.bsp&#39;]</pre>
 </div>
 
 </div>
@@ -660,13 +671,6 @@ Here we set up a table of the currently supported datasets:</p>
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong> this should fail: </strong></p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -674,58 +678,14 @@ Here we set up a table of the currently supported datasets:</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Subsetter</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="s2">&quot;2019-01-01&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_failing</span><span class="p">():</span>
+    <span class="n">Subsetter</span><span class="p">(</span><span class="s2">&quot;cassini&quot;</span><span class="p">,</span> <span class="s2">&quot;2019-01-01&quot;</span><span class="p">)</span>
+
+
+<span class="n">test_fail</span><span class="p">(</span><span class="n">_failing</span><span class="p">,</span> <span class="n">contains</span><span class="o">=</span><span class="s2">&quot;start/stop&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span> <span class="ansi-yellow-bg">Subsetter</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">cassini</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">2019-01-01</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">)</span>
-
-Input <span class="ansi-green-fg">In [10]</span>, in <span class="ansi-cyan-fg">Subsetter.__init__</span><span class="ansi-blue-fg">(self, mission, start, stop, save_location)</span>
-<span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">__init__</span>(<span style="color: rgb(0,135,0)">self</span>, mission, start, stop<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>, save_location<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">None</span>):
-<span class="ansi-green-intense-fg ansi-bold">     11</span>     store_attr()
-<span class="ansi-green-fg">---&gt; 12</span>     payload <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_get_payload</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span>     r <span style="color: rgb(98,98,98)">=</span> requests<span style="color: rgb(98,98,98)">.</span>get(base_url, params<span style="color: rgb(98,98,98)">=</span>payload, stream<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
-<span class="ansi-green-intense-fg ansi-bold">     14</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> r<span style="color: rgb(98,98,98)">.</span>ok:
-
-Input <span class="ansi-green-fg">In [10]</span>, in <span class="ansi-cyan-fg">Subsetter._get_payload</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     52</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;Put payload together while checking for working time format.</span>
-<span class="ansi-green-intense-fg ansi-bold">     53</span> 
-<span class="ansi-green-intense-fg ansi-bold">     54</span> <span style="color: rgb(175,0,0)">If Time(self.start) doesn&#39;t work, then we assume that the date must be in the</span>
-<span class="ansi-green-intense-fg ansi-bold">     55</span> <span style="color: rgb(175,0,0)">Time-unsupported yyyy-jjj format, which can be converted by `nasa_time_to_iso`</span>
-<span class="ansi-green-intense-fg ansi-bold">     56</span> <span style="color: rgb(175,0,0)">from `planetarypy.utils`.</span>
-<span class="ansi-green-intense-fg ansi-bold">     57</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
-<span class="ansi-green-intense-fg ansi-bold">     58</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> (
-<span class="ansi-green-intense-fg ansi-bold">     59</span>     is_start_valid(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mission, <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>start)
-<span class="ansi-green-intense-fg ansi-bold">     60</span>     <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> is_stop_valid(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mission, <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>stop)
-<span class="ansi-green-intense-fg ansi-bold">     61</span> ):
-<span class="ansi-green-fg">---&gt; 62</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(
-<span class="ansi-green-intense-fg ansi-bold">     63</span>         <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">One of start/stop is outside the supported date-range. See `datasets`.</span><span style="color: rgb(175,0,0)">&#34;</span>
-<span class="ansi-green-intense-fg ansi-bold">     64</span>     )
-<span class="ansi-green-intense-fg ansi-bold">     65</span> payload <span style="color: rgb(98,98,98)">=</span> {
-<span class="ansi-green-intense-fg ansi-bold">     66</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">dataset</span><span style="color: rgb(175,0,0)">&#34;</span>: dataset_ids[<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>mission],
-<span class="ansi-green-intense-fg ansi-bold">     67</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">start</span><span style="color: rgb(175,0,0)">&#34;</span>: <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>start<span style="color: rgb(98,98,98)">.</span>iso,
-<span class="ansi-green-intense-fg ansi-bold">     68</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">stop</span><span style="color: rgb(175,0,0)">&#34;</span>: <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>stop<span style="color: rgb(98,98,98)">.</span>iso,
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">action</span><span style="color: rgb(175,0,0)">&#34;</span>: <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">Subset</span><span style="color: rgb(175,0,0)">&#34;</span>,
-<span class="ansi-green-intense-fg ansi-bold">     70</span> }
-<span class="ansi-green-intense-fg ansi-bold">     71</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> payload
-
-<span class="ansi-red-fg">ValueError</span>: One of start/stop is outside the supported date-range. See `datasets`.</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -860,34 +820,34 @@ Input <span class="ansi-green-fg">In [10]</span>, in <span class="ansi-cyan-fg">
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[Path(&#39;ck/11001_12001pa_gapfill_v14.bc&#39;),
- Path(&#39;ck/11017_11066py_as_flown.bc&#39;),
- Path(&#39;ck/11044_11049ra.bc&#39;),
- Path(&#39;ck/cas_cda_20120517.bc&#39;),
- Path(&#39;ck/cas_lemms_05109_20001_v2.bc&#39;),
- Path(&#39;fk/cas_dyn_v03.tf&#39;),
- Path(&#39;fk/cas_mimi_v202.tf&#39;),
- Path(&#39;fk/cas_rocks_v18.tf&#39;),
- Path(&#39;fk/cas_v41.tf&#39;),
- Path(&#39;ik/cas_caps_v03.ti&#39;),
- Path(&#39;ik/cas_cda_v01.ti&#39;),
- Path(&#39;ik/cas_cirs_v09.ti&#39;),
- Path(&#39;ik/cas_inms_v02.ti&#39;),
- Path(&#39;ik/cas_iss_v10.ti&#39;),
- Path(&#39;ik/cas_mag_v01.ti&#39;),
- Path(&#39;ik/cas_mimi_v11.ti&#39;),
- Path(&#39;ik/cas_radar_v11.ti&#39;),
- Path(&#39;ik/cas_rpws_v01.ti&#39;),
- Path(&#39;ik/cas_rss_v03.ti&#39;),
- Path(&#39;ik/cas_sru_v02.ti&#39;),
- Path(&#39;ik/cas_uvis_v06.ti&#39;),
- Path(&#39;ik/cas_vims_v06.ti&#39;),
- Path(&#39;lsk/naif0012.tls&#39;),
- Path(&#39;pck/pck00010.tpc&#39;),
- Path(&#39;sclk/cas00172.tsc&#39;),
- Path(&#39;spk/110504R_SCPSE_11041_11093.bsp&#39;),
- Path(&#39;spk/140809BP_IRRE_00256_25017.bsp&#39;),
- Path(&#39;spk/180927AP_RE_90165_18018.bsp&#39;)]</pre>
+<pre>[&#39;ck/11001_12001pa_gapfill_v14.bc&#39;,
+ &#39;ck/11017_11066py_as_flown.bc&#39;,
+ &#39;ck/11044_11049ra.bc&#39;,
+ &#39;ck/cas_cda_20120517.bc&#39;,
+ &#39;ck/cas_lemms_05109_20001_v2.bc&#39;,
+ &#39;fk/cas_dyn_v03.tf&#39;,
+ &#39;fk/cas_mimi_v202.tf&#39;,
+ &#39;fk/cas_rocks_v18.tf&#39;,
+ &#39;fk/cas_v41.tf&#39;,
+ &#39;ik/cas_caps_v03.ti&#39;,
+ &#39;ik/cas_cda_v01.ti&#39;,
+ &#39;ik/cas_cirs_v09.ti&#39;,
+ &#39;ik/cas_inms_v02.ti&#39;,
+ &#39;ik/cas_iss_v10.ti&#39;,
+ &#39;ik/cas_mag_v01.ti&#39;,
+ &#39;ik/cas_mimi_v11.ti&#39;,
+ &#39;ik/cas_radar_v11.ti&#39;,
+ &#39;ik/cas_rpws_v01.ti&#39;,
+ &#39;ik/cas_rss_v03.ti&#39;,
+ &#39;ik/cas_sru_v02.ti&#39;,
+ &#39;ik/cas_uvis_v06.ti&#39;,
+ &#39;ik/cas_vims_v06.ti&#39;,
+ &#39;lsk/naif0012.tls&#39;,
+ &#39;pck/pck00010.tpc&#39;,
+ &#39;sclk/cas00172.tsc&#39;,
+ &#39;spk/110504R_SCPSE_11041_11093.bsp&#39;,
+ &#39;spk/140809BP_IRRE_00256_25017.bsp&#39;,
+ &#39;spk/180927AP_RE_90165_18018.bsp&#39;]</pre>
 </div>
 
 </div>
@@ -969,7 +929,7 @@ Input <span class="ansi-green-fg">In [10]</span>, in <span class="ansi-cyan-fg">
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Subsetter.get_local_path" class="doc_header"><code>Subsetter.get_local_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L169" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_local_path</code>(<strong><code>url</code></strong>)</p>
+<h4 id="Subsetter.get_local_path" class="doc_header"><code>Subsetter.get_local_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L170" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_local_path</code>(<strong><code>url</code></strong>)</p>
 </blockquote>
 <p>Calculate local storage path from Kernel URL, using <code>save_location</code> if given.</p>
 <p>If self.save_location is None, the <code>planetarypy</code> archive is being used.</p>
@@ -1086,7 +1046,7 @@ Input <span class="ansi-green-fg">In [10]</span>, in <span class="ansi-cyan-fg">
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Subsetter.download_kernels" class="doc_header"><code>Subsetter.download_kernels</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L185" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.download_kernels</code>(<strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h4 id="Subsetter.download_kernels" class="doc_header"><code>Subsetter.download_kernels</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L186" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.download_kernels</code>(<strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -1189,7 +1149,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Subsetter.get_metakernel" class="doc_header"><code>Subsetter.get_metakernel</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L197" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_metakernel</code>()</p>
+<h4 id="Subsetter.get_metakernel" class="doc_header"><code>Subsetter.get_metakernel</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L198" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_metakernel</code>()</p>
 </blockquote>
 <p>Get metakernel file from NAIF and adapt path to match local storage.</p>
 <p>Use <code>save_location</code> if given, otherwise <code>planetarypy</code> archive.</p>
@@ -1262,7 +1222,9 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>KPL/MK
+<pre>WARNING: overwriting environment variables set in the machine
+overwriting variable ISISROOT ISISDATA
+KPL/MK
 
    This meta-kernel lists a subset of kernels from the meta-kernel
    cas_2011_v17.tm provided in the CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive,
@@ -1282,7 +1244,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
    non-UNIX workstation.
 
    This meta-kernel was created by the NAIF node&#39;s SPICE PDS archive
-   subsetting service version 2.1 on Mon Feb  7 14:14:10 PST 2022.
+   subsetting service version 2.1 on Tue Feb  8 16:48:52 PST 2022.
 
  
    \begindata
@@ -1434,7 +1396,9 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>KPL/MK
+<pre>WARNING: overwriting environment variables set in the machine
+overwriting variable ISISROOT ISISDATA
+KPL/MK
 
    This meta-kernel lists a subset of kernels from the meta-kernel
    cas_2011_v17.tm provided in the CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive,
@@ -1454,7 +1418,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
    non-UNIX workstation.
 
    This meta-kernel was created by the NAIF node&#39;s SPICE PDS archive
-   subsetting service version 2.1 on Mon Feb  7 14:14:10 PST 2022.
+   subsetting service version 2.1 on Tue Feb  8 16:48:52 PST 2022.
 
  
    \begindata
@@ -1520,19 +1484,48 @@ spk 180927AP_RE_90165_18018.bsp locally available.
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_metakernel_and_files</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">save_location</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">subset</span> <span class="o">=</span> <span class="n">Subsetter</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">save_location</span><span class="p">)</span>
-    <span class="n">subset</span><span class="o">.</span><span class="n">download_kernels</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">subset</span><span class="o">.</span><span class="n">get_metakernel</span><span class="p">()</span>
-</pre></div>
+<div class="output_wrapper">
+<div class="output">
 
-    </div>
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_metakernel_and_files" class="doc_header"><code>get_metakernel_and_files</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L220" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_metakernel_and_files</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>str</code>, <strong><code>save_location</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>For a given mission and start/stop times, download the kernels and get metakernel path</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>mission</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>mission shorthand from datasets dataframe</p></li>
+</ul>
+<ul>
+<li><strong><code>start</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>  <p>start time as iso-string, or yyyy-jjj</p></li>
+</ul>
+<ul>
+<li><strong><code>stop</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>   <p>stop time as iso-string or yyyy-jjj</p></li>
+</ul>
+<ul>
+<li><strong><code>save_location</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em>  <p>override storage into planetarypy archive</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'pathlib.Path'&gt;</code></em>   <p>pathlib.Path to metakernel file with corrected data path.</p></li>
+</ul>
+
+</div>
+
+</div>
+
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -1609,18 +1602,44 @@ spk 180927AP_RE_90165_18018.bsp locally available.
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">list_kernels_for_day</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">subset</span> <span class="o">=</span> <span class="n">Subsetter</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">subset</span><span class="o">.</span><span class="n">kernel_names</span>
-</pre></div>
+<div class="output_wrapper">
+<div class="output">
 
-    </div>
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="list_kernels_for_day" class="doc_header"><code>list_kernels_for_day</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L232" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>list_kernels_for_day</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>str</code>=<em><code>''</code></em>)</p>
+</blockquote>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong><code>mission</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>    <p>mission shorthand from datasets dataframe</p></li>
+</ul>
+<ul>
+<li><strong><code>start</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>  <p>start time as iso-string, or yyyy-jjj</p></li>
+</ul>
+<ul>
+<li><strong><code>stop</code></strong> : <em><code>&lt;class 'str'&gt;</code></em>, <em>optional</em>   <p>stop time as iso-string or yyyy-jjj</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><em><code>&lt;class 'list'&gt;</code></em>   <p>list of kernel names</p></li>
+</ul>
+
+</div>
+
+</div>
+
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -1647,26 +1666,26 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[Path(&#39;ck/mro_crm_psp_150201_150228.bc&#39;),
- Path(&#39;ck/mro_hga_psp_150210_150216_v2.bc&#39;),
- Path(&#39;ck/mro_mcs_psp_150201_150228.bc&#39;),
- Path(&#39;ck/mro_sa_psp_150210_150216_v2.bc&#39;),
- Path(&#39;ck/mro_sc_psp_150210_150216_v2.bc&#39;),
- Path(&#39;fk/mro_v16.tf&#39;),
- Path(&#39;ik/mro_crism_v10.ti&#39;),
- Path(&#39;ik/mro_ctx_v11.ti&#39;),
- Path(&#39;ik/mro_hirise_v12.ti&#39;),
- Path(&#39;ik/mro_marci_v10.ti&#39;),
- Path(&#39;ik/mro_mcs_v10.ti&#39;),
- Path(&#39;ik/mro_onc_v10.ti&#39;),
- Path(&#39;lsk/naif0012.tls&#39;),
- Path(&#39;pck/pck00008.tpc&#39;),
- Path(&#39;sclk/mro_sclkscet_00095_65536.tsc&#39;),
- Path(&#39;spk/de421.bsp&#39;),
- Path(&#39;spk/mar097.bsp&#39;),
- Path(&#39;spk/mro_psp34.bsp&#39;),
- Path(&#39;spk/mro_psp34_ssd_mro95a.bsp&#39;),
- Path(&#39;spk/mro_struct_v10.bsp&#39;)]</pre>
+<pre>[&#39;ck/mro_crm_psp_150201_150228.bc&#39;,
+ &#39;ck/mro_hga_psp_150210_150216_v2.bc&#39;,
+ &#39;ck/mro_mcs_psp_150201_150228.bc&#39;,
+ &#39;ck/mro_sa_psp_150210_150216_v2.bc&#39;,
+ &#39;ck/mro_sc_psp_150210_150216_v2.bc&#39;,
+ &#39;fk/mro_v16.tf&#39;,
+ &#39;ik/mro_crism_v10.ti&#39;,
+ &#39;ik/mro_ctx_v11.ti&#39;,
+ &#39;ik/mro_hirise_v12.ti&#39;,
+ &#39;ik/mro_marci_v10.ti&#39;,
+ &#39;ik/mro_mcs_v10.ti&#39;,
+ &#39;ik/mro_onc_v10.ti&#39;,
+ &#39;lsk/naif0012.tls&#39;,
+ &#39;pck/pck00008.tpc&#39;,
+ &#39;sclk/mro_sclkscet_00095_65536.tsc&#39;,
+ &#39;spk/de421.bsp&#39;,
+ &#39;spk/mar097.bsp&#39;,
+ &#39;spk/mro_psp34.bsp&#39;,
+ &#39;spk/mro_psp34_ssd_mro95a.bsp&#39;,
+ &#39;spk/mro_struct_v10.bsp&#39;]</pre>
 </div>
 
 </div>
@@ -1684,7 +1703,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_kernels_for_day</span><span class="p">(</span><span class="s1">&#39;maven&#39;</span><span class="p">,</span> <span class="s2">&quot;2017-01-01&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_kernels_for_day</span><span class="p">(</span><span class="s2">&quot;maven&quot;</span><span class="p">,</span> <span class="s2">&quot;2017-01-01&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1699,30 +1718,100 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[Path(&#39;ck/mvn_app_rel_161226_170101_v01.bc&#39;),
- Path(&#39;ck/mvn_app_rel_170102_170108_v01.bc&#39;),
- Path(&#39;ck/mvn_iuvs_rem_170101_170331_v03.bc&#39;),
- Path(&#39;ck/mvn_sc_rel_161226_170101_v01.bc&#39;),
- Path(&#39;ck/mvn_sc_rel_170102_170108_v02.bc&#39;),
- Path(&#39;ck/mvn_swea_nom_131118_300101_v02.bc&#39;),
- Path(&#39;fk/maven_v09.tf&#39;),
- Path(&#39;ik/maven_ant_v10.ti&#39;),
- Path(&#39;ik/maven_euv_v10.ti&#39;),
- Path(&#39;ik/maven_iuvs_v11.ti&#39;),
- Path(&#39;ik/maven_ngims_v10.ti&#39;),
- Path(&#39;ik/maven_sep_v12.ti&#39;),
- Path(&#39;ik/maven_static_v11.ti&#39;),
- Path(&#39;ik/maven_swea_v11.ti&#39;),
- Path(&#39;ik/maven_swia_v10.ti&#39;),
- Path(&#39;lsk/naif0012.tls&#39;),
- Path(&#39;pck/pck00010.tpc&#39;),
- Path(&#39;sclk/mvn_sclkscet_00072.tsc&#39;),
- Path(&#39;spk/de430s.bsp&#39;),
- Path(&#39;spk/mar097s.bsp&#39;),
- Path(&#39;spk/maven_orb_rec_170101_170401_v1.bsp&#39;),
- Path(&#39;spk/maven_struct_v01.bsp&#39;)]</pre>
+<pre>[&#39;ck/mvn_app_rel_161226_170101_v01.bc&#39;,
+ &#39;ck/mvn_app_rel_170102_170108_v01.bc&#39;,
+ &#39;ck/mvn_iuvs_rem_170101_170331_v03.bc&#39;,
+ &#39;ck/mvn_sc_rel_161226_170101_v01.bc&#39;,
+ &#39;ck/mvn_sc_rel_170102_170108_v02.bc&#39;,
+ &#39;ck/mvn_swea_nom_131118_300101_v02.bc&#39;,
+ &#39;fk/maven_v09.tf&#39;,
+ &#39;ik/maven_ant_v10.ti&#39;,
+ &#39;ik/maven_euv_v10.ti&#39;,
+ &#39;ik/maven_iuvs_v11.ti&#39;,
+ &#39;ik/maven_ngims_v10.ti&#39;,
+ &#39;ik/maven_sep_v12.ti&#39;,
+ &#39;ik/maven_static_v11.ti&#39;,
+ &#39;ik/maven_swea_v11.ti&#39;,
+ &#39;ik/maven_swia_v10.ti&#39;,
+ &#39;lsk/naif0012.tls&#39;,
+ &#39;pck/pck00010.tpc&#39;,
+ &#39;sclk/mvn_sclkscet_00072.tsc&#39;,
+ &#39;spk/de430s.bsp&#39;,
+ &#39;spk/mar097s.bsp&#39;,
+ &#39;spk/maven_orb_rec_170101_170401_v1.bsp&#39;,
+ &#39;spk/maven_struct_v01.bsp&#39;]</pre>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">mission</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">mission</span><span class="p">,</span> <span class="s2">&quot;Start Time&quot;</span><span class="p">]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">mission</span><span class="p">,</span> <span class="s2">&quot;Stop Time&quot;</span><span class="p">]</span>
+    <span class="n">half</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Time</span><span class="p">(</span><span class="n">end</span><span class="p">)</span> <span class="o">-</span> <span class="n">Time</span><span class="p">(</span><span class="n">start</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="n">list_kernels_for_day</span><span class="p">(</span><span class="n">mission</span><span class="p">,</span> <span class="n">half</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Problem with&quot;</span><span class="p">,</span> <span class="n">mission</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">)</span><span class="si">}</span><span class="s2"> kernels for </span><span class="si">{</span><span class="n">mission</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Found 32 kernels for cassini
+Found 19 kernels for clementine
+Found 21 kernels for dawn
+Found 16 kernels for di
+Found 11 kernels for ds1
+Found 12 kernels for epoxi
+Found 27 kernels for em16
+Found 20 kernels for grail
+Found 15 kernels for hayabusa
+Found 23 kernels for insight
+Found 25 kernels for juno
+Found 12 kernels for ladee
+Found 20 kernels for lro
+Found 20 kernels for maven
+Found 23 kernels for opportunity
+Found 24 kernels for spirit
+Found 18 kernels for messenger
+Found 13 kernels for mars2020
+Found 39 kernels for mex
+Found 20 kernels for mgs
+Found 14 kernels for ody
+Found 20 kernels for mro
+Found 46 kernels for msl
+Found 15 kernels for near
+Found 28 kernels for nh
+Found 25 kernels for orex
+Found 56 kernels for rosetta
+Found 13 kernels for stardust
+Found 18 kernels for venus_climate_orbiter
+Found 27 kernels for vex
+Found 17 kernels for vo
+</pre>
+</div>
 </div>
 
 </div>
@@ -1735,6 +1824,6 @@ spk 180927AP_RE_90165_18018.bsp locally available.
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"021d88b13ce54ba1be5924f221e712d0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_ae29d4329e8d4141b59730b07191300a", "IPY_MODEL_52486d4c0aa4401296f6e13303d6703b", "IPY_MODEL_f0acbf97a21844838a06bf2e4c6efc73"], "layout": "IPY_MODEL_d17e9122d16f40edaaf79ca2e29bdb49"}}, "15290b53cd7749448d63318833bd6cad": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "234deef991444084b9581327e7b32147": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "419221b5d93044e3a8ecec3e778674aa": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "4a25e70e35bd4eeeae2cd3fa6a959a81": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "52486d4c0aa4401296f6e13303d6703b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_6e854a74213b420aaea17d26d31259af", "max": 28, "style": "IPY_MODEL_8ab41211b8d7410580a0b42cd95cebdf", "value": 28}}, "6a82826333bf416c97a49aa50b33eda8": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "6e854a74213b420aaea17d26d31259af": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "86d31c67aaf148e5b60487e870c27731": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_4a25e70e35bd4eeeae2cd3fa6a959a81", "max": 28, "style": "IPY_MODEL_bdf379af26974311942ccb025977bcfc", "value": 28}}, "8ab41211b8d7410580a0b42cd95cebdf": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "ae29d4329e8d4141b59730b07191300a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_df6678e971054f7485bd616bea4f7efb", "style": "IPY_MODEL_e558ea93957c4132bf3c81b9a46b8efc", "value": "Kernels downloaded: 100%"}}, "aef6fe51ba10423196d4e1a9fac0d3bf": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "af6a8645a2de432099305a50ba35f18e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_234deef991444084b9581327e7b32147", "style": "IPY_MODEL_ea8df910ce884494bd9c05a9cb6e39f2", "value": "Kernels downloaded: 100%"}}, "bdf379af26974311942ccb025977bcfc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "cf5f8fad537f46fe9b0fb1ee183141ab": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_d0c174797ea944caae85823d14d53a05", "style": "IPY_MODEL_15290b53cd7749448d63318833bd6cad", "value": " 28/28 [00:00&lt;00:00, 1039.65it/s]"}}, "d0c174797ea944caae85823d14d53a05": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d17e9122d16f40edaaf79ca2e29bdb49": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "df6678e971054f7485bd616bea4f7efb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "e558ea93957c4132bf3c81b9a46b8efc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "ea8df910ce884494bd9c05a9cb6e39f2": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "f0acbf97a21844838a06bf2e4c6efc73": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_aef6fe51ba10423196d4e1a9fac0d3bf", "style": "IPY_MODEL_419221b5d93044e3a8ecec3e778674aa", "value": " 28/28 [00:00&lt;00:00, 745.61it/s]"}}, "fefe9d5e21014efd8c23ed48e7b079ba": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_af6a8645a2de432099305a50ba35f18e", "IPY_MODEL_86d31c67aaf148e5b60487e870c27731", "IPY_MODEL_cf5f8fad537f46fe9b0fb1ee183141ab"], "layout": "IPY_MODEL_6a82826333bf416c97a49aa50b33eda8"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"01c106b52b2e4516a874362c91c976bd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_265f8ab3d88d4cbe97134d6d657a352c", "max": 28, "style": "IPY_MODEL_fee801b22333496f88a990678f846ebb", "value": 28}}, "021878dd4e484566ad70a6b0143d1075": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "11549ecb934f4e25b5b5c87e755d411d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "145e7180cd5e42da9c0cc1cc001c5cc5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "265f8ab3d88d4cbe97134d6d657a352c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "371fbc924da2434da52ba5b2f587bb0c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "459aeb422c024185a4a55ac1d37ba9bf": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "481759e9fcac4f8babcc466f5e04fb60": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "5fa642e1d4564ae19f08586efb71dbb8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_c3108f7f44e84ed8b3a8793fa14315a6", "IPY_MODEL_01c106b52b2e4516a874362c91c976bd", "IPY_MODEL_f250261dd46b4f128be259e8bb7bc698"], "layout": "IPY_MODEL_11549ecb934f4e25b5b5c87e755d411d"}}, "6119196b842a499a825f8430b8760c93": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "719f5014fad34d498905453eaf83c616": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "8e84924932514e0c9faac8160c711be6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "91fb6fe1a98a494d83fbc75cba417d3c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "92465065a6ef4a69bbbb329ce9c65fba": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "a501d85574f94af9907e0a377fd289e6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_371fbc924da2434da52ba5b2f587bb0c", "max": 28, "style": "IPY_MODEL_92465065a6ef4a69bbbb329ce9c65fba", "value": 28}}, "c2f02ef582684a45a8273e29bb75f8c1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_6119196b842a499a825f8430b8760c93", "style": "IPY_MODEL_021878dd4e484566ad70a6b0143d1075", "value": " 28/28 [00:00&lt;00:00, 1036.84it/s]"}}, "c3108f7f44e84ed8b3a8793fa14315a6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_8e84924932514e0c9faac8160c711be6", "style": "IPY_MODEL_91fb6fe1a98a494d83fbc75cba417d3c", "value": "Kernels downloaded: 100%"}}, "c397d2240aeb41cd89840665f82ea702": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_481759e9fcac4f8babcc466f5e04fb60", "style": "IPY_MODEL_719f5014fad34d498905453eaf83c616", "value": "Kernels downloaded: 100%"}}, "f250261dd46b4f128be259e8bb7bc698": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_fbd194b92daf4182a0cb8d61de575c14", "style": "IPY_MODEL_145e7180cd5e42da9c0cc1cc001c5cc5", "value": " 28/28 [00:00&lt;00:00, 676.15it/s]"}}, "f3ff1df63b5f4aa782f64e160db10d07": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_c397d2240aeb41cd89840665f82ea702", "IPY_MODEL_a501d85574f94af9907e0a377fd289e6", "IPY_MODEL_c2f02ef582684a45a8273e29bb75f8c1"], "layout": "IPY_MODEL_459aeb422c024185a4a55ac1d37ba9bf"}}, "fbd194b92daf4182a0cb8d61de575c14": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "fee801b22333496f88a990678f846ebb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}}, "version_major": 2, "version_minor": 0}
 </script>
 
