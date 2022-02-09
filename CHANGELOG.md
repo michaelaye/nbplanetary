@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 0.21.2
+
+
+### Bugs Squashed
+
+- Missing dependency fastcore ([#10](https://github.com/michaelaye/nbplanetary/issues/10))
+
+
 ## 0.21.1
 
 
