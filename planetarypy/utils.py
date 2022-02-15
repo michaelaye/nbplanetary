@@ -2,8 +2,9 @@
 
 __all__ = ['logger', 'nasa_date_format', 'nasa_dt_format', 'nasa_dt_format_with_ms', 'iso_date_format', 'iso_dt_format',
            'iso_dt_format_with_ms', 'nasa_time_to_datetime', 'nasa_time_to_iso', 'iso_to_nasa_time',
-           'iso_to_nasa_datetime', 'replace_all_nasa_times', 'parse_http_date', 'get_remote_timestamp', 'url_retrieve',
-           'have_internet', 'height_from_shadow', 'get_gdal_center_coords', 'file_variations']
+           'iso_to_nasa_datetime', 'replace_all_nasa_times', 'parse_http_date', 'get_remote_timestamp',
+           'check_url_exists', 'url_retrieve', 'have_internet', 'height_from_shadow', 'get_gdal_center_coords',
+           'file_variations']
 
 # Cell
 import datetime as dt
@@ -158,6 +159,14 @@ def get_remote_timestamp(
     with urlopen(url, timeout=10) as conn:
         t = parse_http_date(conn.headers["last-modified"])
     return t
+
+
+def check_url_exists(url):
+    response = requests.head(url)
+    if response.status_code < 400:
+        return True
+    else:
+        return False
 
 
 def url_retrieve(
