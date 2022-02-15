@@ -142,3 +142,5 @@ checklink/cookies.txt
 print.prt
 _build/
 token
+
+dask-worker-space

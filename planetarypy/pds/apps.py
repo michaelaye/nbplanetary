@@ -21,12 +21,16 @@ def get_index(
 ) -> pd.DataFrame:  # The PDS index convert to pandas DataFrame
     """Example: get_index("cassini.iss", "index")"""
     index = Index(instr + ".indexes." + index_name)
-    index.download()
-    try:
-        return index.parquet
-    except FileNotFoundError:
+    if index.needs_download:
+        print("Index is outdated or not existing. Downloading...")
+        index.download()
         index.convert_to_parquet()
-        return index.parquet
+    else:
+        try:
+            return index.parquet
+        except FileNotFoundError:
+            index.convert_to_parquet()
+            return index.parquet
 
 # Cell
 def find_instruments(
