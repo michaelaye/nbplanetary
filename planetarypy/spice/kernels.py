@@ -9,13 +9,14 @@ from datetime import timedelta
 from io import BytesIO
 from pathlib import Path
 
-import pandas as pd
 import requests
 from astropy.time import Time
+from dask.distributed import Client
 from fastcore.utils import store_attr, test_fail
 from tqdm.auto import tqdm
 from yarl import URL
 
+import pandas as pd
 from ..config import config
 from ..utils import nasa_time_to_iso, url_retrieve
 
@@ -165,7 +166,9 @@ class Subsetter:
     @property
     def kernel_names(self):
         "Return list of names of kernels for the given time range."
-        return [str(Path(URL(url).parent.name) / URL(url).name) for url in self.kernel_urls]
+        return [
+            str(Path(URL(url).parent.name) / URL(url).name) for url in self.kernel_urls
+        ]
 
     def get_local_path(
         self,
@@ -186,14 +189,23 @@ class Subsetter:
     def download_kernels(
         self,
         overwrite: bool = False,  # switch to control if kernels should be downloaded over existing ones
+        non_blocking: bool=False,
     ):
+        if non_blocking:
+            client = Client()
+        futures = []
         for url in tqdm(self.kernel_urls, desc="Kernels downloaded"):
             local_path = self.get_local_path(url)
             if local_path.exists() and not overwrite:
                 print(local_path.parent.name, local_path.name, "locally available.")
                 continue
             local_path.parent.mkdir(exist_ok=True, parents=True)
-            url_retrieve(url, local_path)
+            if non_blocking:
+                futures.append(client.submit(url_retrieve, url, local_path))
+            else:
+                url_retrieve(url, local_path)
+        if non_blocking:
+            return futures
 
     def get_metakernel(self) -> Path:  # return path to metakernel file
         """Get metakernel file from NAIF and adapt path to match local storage.
@@ -232,7 +244,7 @@ def get_metakernel_and_files(
 def list_kernels_for_day(
     mission: str,  # mission shorthand from datasets dataframe
     start: str,  # start time as iso-string, or yyyy-jjj
-    stop: str='',  # stop time as iso-string or yyyy-jjj
+    stop: str = "",  # stop time as iso-string or yyyy-jjj
 ) -> list:  # list of kernel names
     subset = Subsetter(mission, start, stop)
     return subset.kernel_names

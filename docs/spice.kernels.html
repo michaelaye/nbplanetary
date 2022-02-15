@@ -443,7 +443,7 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="is_start_valid" class="doc_header"><code>is_start_valid</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L71" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_start_valid</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>Time</code>)</p>
+<h4 id="is_start_valid" class="doc_header"><code>is_start_valid</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L72" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_start_valid</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>Time</code>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -474,7 +474,7 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="is_stop_valid" class="doc_header"><code>is_stop_valid</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L78" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_stop_valid</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>Time</code>)</p>
+<h4 id="is_stop_valid" class="doc_header"><code>is_stop_valid</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_stop_valid</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>Time</code>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -559,7 +559,7 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subsetter" class="doc_header"><code>class</code> <code>Subsetter</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L88" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subsetter</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>=<em><code>None</code></em>, <strong><code>save_location</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="Subsetter" class="doc_header"><code>class</code> <code>Subsetter</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L89" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subsetter</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>=<em><code>None</code></em>, <strong><code>save_location</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Class to manage retrieving subset SPICE kernel lists</p>
 <h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p>kernel_names: List of</p>
@@ -929,7 +929,7 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Subsetter.get_local_path" class="doc_header"><code>Subsetter.get_local_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L170" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_local_path</code>(<strong><code>url</code></strong>)</p>
+<h4 id="Subsetter.get_local_path" class="doc_header"><code>Subsetter.get_local_path</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L173" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_local_path</code>(<strong><code>url</code></strong>)</p>
 </blockquote>
 <p>Calculate local storage path from Kernel URL, using <code>save_location</code> if given.</p>
 <p>If self.save_location is None, the <code>planetarypy</code> archive is being used.</p>
@@ -1046,11 +1046,14 @@ Here we set up a table of the currently supported datasets:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Subsetter.download_kernels" class="doc_header"><code>Subsetter.download_kernels</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L186" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.download_kernels</code>(<strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
+<h4 id="Subsetter.download_kernels" class="doc_header"><code>Subsetter.download_kernels</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L189" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.download_kernels</code>(<strong><code>overwrite</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>non_blocking</code></strong>:<code>bool</code>=<em><code>False</code></em>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><strong><code>overwrite</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em> <p>switch to control if kernels should be downloaded over existing ones</p></li>
+</ul>
+<ul>
+<li><strong><code>non_blocking</code></strong> : <em><code>&lt;class 'bool'&gt;</code></em>, <em>optional</em></li>
 </ul>
 
 </div>
@@ -1141,6 +1144,108 @@ spk 180927AP_RE_90165_18018.bsp locally available.
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">futures</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">download_kernels</span><span class="p">(</span><span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/maye/miniconda3/envs/py39/lib/python3.9/site-packages/distributed/node.py:160: UserWarning: Port 8787 is already in use.
+Perhaps you already have a cluster running?
+Hosting the HTTP server on port 44585 instead
+  warnings.warn(
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ck 11001_12001pa_gapfill_v14.bc locally available.
+ck 11017_11066py_as_flown.bc locally available.
+ck 11044_11049ra.bc locally available.
+ck cas_cda_20120517.bc locally available.
+ck cas_lemms_05109_20001_v2.bc locally available.
+fk cas_dyn_v03.tf locally available.
+fk cas_mimi_v202.tf locally available.
+fk cas_rocks_v18.tf locally available.
+fk cas_v41.tf locally available.
+ik cas_caps_v03.ti locally available.
+ik cas_cda_v01.ti locally available.
+ik cas_cirs_v09.ti locally available.
+ik cas_inms_v02.ti locally available.
+ik cas_iss_v10.ti locally available.
+ik cas_mag_v01.ti locally available.
+ik cas_mimi_v11.ti locally available.
+ik cas_radar_v11.ti locally available.
+ik cas_rpws_v01.ti locally available.
+ik cas_rss_v03.ti locally available.
+ik cas_sru_v02.ti locally available.
+ik cas_uvis_v06.ti locally available.
+ik cas_vims_v06.ti locally available.
+lsk naif0012.tls locally available.
+pck pck00010.tpc locally available.
+sclk cas00172.tsc locally available.
+spk 110504R_SCPSE_11041_11093.bsp locally available.
+spk 140809BP_IRRE_00256_25017.bsp locally available.
+spk 180927AP_RE_90165_18018.bsp locally available.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -1149,7 +1254,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Subsetter.get_metakernel" class="doc_header"><code>Subsetter.get_metakernel</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L198" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_metakernel</code>()</p>
+<h4 id="Subsetter.get_metakernel" class="doc_header"><code>Subsetter.get_metakernel</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L210" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Subsetter.get_metakernel</code>()</p>
 </blockquote>
 <p>Get metakernel file from NAIF and adapt path to match local storage.</p>
 <p>Use <code>save_location</code> if given, otherwise <code>planetarypy</code> archive.</p>
@@ -1492,7 +1597,7 @@ KPL/MK
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_metakernel_and_files" class="doc_header"><code>get_metakernel_and_files</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L220" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_metakernel_and_files</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>str</code>, <strong><code>save_location</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
+<h4 id="get_metakernel_and_files" class="doc_header"><code>get_metakernel_and_files</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L232" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_metakernel_and_files</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>str</code>, <strong><code>save_location</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>For a given mission and start/stop times, download the kernels and get metakernel path</p>
 <p><strong>Parameters:</strong></p>
@@ -1610,7 +1715,7 @@ spk 180927AP_RE_90165_18018.bsp locally available.
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="list_kernels_for_day" class="doc_header"><code>list_kernels_for_day</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L232" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>list_kernels_for_day</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>str</code>=<em><code>''</code></em>)</p>
+<h4 id="list_kernels_for_day" class="doc_header"><code>list_kernels_for_day</code><a href="https://github.com/michaelaye/nbplanetary/tree/master/planetarypy/spice/kernels.py#L244" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>list_kernels_for_day</code>(<strong><code>mission</code></strong>:<code>str</code>, <strong><code>start</code></strong>:<code>str</code>, <strong><code>stop</code></strong>:<code>str</code>=<em><code>''</code></em>)</p>
 </blockquote>
 <p><strong>Parameters:</strong></p>
 <ul>
@@ -1824,6 +1929,6 @@ Found 17 kernels for vo
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"01c106b52b2e4516a874362c91c976bd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_265f8ab3d88d4cbe97134d6d657a352c", "max": 28, "style": "IPY_MODEL_fee801b22333496f88a990678f846ebb", "value": 28}}, "021878dd4e484566ad70a6b0143d1075": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "11549ecb934f4e25b5b5c87e755d411d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "145e7180cd5e42da9c0cc1cc001c5cc5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "265f8ab3d88d4cbe97134d6d657a352c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "371fbc924da2434da52ba5b2f587bb0c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "459aeb422c024185a4a55ac1d37ba9bf": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "481759e9fcac4f8babcc466f5e04fb60": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "5fa642e1d4564ae19f08586efb71dbb8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_c3108f7f44e84ed8b3a8793fa14315a6", "IPY_MODEL_01c106b52b2e4516a874362c91c976bd", "IPY_MODEL_f250261dd46b4f128be259e8bb7bc698"], "layout": "IPY_MODEL_11549ecb934f4e25b5b5c87e755d411d"}}, "6119196b842a499a825f8430b8760c93": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "719f5014fad34d498905453eaf83c616": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "8e84924932514e0c9faac8160c711be6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "91fb6fe1a98a494d83fbc75cba417d3c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "92465065a6ef4a69bbbb329ce9c65fba": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "a501d85574f94af9907e0a377fd289e6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_371fbc924da2434da52ba5b2f587bb0c", "max": 28, "style": "IPY_MODEL_92465065a6ef4a69bbbb329ce9c65fba", "value": 28}}, "c2f02ef582684a45a8273e29bb75f8c1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_6119196b842a499a825f8430b8760c93", "style": "IPY_MODEL_021878dd4e484566ad70a6b0143d1075", "value": " 28/28 [00:00&lt;00:00, 1036.84it/s]"}}, "c3108f7f44e84ed8b3a8793fa14315a6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_8e84924932514e0c9faac8160c711be6", "style": "IPY_MODEL_91fb6fe1a98a494d83fbc75cba417d3c", "value": "Kernels downloaded: 100%"}}, "c397d2240aeb41cd89840665f82ea702": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_481759e9fcac4f8babcc466f5e04fb60", "style": "IPY_MODEL_719f5014fad34d498905453eaf83c616", "value": "Kernels downloaded: 100%"}}, "f250261dd46b4f128be259e8bb7bc698": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_fbd194b92daf4182a0cb8d61de575c14", "style": "IPY_MODEL_145e7180cd5e42da9c0cc1cc001c5cc5", "value": " 28/28 [00:00&lt;00:00, 676.15it/s]"}}, "f3ff1df63b5f4aa782f64e160db10d07": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_c397d2240aeb41cd89840665f82ea702", "IPY_MODEL_a501d85574f94af9907e0a377fd289e6", "IPY_MODEL_c2f02ef582684a45a8273e29bb75f8c1"], "layout": "IPY_MODEL_459aeb422c024185a4a55ac1d37ba9bf"}}, "fbd194b92daf4182a0cb8d61de575c14": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "fee801b22333496f88a990678f846ebb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}}, "version_major": 2, "version_minor": 0}
+{"state": {"01c106b52b2e4516a874362c91c976bd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_265f8ab3d88d4cbe97134d6d657a352c", "max": 28, "style": "IPY_MODEL_fee801b22333496f88a990678f846ebb", "value": 28}}, "021878dd4e484566ad70a6b0143d1075": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "059815009b7f417ab3b025984cf9c1b3": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "0aac13944afb44b68a4ae42e8b93d4cc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_8af9c729bc204d29b5dec88480aa5dfd", "max": 28, "style": "IPY_MODEL_e90cc554537c4feca6b52fd0be116e6f", "value": 28}}, "11549ecb934f4e25b5b5c87e755d411d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "1373b9f31a174255b265eb3a830c1ef7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "145e7180cd5e42da9c0cc1cc001c5cc5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "1570a4d211ad45ea826c3f93810ae84c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "1e8eeba11ab949b9885519d7d1892a04": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "22a8e5eb013146eba8eb765a6089fc9d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_1e8eeba11ab949b9885519d7d1892a04", "style": "IPY_MODEL_48db3c33c5fb4da38a35d3b0bd451583", "value": " 28/28 [00:00&lt;00:00, 1288.19it/s]"}}, "261016f9e4ca49e883fe74123b16d4c5": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "265f8ab3d88d4cbe97134d6d657a352c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "371fbc924da2434da52ba5b2f587bb0c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "3bbbb35718c44dd1aaf71fce0782aa98": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_ea5017b8fb6e4b90876fd451b8e2d5ef", "IPY_MODEL_0aac13944afb44b68a4ae42e8b93d4cc", "IPY_MODEL_a10deedafa68423f86fa5c35945a464a"], "layout": "IPY_MODEL_46b7b5e944eb428e915ec4db3e4f8674"}}, "3f11aeb02efa498eb95fc571de6a80a9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_059815009b7f417ab3b025984cf9c1b3", "max": 28, "style": "IPY_MODEL_c0f37bcda30045c2ace49c1d7c4d117f", "value": 28}}, "459aeb422c024185a4a55ac1d37ba9bf": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "46b7b5e944eb428e915ec4db3e4f8674": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "481759e9fcac4f8babcc466f5e04fb60": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "48db3c33c5fb4da38a35d3b0bd451583": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "5fa642e1d4564ae19f08586efb71dbb8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_c3108f7f44e84ed8b3a8793fa14315a6", "IPY_MODEL_01c106b52b2e4516a874362c91c976bd", "IPY_MODEL_f250261dd46b4f128be259e8bb7bc698"], "layout": "IPY_MODEL_11549ecb934f4e25b5b5c87e755d411d"}}, "6119196b842a499a825f8430b8760c93": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "719f5014fad34d498905453eaf83c616": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "8972848713b4463f8b96ead2f265874d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "89b7956aa6f9457eac700d9f53d16a64": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_b7d8e5333c6146ef9305fd2aa9efa232", "IPY_MODEL_3f11aeb02efa498eb95fc571de6a80a9", "IPY_MODEL_22a8e5eb013146eba8eb765a6089fc9d"], "layout": "IPY_MODEL_d2ee1240d88d48d8adaef55e4d3331fc"}}, "8a289e5b52584ae2a820b7d5970bf374": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "8af9c729bc204d29b5dec88480aa5dfd": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "8cfab0469c774ae696429021aaa66d54": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "8e84924932514e0c9faac8160c711be6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "91fb6fe1a98a494d83fbc75cba417d3c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "92465065a6ef4a69bbbb329ce9c65fba": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "a10deedafa68423f86fa5c35945a464a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_8972848713b4463f8b96ead2f265874d", "style": "IPY_MODEL_1570a4d211ad45ea826c3f93810ae84c", "value": " 28/28 [00:00&lt;00:00, 1433.16it/s]"}}, "a501d85574f94af9907e0a377fd289e6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"bar_style": "success", "layout": "IPY_MODEL_371fbc924da2434da52ba5b2f587bb0c", "max": 28, "style": "IPY_MODEL_92465065a6ef4a69bbbb329ce9c65fba", "value": 28}}, "b7d8e5333c6146ef9305fd2aa9efa232": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_8cfab0469c774ae696429021aaa66d54", "style": "IPY_MODEL_8a289e5b52584ae2a820b7d5970bf374", "value": "Kernels downloaded: 100%"}}, "c0f37bcda30045c2ace49c1d7c4d117f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "c2f02ef582684a45a8273e29bb75f8c1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_6119196b842a499a825f8430b8760c93", "style": "IPY_MODEL_021878dd4e484566ad70a6b0143d1075", "value": " 28/28 [00:00&lt;00:00, 1036.84it/s]"}}, "c3108f7f44e84ed8b3a8793fa14315a6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_8e84924932514e0c9faac8160c711be6", "style": "IPY_MODEL_91fb6fe1a98a494d83fbc75cba417d3c", "value": "Kernels downloaded: 100%"}}, "c397d2240aeb41cd89840665f82ea702": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_481759e9fcac4f8babcc466f5e04fb60", "style": "IPY_MODEL_719f5014fad34d498905453eaf83c616", "value": "Kernels downloaded: 100%"}}, "d2ee1240d88d48d8adaef55e4d3331fc": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "e90cc554537c4feca6b52fd0be116e6f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}, "ea5017b8fb6e4b90876fd451b8e2d5ef": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_261016f9e4ca49e883fe74123b16d4c5", "style": "IPY_MODEL_1373b9f31a174255b265eb3a830c1ef7", "value": "Kernels downloaded: 100%"}}, "f250261dd46b4f128be259e8bb7bc698": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_fbd194b92daf4182a0cb8d61de575c14", "style": "IPY_MODEL_145e7180cd5e42da9c0cc1cc001c5cc5", "value": " 28/28 [00:00&lt;00:00, 676.15it/s]"}}, "f3ff1df63b5f4aa782f64e160db10d07": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_c397d2240aeb41cd89840665f82ea702", "IPY_MODEL_a501d85574f94af9907e0a377fd289e6", "IPY_MODEL_c2f02ef582684a45a8273e29bb75f8c1"], "layout": "IPY_MODEL_459aeb422c024185a4a55ac1d37ba9bf"}}, "fbd194b92daf4182a0cb8d61de575c14": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "fee801b22333496f88a990678f846ebb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"description_width": ""}}}, "version_major": 2, "version_minor": 0}
 </script>
 

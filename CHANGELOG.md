@@ -2,6 +2,24 @@
 
 <!-- do not remove -->
 
+## 0.21.3
+
+### New Features
+
+- Add flag to not have URLs checked, for performance ([#15](https://github.com/michaelaye/nbplanetary/issues/15))
+
+- Move check_url_exists to utils ([#13](https://github.com/michaelaye/nbplanetary/issues/13))
+
+- Make sure get_index downloads and converts intelligently ([#12](https://github.com/michaelaye/nbplanetary/issues/12))
+
+- Add SOURCE_PRODUCT, RED_PRODUCT, IR_PRODUCT to hirise module ([#11](https://github.com/michaelaye/nbplanetary/issues/11))
+
+- Remove old HiRISE code ([#3](https://github.com/michaelaye/nbplanetary/issues/3))
+  - The dependency on the old HiRISE package blocks creation of a conda package. 
+  - Clean up old HiRISE code and add here.
+
+
+
 ## 0.21.2
 
 
