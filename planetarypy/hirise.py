@@ -467,7 +467,7 @@ class SOURCE_PRODUCT:
     def url(self):
         u = baseurl / str(self.remote_path)
         if self.check_url:
-            if not check_url_exists(url):
+            if not check_url_exists(u):
                 warnings.warn(f"{u} does not exist on the server.")
         return u
 
