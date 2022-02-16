@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 0.21.8
+
+### New Features
+
+- add stitched_cube_path to SOURCE_PRODUCT ([#20](https://github.com/michaelaye/nbplanetary/issues/20))
+
+
+
 ## 0.21.7
 
 
