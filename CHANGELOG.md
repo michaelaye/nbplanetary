@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 0.21.5
+
+
+### Bugs Squashed
+
+- SOURCE_PRODUCT downloader was still old code ([#17](https://github.com/michaelaye/nbplanetary/issues/17))
+
+
 ## 0.21.4
 
 
