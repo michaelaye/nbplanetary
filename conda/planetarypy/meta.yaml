@@ -1,9 +1,9 @@
 package:
   name: planetarypy
-  version: 0.17.1
+  version: 0.21.3
 source:
-  sha256: f0b7b7b48606d17e2be5c396d68a71f6c8c856120824b3d944b62fedde143aac
-  url: https://files.pythonhosted.org/packages/1b/09/e4f2f27a883aac71a22b6d497a29670d8942dcb2c3b9367d119fc38c6680/planetarypy-0.17.1.tar.gz
+  sha256: 21aa160f8b192b61802f24e29f0d50aaa34c0f4a4e8911c790497fb60b6e5e77
+  url: https://files.pythonhosted.org/packages/0d/27/09f9d7c7a072346a511ae828726b89473de17d289ebd7bda8077b4ca9256/planetarypy-0.21.3.tar.gz
 about:
   dev_url: https://michaelaye.github.io
   doc_url: https://michaelaye.github.io
@@ -31,10 +31,15 @@ requirements:
   - tqdm
   - lxml
   - yarl
-  - hirise-tools
   - kalasiris
   - dask
   - fastparquet
+  - rioxarray
+  - matplotlib
+  - hvplot
+  - requests
+  - astropy
+  - fastcore
   run:
   - pip
   - python
@@ -47,10 +52,15 @@ requirements:
   - tqdm
   - lxml
   - yarl
-  - hirise-tools
   - kalasiris
   - dask
   - fastparquet
+  - rioxarray
+  - matplotlib
+  - hvplot
+  - requests
+  - astropy
+  - fastcore
 test:
   imports:
   - planetarypy

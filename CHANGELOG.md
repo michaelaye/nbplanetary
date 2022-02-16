@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 0.21.4
+
+
+### Bugs Squashed
+
+- new product classes not exported to lib ([#16](https://github.com/michaelaye/nbplanetary/issues/16))
+
+
 ## 0.21.3
 
 ### New Features
