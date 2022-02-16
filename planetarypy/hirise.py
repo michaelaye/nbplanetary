@@ -484,6 +484,10 @@ class SOURCE_PRODUCT:
     def stitched_cube_name(self):
         return f"{self.pid.obsid.id}_{self.ccd}.cub"
 
+    @property
+    def stitched_cube_path(self):
+        return self.local_cube.with_name(self.stitched_cube_name)
+
     def download(self, overwrite=False):
         self.local_path.parent.mkdir(parents=True, exist_ok=True)
         if self.local_path.exists() and not overwrite:
