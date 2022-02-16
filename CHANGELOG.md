@@ -2,6 +2,18 @@
 
 <!-- do not remove -->
 
+## 0.21.6
+
+### New Features
+
+- Consolidate classes better ([#18](https://github.com/michaelaye/nbplanetary/issues/18))
+  - RGB_NOMAP had code that should be a base class
+  - SOURCE_PRODUCT has some similarities to BASE_PRODUCT but not close enough to be derived
+  - SOURCE_PRODUCT gets its own local_path/remote_path/url/download code segment
+  - other products can inherit from SOURCE_PRODUCT and initialize it with the correct PRODUCT_ID string.﻿
+
+
+
 ## 0.21.5
 
 
