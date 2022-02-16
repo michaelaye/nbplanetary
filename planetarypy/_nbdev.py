@@ -4,7 +4,7 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Config": "00_config.ipynb",
          "config": "00_config.ipynb",
-         "logger": "02a_pds.indexes.ipynb",
+         "logger": "04_hirise.ipynb",
          "nasa_date_format": "01_utils.ipynb",
          "nasa_dt_format": "01_utils.ipynb",
          "nasa_dt_format_with_ms": "01_utils.ipynb",
