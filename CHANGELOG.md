@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 0.21.7
+
+
+### Bugs Squashed
+
+- url attribute was not working ([#19](https://github.com/michaelaye/nbplanetary/issues/19))
+
+
 ## 0.21.6
 
 ### New Features
