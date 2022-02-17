@@ -234,14 +234,17 @@ class Index:
         # Note: the config object writes itself out after setting any value
         config.set_value(f"{self.key}.timestamp", self.isotimestamp)
 
-    def convert_to_hdf(self):
+    def read_index_data(self):
         label = IndexLabel(self.local_label_path)
         df = label.read_index_data()
+        return df
+
+    def convert_to_hdf(self):
+        df = self.read_index_data()
         df.to_hdf(self.local_hdf_path, "df")
 
     def convert_to_parquet(self):
-        label = IndexLabel(self.local_label_path)
-        df = label.read_index_data()
+        df = self.read_index_data()
         df = df.convert_dtypes()
         df.to_parquet(self.local_parq_path)
 
