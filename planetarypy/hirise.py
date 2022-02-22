@@ -5,12 +5,12 @@ __all__ = ['logger', 'storage_root', 'baseurl', 'rdrindex', 'OBSID', 'ProductPat
 
 # Cell
 
+import logging
 import warnings
 import webbrowser
-import requests
+
 import hvplot.xarray  # noqa
 import rasterio
-import logging
 import rioxarray as rxr
 from dask import compute, delayed
 from fastcore.utils import Path
@@ -20,7 +20,6 @@ from .utils import check_url_exists, url_retrieve
 from yarl import URL
 
 warnings.filterwarnings("ignore", category=rasterio.errors.NotGeoreferencedWarning)
-
 
 # Cell
 logger = logging.getLogger(__name__)
@@ -37,6 +36,7 @@ class OBSID:
     For example PSP_003092_0985.
     `phase` is set to PSP for orbits < 11000, no setting required.
     """
+
     def __init__(
         self,
         obsid: str,  # e.g. PSP_003092_0985
@@ -50,10 +50,7 @@ class OBSID:
         return str(self._orbit).zfill(6)
 
     @orbit.setter
-    def orbit(
-        self,
-        value: int  # e.g. 11000, < 1_000_000
-    ):
+    def orbit(self, value: int):  # e.g. 11000, < 1_000_000
         if value > 999999:
             raise ValueError("Orbit cannot be larger than 999999")
         elif len(value) != 6:
@@ -139,10 +136,7 @@ class ProductPathfinder:
         return self._obsid
 
     @obsid.setter
-    def obsid(
-        self,
-        value: str  # e.g. "PSP_003092_0985"
-    ):
+    def obsid(self, value: str):  # e.g. "PSP_003092_0985"
         self._obsid = OBSID(value)
 
     @property
@@ -152,7 +146,7 @@ class ProductPathfinder:
     @kind.setter
     def kind(
         self,
-        value: str  # one of "RED", "BG", "IR", "COLOR", "IRB", "MIRB", "MRGB", "RGB", "RGB.NOMAP"
+        value: str,  # one of "RED", "BG", "IR", "COLOR", "IRB", "MIRB", "MRGB", "RGB", "RGB.NOMAP"
     ):
         if value not in self.kinds:
             raise ValueError(f"kind must be in {self.kinds}")
@@ -162,18 +156,20 @@ class ProductPathfinder:
     def product_id(self):
         return f"{self.obsid}_{self.kind}"
 
-    def __str__(self)->str:  # PRODUCT_ID string, e.g. PSP_003092_0985_RED
+    def __str__(self) -> str:  # PRODUCT_ID string, e.g. PSP_003092_0985_RED
         return self.product_id
 
     def __repr__(self):
         return self.__str__()
 
     @property
-    def storage_stem(self)->str:  # e.g. 'PSP/ORB_003000_003099/PSP_003092_0985/PSP_003092_0985_RED'
+    def storage_stem(
+        self,
+    ) -> str:  # e.g. 'PSP/ORB_003000_003099/PSP_003092_0985/PSP_003092_0985_RED'
         return f"{self.obsid.storage_path_stem}/{self.product_id}"
 
     @property
-    def label_fname(self)->str:  # e.g. 'PSP_003092_0985_RED.LBL'
+    def label_fname(self) -> str:  # e.g. 'PSP_003092_0985_RED.LBL'
         return f"{self.product_id}.LBL"
 
     @property
@@ -282,7 +278,7 @@ class ProductPathfinder:
         return Path("EDR") / self.storage_stem
 
     @property
-    def homepage(self)->str:  # URL to the product's homepage
+    def homepage(self) -> str:  # URL to the product's homepage
         return f"https://uahirise.org/{self.obsid}"
 
     def go_to_homepage(self):
@@ -293,7 +289,7 @@ class COLOR_PRODUCT:
     def __init__(self, obsid):
         self.obsid = obsid
         # this should be reset by the subclass
-        self.pathfinder = ProductPathfinder(self.obsid+"_COLOR")
+        self.pathfinder = ProductPathfinder(self.obsid + "_COLOR")
 
     @property
     def product_id(self):
@@ -301,7 +297,7 @@ class COLOR_PRODUCT:
 
     @property
     def meta(self):
-        color_id = self.obsid+"_COLOR"
+        color_id = self.obsid + "_COLOR"
         s = rdrindex.query("PRODUCT_ID == @color_id").squeeze()
         s.index = s.index.str.lower()
         return s
@@ -309,12 +305,12 @@ class COLOR_PRODUCT:
     @property
     def url(self):
         # set `name` in the subclass
-        return URL(getattr(self.pathfinder, self.name+"_url"))
+        return URL(getattr(self.pathfinder, self.name + "_url"))
 
     @property
     def remote_path(self):
         # set `name` in subclass
-        return Path(getattr(self.pathfinder, self.name+"_path"))
+        return Path(getattr(self.pathfinder, self.name + "_path"))
 
     @property
     def local_path(self):
@@ -354,7 +350,7 @@ class RGB_NOMAP(COLOR_PRODUCT):
     def __init__(self, obsid):
         super().__init__(obsid)
         self.name = "nomap_jp2"
-        self.pathfinder = ProductPathfinder(obsid+"_RGB")
+        self.pathfinder = ProductPathfinder(obsid + "_RGB")
 
 # Cell
 class RGB_NOMAPCollection:
@@ -397,6 +393,7 @@ class RGB_NOMAPCollection:
 
 # Cell
 
+
 class SOURCE_PRODUCT:
     """Manage SOURCE_PRODUCT id.
 
@@ -405,17 +402,17 @@ class SOURCE_PRODUCT:
     'PSP_003092_0985_RED4_0'
     """
 
-    red_ccds = ['RED' + str(i) for i in range(10)]
-    ir_ccds = ['IR10', 'IR11']
-    bg_ccds = ['BG12', 'BG13']
+    red_ccds = ["RED" + str(i) for i in range(10)]
+    ir_ccds = ["IR10", "IR11"]
+    bg_ccds = ["BG12", "BG13"]
     ccds = red_ccds + ir_ccds + bg_ccds
 
     def __init__(self, spid, saveroot=None, check_url=True):
-        tokens = spid.split('_')
-        obsid = '_'.join(tokens[:3])
+        tokens = spid.split("_")
+        obsid = "_".join(tokens[:3])
         ccd = tokens[3]
         color, ccdno = self._parse_ccd(ccd)
-        self.pid = ProductPathfinder('_'.join([obsid, color]))
+        self.pid = ProductPathfinder("_".join([obsid, color]))
         self.ccd = ccd
         self.channel = tokens[4]
         self.saveroot = storage_root if saveroot is None else saveroot
@@ -459,7 +456,9 @@ class SOURCE_PRODUCT:
         return self.ccd[offset:]
 
     def __str__(self):
-        return "{}: {}{}_{}".format(self.__class__.__name__, self.pid, self.ccdno, self.channel)
+        return "{}: {}{}_{}".format(
+            self.__class__.__name__, self.pid, self.ccdno, self.channel
+        )
 
     def __repr__(self):
         return self.__str__()
@@ -470,7 +469,7 @@ class SOURCE_PRODUCT:
 
     @property
     def fname(self):
-        return self.spid + '.IMG'
+        return self.spid + ".IMG"
 
     @property
     def remote_path(self):
@@ -491,7 +490,7 @@ class SOURCE_PRODUCT:
 
     @property
     def local_cube(self):
-        return self.local_path.with_suffix('.cub')
+        return self.local_path.with_suffix(".cub")
 
     @property
     def stitched_cube_name(self):
@@ -508,20 +507,22 @@ class SOURCE_PRODUCT:
             return
         url_retrieve(self.url, self.local_path)
 
-
 # Cell
 class RED_PRODUCT(SOURCE_PRODUCT):
     "This exists to support creating a RED_PRODUCT_ID from parts of a SOURCE_PRODUCT id."
+
     def __init__(self, obsid, ccdno, channel, **kwargs):
         self.ccds = self.red_ccds
-        super().__init__(f'{obsid}_RED{ccdno}_{channel}', **kwargs)
+        super().__init__(f"{obsid}_RED{ccdno}_{channel}", **kwargs)
 
 # Cell
 class IR_PRODUCT(SOURCE_PRODUCT):
     def __init__(self, obsid, ccdno, channel):
         self.ccds = self.ir_ccds
-        super().__init__(f'{obsid}_IR{ccdno}_{channel}', **kwargs)
+        super().__init__(f"{obsid}_IR{ccdno}_{channel}", **kwargs)
+
+
 class BG_PRODUCT(SOURCE_PRODUCT):
     def __init__(self, obsid, ccdno, channel):
         self.ccds = self.ir_ccds
-        super().__init__(f'{obsid}_BG{ccdno}_{channel}', **kwargs)
+        super().__init__(f"{obsid}_BG{ccdno}_{channel}", **kwargs)
