@@ -17,10 +17,13 @@ def find_indexes(
 # Cell
 def get_index(
     instr: str,  # Dotted instrument index, e.g. cassini.iss
-    index_name: str,  # Index name, for exmample 'moon_summary'
+    index_name: str='',  # Index name, for exmample 'moon_summary. Optional'
 ) -> pd.DataFrame:  # The PDS index convert to pandas DataFrame
     """Example: get_index("cassini.iss", "index")"""
-    index = Index(instr + ".indexes." + index_name)
+    if not index_name:
+        index = Index(instr)
+    else:
+        index = Index(instr + ".indexes." + index_name)
     if index.needs_download:
         print("Index is outdated or not existing. Downloading...")
         index.download()
