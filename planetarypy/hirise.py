@@ -7,7 +7,7 @@ __all__ = ['logger', 'storage_root', 'baseurl', 'rdrindex', 'OBSID', 'ProductPat
 
 import warnings
 import webbrowser
-
+import requests
 import hvplot.xarray  # noqa
 import rasterio
 import logging
@@ -179,6 +179,19 @@ class ProductPathfinder:
     @property
     def label_path(self):
         return Path("RDR") / (self.storage_stem + ".LBL")
+
+    @property
+    def local_label_path(self):
+        path = self.label_path
+        return storage_root / (f"{path.parent.name}/{path.name}")
+
+    def download_label(self, overwrite=False):
+        """Download the label file."""
+        self.local_label_path.parent.mkdir(exist_ok=True, parents=True)
+        if self.local_label_path.exists and not overwrite:
+            return
+        else:
+            url_retrieve(self.label_url, self.local_label_path)
 
     def _make_url(self, obj):
         path = getattr(self, f"{obj}_path")
