@@ -17,7 +17,7 @@ from planetarypy import utils
 from ..config import config
 from .ctx_index import CTXIndex
 from .lroc_index import LROCIndex
-from .utils import IndexLabel
+from .utils import IndexLabel, fix_hirise_edrcumindex
 
 logger = logging.getLogger(__name__)
 
@@ -78,22 +78,12 @@ class Index:
         return self.timestamp.isoformat()
 
     @property
-    def needs_download(self):
-        """Determine if the index needs to be downloaded.
+    def needs_download(self)->bool:  # Boolean indicating if download is required
+        """Property indicating if the index needs to be downloaded.
 
-        Download shall happen when
+        Need is True when
         (1) no local timestamp was stored or
         (2) when the remote timestamp is newer.
-
-        Parameters
-        ----------
-        index : indices.Index (namedtuple)
-            Index holding the timestamp attribute read from the config file
-
-        Returns
-        -------
-        bool
-            Boolean indicating if download shall happen.
         """
         try:
             self.remote_timestamp = utils.get_remote_timestamp(self.url)
@@ -214,29 +204,47 @@ class Index:
         logger.info("Downloading %s.", self.table_url)
         utils.url_retrieve(self.table_url, self.local_table_path)
         print(f"Downloaded {self.local_label_path} and {self.local_table_path}")
+        if self.key == 'missions.mro.hirise.indexes.edr':  # HiRISE EDR index is broken on the PDS. Team knows.
+            print("Fixing broken EDR index...")
+            fix_hirise_edrcumindex(self.local_table_path, self.local_table_path.with_name("temp.tab"))
+            self.local_table_path.with_name("temp.tab").rename(self.local_table_path)
         self.timestamp = self.remote_timestamp
         self.update_timestamp()
 
-        if convert_to_hdf is True:
+        if convert_to_hdf:
             try:
                 self.convert_to_hdf()
-                self.convert_to_parqet()
-                print(f"Converted to pandas HDF:\n{self.local_hdf_path}")
             except:  # any conversion error simpy leads to HDF marked as missing
                 self.set_hdf_available(False)
             else:
                 self.set_hdf_available(True)
+                print(f"Converted to pandas HDF:\n{self.local_hdf_path}")
+        elif convert_to_parquet:
+            try:
+                self.convert_to_parqet()
+            except:
+                self.set_parquet_available(False)
+            else:
+                self.set_parquet_available(True)
+                print(f"Converted to parquet:\n{self.local_parq_path}")
+
 
     def set_hdf_available(self, status):
         config.set_value(f"{self.key}.hdf_available", status)
+
+    def set_parquet_available(self, status):
+        config.set_value(f"{self.key}.parquet_available", status)
 
     def update_timestamp(self):
         # Note: the config object writes itself out after setting any value
         config.set_value(f"{self.key}.timestamp", self.isotimestamp)
 
+    @property
+    def label(self):
+        return IndexLabel(self.local_label_path)
+
     def read_index_data(self):
-        label = IndexLabel(self.local_label_path)
-        df = label.read_index_data()
+        df = self.label.read_index_data()
         return df
 
     def convert_to_hdf(self):
