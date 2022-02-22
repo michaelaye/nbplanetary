@@ -4,7 +4,7 @@ __all__ = ['IndexLabel', 'index_to_df', 'PVLColumn', 'decode_line', 'find_mixed_
 
 # Cell
 from typing import Union
-
+from tqdm.auto import tqdm
 from fastcore.utils import Path
 
 import pandas as pd
@@ -233,8 +233,8 @@ def fix_hirise_edrcumindex(
     This function simply replaces those incidences with one less decimal fraction, so 20000.0000
     becomes 20000.000.
     """
-    with open(str(infname)) as f:
-        with open(str(outfname, "w")) as newf:
+    with Path(infname).open() as f:
+        with Path(outfname).open("w") as newf:
             for line in tqdm(f):
                 exp = line.split(",")[21]
                 if float(exp) > 9999.999:
