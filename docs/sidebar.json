@@ -19,5 +19,6 @@
         "UVIS": "/cassini_uvis",
         "Cassini ISS": "/cassini_iss",
         "Apps Demos": "/apps_demo"
+        "Tutorial": "/tutorial"
     }
 }
