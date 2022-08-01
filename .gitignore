@@ -144,3 +144,5 @@ _build/
 token
 
 dask-worker-space
+_docs/
+sidebar.yml
