@@ -19,15 +19,16 @@ def find_indexes(
 def get_index(
     instr: str,  # Dotted instrument index, e.g. cassini.iss
     index_name: str='',  # Index name, for exmample 'moon_summary. Optional'
+    refresh: bool=False,  # switch to force a refresh of an index
 ) -> pd.DataFrame:  # The PDS index convert to pandas DataFrame
     """Example: get_index("cassini.iss", "index")"""
     if not index_name:
         index = Index(instr)
     else:
         index = Index(instr + ".indexes." + index_name)
-    if index.needs_download:
-        print("Index is outdated or not existing. Downloading...")
-        index.download()
+    if index.needs_download or refresh is True:
+        print("Index is outdated or not existing or asked to be refreshed.\nDownloading...")
+        index.download(force_update=refresh)
         index.convert_to_parquet()
     try:
         return index.parquet

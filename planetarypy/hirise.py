@@ -88,7 +88,8 @@ class OBSID:
     @property
     def upper_orbit_folder(self):
         """
-        get the upper folder name where the given orbit folder is residing on the
+        get the upper folder name wa
+        rdrhere the given orbit folder is residing on the
         hisync server, e.g. 'ORB_011900_011999'
         """
         lower = int(self.orbit) // 100 * 100

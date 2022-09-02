@@ -179,7 +179,7 @@ class Index:
     @property
     def df(self):
         return pd.read_hdf(self.local_hdf_path)
-    
+
     @property
     def parquet(self):
         return pd.read_parquet(self.local_parq_path)
