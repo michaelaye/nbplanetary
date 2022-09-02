@@ -117,7 +117,7 @@ https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/data/planetary
 
 Find something in `Utils` for working with NASA timestamps and a well
 working URL download function
-[`url_retrieve`](https://michaelaye.github.io/nbplanetary/utils.html#url_retrieve),
+[`url_retrieve`](https://michaelaye.github.io/planetarypy/utils.html#url_retrieve),
 among other stuff.
 
 ## Experiment/Instrument Specific
@@ -189,124 +189,124 @@ ctrindex.sample(5, random_state=42)  # setting random_state to always get same f
   </thead>
   <tbody>
     <tr>
-      <th>48363</th>
-      <td>MROX_1644</td>
-      <td>DATA/G23_027190_2628_XN_82N310W.IMG</td>
-      <td>4A_04_1088023D00</td>
-      <td>G23_027190_2628_XN_82N310W</td>
-      <td>2012-05-15 04:26:34.083</td>
-      <td>CTX</td>
-      <td>NIFL</td>
-      <td>5056</td>
-      <td>14336</td>
-      <td>1</td>
-      <td>...</td>
-      <td>23.72</td>
-      <td>312.68</td>
-      <td>82.73</td>
-      <td>243468130.7</td>
-      <td>110.63</td>
-      <td>14.00</td>
-      <td>89.9</td>
-      <td>Ride-along with CRISM</td>
-      <td>OK</td>
-      <td>27190</td>
-    </tr>
-    <tr>
-      <th>60249</th>
-      <td>MROX_1975</td>
-      <td>DATA/D20_035175_1707_XN_09S124W.IMG</td>
-      <td>4A_04_10B002EF00</td>
-      <td>D20_035175_1707_XN_09S124W</td>
-      <td>2014-01-27 09:01:31.930</td>
+      <th>33054</th>
+      <td>MROX_1189</td>
+      <td>DATA/G01_018691_2639_XN_83N125W.IMG</td>
+      <td>4A_04_105C021D00</td>
+      <td>G01_018691_2639_XN_83N125W</td>
+      <td>2010-07-22 22:26:50.279</td>
       <td>CTX</td>
       <td>NIFL</td>
       <td>5056</td>
       <td>7168</td>
       <td>1</td>
       <td>...</td>
-      <td>25.17</td>
-      <td>124.81</td>
-      <td>-9.42</td>
-      <td>248796288.2</td>
-      <td>81.75</td>
-      <td>15.32</td>
-      <td>90.1</td>
-      <td>Ride-along with HiRISE</td>
-      <td>OK</td>
-      <td>35175</td>
-    </tr>
-    <tr>
-      <th>44826</th>
-      <td>MROX_1523</td>
-      <td>DATA/G20_026022_1715_XN_08S077W.IMG</td>
-      <td>4A_04_108201B600</td>
-      <td>G20_026022_1715_XN_08S077W</td>
-      <td>2012-02-14 03:43:49.376</td>
-      <td>CTX</td>
-      <td>NIFL</td>
-      <td>5056</td>
-      <td>29696</td>
-      <td>1</td>
-      <td>...</td>
-      <td>23.87</td>
-      <td>76.75</td>
-      <td>-8.46</td>
-      <td>249223463.0</td>
-      <td>70.28</td>
-      <td>15.03</td>
-      <td>90.9</td>
-      <td>Ride-along with HiRISE</td>
-      <td>OK</td>
-      <td>26022</td>
-    </tr>
-    <tr>
-      <th>876</th>
-      <td>MROX_0024</td>
-      <td>DATA/P02_001836_1817_XI_01N357W.IMG</td>
-      <td>4A_04_1007015700</td>
-      <td>P02_001836_1817_XI_01N357W</td>
-      <td>2006-12-17 12:17:16.003</td>
-      <td>CTX</td>
-      <td>ITL</td>
-      <td>5056</td>
-      <td>234</td>
-      <td>1</td>
-      <td>...</td>
-      <td>11.73</td>
-      <td>357.10</td>
-      <td>0.17</td>
-      <td>229386257.7</td>
-      <td>151.83</td>
-      <td>15.63</td>
-      <td>90.2</td>
-      <td>Relation of dark mesa material and ridges in M...</td>
-      <td>ERROR</td>
-      <td>1836</td>
-    </tr>
-    <tr>
-      <th>13846</th>
-      <td>MROX_0611</td>
-      <td>DATA/P20_008913_2253_XN_45N267W.IMG</td>
-      <td>4A_04_102A027300</td>
-      <td>P20_008913_2253_XN_45N267W</td>
-      <td>2008-06-21 00:17:00.225</td>
-      <td>CTX</td>
-      <td>NIFL</td>
-      <td>5056</td>
-      <td>21504</td>
-      <td>1</td>
-      <td>...</td>
-      <td>25.44</td>
-      <td>266.78</td>
-      <td>45.37</td>
-      <td>248097019.0</td>
-      <td>88.14</td>
-      <td>15.13</td>
+      <td>21.37</td>
+      <td>125.18</td>
+      <td>83.96</td>
+      <td>240053143.9</td>
+      <td>122.10</td>
+      <td>13.69</td>
       <td>89.9</td>
       <td>Ride-along with HiRISE</td>
       <td>OK</td>
-      <td>8913</td>
+      <td>18691</td>
+    </tr>
+    <tr>
+      <th>93213</th>
+      <td>MROX_2936</td>
+      <td>DATA/J18_051799_1768_XN_03S008W.IMG</td>
+      <td>4A_04_1106006B00</td>
+      <td>J18_051799_1768_XN_03S008W</td>
+      <td>2017-08-14 16:52:08.694</td>
+      <td>CTX</td>
+      <td>NIFL</td>
+      <td>5056</td>
+      <td>7168</td>
+      <td>1</td>
+      <td>...</td>
+      <td>18.43</td>
+      <td>8.94</td>
+      <td>-3.30</td>
+      <td>247073409.4</td>
+      <td>47.31</td>
+      <td>14.79</td>
+      <td>90.1</td>
+      <td>Ride-along with HiRISE</td>
+      <td>OK</td>
+      <td>51799</td>
+    </tr>
+    <tr>
+      <th>116150</th>
+      <td>MROX_3682</td>
+      <td>DATA/N07_065025_2026_XN_22N001W.IMG</td>
+      <td>4A_04_114A010700</td>
+      <td>N07_065025_2026_XN_22N001W</td>
+      <td>2020-06-10 06:19:59.533</td>
+      <td>CTX</td>
+      <td>NIFL</td>
+      <td>5056</td>
+      <td>52224</td>
+      <td>1</td>
+      <td>...</td>
+      <td>-15.04</td>
+      <td>0.80</td>
+      <td>22.71</td>
+      <td>209715242.3</td>
+      <td>217.08</td>
+      <td>15.65</td>
+      <td>89.7</td>
+      <td>Ride-along with CRISM</td>
+      <td>OK</td>
+      <td>65025</td>
+    </tr>
+    <tr>
+      <th>84411</th>
+      <td>MROX_2710</td>
+      <td>DATA/J06_047059_1670_XN_13S194W.IMG</td>
+      <td>4A_04_10EE015900</td>
+      <td>J06_047059_1670_XN_13S194W</td>
+      <td>2016-08-10 07:59:51.331</td>
+      <td>CTX</td>
+      <td>NIFL</td>
+      <td>2336</td>
+      <td>16384</td>
+      <td>1</td>
+      <td>...</td>
+      <td>-9.00</td>
+      <td>194.58</td>
+      <td>-13.04</td>
+      <td>213104117.6</td>
+      <td>201.30</td>
+      <td>15.46</td>
+      <td>90.2</td>
+      <td>Landforms near Al Qahira Vallis</td>
+      <td>OK</td>
+      <td>47059</td>
+    </tr>
+    <tr>
+      <th>93055</th>
+      <td>MROX_2931</td>
+      <td>DATA/J17_051369_1512_XI_28S145W.IMG</td>
+      <td>4A_04_110500C700</td>
+      <td>J17_051369_1512_XI_28S145W</td>
+      <td>2017-07-12 04:36:20.503</td>
+      <td>CTX</td>
+      <td>ITL</td>
+      <td>5056</td>
+      <td>7168</td>
+      <td>1</td>
+      <td>...</td>
+      <td>13.27</td>
+      <td>146.43</td>
+      <td>-28.94</td>
+      <td>243673970.8</td>
+      <td>32.23</td>
+      <td>14.74</td>
+      <td>90.1</td>
+      <td>Sirenum Fossae trough cut through landslide de...</td>
+      <td>OK</td>
+      <td>51369</td>
     </tr>
   </tbody>
 </table>
@@ -509,7 +509,7 @@ pid = ctrindex.sample(random_state=42).squeeze().PRODUCT_ID
 pid
 ```
 
-    'G23_027190_2628_XN_82N310W'
+    'G01_018691_2639_XN_83N125W'
 
 ``` python
 ctxedr = CTXEDR(pid)
@@ -519,16 +519,16 @@ ctxedr = CTXEDR(pid)
 ctxedr.local_path
 ```
 
-    Path('/media/ayek72/data/planetarypy/missions/mro/ctx/edr/G23_027190_2628_XN_82N310W/G23_027190_2628_XN_82N310W.IMG')
+    Path('/home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG')
 
 ``` python
 ctxedr
 ```
 
-    PRODUCT_ID: G23_027190_2628_XN_82N310W
-    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_1644/data/G23_027190_2628_XN_82N310W.IMG
-    Local: /media/ayek72/data/planetarypy/missions/mro/ctx/edr/G23_027190_2628_XN_82N310W/G23_027190_2628_XN_82N310W.IMG
-    Shape: (1, 14336, 5056)
+    PRODUCT_ID: G01_018691_2639_XN_83N125W
+    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_1189/data/G01_018691_2639_XN_83N125W.IMG
+    Local: /home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG
+    Shape: (1, 7168, 5056)
 
 ``` python
 ctxedr.download()
@@ -540,7 +540,7 @@ ctxedr.download()
 ctxedr
 ```
 
-    PRODUCT_ID: G23_027190_2628_XN_82N310W
-    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_1644/data/G23_027190_2628_XN_82N310W.IMG
-    Local: /media/ayek72/data/planetarypy/missions/mro/ctx/edr/G23_027190_2628_XN_82N310W/G23_027190_2628_XN_82N310W.IMG
-    Shape: (1, 14336, 5056)
+    PRODUCT_ID: G01_018691_2639_XN_83N125W
+    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_1189/data/G01_018691_2639_XN_83N125W.IMG
+    Local: /home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG
+    Shape: (1, 7168, 5056)

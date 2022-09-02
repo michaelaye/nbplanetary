@@ -24,11 +24,11 @@ import pandas as pd
 from ..config import config
 from ..utils import nasa_time_to_iso, url_retrieve
 
-# %% ../../notebooks/10_spice.kernels.ipynb 9
+# %% ../../notebooks/10_spice.kernels.ipynb 5
 kernel_storage = config.storage_root / "spice_kernels"
 kernel_storage.mkdir(exist_ok=True, parents=True)
 
-# %% ../../notebooks/10_spice.kernels.ipynb 11
+# %% ../../notebooks/10_spice.kernels.ipynb 7
 dataset_ids = {
     "cassini": "co-s_j_e_v-spice-6-v1.0/cosp_1000",
     "clementine": "clem1-l-spice-6-v1.0/clsp_1000",
@@ -72,7 +72,7 @@ df2 = df2.drop(["Archive Readme", "Archive Link", "Subset Link"], axis=1)
 df = df.join(df2)
 datasets = df.set_index("shorthand")
 
-# %% ../../notebooks/10_spice.kernels.ipynb 14
+# %% ../../notebooks/10_spice.kernels.ipynb 10
 def is_start_valid(
     mission: str,  # mission shorthand label of datasets dataframe
     start: Time,  # start time in astropy.Time format
@@ -86,10 +86,10 @@ def is_stop_valid(
 ):
     return Time(datasets.at[mission, "Stop Time"]) >= stop
 
-# %% ../../notebooks/10_spice.kernels.ipynb 17
+# %% ../../notebooks/10_spice.kernels.ipynb 13
 base_url = URL("https://naif.jpl.nasa.gov/cgi-bin/subsetds.pl")
 
-# %% ../../notebooks/10_spice.kernels.ipynb 19
+# %% ../../notebooks/10_spice.kernels.ipynb 15
 class Subsetter:
     """Class to manage retrieving subset SPICE kernel lists
 
@@ -232,7 +232,7 @@ class Subsetter:
                 outfile.write(linestr)
         return savepath
 
-# %% ../../notebooks/10_spice.kernels.ipynb 47
+# %% ../../notebooks/10_spice.kernels.ipynb 43
 def get_metakernel_and_files(
     mission: str,  # mission shorthand from datasets dataframe
     start: str,  # start time as iso-string, or yyyy-jjj
@@ -244,7 +244,7 @@ def get_metakernel_and_files(
     subset.download_kernels()
     return subset.get_metakernel()
 
-# %% ../../notebooks/10_spice.kernels.ipynb 49
+# %% ../../notebooks/10_spice.kernels.ipynb 45
 def list_kernels_for_day(
     mission: str,  # mission shorthand from datasets dataframe
     start: str,  # start time as iso-string, or yyyy-jjj

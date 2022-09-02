@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['config', 'Config']
 
-# %% ../notebooks/00_config.ipynb 6
+# %% ../notebooks/00_config.ipynb 3
 import os
 import shutil
 from functools import reduce
@@ -13,7 +13,7 @@ from typing import Union
 import tomlkit as toml
 from fastcore.utils import AttrDict, Path
 
-# %% ../notebooks/00_config.ipynb 9
+# %% ../notebooks/00_config.ipynb 5
 class Config:
     """Manage config stuff.
 
@@ -167,8 +167,8 @@ class Config:
     def __repr__(self):
         return AttrDict(self.d).__repr__()
 
-# %% ../notebooks/00_config.ipynb 10
+# %% ../notebooks/00_config.ipynb 6
 config = Config()
 
-# %% ../notebooks/00_config.ipynb 14
+# %% ../notebooks/00_config.ipynb 10
 config = Config()

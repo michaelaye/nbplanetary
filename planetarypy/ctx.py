@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['baseurl', 'storage_root', 'edrindex', 'catch_isis_error', 'CTXEDR', 'CTXEDRCollection']
 
-# %% ../notebooks/03_ctx.ipynb 7
+# %% ../notebooks/03_ctx.ipynb 3
 import warnings
 
 import hvplot.xarray  # noqa
@@ -28,7 +28,7 @@ try:
 except KeyError:
     warnings.warn("kalasiris has a problem initializing ISIS")
 
-# %% ../notebooks/03_ctx.ipynb 8
+# %% ../notebooks/03_ctx.ipynb 4
 warnings.filterwarnings("ignore", category=rasterio.errors.NotGeoreferencedWarning)
 baseurl = URL(
     "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/"
@@ -37,7 +37,7 @@ baseurl = URL(
 storage_root = config.storage_root / "missions/mro/ctx"
 edrindex = get_index("mro.ctx", "edr")
 
-# %% ../notebooks/03_ctx.ipynb 10
+# %% ../notebooks/03_ctx.ipynb 6
 def catch_isis_error(func):
     def inner(*args, **kwargs):
         try:
@@ -50,7 +50,7 @@ def catch_isis_error(func):
 
     return inner
 
-# %% ../notebooks/03_ctx.ipynb 11
+# %% ../notebooks/03_ctx.ipynb 7
 class CTXEDR:
     storage = storage_root / "edr"
 
@@ -182,7 +182,7 @@ class CTXEDR:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/03_ctx.ipynb 30
+# %% ../notebooks/03_ctx.ipynb 26
 class CTXEDRCollection:
     """Class to deal with a set of CTX products."""
 
