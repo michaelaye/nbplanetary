@@ -11,3 +11,5 @@ jobs:
         uses: michaelaye/workflows/nbdev_prep@main
         with:
           pre: "1"
+      - name: Install nbplanetary
+        uses: michaelaye/workflows/install_nbplanetary@main
