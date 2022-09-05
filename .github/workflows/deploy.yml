@@ -6,4 +6,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps: [uses: michaelaye/workflows/nbdev_prep@main]
+    steps:
+      - name: Prepare nbdev doc creation
+        uses: michaelaye/workflows/nbdev_prep@main
+        with:
+          pre: true
