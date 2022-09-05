@@ -6,4 +6,4 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps: [uses: michaelaye/workflows/nbdev_prep]
+    steps: [uses: michaelaye/workflows/nbdev_prep@main]
