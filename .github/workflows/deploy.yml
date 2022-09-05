@@ -10,4 +10,4 @@ jobs:
       - name: Prepare nbdev doc creation
         uses: michaelaye/workflows/nbdev_prep@main
         with:
-          pre: ""
+          pre: "1"
