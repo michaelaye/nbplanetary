@@ -26,11 +26,7 @@ jobs:
 
       - name: Install mamba
         shell: bash
-        run: |
-          conda init bash
-          source ~/.bashrc
-          conda activate base
-          conda install -c conda-forge mamba -y
+        run: conda install -c conda-forge mamba -y
 
       - name: Install dependencies
         uses: jannekem/run-python-script-action@v1
