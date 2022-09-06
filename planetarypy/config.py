@@ -52,7 +52,11 @@ class Config:
         """
         self.tomldoc = toml.loads(self.path.read_text())
         if not self.tomldoc["storage_root"]:
-            self.ask_storage_root()
+            path = Path.home() / "planetarypy_data"
+            path.mkdir()
+            self.tomldoc["storage_root"] = str(path)
+            self.storage_root = path
+            self.save()
         else:
             self.storage_root = Path(self.tomldoc["storage_root"])
 
