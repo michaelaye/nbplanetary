@@ -24,17 +24,11 @@ jobs:
           activate-environment: testenv
           use-mamba: true
 
-      - name: Install dependencies, package, and nbdev tools
+      - name: Install package
         run: |
-          # source ~/.profile
-          # conda activate testenv
           mamba install pip -y
           python gh_workflow_install_deps.py
           pip install -e ".[dev]"
-          pip install -Uq git+https://github.com/fastai/ghapi.git # you need this for enabling pages
-          pip install -Uq git+https://github.com/fastai/fastcore.git
-          pip install -Uq git+https://github.com/fastai/execnb.git
-          pip install -Uq git+https://github.com/fastai/nbdev.git
 
       - name: Install quarto
         run: |
@@ -42,8 +36,14 @@ jobs:
           sudo dpkg -i quarto*.deb
           echo "installed quarto"
 
-      - name: Create docs
-        run: nbdev_docs
+      - name: Install nbdev tools and create docs
+        shell: bash
+        run: |
+          pip install -Uq git+https://github.com/fastai/ghapi.git # you need this for enabling pages
+          pip install -Uq git+https://github.com/fastai/fastcore.git
+          pip install -Uq git+https://github.com/fastai/execnb.git
+          pip install -Uq git+https://github.com/fastai/nbdev.git
+          nbdev_docs
 
       - name: Enable GitHub Pages
         shell: python
