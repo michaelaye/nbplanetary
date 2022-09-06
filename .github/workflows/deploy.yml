@@ -27,6 +27,7 @@ jobs:
       - name: Install mamba
         shell: bash
         run: |
+          conda init bash
           conda activate base
           conda install -c conda-forge mamba -y
 
