@@ -23,23 +23,6 @@ jobs:
           channel-priority: strict
           activate-environment: testenv
           use-mamba: true
-      # - name: Setup Conda
-      #   # You may pin to the exact commit or the version.
-      #   # uses: s-weigand/setup-conda@12b718b536e4be4da931f6d0fcfcc40a646ffed9
-      #   uses: s-weigand/setup-conda@v1.1.1
-      #   with:
-      #     # Whether to activate the conda base env (Default: 'true')
-      #     activate-conda: # optional, default is true
-      #     # If conda should be updated before running other commands (Default: 'false')
-      #     update-conda: # optional, default is false
-      #     # Python version which should be installed with conda (default: 'Default')
-      #     python-version: "3.10" # optional, default is default
-      #     # Additional channels like 'conda-forge' which can be used to install packages
-      #     conda-channels: "conda-forge" # optional, default is
-
-      # - name: Install mamba
-      #   shell: bash
-      #   run: conda install -c conda-forge mamba -y
 
       - name: Install dependencies, package, and nbdev tools
         run: |
@@ -61,3 +44,25 @@ jobs:
 
       - name: Create docs
         run: nbdev_docs
+
+      - name: Enable GitHub Pages
+        shell: python
+        run: |
+          import ghapi.core,nbdev.config,sys
+          msg="Please enable GitHub Pages to publish from the root of the `gh-pages` branch per these instructions - https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-from-a-branch"
+          try:
+            api = ghapi.core.GhApi(owner=nbdev.config.get_config().user, repo=nbdev.config.get_config().repo, token="${{github.token}}")
+            api.enable_pages(branch='gh-pages')
+          except Exception as e: 
+            print(f'::error title="Could not enable GitHub Pages Automatically":: {msg}\n{e}')
+            sys.exit(1)
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ github.token }}
+          force_orphan: true
+          publish_dir: ./_docs
+          # The following lines assign commit authorship to the official GH-Actions bot for deploys to `gh-pages` branch.
+          # You can swap them out with your own user credentials.
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
