@@ -10,31 +10,35 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Conda
-        # You may pin to the exact commit or the version.
-        # uses: s-weigand/setup-conda@12b718b536e4be4da931f6d0fcfcc40a646ffed9
-        uses: s-weigand/setup-conda@v1.1.1
+      - name: Setup Mambaforge
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          # Whether to activate the conda base env (Default: 'true')
-          activate-conda: # optional, default is true
-          # If conda should be updated before running other commands (Default: 'false')
-          update-conda: # optional, default is false
-          # Python version which should be installed with conda (default: 'Default')
-          python-version: "3.10" # optional, default is default
-          # Additional channels like 'conda-forge' which can be used to install packages
-          conda-channels: "conda-forge" # optional, default is
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+          activate-environment: my-env
+          use-mamba: true
+      # - name: Setup Conda
+      #   # You may pin to the exact commit or the version.
+      #   # uses: s-weigand/setup-conda@12b718b536e4be4da931f6d0fcfcc40a646ffed9
+      #   uses: s-weigand/setup-conda@v1.1.1
+      #   with:
+      #     # Whether to activate the conda base env (Default: 'true')
+      #     activate-conda: # optional, default is true
+      #     # If conda should be updated before running other commands (Default: 'false')
+      #     update-conda: # optional, default is false
+      #     # Python version which should be installed with conda (default: 'Default')
+      #     python-version: "3.10" # optional, default is default
+      #     # Additional channels like 'conda-forge' which can be used to install packages
+      #     conda-channels: "conda-forge" # optional, default is
 
-      - name: Install mamba
-        shell: bash
-        run: conda install -c conda-forge mamba -y
+      # - name: Install mamba
+      #   shell: bash
+      #   run: conda install -c conda-forge mamba -y
 
-      - name: Chech paths
+      - name: Check paths
         shell: bash
         run: |
-          p1 = `which conda`
-          p2 = `which mamba`
-          p3 = `which pip`
-          echo "Paths:\nConda: $p1\Mamba: $p2\npip: $p3\n"
+          echo "Paths:\nConda: $(which conda)\Mamba: $(which mamba)\npip: $(which pip)\n"
       # - name: Install dependencies
       #   uses: jannekem/run-python-script-action@v1
       #   with:
