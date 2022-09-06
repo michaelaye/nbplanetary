@@ -35,32 +35,14 @@ jobs:
       #   shell: bash
       #   run: conda install -c conda-forge mamba -y
 
-      - name: Check paths
+      - name: Install dependencies and package
         shell: bash
         run: |
           source ~/.profile
           conda activate testenv
-          echo "\nPaths:\nConda: $(which conda)\Mamba: $(which mamba)\npip: $(which pip)\n"
           mamba install pip -y
-          echo "\npip path: $(which pip)\n"
-      # - name: Install dependencies
-      #   uses: jannekem/run-python-script-action@v1
-      #   with:
-      #     script: |
-      #       from configparser import ConfigParser
-      #       import subprocess
-      #       config = ConfigParser(delimiters=['='])
-      #       config.read('settings.ini')
-      #       cfg = config['DEFAULT']
-      #       requirements = cfg.get('requirements', '')
-      #       cmd = "mamba install " + requirements + " -y"
-      #       print("Command to run:", cmd)
-      #       ret = subprocess.call(cmd, shell=True)
-      #       print("returned_value:", ret)
-
-      # - name: Install package
-      #   shell: bash
-      #   run: pip install -e ".[dev]"
+          python gh_workflow_install_deps.py
+          pip install -e ".[dev]"
 
       # # - name: Setup Python
       # #   uses: actions/setup-python@v4
