@@ -38,7 +38,7 @@ jobs:
       - name: Check paths
         shell: bash
         run: |
-          mamba activate testenv
+          conda activate testenv
           echo "Paths:\nConda: $(which conda)\Mamba: $(which mamba)\npip: $(which pip)\n"
       # - name: Install dependencies
       #   uses: jannekem/run-python-script-action@v1
