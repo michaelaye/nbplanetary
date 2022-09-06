@@ -6,6 +6,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -38,8 +41,7 @@ jobs:
       #   shell: bash
       #   run: conda install -c conda-forge mamba -y
 
-      - name: Install dependencies and package
-        shell: bash -l {0}
+      - name: Install dependencies, package, and nbdev tools
         run: |
           # source ~/.profile
           # conda activate testenv
@@ -51,20 +53,11 @@ jobs:
           pip install -Uq git+https://github.com/fastai/execnb.git
           pip install -Uq git+https://github.com/fastai/nbdev.git
 
-      - name: Check it is working
-        shell: bash -l {0}
+      - name: Install quarto
         run: |
-          echo $(which pip)
-          mamba list gdal
-          mamba list nbdev
+          wget -nv https://www.quarto.org/download/latest/quarto-linux-amd64.deb
+          sudo dpkg -i quarto*.deb
+          echo "installed quarto"
 
-      # - name: Install quarto
-      #   shell: bash
-      #   run: |
-      #     wget -nv https://www.quarto.org/download/latest/quarto-linux-amd64.deb
-      #     sudo dpkg -i quarto*.deb
-      #     echo "installed quarto"
-
-      # - name: Create docs
-      #   shell: bash
-      #   run: nbdev_docs
+      - name: Create docs
+        run: nbdev_docs
