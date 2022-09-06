@@ -15,7 +15,7 @@ jobs:
         with:
           miniforge-variant: Mambaforge
           miniforge-version: latest
-          activate-environment: my-env
+          activate-environment: testenv
           use-mamba: true
       # - name: Setup Conda
       #   # You may pin to the exact commit or the version.
@@ -38,6 +38,7 @@ jobs:
       - name: Check paths
         shell: bash
         run: |
+          mamba activate testenv
           echo "Paths:\nConda: $(which conda)\Mamba: $(which mamba)\npip: $(which pip)\n"
       # - name: Install dependencies
       #   uses: jannekem/run-python-script-action@v1
