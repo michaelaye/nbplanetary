@@ -28,6 +28,7 @@ jobs:
         shell: bash
         run: |
           conda init bash
+          source ~/.bashrc
           conda activate base
           conda install -c conda-forge mamba -y
 
