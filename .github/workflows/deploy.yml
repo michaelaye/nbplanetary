@@ -38,8 +38,8 @@ jobs:
       - name: Check paths
         shell: bash
         run: |
-          cat ~/.bashrc
           cat ~/.profile
+          source ~/.profile
           conda activate testenv
           echo "Paths:\nConda: $(which conda)\Mamba: $(which mamba)\npip: $(which pip)\n"
       # - name: Install dependencies
