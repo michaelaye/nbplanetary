@@ -190,26 +190,40 @@ class Subsetter:
         )
         return basepath / u.parent.name / u.name
 
+    def _non_blocking_download(
+        self, 
+        overwrite: bool = False
+    ):
+        with Client() as client:
+            futures = []
+            for url in tqdm(self.kernel_urls, desc="Kernels downloaded"):
+                local_path = self.get_local_path(url)
+                if local_path.exists() and not overwrite:
+                    print(
+                        local_path.parent.name,
+                        local_path.name,
+                        "locally available."
+                    )
+                    continue
+                local_path.parent.mkdir(exist_ok=True, parents=True)
+                futures.append(client.submit(url_retrieve, url, local_path))
+            return [f.result() for f in futures]
+            
     def download_kernels(
         self,
         overwrite: bool = False,  # switch to control if kernels should be downloaded over existing ones
         non_blocking: bool=False,
     ):
         if non_blocking:
-            client = Client()
-        futures = []
+            return self._non_blocking_download(overwrite)
+        # sequential download
         for url in tqdm(self.kernel_urls, desc="Kernels downloaded"):
             local_path = self.get_local_path(url)
             if local_path.exists() and not overwrite:
                 print(local_path.parent.name, local_path.name, "locally available.")
                 continue
             local_path.parent.mkdir(exist_ok=True, parents=True)
-            if non_blocking:
-                futures.append(client.submit(url_retrieve, url, local_path))
-            else:
-                url_retrieve(url, local_path)
-        if non_blocking:
-            return futures
+            url_retrieve(url, local_path)
 
     def get_metakernel(self) -> Path:  # return path to metakernel file
         """Get metakernel file from NAIF and adapt path to match local storage.
@@ -241,7 +255,7 @@ def get_metakernel_and_files(
 ) -> Path:  # pathlib.Path to metakernel file with corrected data path.
     "For a given mission and start/stop times, download the kernels and get metakernel path"
     subset = Subsetter(mission, start, stop, save_location)
-    subset.download_kernels()
+    subset.download_kernels(non_blocking=True)
     return subset.get_metakernel()
 
 # %% ../../notebooks/10_spice.kernels.ipynb 45
