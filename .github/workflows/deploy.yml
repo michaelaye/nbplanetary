@@ -13,6 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Cache conda
+        uses: actions/cache@v2
+        env:
+          CACHE_NUMBER: 0
+        with:
+          path:
       - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2
         with:
@@ -45,6 +51,7 @@ jobs:
         shell: bash
         run: |
           pip install -Uq git+https://github.com/fastai/ghapi.git # you need this for enabling pages
+          pip install -Uq git+https://github.com/fastai/nbdev.git
 
       - name: Enable GitHub Pages
         shell: python
