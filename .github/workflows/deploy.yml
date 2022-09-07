@@ -30,20 +30,21 @@ jobs:
           python gh_workflow_install_deps.py
           pip install -e ".[dev]"
 
-      - name: Install quarto
+      - name: Install tools and create docs
         run: |
           wget -nv https://www.quarto.org/download/latest/quarto-linux-amd64.deb
           sudo dpkg -i quarto*.deb
           echo "installed quarto"
-
-      - name: Install nbdev tools and create docs
-        shell: bash
-        run: |
-          pip install -Uq git+https://github.com/fastai/ghapi.git # you need this for enabling pages
           pip install -Uq git+https://github.com/fastai/fastcore.git
           pip install -Uq git+https://github.com/fastai/execnb.git
           pip install -Uq git+https://github.com/fastai/nbdev.git
           nbdev_docs
+
+      - name: Install ghapi
+        # this needs to be in the default shell so that below's default Python shell can activate GH pages
+        shell: bash
+        run: |
+          pip install -Uq git+https://github.com/fastai/ghapi.git # you need this for enabling pages
 
       - name: Enable GitHub Pages
         shell: python
@@ -56,6 +57,7 @@ jobs:
           except Exception as e: 
             print(f'::error title="Could not enable GitHub Pages Automatically":: {msg}\n{e}')
             sys.exit(1)
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
