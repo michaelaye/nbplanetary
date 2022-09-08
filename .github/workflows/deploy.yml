@@ -42,6 +42,8 @@ jobs:
               f.write("dependencies:\n")
               f.writelines([f"  - {r}\n" for r in requirements])
 
+      - run: cat environment.yml
+
       - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2
         with:
