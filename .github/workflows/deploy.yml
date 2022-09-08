@@ -3,23 +3,44 @@ on:
   push:
     branches: ["main", "master"]
   workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+env:
+  CACHE_NUMBER: 0
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            label: linux-64
+            prefix: /usr/share/miniconda3/envs/my-env
     defaults:
       run:
         shell: bash -l {0}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
-      - name: Cache conda
-        uses: actions/cache@v2
-        env:
-          CACHE_NUMBER: 0
-        with:
-          path: ~/conda_pkgs_dir
-          key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('etc/environment.yml') }}
+    name: ${{ matrix.label }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create env file
+        shell: python
+        run: |
+          from configparser import ConfigParser
+          import subprocess
+
+          config = ConfigParser(delimiters=["="])
+          config.read("settings.ini")
+          cfg = config["DEFAULT"]
+          requirements = cfg.get("requirements", "").split()
+
+          with open("environment.yml", "w") as f:
+              f.write("name: my-env\n")
+              f.write("channels: conda-forge\n")
+              f.write("dependencies:\n")
+              f.writelines([f"  - {r}\n" for r in requirements])
 
       - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2
@@ -27,17 +48,26 @@ jobs:
           miniforge-variant: Mambaforge
           miniforge-version: latest
           python-version: "3.10"
-          channels: conda-forge
-          channel-priority: strict
-          activate-environment: testenv
-          environment-file: etc/environment.yml
-          use-only-tar-bz2: true
+          activate-environment: my-env
           use-mamba: true
+          channel-priority: strict
+
+      - name: Set cache date
+        run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ matrix.prefix }}
+          key: ${{ matrix.label }}-conda-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
+        id: cache
+
+      - name: Update environment
+        run: mamba env update -n my-env -f environment.yml
+        if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Install package
         run: |
           mamba install pip -y
-          python gh_workflow_install_deps.py
           pip install -e ".[dev]"
 
       - name: Install tools and create docs
