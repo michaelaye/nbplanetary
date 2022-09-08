@@ -8,6 +8,5 @@ requirements = cfg.get("requirements", "").split()
 
 with open("environment.yml", "w") as f:
     f.write("name: my-env\n")
-    f.write("channels: conda-forge\n")
     f.write("dependencies:\n")
     f.writelines([f"  - {r}\n" for r in requirements])
