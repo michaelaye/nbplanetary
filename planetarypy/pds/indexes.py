@@ -31,7 +31,7 @@ dynamic_urls = {"mro.ctx": CTXIndex, "lro.lroc": LROCIndex}
 class Index:
     """Index manager class.
 
-    This class manages one index, identified by a dotted key, e.g. cassini.iss.ring_summary
+    This class manages one index, identified by a dotted key, e.g. `cassini.iss.ring_summary`
     """
 
     def __init__(
