@@ -5,9 +5,8 @@ __all__ = ['LROCIndex']
 
 # %% ../../notebooks/02e_pds.lroc_index.ipynb 2
 import warnings
-from nbdev.showdoc import *
 
-# %% ../../notebooks/02e_pds.lroc_index.ipynb 3
+# %% ../../notebooks/02e_pds.lroc_index.ipynb 4
 class LROCIndex:
     def __init__(self):
         warnings.warn("LROCIndex not implemented yet.")
