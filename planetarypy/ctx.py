@@ -123,18 +123,18 @@ class CTX:
     
     HAS a CTXEDR attribute as defined above.
     """
-    proc_storage = storage_root / "edr"
+    proc_dir = storage_root / "edr"
 
     def __init__(
         self, 
         id_:str,  # CTX product id
         source_dir:str='',  # where the raw EDR data is stored, if not coming from plpy
-        proc_storage:str='',  # where to store processed, if not plpy
+        proc_dir:str='',  # where to store processed, if not plpy
         with_volume:bool=False,  # store with extra volume subfolder?
         with_id_dir:bool=True  # store with extra product_id subfolder?
     ):
-        store_attr(but="source_dir,proc_storage")
-        self.proc_storage = Path(proc_storage) if proc_storage else self.proc_storage
+        store_attr(but="source_dir,proc_dir")
+        self.proc_dir = Path(proc_dir) if proc_dir else self.proc_dir
         self.edr = CTXEDR(id_, source_dir, with_volume, with_id_dir)
         
         (self.cub_name, self.cal_name, self.destripe_name) = file_variations(
@@ -150,7 +150,7 @@ class CTX:
     @property
     def proc_folder(self):
         "the folder for all processed data. could be same as source_dir"
-        return self.proc_storage / self.edr.source_folder.relative_to(self.edr.source_folder)
+        return self.proc_dir / self.edr.source_folder.relative_to(self.edr.source_folder)
 
     @property
     def cub_path(self):
@@ -246,10 +246,14 @@ class CTX:
 # %% ../notebooks/03_ctx.ipynb 35
 @call_parse
 def ctx_calib(
-    id_:str  # CTX product_id
+    id_:str,  # CTX product_id
+    source:str='',  # path to where EDRs are stored if not from plpy
+    proc_dir:str='',  # path to where processed data is to be stored
+    overwrite:bool=False,  # overwrite processed data
 ):
-    ctx = CTX(id_)
-    print(ctx.edr.source_path)
+    ctx = CTX(id_, source_dir=source, proc_dir=proc_dir)
+    ctx.calib_pipeline(overwrite=overwrite)
+    print("Produced\n", ctx.cal_path)
 
 # %% ../notebooks/03_ctx.ipynb 37
 class CTXEDRCollection:
