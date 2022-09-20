@@ -116,6 +116,15 @@ class CTXEDR:
         self.source_folder.mkdir(parents=True, exist_ok=True)
         url_retrieve(self.url, self.source_path)
 
+    def __str__(self):
+        s = f"PRODUCT_ID: {self.pid}\n"
+        s += f"URL: {self.url}\n"
+        s += f"Local EDR path: {self.source_path}\n"
+        return s
+    
+    def __repr__(self):
+        return self.__str__()
+
 
 # %% ../notebooks/03_ctx.ipynb 12
 class CTX:
@@ -133,9 +142,9 @@ class CTX:
         with_volume:bool=False,  # store with extra volume subfolder?
         with_id_dir:bool=True  # store with extra product_id subfolder?
     ):
+        self.edr = CTXEDR(id_, source_dir, with_volume, with_id_dir)
         store_attr(but="source_dir,proc_dir")
         self.proc_dir = Path(proc_dir) if proc_dir else self.proc_dir
-        self.edr = CTXEDR(id_, source_dir, with_volume, with_id_dir)
         
         (self.cub_name, self.cal_name, self.destripe_name) = file_variations(
             self.edr.source_path.name, [".cub", ".cal.cub", ".dst.cal.cub"]
@@ -143,14 +152,13 @@ class CTX:
         self.is_read = False
         self.is_calib_read = False
 
-    @property
-    def pid(self):
-        return self.edr.pid
-
+    def __getattr__(self, attr):
+        return getattr(self.edr, attr)
+    
     @property
     def proc_folder(self):
         "the folder for all processed data. could be same as source_dir"
-        return self.proc_dir / self.edr.source_folder.relative_to(self.edr.source_folder)
+        return self.proc_dir / self.source_folder.relative_to(self.source_folder)
 
     @property
     def cub_path(self):
@@ -167,7 +175,7 @@ class CTX:
 
     @catch_isis_error
     def isis_import(self):
-        mroctx2isis(from_=self.edr.source_path, to=self.cub_path)
+        mroctx2isis(from_=self.source_path, to=self.cub_path)
 
     @catch_isis_error
     def spice_init(self):
@@ -207,10 +215,10 @@ class CTX:
 
     def read_edr(self):
         "`da` stands for dataarray, standard abbr. within xarray."
-        if not self.edr.source_path.exists():
+        if not self.source_path.exists():
             raise FileNotFoundError("EDR not downloaded yet.")
         if not self.is_read:
-            self.edr_da = rxr.open_rasterio(self.edr.source_path)
+            self.edr_da = rxr.open_rasterio(self.source_path)
             self.is_read = True
         return self.edr_da
 
@@ -231,9 +239,7 @@ class CTX:
         return self.plot_da(self.read_calibrated())
 
     def __str__(self):
-        s = f"PRODUCT_ID: {self.edr.pid}\n"
-        s += f"URL: {self.edr.url}\n"
-        s += f"Local: {self.edr.source_path}\n"
+        s = self.edr.__str__()
         try:
             s += f"Shape: {self.read_edr().shape}"
         except FileNotFoundError:
@@ -243,7 +249,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/03_ctx.ipynb 35
+# %% ../notebooks/03_ctx.ipynb 36
 @call_parse
 def ctx_calib(
     id_:str,  # CTX product_id
@@ -255,7 +261,7 @@ def ctx_calib(
     ctx.calib_pipeline(overwrite=overwrite)
     print("Produced\n", ctx.cal_path)
 
-# %% ../notebooks/03_ctx.ipynb 37
+# %% ../notebooks/03_ctx.ipynb 38
 class CTXEDRCollection:
     """Class to deal with a set of CTX products."""
 
