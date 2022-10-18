@@ -17,11 +17,11 @@ from pathlib import Path
 from typing import Tuple, Union
 from urllib.request import urlopen
 
+import pandas as pd
 import requests
+from requests.auth import HTTPBasicAuth
 from astropy.time import Time as ASTROTIME
 from tqdm.auto import tqdm
-
-import pandas as pd
 
 try:
     from osgeo import gdal
@@ -180,6 +180,8 @@ def url_retrieve(
     outfile: str,  # The path where to store the downloaded file.
     # The size of the chunk for the request.iter_content call. Default: 128
     chunk_size: int = 128,
+    user: str=None,  # if provided, create HTTPBasicAuth object
+    passwd: str=None,  # if provided, create HTTPBasicAuth object
 ):
     """Improved urlretrieve with progressbar, timeout and chunker.
 
@@ -190,7 +192,11 @@ def url_retrieve(
 
     Inspired by https://stackoverflow.com/a/61575758/680232
     """
-    R = requests.get(url, stream=True, allow_redirects=True)
+    if user:
+        auth = HTTPBasicAuth(user, passwd)
+    else:
+        auth = None
+    R = requests.get(url, stream=True, allow_redirects=True, auth=auth)
     if R.status_code != 200:
         raise ConnectionError(f"Could not download {url}\nError code: {R.status_code}")
     with tqdm.wrapattr(
