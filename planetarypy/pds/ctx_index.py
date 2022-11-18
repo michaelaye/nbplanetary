@@ -10,6 +10,7 @@ from string import Template
 import pandas as pd
 
 
+# %% ../../notebooks/02b_pds.ctx_index.ipynb 4
 @dataclass
 class CTXIndex:
     """Class to determine the URL for the latest cumulative index.

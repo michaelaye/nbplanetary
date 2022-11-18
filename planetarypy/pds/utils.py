@@ -35,7 +35,7 @@ class IndexLabel:
         if not p.exists():
             import warnings
 
-            warnings.warn(
+            warnings.info(
                 "Fudging path name to lower case, opposing label value. (PDS data inconsistency)"
             )
             p = self.path.parent / self.index_name.lower()
