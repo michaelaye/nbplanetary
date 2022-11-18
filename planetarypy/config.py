@@ -27,7 +27,7 @@ class Config:
     for this package.
     """
 
-    # This part enables a config path location override using env PYCISS_CONFIG
+    # This part enables a config path location override using env PLANETARYPY_CONFIG
     fname = "planetarypy_config.toml"
     # separating fname from fpath so that resource_path below is correct.
     path = Path(os.getenv("PLANETARYPY_CONFIG", Path.home() / f".{fname}"))
