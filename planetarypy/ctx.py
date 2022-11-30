@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['baseurl', 'storage_root', 'edrindex', 'catch_isis_error', 'CTXEDR', 'CTX', 'ctx_calib', 'CTXEDRCollection']
 
-# %% ../notebooks/03_ctx.ipynb 3
+# %% ../notebooks/03_ctx.ipynb 5
 import warnings
 from pathlib import Path
 
@@ -31,7 +31,7 @@ try:
 except KeyError:
     warnings.warn("kalasiris has a problem initializing ISIS")
 
-# %% ../notebooks/03_ctx.ipynb 4
+# %% ../notebooks/03_ctx.ipynb 6
 warnings.filterwarnings("ignore", category=rasterio.errors.NotGeoreferencedWarning)
 baseurl = URL(
     "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/"
@@ -40,7 +40,7 @@ baseurl = URL(
 storage_root = config.storage_root / "missions/mro/ctx"
 edrindex = get_index("mro.ctx", "edr")
 
-# %% ../notebooks/03_ctx.ipynb 6
+# %% ../notebooks/03_ctx.ipynb 8
 def catch_isis_error(func):
     def inner(*args, **kwargs):
         try:
@@ -53,7 +53,7 @@ def catch_isis_error(func):
 
     return inner
 
-# %% ../notebooks/03_ctx.ipynb 7
+# %% ../notebooks/03_ctx.ipynb 9
 class CTXEDR:
     """Manage access to EDR data"""
     storage = storage_root / "edr"
@@ -126,7 +126,7 @@ class CTXEDR:
         return self.__str__()
 
 
-# %% ../notebooks/03_ctx.ipynb 12
+# %% ../notebooks/03_ctx.ipynb 14
 class CTX:
     """Class to manage dealing with CTX data.
     
@@ -249,7 +249,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/03_ctx.ipynb 36
+# %% ../notebooks/03_ctx.ipynb 37
 @call_parse
 def ctx_calib(
     id_:str,  # CTX product_id
@@ -261,7 +261,7 @@ def ctx_calib(
     ctx.calib_pipeline(overwrite=overwrite)
     print("Produced\n", ctx.cal_path)
 
-# %% ../notebooks/03_ctx.ipynb 38
+# %% ../notebooks/03_ctx.ipynb 39
 class CTXEDRCollection:
     """Class to deal with a set of CTX products."""
 

@@ -123,8 +123,9 @@ among other stuff.
 ## Experiment/Instrument Specific
 
 So far, `planetarypy` supports CTX EDR and HiRISE RGB.NOMAP data. Look
-at the `CTX` and `HiRISE` pages for descriptions of classes for working
-with these data.
+at the [`CTX`](https://michaelaye.github.io/planetarypy/ctx.html#ctx)
+and `HiRISE` pages for descriptions of classes for working with these
+data.
 
 ## Bug reports
 
@@ -205,7 +206,7 @@ ctrindex.sample(5, random_state=42)  # setting random_state to always get same f
       <td>125.18</td>
       <td>83.96</td>
       <td>240053143.9</td>
-      <td>122.10</td>
+      <td>122.1</td>
       <td>13.69</td>
       <td>89.9</td>
       <td>Ride-along with HiRISE</td>
@@ -227,7 +228,7 @@ ctrindex.sample(5, random_state=42)  # setting random_state to always get same f
       <td>...</td>
       <td>18.43</td>
       <td>8.94</td>
-      <td>-3.30</td>
+      <td>-3.3</td>
       <td>247073409.4</td>
       <td>47.31</td>
       <td>14.79</td>
@@ -250,7 +251,7 @@ ctrindex.sample(5, random_state=42)  # setting random_state to always get same f
       <td>1</td>
       <td>...</td>
       <td>-15.04</td>
-      <td>0.80</td>
+      <td>0.8</td>
       <td>22.71</td>
       <td>209715242.3</td>
       <td>217.08</td>
@@ -273,11 +274,11 @@ ctrindex.sample(5, random_state=42)  # setting random_state to always get same f
       <td>16384</td>
       <td>1</td>
       <td>...</td>
-      <td>-9.00</td>
+      <td>-9.0</td>
       <td>194.58</td>
       <td>-13.04</td>
       <td>213104117.6</td>
-      <td>201.30</td>
+      <td>201.3</td>
       <td>15.46</td>
       <td>90.2</td>
       <td>Landforms near Al Qahira Vallis</td>
@@ -304,7 +305,7 @@ ctrindex.sample(5, random_state=42)  # setting random_state to always get same f
       <td>32.23</td>
       <td>14.74</td>
       <td>90.1</td>
-      <td>Sirenum Fossae trough cut through landslide de...</td>
+      <td>Sirenum Fossae trough cut through landslide deposit</td>
       <td>OK</td>
       <td>51369</td>
     </tr>
@@ -363,7 +364,7 @@ hirise_rdr.sample(5, random_state=42)
     <tr>
       <th>17724</th>
       <td>MROHR_0001</td>
-      <td>RDR/PSP/ORB_010500_010599/PSP_010580_2115/PSP_...</td>
+      <td>RDR/PSP/ORB_010500_010599/PSP_010580_2115/PSP_010580_2115_RED.JP2</td>
       <td>MRO</td>
       <td>HIRISE</td>
       <td>PSP_010580_2115</td>
@@ -380,14 +381,14 @@ hirise_rdr.sample(5, random_state=42)
       <td>30.9448</td>
       <td>304.262</td>
       <td>31.0917</td>
-      <td>304.240</td>
-      <td>31.1030</td>
+      <td>304.24</td>
+      <td>31.103</td>
       <td>304.358</td>
     </tr>
     <tr>
       <th>2964</th>
       <td>MROHR_0001</td>
-      <td>RDR/PSP/ORB_003500_003599/PSP_003519_0950/PSP_...</td>
+      <td>RDR/PSP/ORB_003500_003599/PSP_003519_0950/PSP_003519_0950_RED.JP2</td>
       <td>MRO</td>
       <td>HIRISE</td>
       <td>PSP_003519_0950</td>
@@ -405,13 +406,13 @@ hirise_rdr.sample(5, random_state=42)
       <td>180.594</td>
       <td>-85.1038</td>
       <td>178.725</td>
-      <td>-85.0520</td>
+      <td>-85.052</td>
       <td>179.504</td>
     </tr>
     <tr>
       <th>53360</th>
       <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_028900_028999/ESP_028997_0945/ESP_...</td>
+      <td>RDR/ESP/ORB_028900_028999/ESP_028997_0945/ESP_028997_0945_COLOR.JP2</td>
       <td>MRO</td>
       <td>HIRISE</td>
       <td>ESP_028997_0945</td>
@@ -423,7 +424,7 @@ hirise_rdr.sample(5, random_state=42)
       <td>...</td>
       <td>-124310.0</td>
       <td>-508464.0</td>
-      <td>-85.5280</td>
+      <td>-85.528</td>
       <td>105.028</td>
       <td>-85.5372</td>
       <td>104.843</td>
@@ -435,7 +436,7 @@ hirise_rdr.sample(5, random_state=42)
     <tr>
       <th>81502</th>
       <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_044700_044799/ESP_044724_1480/ESP_...</td>
+      <td>RDR/ESP/ORB_044700_044799/ESP_044724_1480/ESP_044724_1480_COLOR.JP2</td>
       <td>MRO</td>
       <td>HIRISE</td>
       <td>ESP_044724_1480</td>
@@ -459,7 +460,7 @@ hirise_rdr.sample(5, random_state=42)
     <tr>
       <th>119683</th>
       <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_059200_059299/ESP_059292_1310/ESP_...</td>
+      <td>RDR/ESP/ORB_059200_059299/ESP_059292_1310/ESP_059292_1310_RED.JP2</td>
       <td>MRO</td>
       <td>HIRISE</td>
       <td>ESP_059292_1310</td>
@@ -475,7 +476,7 @@ hirise_rdr.sample(5, random_state=42)
       <td>282.545</td>
       <td>-48.5439</td>
       <td>282.423</td>
-      <td>-48.3930</td>
+      <td>-48.393</td>
       <td>282.401</td>
       <td>-48.3849</td>
       <td>282.522</td>
@@ -490,7 +491,7 @@ hirise_rdr.sample(5, random_state=42)
 ### CTX
 
 ``` python
-from planetarypy.ctx import CTXEDR
+from planetarypy.ctx import CTX
 ```
 
     Unable to display output for mime type(s): application/javascript, application/vnd.holoviews_load.v0+json
@@ -512,35 +513,32 @@ pid
     'G01_018691_2639_XN_83N125W'
 
 ``` python
-ctxedr = CTXEDR(pid)
-```
-
-``` python
-ctxedr.local_path
-```
-
-    Path('/home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG')
-
-``` python
-ctxedr
+ctx = CTX(pid)
+ctx
 ```
 
     PRODUCT_ID: G01_018691_2639_XN_83N125W
     URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_1189/data/G01_018691_2639_XN_83N125W.IMG
-    Local: /home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG
+    Local EDR path: /Users/klay6683/Dropbox/data/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG
     Shape: (1, 7168, 5056)
 
 ``` python
-ctxedr.download()
+ctx.source_path
+```
+
+    Path('/Users/klay6683/Dropbox/data/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG')
+
+``` python
+ctx.download()
 ```
 
     File exists. Use `overwrite=True` to download fresh.
 
-``` python
-ctxedr
-```
+## Acknowledgements
 
-    PRODUCT_ID: G01_018691_2639_XN_83N125W
-    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_1189/data/G01_018691_2639_XN_83N125W.IMG
-    Local: /home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG
-    Shape: (1, 7168, 5056)
+The creation of this library was in part supported by:
+
+- NASA Cassini UVIS mission
+- NASA SSW grant NNX15AH36G
+- NASA PDART grant 80NSSC20K0875
+- NASA SSW grant 80NSSC20K0748
