@@ -147,3 +147,4 @@ dask-worker-space
 _docs/
 sidebar.yml
 /.quarto/
+notebooks/talk_slides.pdf

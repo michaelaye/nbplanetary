@@ -7,6 +7,7 @@ __all__ = ['IndexLabel', 'index_to_df', 'PVLColumn', 'decode_line', 'find_mixed_
 from typing import Union
 from tqdm.auto import tqdm
 from fastcore.utils import Path
+import warnings
 
 import pandas as pd
 import pvl
@@ -33,11 +34,7 @@ class IndexLabel:
     def index_path(self):
         p = self.path.parent / self.index_name
         if not p.exists():
-            import warnings
-
-            warnings.info(
-                "Fudging path name to lower case, opposing label value. (PDS data inconsistency)"
-            )
+            # Fudging path name to lower case, opposing label value. (PDS data inconsistency)"
             p = self.path.parent / self.index_name.lower()
         if not p.exists():
             warnings.warn("`index_path` still doesn't exist.")

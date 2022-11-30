@@ -11,10 +11,12 @@ import hvplot.xarray  # noqa
 import rasterio
 import rioxarray as rxr
 from dask import compute, delayed
+from multiprocessing import Pool
 from .config import config
 from .pds.apps import get_index
 from .utils import file_variations, url_retrieve
 from tqdm.auto import tqdm
+from tqdm.contrib.concurrent import process_map
 from yarl import URL
 from fastcore.script import call_parse
 from fastcore.basics import store_attr
@@ -249,7 +251,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/03_ctx.ipynb 37
+# %% ../notebooks/03_ctx.ipynb 38
 @call_parse
 def ctx_calib(
     id_:str,  # CTX product_id
@@ -261,7 +263,7 @@ def ctx_calib(
     ctx.calib_pipeline(overwrite=overwrite)
     print("Produced\n", ctx.cal_path)
 
-# %% ../notebooks/03_ctx.ipynb 39
+# %% ../notebooks/03_ctx.ipynb 40
 class CTXEDRCollection:
     """Class to deal with a set of CTX products."""
 
@@ -283,15 +285,13 @@ class CTXEDRCollection:
         self.urls = urls
         return urls
 
-    def download_collection(self):
-        lazys = []
-        for p_id in self.product_ids:
-            ctx = CTXEDR(p_id)
-            lazys.append(delayed(ctx.download)())
-        print("Launching parallel download...")
-        compute(*lazys)
-        print("Done.")
+    def _do_download(self, p_id, **kwargs):
+        ctx = CTXEDR(p_id)
+        ctx.download(**kwargs)
 
+    def download_collection(self, **kwargs):
+            r = process_map(self._do_download, self.product_ids, max_workers=6)
+            
     def calibrate_collection(self):
         lazys = []
         for p_id in self.product_ids:
