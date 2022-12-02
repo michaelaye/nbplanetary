@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "planetarypy"
+  site-url: "https://michaelaye.github.io/planetarypy"
+  description: "Python Tools for Planetary Science"
+  repo-branch: master
+  repo-url: "https://github.com/michaelaye/nbplanetary"

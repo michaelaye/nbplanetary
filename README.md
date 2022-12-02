@@ -117,15 +117,15 @@ https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/data/planetary
 
 Find something in `Utils` for working with NASA timestamps and a well
 working URL download function
-[`url_retrieve`](https://michaelaye.github.io/planetarypy/utils.html#url_retrieve),
+[`url_retrieve`](https://michaelaye.github.io/planetarypy/api/utils.html#url_retrieve),
 among other stuff.
 
 ## Experiment/Instrument Specific
 
 So far, `planetarypy` supports CTX EDR and HiRISE RGB.NOMAP data. Look
-at the [`CTX`](https://michaelaye.github.io/planetarypy/ctx.html#ctx)
-and `HiRISE` pages for descriptions of classes for working with these
-data.
+at the
+[`CTX`](https://michaelaye.github.io/planetarypy/api/ctx.html#ctx) and
+`HiRISE` pages for descriptions of classes for working with these data.
 
 ## Bug reports
 
@@ -190,124 +190,124 @@ ctrindex.sample(5, random_state=42)  # setting random_state to always get same f
   </thead>
   <tbody>
     <tr>
-      <th>33054</th>
-      <td>MROX_1189</td>
-      <td>DATA/G01_018691_2639_XN_83N125W.IMG</td>
-      <td>4A_04_105C021D00</td>
-      <td>G01_018691_2639_XN_83N125W</td>
-      <td>2010-07-22 22:26:50.279</td>
+      <th>102927</th>
+      <td>MROX_3290</td>
+      <td>DATA/K09_056855_1472_XN_32S152W.IMG</td>
+      <td>4A_04_112001B600</td>
+      <td>K09_056855_1472_XN_32S152W</td>
+      <td>2018-09-12 15:27:23.819</td>
       <td>CTX</td>
       <td>NIFL</td>
       <td>5056</td>
       <td>7168</td>
       <td>1</td>
       <td>...</td>
-      <td>21.37</td>
-      <td>125.18</td>
-      <td>83.96</td>
-      <td>240053143.9</td>
-      <td>122.1</td>
-      <td>13.69</td>
-      <td>89.9</td>
-      <td>Ride-along with HiRISE</td>
-      <td>OK</td>
-      <td>18691</td>
-    </tr>
-    <tr>
-      <th>93213</th>
-      <td>MROX_2936</td>
-      <td>DATA/J18_051799_1768_XN_03S008W.IMG</td>
-      <td>4A_04_1106006B00</td>
-      <td>J18_051799_1768_XN_03S008W</td>
-      <td>2017-08-14 16:52:08.694</td>
-      <td>CTX</td>
-      <td>NIFL</td>
-      <td>5056</td>
-      <td>7168</td>
-      <td>1</td>
-      <td>...</td>
-      <td>18.43</td>
-      <td>8.94</td>
-      <td>-3.3</td>
-      <td>247073409.4</td>
-      <td>47.31</td>
-      <td>14.79</td>
+      <td>-23.61</td>
+      <td>152.16</td>
+      <td>-32.84</td>
+      <td>206674590.7</td>
+      <td>248.70</td>
+      <td>15.12</td>
       <td>90.1</td>
       <td>Ride-along with HiRISE</td>
       <td>OK</td>
-      <td>51799</td>
+      <td>56855</td>
     </tr>
     <tr>
-      <th>116150</th>
-      <td>MROX_3682</td>
-      <td>DATA/N07_065025_2026_XN_22N001W.IMG</td>
-      <td>4A_04_114A010700</td>
-      <td>N07_065025_2026_XN_22N001W</td>
-      <td>2020-06-10 06:19:59.533</td>
+      <th>116952</th>
+      <td>MROX_3714</td>
+      <td>DATA/N08_065442_0965_XN_83S191W.IMG</td>
+      <td>4A_04_114C019800</td>
+      <td>N08_065442_0965_XN_83S191W</td>
+      <td>2020-07-12 17:31:23.962</td>
       <td>CTX</td>
       <td>NIFL</td>
+      <td>5056</td>
+      <td>33792</td>
+      <td>1</td>
+      <td>...</td>
+      <td>-21.24</td>
+      <td>190.23</td>
+      <td>-83.51</td>
+      <td>207154930.4</td>
+      <td>237.37</td>
+      <td>17.12</td>
+      <td>91.4</td>
+      <td>Planum Australe</td>
+      <td>OK</td>
+      <td>65442</td>
+    </tr>
+    <tr>
+      <th>16386</th>
+      <td>MROX_0690</td>
+      <td>DATA/B01_010083_2567_XI_76N181W.IMG</td>
+      <td>4A_04_103101E100</td>
+      <td>B01_010083_2567_XI_76N181W</td>
+      <td>2008-09-20 04:33:05.584</td>
+      <td>CTX</td>
+      <td>ITL</td>
       <td>5056</td>
       <td>52224</td>
       <td>1</td>
       <td>...</td>
-      <td>-15.04</td>
-      <td>0.8</td>
-      <td>22.71</td>
-      <td>209715242.3</td>
-      <td>217.08</td>
-      <td>15.65</td>
+      <td>19.30</td>
+      <td>180.80</td>
+      <td>76.84</td>
+      <td>237461101.1</td>
+      <td>129.80</td>
+      <td>14.76</td>
       <td>89.7</td>
-      <td>Ride-along with CRISM</td>
+      <td>North polar outlier</td>
       <td>OK</td>
-      <td>65025</td>
+      <td>10083</td>
     </tr>
     <tr>
-      <th>84411</th>
-      <td>MROX_2710</td>
-      <td>DATA/J06_047059_1670_XN_13S194W.IMG</td>
-      <td>4A_04_10EE015900</td>
-      <td>J06_047059_1670_XN_13S194W</td>
-      <td>2016-08-10 07:59:51.331</td>
+      <th>107515</th>
+      <td>MROX_3450</td>
+      <td>DATA/K15_059059_1434_XN_36S196W.IMG</td>
+      <td>4A_04_112C004300</td>
+      <td>K15_059059_1434_XN_36S196W</td>
+      <td>2019-03-03 08:44:14.027</td>
       <td>CTX</td>
       <td>NIFL</td>
-      <td>2336</td>
-      <td>16384</td>
+      <td>2528</td>
+      <td>9216</td>
       <td>1</td>
       <td>...</td>
-      <td>-9.0</td>
-      <td>194.58</td>
-      <td>-13.04</td>
-      <td>213104117.6</td>
-      <td>201.3</td>
-      <td>15.46</td>
-      <td>90.2</td>
-      <td>Landforms near Al Qahira Vallis</td>
+      <td>-4.38</td>
+      <td>196.66</td>
+      <td>-36.69</td>
+      <td>229158765.3</td>
+      <td>349.79</td>
+      <td>14.21</td>
+      <td>90.1</td>
+      <td>Craters in Terra Cimmeria</td>
       <td>OK</td>
-      <td>47059</td>
+      <td>59059</td>
     </tr>
     <tr>
-      <th>93055</th>
-      <td>MROX_2931</td>
-      <td>DATA/J17_051369_1512_XI_28S145W.IMG</td>
-      <td>4A_04_110500C700</td>
-      <td>J17_051369_1512_XI_28S145W</td>
-      <td>2017-07-12 04:36:20.503</td>
+      <th>57288</th>
+      <td>MROX_1890</td>
+      <td>DATA/D16_033513_1653_XI_14S108W.IMG</td>
+      <td>4A_04_10A9016F00</td>
+      <td>D16_033513_1653_XI_14S108W</td>
+      <td>2013-09-19 20:45:34.363</td>
       <td>CTX</td>
       <td>ITL</td>
       <td>5056</td>
-      <td>7168</td>
+      <td>15360</td>
       <td>1</td>
       <td>...</td>
-      <td>13.27</td>
-      <td>146.43</td>
-      <td>-28.94</td>
-      <td>243673970.8</td>
-      <td>32.23</td>
-      <td>14.74</td>
-      <td>90.1</td>
-      <td>Sirenum Fossae trough cut through landslide deposit</td>
+      <td>10.17</td>
+      <td>108.53</td>
+      <td>-14.83</td>
+      <td>241359283.4</td>
+      <td>24.21</td>
+      <td>14.66</td>
+      <td>90.2</td>
+      <td>Syria/Claritas dust-raising event monitoring site</td>
       <td>OK</td>
-      <td>51369</td>
+      <td>33513</td>
     </tr>
   </tbody>
 </table>
@@ -362,124 +362,124 @@ hirise_rdr.sample(5, random_state=42)
   </thead>
   <tbody>
     <tr>
-      <th>17724</th>
+      <th>95780</th>
       <td>MROHR_0001</td>
-      <td>RDR/PSP/ORB_010500_010599/PSP_010580_2115/PSP_010580_2115_RED.JP2</td>
+      <td>RDR/ESP/ORB_049400_049499/ESP_049456_1290/ESP_...</td>
       <td>MRO</td>
       <td>HIRISE</td>
-      <td>PSP_010580_2115</td>
-      <td>PSP_010580_2115_RED</td>
+      <td>ESP_049456_1290</td>
+      <td>ESP_049456_1290_COLOR</td>
+      <td>1</td>
+      <td>MARS</td>
+      <td>49456</td>
+      <td>Extended Science Phase</td>
+      <td>...</td>
+      <td>-5982632.5</td>
+      <td>-4988838.5</td>
+      <td>-50.8091</td>
+      <td>245.758</td>
+      <td>-50.8113</td>
+      <td>245.731</td>
+      <td>-50.6429</td>
+      <td>245.696</td>
+      <td>-50.6406</td>
+      <td>245.723</td>
+    </tr>
+    <tr>
+      <th>123682</th>
+      <td>MROHR_0001</td>
+      <td>RDR/ESP/ORB_062000_062099/ESP_062091_1810/ESP_...</td>
+      <td>MRO</td>
+      <td>HIRISE</td>
+      <td>ESP_062091_1810</td>
+      <td>ESP_062091_1810_RED</td>
+      <td>1</td>
+      <td>MARS</td>
+      <td>62091</td>
+      <td>Extended Science Phase</td>
+      <td>...</td>
+      <td>141184.5</td>
+      <td>-931103.5</td>
+      <td>0.8712</td>
+      <td>187.976</td>
+      <td>0.8610</td>
+      <td>187.893</td>
+      <td>1.1807</td>
+      <td>187.854</td>
+      <td>1.1909</td>
+      <td>187.937</td>
+    </tr>
+    <tr>
+      <th>114238</th>
+      <td>MROHR_0001</td>
+      <td>RDR/ESP/ORB_057300_057399/ESP_057398_1005/ESP_...</td>
+      <td>MRO</td>
+      <td>HIRISE</td>
+      <td>ESP_057398_1005</td>
+      <td>ESP_057398_1005_COLOR</td>
+      <td>1</td>
+      <td>MARS</td>
+      <td>57398</td>
+      <td>Extended Science Phase</td>
+      <td>...</td>
+      <td>-1164115.5</td>
+      <td>-373035.5</td>
+      <td>-79.6467</td>
+      <td>162.247</td>
+      <td>-79.6508</td>
+      <td>162.156</td>
+      <td>-79.3683</td>
+      <td>161.771</td>
+      <td>-79.3642</td>
+      <td>161.860</td>
+    </tr>
+    <tr>
+      <th>260</th>
+      <td>MROHR_0001</td>
+      <td>RDR/PSP/ORB_001300_001399/PSP_001390_2290/PSP_...</td>
+      <td>MRO</td>
+      <td>HIRISE</td>
+      <td>PSP_001390_2290</td>
+      <td>PSP_001390_2290_RED</td>
       <td>2</td>
       <td>MARS</td>
-      <td>10580</td>
+      <td>1390</td>
       <td>Primary Science Phase</td>
       <td>...</td>
-      <td>7363560.0</td>
-      <td>-25472900.0</td>
-      <td>30.9561</td>
-      <td>304.379</td>
-      <td>30.9448</td>
-      <td>304.262</td>
-      <td>31.0917</td>
-      <td>304.24</td>
-      <td>31.103</td>
-      <td>304.358</td>
+      <td>11574100.0</td>
+      <td>-17349000.0</td>
+      <td>48.8086</td>
+      <td>283.969</td>
+      <td>48.7969</td>
+      <td>283.815</td>
+      <td>48.9486</td>
+      <td>283.788</td>
+      <td>48.9603</td>
+      <td>283.943</td>
     </tr>
     <tr>
-      <th>2964</th>
+      <th>148551</th>
       <td>MROHR_0001</td>
-      <td>RDR/PSP/ORB_003500_003599/PSP_003519_0950/PSP_003519_0950_RED.JP2</td>
+      <td>RDR/ESP/ORB_075600_075699/ESP_075617_2095/ESP_...</td>
       <td>MRO</td>
       <td>HIRISE</td>
-      <td>PSP_003519_0950</td>
-      <td>PSP_003519_0950_RED</td>
-      <td>2</td>
-      <td>MARS</td>
-      <td>3519</td>
-      <td>Primary Science Phase</td>
-      <td>...</td>
-      <td>-554006.0</td>
-      <td>13544.5</td>
-      <td>-85.2476</td>
-      <td>181.385</td>
-      <td>-85.3015</td>
-      <td>180.594</td>
-      <td>-85.1038</td>
-      <td>178.725</td>
-      <td>-85.052</td>
-      <td>179.504</td>
-    </tr>
-    <tr>
-      <th>53360</th>
-      <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_028900_028999/ESP_028997_0945/ESP_028997_0945_COLOR.JP2</td>
-      <td>MRO</td>
-      <td>HIRISE</td>
-      <td>ESP_028997_0945</td>
-      <td>ESP_028997_0945_COLOR</td>
+      <td>ESP_075617_2095</td>
+      <td>ESP_075617_2095_RED</td>
       <td>1</td>
       <td>MARS</td>
-      <td>28997</td>
+      <td>75617</td>
       <td>Extended Science Phase</td>
       <td>...</td>
-      <td>-124310.0</td>
-      <td>-508464.0</td>
-      <td>-85.528</td>
-      <td>105.028</td>
-      <td>-85.5372</td>
-      <td>104.843</td>
-      <td>-85.2871</td>
-      <td>102.919</td>
-      <td>-85.2784</td>
-      <td>103.098</td>
-    </tr>
-    <tr>
-      <th>81502</th>
-      <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_044700_044799/ESP_044724_1480/ESP_044724_1480_COLOR.JP2</td>
-      <td>MRO</td>
-      <td>HIRISE</td>
-      <td>ESP_044724_1480</td>
-      <td>ESP_044724_1480_COLOR</td>
-      <td>1</td>
-      <td>MARS</td>
-      <td>44724</td>
-      <td>Extended Science Phase</td>
-      <td>...</td>
-      <td>-3727530.0</td>
-      <td>-1381090.0</td>
-      <td>-31.8762</td>
-      <td>193.542</td>
-      <td>-31.8781</td>
-      <td>193.521</td>
-      <td>-31.4914</td>
-      <td>193.472</td>
-      <td>-31.4895</td>
-      <td>193.493</td>
-    </tr>
-    <tr>
-      <th>119683</th>
-      <td>MROHR_0001</td>
-      <td>RDR/ESP/ORB_059200_059299/ESP_059292_1310/ESP_059292_1310_RED.JP2</td>
-      <td>MRO</td>
-      <td>HIRISE</td>
-      <td>ESP_059292_1310</td>
-      <td>ESP_059292_1310_RED</td>
-      <td>1</td>
-      <td>MARS</td>
-      <td>59292</td>
-      <td>Extended Science Phase</td>
-      <td>...</td>
-      <td>-11438078.0</td>
-      <td>-17117128.0</td>
-      <td>-48.5358</td>
-      <td>282.545</td>
-      <td>-48.5439</td>
-      <td>282.423</td>
-      <td>-48.393</td>
-      <td>282.401</td>
-      <td>-48.3849</td>
-      <td>282.522</td>
+      <td>6908618.5</td>
+      <td>-31560518.0</td>
+      <td>29.0222</td>
+      <td>327.148</td>
+      <td>29.0117</td>
+      <td>327.048</td>
+      <td>29.1586</td>
+      <td>327.028</td>
+      <td>29.1690</td>
+      <td>327.129</td>
     </tr>
   </tbody>
 </table>
@@ -510,29 +510,30 @@ pid = ctrindex.sample(random_state=42).squeeze().PRODUCT_ID
 pid
 ```
 
-    'G01_018691_2639_XN_83N125W'
+    'K09_056855_1472_XN_32S152W'
 
 ``` python
 ctx = CTX(pid)
 ctx
 ```
 
-    PRODUCT_ID: G01_018691_2639_XN_83N125W
-    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_1189/data/G01_018691_2639_XN_83N125W.IMG
-    Local EDR path: /Users/klay6683/Dropbox/data/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG
-    Shape: (1, 7168, 5056)
+    PRODUCT_ID: K09_056855_1472_XN_32S152W
+    URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_3290/data/K09_056855_1472_XN_32S152W.IMG
+    Local EDR path: /home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/K09_056855_1472_XN_32S152W/K09_056855_1472_XN_32S152W.IMG
+    Not downloaded yet.
 
 ``` python
 ctx.source_path
 ```
 
-    Path('/Users/klay6683/Dropbox/data/planetarypy/missions/mro/ctx/edr/G01_018691_2639_XN_83N125W/G01_018691_2639_XN_83N125W.IMG')
+    Path('/home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/K09_056855_1472_XN_32S152W/K09_056855_1472_XN_32S152W.IMG')
 
 ``` python
 ctx.download()
 ```
 
-    File exists. Use `overwrite=True` to download fresh.
+    K09_056855_1472_XN_32S152W.IMG
+    :   0%|          | 0/36246464 [00:00<?, ?it/s]
 
 ## Acknowledgements
 
