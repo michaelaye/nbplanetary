@@ -207,7 +207,10 @@ class Index:
         print(f"Downloaded {self.local_label_path} and {self.local_table_path}")
         if self.key == 'missions.mro.hirise.indexes.edr':  # HiRISE EDR index is broken on the PDS. Team knows.
             print("Fixing broken EDR index...")
-            fix_hirise_edrcumindex(self.local_table_path, self.local_table_path.with_name("temp.tab"))
+            fix_hirise_edrcumindex(
+                self.local_table_path, 
+                self.local_table_path.with_name("temp.tab")
+            )
             self.local_table_path.with_name("temp.tab").rename(self.local_table_path)
         self.timestamp = self.remote_timestamp
         self.update_timestamp()
@@ -222,14 +225,11 @@ class Index:
                 print(f"Converted to pandas HDF:\n{self.local_hdf_path}")
         elif convert_to_parquet:
             try:
-                self.convert_to_parqet()
-            except: 
-                self.set_parquet_available(False)
-            else:
-                self.set_parquet_available(True)
-                print(f"Converted to parquet:\n{self.local_parq_path}")
-
-
+                self.convert_to_parquet()
+            except Exception as e: 
+                print("Problems converting to parquet.")
+                raise e
+                
     def set_hdf_available(self, status):
         config.set_value(f"{self.key}.hdf_available", status)
 

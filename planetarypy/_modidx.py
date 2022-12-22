@@ -41,23 +41,137 @@ d = { 'settings': { 'branch': 'master',
                                     'planetarypy.config.Config.__repr__': ('api/config.html#config.__repr__', 'planetarypy/config.py'),
                                     'planetarypy.config.Config._copy_clean_to_resource': ( 'api/config.html#config._copy_clean_to_resource',
                                                                                            'planetarypy/config.py'),
+                                    'planetarypy.config.Config._read_config': ( 'api/config.html#config._read_config',
+                                                                                'planetarypy/config.py'),
+                                    'planetarypy.config.Config._update_configfile': ( 'api/config.html#config._update_configfile',
+                                                                                      'planetarypy/config.py'),
                                     'planetarypy.config.Config.ask_storage_root': ( 'api/config.html#config.ask_storage_root',
                                                                                     'planetarypy/config.py'),
+                                    'planetarypy.config.Config.current_backup_name': ( 'api/config.html#config.current_backup_name',
+                                                                                       'planetarypy/config.py'),
                                     'planetarypy.config.Config.d': ('api/config.html#config.d', 'planetarypy/config.py'),
+                                    'planetarypy.config.Config.get_datalevels': ( 'api/config.html#config.get_datalevels',
+                                                                                  'planetarypy/config.py'),
                                     'planetarypy.config.Config.get_value': ('api/config.html#config.get_value', 'planetarypy/config.py'),
                                     'planetarypy.config.Config.list_indexes': ( 'api/config.html#config.list_indexes',
                                                                                 'planetarypy/config.py'),
                                     'planetarypy.config.Config.list_instruments': ( 'api/config.html#config.list_instruments',
                                                                                     'planetarypy/config.py'),
+                                    'planetarypy.config.Config.make_backup_copy': ( 'api/config.html#config.make_backup_copy',
+                                                                                    'planetarypy/config.py'),
                                     'planetarypy.config.Config.missions': ('api/config.html#config.missions', 'planetarypy/config.py'),
                                     'planetarypy.config.Config.populate_timestamps': ( 'api/config.html#config.populate_timestamps',
                                                                                        'planetarypy/config.py'),
-                                    'planetarypy.config.Config.read_config': ( 'api/config.html#config.read_config',
-                                                                               'planetarypy/config.py'),
                                     'planetarypy.config.Config.save': ('api/config.html#config.save', 'planetarypy/config.py'),
-                                    'planetarypy.config.Config.set_value': ('api/config.html#config.set_value', 'planetarypy/config.py'),
-                                    'planetarypy.config.Config.update_missions': ( 'api/config.html#config.update_missions',
-                                                                                   'planetarypy/config.py')},
+                                    'planetarypy.config.Config.set_value': ('api/config.html#config.set_value', 'planetarypy/config.py')},
+            "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21)": { "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config": ( 'api/config.html#config',
+                                                                                                                                                                                       'planetarypy/config '
+                                                                                                                                                                                       "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                       'conflicted '
+                                                                                                                                                                                       'copy '
+                                                                                                                                                                                       '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.__init__": ( 'api/config.html#config.__init__',
+                                                                                                                                                                                                'planetarypy/config '
+                                                                                                                                                                                                "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                'conflicted '
+                                                                                                                                                                                                'copy '
+                                                                                                                                                                                                '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.__repr__": ( 'api/config.html#config.__repr__',
+                                                                                                                                                                                                'planetarypy/config '
+                                                                                                                                                                                                "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                'conflicted '
+                                                                                                                                                                                                'copy '
+                                                                                                                                                                                                '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config._copy_clean_to_resource": ( 'api/config.html#config._copy_clean_to_resource',
+                                                                                                                                                                                                               'planetarypy/config '
+                                                                                                                                                                                                               "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                               'conflicted '
+                                                                                                                                                                                                               'copy '
+                                                                                                                                                                                                               '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config._read_config": ( 'api/config.html#config._read_config',
+                                                                                                                                                                                                    'planetarypy/config '
+                                                                                                                                                                                                    "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                    'conflicted '
+                                                                                                                                                                                                    'copy '
+                                                                                                                                                                                                    '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config._update_configfile": ( 'api/config.html#config._update_configfile',
+                                                                                                                                                                                                          'planetarypy/config '
+                                                                                                                                                                                                          "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                          'conflicted '
+                                                                                                                                                                                                          'copy '
+                                                                                                                                                                                                          '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.ask_storage_root": ( 'api/config.html#config.ask_storage_root',
+                                                                                                                                                                                                        'planetarypy/config '
+                                                                                                                                                                                                        "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                        'conflicted '
+                                                                                                                                                                                                        'copy '
+                                                                                                                                                                                                        '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.current_backup_name": ( 'api/config.html#config.current_backup_name',
+                                                                                                                                                                                                           'planetarypy/config '
+                                                                                                                                                                                                           "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                           'conflicted '
+                                                                                                                                                                                                           'copy '
+                                                                                                                                                                                                           '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.d": ( 'api/config.html#config.d',
+                                                                                                                                                                                         'planetarypy/config '
+                                                                                                                                                                                         "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                         'conflicted '
+                                                                                                                                                                                         'copy '
+                                                                                                                                                                                         '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.get_datalevels": ( 'api/config.html#config.get_datalevels',
+                                                                                                                                                                                                      'planetarypy/config '
+                                                                                                                                                                                                      "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                      'conflicted '
+                                                                                                                                                                                                      'copy '
+                                                                                                                                                                                                      '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.get_value": ( 'api/config.html#config.get_value',
+                                                                                                                                                                                                 'planetarypy/config '
+                                                                                                                                                                                                 "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                 'conflicted '
+                                                                                                                                                                                                 'copy '
+                                                                                                                                                                                                 '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.list_indexes": ( 'api/config.html#config.list_indexes',
+                                                                                                                                                                                                    'planetarypy/config '
+                                                                                                                                                                                                    "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                    'conflicted '
+                                                                                                                                                                                                    'copy '
+                                                                                                                                                                                                    '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.list_instruments": ( 'api/config.html#config.list_instruments',
+                                                                                                                                                                                                        'planetarypy/config '
+                                                                                                                                                                                                        "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                        'conflicted '
+                                                                                                                                                                                                        'copy '
+                                                                                                                                                                                                        '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.make_backup_copy": ( 'api/config.html#config.make_backup_copy',
+                                                                                                                                                                                                        'planetarypy/config '
+                                                                                                                                                                                                        "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                        'conflicted '
+                                                                                                                                                                                                        'copy '
+                                                                                                                                                                                                        '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.missions": ( 'api/config.html#config.missions',
+                                                                                                                                                                                                'planetarypy/config '
+                                                                                                                                                                                                "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                'conflicted '
+                                                                                                                                                                                                'copy '
+                                                                                                                                                                                                '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.populate_timestamps": ( 'api/config.html#config.populate_timestamps',
+                                                                                                                                                                                                           'planetarypy/config '
+                                                                                                                                                                                                           "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                           'conflicted '
+                                                                                                                                                                                                           'copy '
+                                                                                                                                                                                                           '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.save": ( 'api/config.html#config.save',
+                                                                                                                                                                                            'planetarypy/config '
+                                                                                                                                                                                            "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                            'conflicted '
+                                                                                                                                                                                            'copy '
+                                                                                                                                                                                            '2022-12-21).py'),
+                                                                                              "planetarypy.config (apollo.planet.fu-berlin.de's conflicted copy 2022-12-21).Config.set_value": ( 'api/config.html#config.set_value',
+                                                                                                                                                                                                 'planetarypy/config '
+                                                                                                                                                                                                 "(apollo.planet.fu-berlin.de's "
+                                                                                                                                                                                                 'conflicted '
+                                                                                                                                                                                                 'copy '
+                                                                                                                                                                                                 '2022-12-21).py')},
             'planetarypy.ctx': { 'planetarypy.ctx.CTX': ('api/ctx.html#ctx', 'planetarypy/ctx.py'),
                                  'planetarypy.ctx.CTX.__getattr__': ('api/ctx.html#ctx.__getattr__', 'planetarypy/ctx.py'),
                                  'planetarypy.ctx.CTX.__init__': ('api/ctx.html#ctx.__init__', 'planetarypy/ctx.py'),
@@ -99,6 +213,8 @@ d = { 'settings': { 'branch': 'master',
                                                                                             'planetarypy/ctx.py'),
                                  'planetarypy.ctx.CTXEDRCollection.download_collection': ( 'api/ctx.html#ctxedrcollection.download_collection',
                                                                                            'planetarypy/ctx.py'),
+                                 'planetarypy.ctx.CTXEDRCollection.edr_exist_check': ( 'api/ctx.html#ctxedrcollection.edr_exist_check',
+                                                                                       'planetarypy/ctx.py'),
                                  'planetarypy.ctx.CTXEDRCollection.get_urls': ( 'api/ctx.html#ctxedrcollection.get_urls',
                                                                                 'planetarypy/ctx.py'),
                                  'planetarypy.ctx.catch_isis_error': ('api/ctx.html#catch_isis_error', 'planetarypy/ctx.py'),
@@ -581,8 +697,6 @@ d = { 'settings': { 'branch': 'master',
                                                                                     'planetarypy/spice/kernels.py'),
                                            'planetarypy.spice.kernels.Subsetter.__init__': ( 'api/spice.kernels.html#subsetter.__init__',
                                                                                              'planetarypy/spice/kernels.py'),
-                                           'planetarypy.spice.kernels.Subsetter._get_payload': ( 'api/spice.kernels.html#subsetter._get_payload',
-                                                                                                 'planetarypy/spice/kernels.py'),
                                            'planetarypy.spice.kernels.Subsetter._non_blocking_download': ( 'api/spice.kernels.html#subsetter._non_blocking_download',
                                                                                                            'planetarypy/spice/kernels.py'),
                                            'planetarypy.spice.kernels.Subsetter.download_kernels': ( 'api/spice.kernels.html#subsetter.download_kernels',
@@ -591,8 +705,14 @@ d = { 'settings': { 'branch': 'master',
                                                                                                    'planetarypy/spice/kernels.py'),
                                            'planetarypy.spice.kernels.Subsetter.get_metakernel': ( 'api/spice.kernels.html#subsetter.get_metakernel',
                                                                                                    'planetarypy/spice/kernels.py'),
+                                           'planetarypy.spice.kernels.Subsetter.initialize': ( 'api/spice.kernels.html#subsetter.initialize',
+                                                                                               'planetarypy/spice/kernels.py'),
                                            'planetarypy.spice.kernels.Subsetter.kernel_names': ( 'api/spice.kernels.html#subsetter.kernel_names',
                                                                                                  'planetarypy/spice/kernels.py'),
+                                           'planetarypy.spice.kernels.Subsetter.payload': ( 'api/spice.kernels.html#subsetter.payload',
+                                                                                            'planetarypy/spice/kernels.py'),
+                                           'planetarypy.spice.kernels.Subsetter.r': ( 'api/spice.kernels.html#subsetter.r',
+                                                                                      'planetarypy/spice/kernels.py'),
                                            'planetarypy.spice.kernels.Subsetter.start': ( 'api/spice.kernels.html#subsetter.start',
                                                                                           'planetarypy/spice/kernels.py'),
                                            'planetarypy.spice.kernels.Subsetter.stop': ( 'api/spice.kernels.html#subsetter.stop',

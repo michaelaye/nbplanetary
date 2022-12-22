@@ -35,14 +35,13 @@ except KeyError:
 
 # %% ../notebooks/api/03_ctx.ipynb 4
 warnings.filterwarnings("ignore", category=rasterio.errors.NotGeoreferencedWarning)
-baseurl = URL(
-    "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/"
-)
+baseurl = URL(config.get_value("mro.ctx.datalevels.edr.url"))
 
+# %% ../notebooks/api/03_ctx.ipynb 5
 storage_root = config.storage_root / "missions/mro/ctx"
 edrindex = get_index("mro.ctx", "edr")
 
-# %% ../notebooks/api/03_ctx.ipynb 6
+# %% ../notebooks/api/03_ctx.ipynb 9
 def catch_isis_error(func):
     def inner(*args, **kwargs):
         try:
@@ -55,20 +54,24 @@ def catch_isis_error(func):
 
     return inner
 
-# %% ../notebooks/api/03_ctx.ipynb 7
+# %% ../notebooks/api/03_ctx.ipynb 10
 class CTXEDR:
     """Manage access to EDR data"""
-    storage = storage_root / "edr"
+    root = config.get_value('mro.ctx.datalevels.edr.root') or storage_root / 'edr'
+    with_pid_folder = config.get_value('mro.ctx.datalevels.edr.options')['with_pid_folder']
+    with_volume = config.get_value('mro.ctx.datalevels.edr.options')['with_volume']
     
     def __init__(
         self,
         id_:str,  # CTX product id (pid)
-        source_dir:str='',  # alternative root folder for EDR data
-        with_volume:bool=True,  # does the storage path include the volume folder
-        with_id_dir:bool=False,  # does the storage path include an extra pid folder
+        root:str='',  # alternative root folder for EDR data
+        with_volume=None,  # does the storage path include the volume folder
+        with_pid_folder=None,  # control if stuff is stored inside PID folders
     ):
-        store_attr(but='source_dir')
-        self.storage = Path(source_dir) if source_dir else self.storage
+        self.id_ = id_
+        self.root = Path(root) if root else Path(self.root)
+        self.with_volume = with_volume if with_volume is not None else self.with_volume
+        self.with_pid_folder = with_pid_folder if with_pid_folder is not None else self.with_pid_folder
         
     @property
     def pid(self):
@@ -92,15 +95,13 @@ class CTXEDR:
     
     @property
     def source_folder(self):
+        base = self.root
         if self.with_volume:
-            base = self.storage / self.volume
-        else:
-            base = self.storage
-        if not self.with_id_dir:
-            return base
-        else: 
-            return base / self.pid
-
+            base = self.root / self.volume
+        if self.with_pid_folder:
+            base = base / self.pid
+        return base
+    
     @property
     def source_path(self):
         return self.source_folder / f"{self.pid}.IMG"
@@ -121,14 +122,14 @@ class CTXEDR:
     def __str__(self):
         s = f"PRODUCT_ID: {self.pid}\n"
         s += f"URL: {self.url}\n"
-        s += f"Local EDR path: {self.source_path}\n"
+        s += f"source_path: {self.source_path}\n"
         return s
     
     def __repr__(self):
         return self.__str__()
 
 
-# %% ../notebooks/api/03_ctx.ipynb 12
+# %% ../notebooks/api/03_ctx.ipynb 19
 class CTX:
     """Class to manage dealing with CTX data.
     
@@ -141,10 +142,10 @@ class CTX:
         id_:str,  # CTX product id
         source_dir:str='',  # where the raw EDR data is stored, if not coming from plpy
         proc_dir:str='',  # where to store processed, if not plpy
-        with_volume:bool=False,  # store with extra volume subfolder?
-        with_id_dir:bool=True  # store with extra product_id subfolder?
+        with_volume=None,  # store with extra volume subfolder?
+        with_id_dir=None  # store with extra product_id subfolder?
     ):
-        self.edr = CTXEDR(id_, source_dir, with_volume, with_id_dir)
+        self.edr = CTXEDR(id_, root=source_dir, with_volume=with_volume)
         store_attr(but="source_dir,proc_dir")
         self.proc_dir = Path(proc_dir) if proc_dir else self.proc_dir
         
@@ -180,8 +181,8 @@ class CTX:
         mroctx2isis(from_=self.source_path, to=self.cub_path)
 
     @catch_isis_error
-    def spice_init(self):
-        spiceinit(from_=self.cub_path, web="yes")
+    def spice_init(self, web="yes"):
+        spiceinit(from_=self.cub_path, web=web)
 
     @catch_isis_error
     def calibrate(self):
@@ -251,7 +252,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 36
+# %% ../notebooks/api/03_ctx.ipynb 41
 @call_parse
 def ctx_calib(
     id_:str,  # CTX product_id
@@ -263,7 +264,7 @@ def ctx_calib(
     ctx.calib_pipeline(overwrite=overwrite)
     print("Produced\n", ctx.cal_path)
 
-# %% ../notebooks/api/03_ctx.ipynb 38
+# %% ../notebooks/api/03_ctx.ipynb 43
 class CTXEDRCollection:
     """Class to deal with a set of CTX products."""
 
@@ -286,7 +287,7 @@ class CTXEDRCollection:
         return urls
 
     def _do_download(self, p_id, **kwargs):
-        ctx = CTXEDR(p_id)
+        ctx = CTX(p_id)
         ctx.download(**kwargs)
 
     def download_collection(self, **kwargs):
@@ -295,11 +296,14 @@ class CTXEDRCollection:
     def calibrate_collection(self):
         lazys = []
         for p_id in self.product_ids:
-            ctx = CTXEDR(p_id)
+            ctx = CTX(p_id)
             lazys.append(delayed(ctx.calib_pipeline)())
         print("Launching parallel calibration...")
         compute(*lazys)
         print("Done.")
 
+    def edr_exist_check(self):
+        return [(p_id, CTX(p_id).source_path.exists()) for p_id in self.product_ids]
+
     def calib_exist_check(self):
-        return [(p_id, CTXEDR(p_id).cal_name.exists()) for p_id in self.product_ids]
+        return [(p_id, CTX(p_id).cal_name.exists()) for p_id in self.product_ids]

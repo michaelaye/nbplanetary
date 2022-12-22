@@ -6,6 +6,7 @@ __all__ = ['config', 'Config']
 # %% ../notebooks/api/00_config.ipynb 3
 import os
 import shutil
+from datetime import datetime
 from functools import reduce
 from importlib.resources import path as resource_path
 from typing import Union
@@ -42,10 +43,10 @@ class Config:
         if not self.path.exists():
             with resource_path("planetarypy.data", self.fname) as p:
                 shutil.copy(p, self.path)
-        self.read_config()
-        self.update_missions()
+        self._read_config()
+        self._update_configfile()
 
-    def read_config(self):
+    def _read_config(self):
         """Read the configfile and store config dict.
 
         `storage_root` will be stored as attribute.
@@ -96,6 +97,17 @@ class Config:
         "Write the TOML doc to file."
         self.path.write_text(toml.dumps(self.tomldoc))
 
+    @property
+    def current_backup_name(self):
+        "Time-tagged backup filename"
+        now = datetime.now().isoformat()
+        return self.path.with_suffix(f'.{now[:16]}.bak')
+    
+    def make_backup_copy(self):
+        now = datetime.now().isoformat()
+        newfname = self.current_backup_name
+        shutil.copy(self.path, newfname)
+        
     def ask_storage_root(self):
         """Use input() to ask user for the storage_root path.
 
@@ -120,13 +132,24 @@ class Config:
         instruments = self.get_value(mission)
         return list(instruments.keys())
 
+    def get_datalevels(
+            self, 
+            mission_instrument,  # mission.instrument code, e.g. mro.hirise
+        ):
+        """Return configured data levels available for an instrument.
+        
+        This currently simply points to the indexes, assuming that everything that has
+        an index is also its own datalevel. In case it ever is not, we can add more here.
+        """
+        return self.list_indexes(mission_instrument)
+
     def list_indexes(self, instrument):
         "instrument key needs to be <mission>.<instrument>"
         if not instrument.startswith("missions"):
             instrument = "missions." + instrument
         indexes = self.get_value(instrument + ".indexes")
         return list(indexes)
-
+    
     def _copy_clean_to_resource(self):
         "Copy a clean config file without timestamps into resource path for repo commit."
         dic = self.tomldoc.copy()
@@ -140,7 +163,7 @@ class Config:
         with resource_path("planetarypy.data", self.fname) as p:
             Path(p).write_text(toml.dumps(dic))
 
-    def update_missions(self):
+    def _update_configfile(self):
         "Check if a new version with more URLs exist at resource path."
         with resource_path("planetarypy.data", self.fname) as p:
             new = toml.loads(Path(p).read_text())["missions"]
@@ -163,6 +186,7 @@ class Config:
                     oldindexdata = old[mission][instr]["indexes"][index]
                     if indexdata["url"] != oldindexdata["url"]:
                         oldindexdata["url"] = indexdata["url"]
+        self.make_backup_copy()
         self.save()
 
     def populate_timestamps(self):
@@ -171,8 +195,5 @@ class Config:
     def __repr__(self):
         return AttrDict(self.d).__repr__()
 
-# %% ../notebooks/api/00_config.ipynb 6
-config = Config()
-
-# %% ../notebooks/api/00_config.ipynb 10
+# %% ../notebooks/api/00_config.ipynb 9
 config = Config()

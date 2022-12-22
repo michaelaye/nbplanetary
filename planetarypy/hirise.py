@@ -388,11 +388,11 @@ class RGB_NOMAPCollection:
             paths.append(rgb.local_path)
         return paths
 
-    def download_collection(self):
+    def download_collection(self, **kwargs):
         lazys = []
         for obsid in self.obsids:
             rgb = RGB_NOMAP(obsid)
-            lazys.append(delayed(rgb.download)())
+            lazys.append(delayed(rgb.download)(**kwargs))
         print("Launching parallel download...")
         compute(*lazys)
         print("Done.")

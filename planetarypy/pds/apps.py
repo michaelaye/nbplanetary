@@ -36,14 +36,14 @@ def get_index(
         index.convert_to_parquet()
         return index.parquet
 
-# %% ../../notebooks/api/02c_pds.apps.ipynb 12
+# %% ../../notebooks/api/02c_pds.apps.ipynb 14
 def find_instruments(
     mission: str,  # Mission string, e.g. "cassini"
 ) -> list:  # List of configured instrument names
     "Find existing instruments for a mission."
     return config.list_instruments(mission)
 
-# %% ../../notebooks/api/02c_pds.apps.ipynb 15
+# %% ../../notebooks/api/02c_pds.apps.ipynb 17
 def refresh_index(
     instr: str,  # Dotted instrument index, e.g. cassini.iss
     index_name: str,  # Index name, for exmample 'moon_summary'

@@ -58,7 +58,7 @@ dataset_ids = {
     "orex": "orex/orex_spice",
     "rosetta": "ro_rl-e_m_a_c-spice-6-v1.0/rossp_1000",
     "stardust": "sdu-c-spice-6-v1.0/sdsp_1000",
-    "venus_climate_orbiter": "vco-v-spice-6-v1.0/vcosp_1000",
+    "venus_climate_orbiter": "vco/vco_spice",
     "vex": "vex-e_v-spice-6-v2.0/vexsp_2000",
     "vo": "vo1_vo2-m-spice-6-v1.0/vosp_1000",
 }
@@ -106,8 +106,10 @@ class Subsetter:
         save_location=None,  # overwrite default storing in planetarpy archive
     ):
         store_attr()
-        payload = self._get_payload()
-        r = requests.get(base_url, params=payload, stream=True)
+        self.initialize()
+
+    def initialize(self):
+        r = self.r
         if r.ok:
             z = zipfile.ZipFile(BytesIO(r.content))
         else:
@@ -120,6 +122,10 @@ class Subsetter:
         with self.z.open(self.urls_file) as f:
             self.kernel_urls = f.read().decode().split()
 
+    @property
+    def r(self):
+        return requests.get(base_url, params=self.payload, stream=True)
+    
     @property
     def start(self):
         return self._start
@@ -145,7 +151,8 @@ class Subsetter:
             except ValueError:
                 self._stop = Time(nasa_time_to_iso(value))
 
-    def _get_payload(self):
+    @property
+    def payload(self):
         """Put payload together while checking for working time format.
 
         If Time(self.start) doesn't work, then we assume that the date must be in the
@@ -159,13 +166,13 @@ class Subsetter:
             raise ValueError(
                 "One of start/stop is outside the supported date-range. See `datasets`."
             )
-        payload = {
+        p = {
             "dataset": dataset_ids[self.mission],
             "start": self.start.iso,
             "stop": self.stop.iso,
             "action": "Subset",
         }
-        return payload
+        return p
 
     @property
     def kernel_names(self):
