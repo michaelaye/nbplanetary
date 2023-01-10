@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 from urllib.request import URLError
-
+from dateutil.parser import ParserError
 import tomlkit as toml
 from dateutil import parser
 
@@ -43,7 +43,7 @@ class Index:
         self.set_url(url)
         try:
             self.timestamp = parser.parse(config.get_value(self.key)["timestamp"])
-        except toml.exceptions.NonExistentKey:
+        except (toml.exceptions.NonExistentKey, ParserError):
             if self.local_label_path.exists():
                 self.timestamp = datetime.fromtimestamp(
                     self.local_label_path.stat().st_mtime
@@ -216,26 +216,11 @@ class Index:
         self.update_timestamp()
         
         if convert_to_hdf:
-            try:
-                self.convert_to_hdf()
-            except:  # any conversion error simpy leads to HDF marked as missing
-                self.set_hdf_available(False)
-            else:
-                self.set_hdf_available(True)
-                print(f"Converted to pandas HDF:\n{self.local_hdf_path}")
+            self.convert_to_hdf()
+            print(f"Converted to pandas HDF:\n{self.local_hdf_path}")
         elif convert_to_parquet:
-            try:
-                self.convert_to_parquet()
-            except Exception as e: 
-                print("Problems converting to parquet.")
-                raise e
+            self.convert_to_parquet()
                 
-    def set_hdf_available(self, status):
-        config.set_value(f"{self.key}.hdf_available", status)
-
-    def set_parquet_available(self, status):
-        config.set_value(f"{self.key}.parquet_available", status)
-
     def update_timestamp(self):
         # Note: the config object writes itself out after setting any value
         config.set_value(f"{self.key}.timestamp", self.isotimestamp)
@@ -252,7 +237,10 @@ class Index:
         df = self.read_index_data()
         df.to_hdf(self.local_hdf_path, "df")
 
-    def convert_to_parquet(self):
+    def convert_to_parquet(self, force_update=False):
+        if self.local_parq_path.exists() and not force_update:
+            print("Local parquet file exists. Use `force_update=True` to force recreation")
+            return
         df = self.read_index_data()
         df = df.convert_dtypes()
         df.to_parquet(self.local_parq_path)
