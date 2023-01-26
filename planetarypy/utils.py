@@ -5,7 +5,7 @@ __all__ = ['logger', 'nasa_date_format', 'nasa_dt_format', 'nasa_dt_format_with_
            'iso_dt_format_with_ms', 'nasa_time_to_datetime', 'nasa_time_to_iso', 'iso_to_nasa_time',
            'iso_to_nasa_datetime', 'replace_all_nasa_times', 'parse_http_date', 'get_remote_timestamp',
            'check_url_exists', 'url_retrieve', 'have_internet', 'height_from_shadow', 'get_gdal_center_coords',
-           'file_variations']
+           'file_variations', 'catch_isis_error']
 
 # %% ../notebooks/api/01_utils.ipynb 3
 import datetime as dt
@@ -19,8 +19,9 @@ from urllib.request import urlopen
 
 import pandas as pd
 import requests
-from requests.auth import HTTPBasicAuth
 from astropy.time import Time as ASTROTIME
+from kalasiris.pysis import ProcessError
+from requests.auth import HTTPBasicAuth
 from tqdm.auto import tqdm
 
 try:
@@ -265,3 +266,16 @@ def file_variations(
     Adapted from T. Olsens `file_variations of the pysis module for using pathlib.
     """
     return [Path(filename).with_suffix(extension) for extension in extensions]
+
+# %% ../notebooks/api/01_utils.ipynb 38
+def catch_isis_error(func):
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except ProcessError as err:
+            print("Had ISIS error:")
+            print(" ".join(err.cmd))
+            print(err.stdout)
+            print(err.stderr)
+
+    return inner
