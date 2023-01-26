@@ -36,9 +36,8 @@ logger = logging.getLogger(__name__)
 
 if not GDAL_INSTALLED:
     logger.warning(
-            "No GDAL found. Some planetary.utils functions not working, but okay."
-        )
-
+        "No GDAL found. Some planetary.utils functions not working, but okay."
+    )
 
 # %% ../notebooks/api/01_utils.ipynb 6
 nasa_date_format = "%Y-%j"
@@ -181,8 +180,8 @@ def url_retrieve(
     outfile: str,  # The path where to store the downloaded file.
     # The size of the chunk for the request.iter_content call. Default: 128
     chunk_size: int = 128,
-    user: str=None,  # if provided, create HTTPBasicAuth object
-    passwd: str=None,  # if provided, create HTTPBasicAuth object
+    user: str = None,  # if provided, create HTTPBasicAuth object
+    passwd: str = None,  # if provided, create HTTPBasicAuth object
 ):
     """Improved urlretrieve with progressbar, timeout and chunker.
 
@@ -269,6 +268,7 @@ def file_variations(
 
 # %% ../notebooks/api/01_utils.ipynb 38
 def catch_isis_error(func):
+    """can be used as decorator for any ISIS function"""
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
