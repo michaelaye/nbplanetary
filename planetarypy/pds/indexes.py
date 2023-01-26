@@ -9,11 +9,11 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 from urllib.request import URLError
-from dateutil.parser import ParserError
-import tomlkit as toml
-from dateutil import parser
 
 import pandas as pd
+import tomlkit as toml
+from dateutil import parser
+from dateutil.parser import ParserError
 from .. import utils
 from ..config import config
 from .ctx_index import CTXIndex
@@ -69,7 +69,7 @@ class Index:
         return ".".join(subs)
 
     def set_url(self, url):  # URL to index.
-        "Set URL from having it dynamically determined (for non-static index URLs)."
+        """Set URL from having it dynamically determined (for non-static index URLs)."""
         self.url = config.get_value(self.key)["url"] if url is None else url
         if not self.url:  # empty ''
             self.url = dynamic_urls[self.instrument_key]().latest_index_label_url
@@ -79,7 +79,7 @@ class Index:
         return self.timestamp.isoformat()
 
     @property
-    def needs_download(self)->bool:  # Boolean indicating if download is required
+    def needs_download(self) -> bool:  # Boolean indicating if download is required
         """Property indicating if the index needs to be downloaded.
 
         Need is True when
@@ -121,7 +121,7 @@ class Index:
 
     @property
     def index_name(self):
-        "str: Examples: EDR, RDR, moon_summary"
+        """str: Examples: EDR, RDR, moon_summary"""
         return self.key_tokens[3]
 
     @property
@@ -205,22 +205,23 @@ class Index:
         logger.info("Downloading %s.", self.table_url)
         utils.url_retrieve(self.table_url, self.local_table_path)
         print(f"Downloaded {self.local_label_path} and {self.local_table_path}")
-        if self.key == 'missions.mro.hirise.indexes.edr':  # HiRISE EDR index is broken on the PDS. Team knows.
+        if (
+            self.key == "missions.mro.hirise.indexes.edr"
+        ):  # HiRISE EDR index is broken on the PDS. Team knows.
             print("Fixing broken EDR index...")
             fix_hirise_edrcumindex(
-                self.local_table_path, 
-                self.local_table_path.with_name("temp.tab")
+                self.local_table_path, self.local_table_path.with_name("temp.tab")
             )
             self.local_table_path.with_name("temp.tab").rename(self.local_table_path)
         self.timestamp = self.remote_timestamp
         self.update_timestamp()
-        
+
         if convert_to_hdf:
             self.convert_to_hdf()
             print(f"Converted to pandas HDF:\n{self.local_hdf_path}")
         elif convert_to_parquet:
             self.convert_to_parquet()
-                
+
     def update_timestamp(self):
         # Note: the config object writes itself out after setting any value
         config.set_value(f"{self.key}.timestamp", self.isotimestamp)
@@ -239,7 +240,9 @@ class Index:
 
     def convert_to_parquet(self, force_update=False):
         if self.local_parq_path.exists() and not force_update:
-            print("Local parquet file exists. Use `force_update=True` to force recreation")
+            print(
+                "Local parquet file exists. Use `force_update=True` to force recreation"
+            )
             return
         df = self.read_index_data()
         df = df.convert_dtypes()
