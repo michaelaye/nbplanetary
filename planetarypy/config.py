@@ -6,6 +6,7 @@ __all__ = ['config', 'Config']
 # %% ../notebooks/api/00_config.ipynb 3
 import os
 import shutil
+from collections.abc import Mapping
 from datetime import datetime
 from functools import reduce
 from importlib.resources import path as resource_path
@@ -33,11 +34,8 @@ class Config:
     # separating fname from fpath so that resource_path below is correct.
     path = Path(os.getenv("PLANETARYPY_CONFIG", Path.home() / f".{fname}"))
 
-    def __init__(
-        self, 
-        config_path:str=None  # str or pathlib.Path
-    ):
-        "Switch to other config file location with `config_path`."
+    def __init__(self, config_path: str = None):  # str or pathlib.Path
+        """Switch to other config file location with `config_path`."""
         if config_path is not None:
             self.path = Path(config_path)
         if not self.path.exists():
@@ -63,16 +61,15 @@ class Config:
 
     @property
     def d(self):
-        "get the Python dic from"
+        """get the Python dic from"""
         return self.tomldoc
 
     def get_value(
-        self,
-        key:str  # A nested key in dotted format, e.g. cassini.uvis.indexes
+        self, key: str  # A nested key in dotted format, e.g. cassini.uvis.indexes
     ):
         """Get sub-dictionary by nested key."""
-        if not key.startswith('missions'):
-            key = 'missions.' + key
+        if not key.startswith("missions"):
+            key = "missions." + key
         try:
             return reduce(lambda c, k: c[k], key.split("."), self.d)
         except toml.exceptions.NonExistentKey:
@@ -80,11 +77,11 @@ class Config:
 
     def set_value(
         self,
-        nested_key:str,  # A nested key in dotted format, e.g. cassini.uvis.ring_summary 
-        value:Union[float, str],  # Value for the given key to be stored
-        save:bool=True  # Switch to control writing out to disk
+        nested_key: str,  # A nested key in dotted format, e.g. cassini.uvis.ring_summary
+        value: Union[float, str],  # Value for the given key to be stored
+        save: bool = True,  # Switch to control writing out to disk
     ):
-        "Set value in sub-dic using dotted key."
+        """Set value in sub-dic using dotted key."""
         dic = self.tomldoc
         keys = nested_key.split(".")
         for key in keys[:-1]:
@@ -94,20 +91,20 @@ class Config:
             self.save()
 
     def save(self):
-        "Write the TOML doc to file."
+        """Write the TOML doc to file."""
         self.path.write_text(toml.dumps(self.tomldoc))
 
     @property
     def current_backup_name(self):
-        "Time-tagged backup filename"
+        """Time-tagged backup filename"""
         now = datetime.now().isoformat()
-        return self.path.with_suffix(f'.{now[:16]}.bak')
-    
+        return self.path.with_suffix(f".{now[:16]}.bak")
+
     def make_backup_copy(self):
         now = datetime.now().isoformat()
         newfname = self.current_backup_name
         shutil.copy(self.path, newfname)
-        
+
     def ask_storage_root(self):
         """Use input() to ask user for the storage_root path.
 
@@ -133,38 +130,40 @@ class Config:
         return list(instruments.keys())
 
     def get_datalevels(
-            self, 
-            mission_instrument,  # mission.instrument code, e.g. mro.hirise
-        ):
+        self,
+        mission_instrument,  # mission.instrument code, e.g. mro.hirise
+    ):
         """Return configured data levels available for an instrument.
-        
+
         This currently simply points to the indexes, assuming that everything that has
         an index is also its own datalevel. In case it ever is not, we can add more here.
         """
         return self.list_indexes(mission_instrument)
 
     def list_indexes(self, instrument):
-        "instrument key needs to be <mission>.<instrument>"
+        """instrument key needs to be <mission>.<instrument>"""
         if not instrument.startswith("missions"):
             instrument = "missions." + instrument
         indexes = self.get_value(instrument + ".indexes")
         return list(indexes)
-    
+
+    def _replace_non_urls(self, d, val=""):
+        for k, v in d.items():
+            if isinstance(v, Mapping):
+                d[k] = self._replace_non_urls(d[k])
+            elif not "url" in k:
+                d[k] = val
+        return d
+
     def _copy_clean_to_resource(self):
-        "Copy a clean config file without timestamps into resource path for repo commit."
+        """Copy a clean config file without timestamps or paths into resource path for repo commit."""
         dic = self.tomldoc.copy()
-        missions = dic["missions"]
-        for mission in missions.keys():
-            mdict = missions[mission]
-            for instr in mdict.keys():
-                instrdict = mdict[instr]
-                for index in instrdict["indexes"]:
-                    instrdict["indexes"][index]["timestamp"] = ""
+        dic = self._replace_non_urls(dic, "")
         with resource_path("planetarypy.data", self.fname) as p:
             Path(p).write_text(toml.dumps(dic))
 
     def _update_configfile(self):
-        "Check if a new version with more URLs exist at resource path."
+        """Check if a new version with more URLs exist at resource path."""
         with resource_path("planetarypy.data", self.fname) as p:
             new = toml.loads(Path(p).read_text())["missions"]
         old = self.tomldoc["missions"]
