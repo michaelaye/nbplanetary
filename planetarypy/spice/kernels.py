@@ -5,24 +5,23 @@ __all__ = ['kernel_storage', 'dataset_ids', 'df', 'df2', 'datasets', 'base_url',
            'get_metakernel_and_files', 'list_kernels_for_day']
 
 # %% ../../notebooks/api/10_spice.kernels.ipynb 3
+import warnings
 import zipfile
 from datetime import timedelta
 from io import BytesIO
 from pathlib import Path
-import warnings
-import requests
-
-from astropy.time import Time
-from dask.distributed import Client
-from fastcore.utils import store_attr
-from fastcore.test import test_fail
-from tqdm.auto import tqdm
-from yarl import URL
-import spiceypy as spice
 
 import pandas as pd
+import requests
+import spiceypy as spice
+from astropy.time import Time
+from dask.distributed import Client
+from fastcore.test import test_fail
+from fastcore.utils import store_attr
 from ..config import config
 from ..utils import nasa_time_to_iso, url_retrieve
+from tqdm.auto import tqdm
+from yarl import URL
 
 # %% ../../notebooks/api/10_spice.kernels.ipynb 5
 kernel_storage = config.storage_root / "spice_kernels"
@@ -125,7 +124,7 @@ class Subsetter:
     @property
     def r(self):
         return requests.get(base_url, params=self.payload, stream=True)
-    
+
     @property
     def start(self):
         return self._start
@@ -197,29 +196,22 @@ class Subsetter:
         )
         return basepath / u.parent.name / u.name
 
-    def _non_blocking_download(
-        self, 
-        overwrite: bool = False
-    ):
+    def _non_blocking_download(self, overwrite: bool = False):
         with Client() as client:
             futures = []
             for url in tqdm(self.kernel_urls, desc="Kernels downloaded"):
                 local_path = self.get_local_path(url)
                 if local_path.exists() and not overwrite:
-                    print(
-                        local_path.parent.name,
-                        local_path.name,
-                        "locally available."
-                    )
+                    print(local_path.parent.name, local_path.name, "locally available.")
                     continue
                 local_path.parent.mkdir(exist_ok=True, parents=True)
                 futures.append(client.submit(url_retrieve, url, local_path))
             return [f.result() for f in futures]
-            
+
     def download_kernels(
         self,
         overwrite: bool = False,  # switch to control if kernels should be downloaded over existing ones
-        non_blocking: bool=False,
+        non_blocking: bool = False,
     ):
         if non_blocking:
             return self._non_blocking_download(overwrite)
