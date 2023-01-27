@@ -136,7 +136,7 @@ https://github.com/michaelaye/nbplanetary/issues
 
 ### Indexes
 
-See [PDS apps](02c_pds.apps.ipynb) for more details.
+See [PDS apps](api/02c_pds.apps.ipynb) for more details.
 
 ``` python
 from planetarypy.pds.apps import get_index
@@ -319,7 +319,172 @@ hirise_rdr = get_index("mro.hirise", "rdr")
 hirise_rdr.sample(5, random_state=42)
 ```
 
-    TypeError: 'NoneType' object is not iterable
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>VOLUME_ID</th>
+      <th>FILE_NAME_SPECIFICATION</th>
+      <th>INSTRUMENT_HOST_ID</th>
+      <th>INSTRUMENT_ID</th>
+      <th>OBSERVATION_ID</th>
+      <th>PRODUCT_ID</th>
+      <th>PRODUCT_VERSION_ID</th>
+      <th>TARGET_NAME</th>
+      <th>ORBIT_NUMBER</th>
+      <th>MISSION_PHASE_NAME</th>
+      <th>...</th>
+      <th>LINE_PROJECTION_OFFSET</th>
+      <th>SAMPLE_PROJECTION_OFFSET</th>
+      <th>CORNER1_LATITUDE</th>
+      <th>CORNER1_LONGITUDE</th>
+      <th>CORNER2_LATITUDE</th>
+      <th>CORNER2_LONGITUDE</th>
+      <th>CORNER3_LATITUDE</th>
+      <th>CORNER3_LONGITUDE</th>
+      <th>CORNER4_LATITUDE</th>
+      <th>CORNER4_LONGITUDE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>95782</th>
+      <td>MROHR_0001</td>
+      <td>RDR/ESP/ORB_049400_049499/ESP_049456_0945/ESP_...</td>
+      <td>MRO</td>
+      <td>HIRISE</td>
+      <td>ESP_049456_0945</td>
+      <td>ESP_049456_0945_COLOR</td>
+      <td>1</td>
+      <td>MARS</td>
+      <td>49456</td>
+      <td>Extended Science Phase</td>
+      <td>...</td>
+      <td>289555.5</td>
+      <td>1014477.5</td>
+      <td>-85.6701</td>
+      <td>286.4690</td>
+      <td>-85.6815</td>
+      <td>286.3020</td>
+      <td>-85.5562</td>
+      <td>284.8560</td>
+      <td>-85.5452</td>
+      <td>285.0210</td>
+    </tr>
+    <tr>
+      <th>142902</th>
+      <td>MROHR_0001</td>
+      <td>RDR/ESP/ORB_072700_072799/ESP_072755_2030/ESP_...</td>
+      <td>MRO</td>
+      <td>HIRISE</td>
+      <td>ESP_072755_2030</td>
+      <td>ESP_072755_2030_RED</td>
+      <td>1</td>
+      <td>MARS</td>
+      <td>72755</td>
+      <td>Extended Science Phase</td>
+      <td>...</td>
+      <td>5448057.5</td>
+      <td>-36148404.0</td>
+      <td>22.8511</td>
+      <td>342.4710</td>
+      <td>22.8408</td>
+      <td>342.3770</td>
+      <td>22.9836</td>
+      <td>342.3590</td>
+      <td>22.9940</td>
+      <td>342.4520</td>
+    </tr>
+    <tr>
+      <th>114241</th>
+      <td>MROHR_0001</td>
+      <td>RDR/ESP/ORB_057400_057499/ESP_057400_1150/ESP_...</td>
+      <td>MRO</td>
+      <td>HIRISE</td>
+      <td>ESP_057400_1150</td>
+      <td>ESP_057400_1150_RED</td>
+      <td>1</td>
+      <td>MARS</td>
+      <td>57400</td>
+      <td>Extended Science Phase</td>
+      <td>...</td>
+      <td>-15324106.0</td>
+      <td>9551808.0</td>
+      <td>-65.0631</td>
+      <td>99.2951</td>
+      <td>-65.0739</td>
+      <td>99.1184</td>
+      <td>-64.9297</td>
+      <td>99.0696</td>
+      <td>-64.9190</td>
+      <td>99.2454</td>
+    </tr>
+    <tr>
+      <th>260</th>
+      <td>MROHR_0001</td>
+      <td>RDR/PSP/ORB_001300_001399/PSP_001390_2290/PSP_...</td>
+      <td>MRO</td>
+      <td>HIRISE</td>
+      <td>PSP_001390_2290</td>
+      <td>PSP_001390_2290_RED</td>
+      <td>2</td>
+      <td>MARS</td>
+      <td>1390</td>
+      <td>Primary Science Phase</td>
+      <td>...</td>
+      <td>11574100.0</td>
+      <td>-17349000.0</td>
+      <td>48.8086</td>
+      <td>283.9690</td>
+      <td>48.7969</td>
+      <td>283.8150</td>
+      <td>48.9486</td>
+      <td>283.7880</td>
+      <td>48.9603</td>
+      <td>283.9430</td>
+    </tr>
+    <tr>
+      <th>148555</th>
+      <td>MROHR_0001</td>
+      <td>RDR/ESP/ORB_075600_075699/ESP_075617_0955/ESP_...</td>
+      <td>MRO</td>
+      <td>HIRISE</td>
+      <td>ESP_075617_0955</td>
+      <td>ESP_075617_0955_RED</td>
+      <td>1</td>
+      <td>MARS</td>
+      <td>75617</td>
+      <td>Extended Science Phase</td>
+      <td>...</td>
+      <td>1299053.5</td>
+      <td>-203581.5</td>
+      <td>-84.5200</td>
+      <td>10.3353</td>
+      <td>-84.5620</td>
+      <td>9.6666</td>
+      <td>-84.4557</td>
+      <td>8.9553</td>
+      <td>-84.4145</td>
+      <td>9.6167</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 54 columns</p>
+</div>
 
 ## Instrument tools
 
@@ -354,21 +519,20 @@ ctx
 
     PRODUCT_ID: K09_056855_1472_XN_32S152W
     URL: https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_3290/data/K09_056855_1472_XN_32S152W.IMG
-    Local EDR path: /home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/K09_056855_1472_XN_32S152W/K09_056855_1472_XN_32S152W.IMG
-    Not downloaded yet.
+    source_path: /home/ayek72/mnt/troveplanets/pds/mrox_3290/K09_056855_1472_XN_32S152W.IMG
+    Shape: (7168, 5056)
 
 ``` python
 ctx.source_path
 ```
 
-    Path('/home/ayek72/mnt/slowdata/planetarypy/missions/mro/ctx/edr/K09_056855_1472_XN_32S152W/K09_056855_1472_XN_32S152W.IMG')
+    Path('/home/ayek72/mnt/troveplanets/pds/mrox_3290/K09_056855_1472_XN_32S152W.IMG')
 
 ``` python
 ctx.download()
 ```
 
-    K09_056855_1472_XN_32S152W.IMG
-    :   0%|          | 0/36246464 [00:00<?, ?it/s]
+    File exists. Use `overwrite=True` to download fresh.
 
 ## Acknowledgements
 
@@ -378,3 +542,20 @@ The creation of this library was in part supported by:
 - NASA SSW grant NNX15AH36G
 - NASA PDART grant 80NSSC20K0875
 - NASA SSW grant 80NSSC20K0748
+- German Space Agency (DLR Bonn), grant 50 OO 2204, on behalf of the
+  German Federal Ministry for Economic Affairs and Climate Action.
+- This research has made use of the USGS Integrated Software for Imagers
+  and Spectrometers (ISIS)(Laura et al. 2022).
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-laura_jason_2022_7443567" class="csl-entry">
+
+Laura, Jason, Alex Acosta, Travis Addair, Lauren Adoram-Kershner, James
+Alexander, Oleg Alexandrov, Stacey Alley, et al. 2022. *Integrated
+Software for Imagers and Spectrometers* (version 7.2.0_RC1). Zenodo.
+<https://doi.org/10.5281/zenodo.7443567>.
+
+</div>
+
+</div>
