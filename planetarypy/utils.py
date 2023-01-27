@@ -12,6 +12,7 @@ import datetime as dt
 import email.utils as eut
 import http.client as httplib
 import logging
+import os
 from math import radians, tan
 from pathlib import Path
 from typing import Tuple, Union
@@ -20,7 +21,6 @@ from urllib.request import urlopen
 import pandas as pd
 import requests
 from astropy.time import Time as ASTROTIME
-from kalasiris.pysis import ProcessError
 from requests.auth import HTTPBasicAuth
 from tqdm.auto import tqdm
 
@@ -30,6 +30,12 @@ except ImportError:
     GDAL_INSTALLED = False
 else:
     GDAL_INSTALLED = True
+try:
+    from kalasiris.pysis import ProcessError
+except KeyError:
+    ISIS_AVAILABLE = False
+else:
+    ISIS_AVAILABLE = True
 
 # %% ../notebooks/api/01_utils.ipynb 4
 logger = logging.getLogger(__name__)
