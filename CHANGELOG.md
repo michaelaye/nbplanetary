@@ -2,6 +2,46 @@
 
 <!-- do not remove -->
 
+## 0.25.0
+
+### New Features
+
+- Add generic SPICE kernel management ([#34](https://github.com/michaelaye/nbplanetary/issues/34))
+
+- Add functionalities to CTXCollection ([#33](https://github.com/michaelaye/nbplanetary/issues/33))
+  - CTXCollection should be able to use metadata from the index to:
+
+    from the list of product_ids which is the essential attribute of a CTXCollection:
+
+    - filter out corrupted data
+    - filter for full width data of the sensor (important for flatfield calculations and mosaicking)
+    - get the list of image times
+    - get a dataframe of metadata filtered for the current list of product_ids.
+
+- copy new config file to package data ([#32](https://github.com/michaelaye/nbplanetary/issues/32))
+
+- Add dart to supported SPICE kernel archives ([#31](https://github.com/michaelaye/nbplanetary/issues/31))
+
+- make storage more flexible ([#30](https://github.com/michaelaye/nbplanetary/issues/30))
+  - sometimes there is a server with raw/edr data locally available.
+But then processed data cannot be stored on that.
+And sometimes this is true for one instrument or mission, but not the next.
+add missions.<mission>.<instrument>.datapaths section to config file to manage this.
+Also add DBManager class as general interface to all data storage things.
+
+- add progress bar to fix_hirise_edr ([#25](https://github.com/michaelaye/nbplanetary/issues/25))
+
+- add label downloader for HiRISE products ([#24](https://github.com/michaelaye/nbplanetary/issues/24))
+
+- Run fix_hirise_edr automatically ([#23](https://github.com/michaelaye/nbplanetary/issues/23))
+  - The `fix_hirise_edr` pds.index util exists but is not automatically called upon when
+downloading the EDR index for MRO HiRISE
+
+- Improve API for get_index() ([#22](https://github.com/michaelaye/nbplanetary/issues/22))
+  - Index can read a shortened index key (without '.indexes.') so no need to make the user to know that.
+
+- add read_index_data ([#21](https://github.com/michaelaye/nbplanetary/issues/21))
+
 ## 0.21.8
 
 ### New Features
