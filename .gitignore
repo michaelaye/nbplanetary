@@ -149,3 +149,5 @@ sidebar.yml
 /.quarto/
 notebooks/talk_slides.pdf
 .pre-commit-config.yaml
+
+_proc/

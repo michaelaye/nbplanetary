@@ -131,7 +131,7 @@ class CTXEDR:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 29
+# %% ../notebooks/api/03_ctx.ipynb 30
 class CTX:
     """Class to manage dealing with CTX data.
 
@@ -264,7 +264,7 @@ class CTX:
         'da' stands for data-array.
         """
         if not self.is_calib_read:
-            self._cal_da = rxr.open_rasterio(self.cal_path).sel(band=1, drop=True)
+            self._cal_da = rxr.open_rasterio(self.cal_path, masked=True).sel(band=1, drop=True)
             self._cal_da.name = f"{self.short_pid} calibrated"
             self.is_calibd_read = True
         return self._cal_da.drop_vars("spatial_ref")
@@ -305,7 +305,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 54
+# %% ../notebooks/api/03_ctx.ipynb 56
 class CTXCollection:
     """Class with several helpful methods to work with a set of CTX images.
 
@@ -314,22 +314,22 @@ class CTXCollection:
     """
 
     @classmethod
-    def by_volume(cls, vol_id, full_width=False):
+    def by_volume(cls, vol_id, **kwargs):
         """Create a CTXCollection from the PDS volume number."""
         if not str(vol_id).startswith("MROX_"):
             vol_id = "MROX_" + str(vol_id)
         query = f"VOLUME_ID=='{vol_id}'"
-        if full_width:
-            query += " and LINE_SAMPLES>5000"
-        return cls(edrindex.query(query).PRODUCT_ID.values)
+        return cls(edrindex.query(query).PRODUCT_ID.values, **kwargs)
 
     @classmethod
-    def by_month(cls, month_letters, full_width=False):
+    def by_month(cls, month_letters, nth_volume=None, **kwargs):
         """Create a CTXCollection based on the first 3 letters of the product_id (a.k.a. "month")"""
         df = edrindex[edrindex.PRODUCT_ID.str.startswith(month_letters)]
-        if full_width:
-            df = df.query("LINE_SAMPLES>5000")
-        return cls(df.PRODUCT_ID.values)
+        obj = cls(df.PRODUCT_ID.values, **kwargs)
+        if nth_volume is not None:
+            return CTXCollection.by_volume(obj.volumes_in_pids[nth_volume], **kwargs)
+        else:
+            return obj
 
     @classmethod
     def volume_from_pid(cls, pid, **kwargs):
@@ -337,15 +337,35 @@ class CTXCollection:
         vol = edrindex.query(f"PRODUCT_ID=='{pid}'").VOLUME_ID.iat[0]
         return CTXCollection.by_volume(vol, **kwargs)
 
-    def __init__(self, product_ids, filter_error=False):
+    def __init__(self, product_ids, full_width=False, filter_error=False):
         self.product_ids = product_ids
-        if filter_error:
-            self.filter_for_ok()
+        self.full_width = full_width  # i.e. LINE_SAMPLES==5056
+        self.filter_error = filter_error
 
     @property
     def pids(self):
         "Alias on product_id"
         return self.product_ids
+
+    @property
+    def product_ids(self):
+        new_pids = self._product_ids
+        ind = edrindex[edrindex.PRODUCT_ID.isin(new_pids)]
+        queries = []
+        if self.full_width:
+            queries.append('LINE_SAMPLES == 5056')
+            # new_pids = [pid for pid in new_pids if CTX(pid).meta.line_samples == 5056]
+        if self.filter_error:
+            queries.append("DATA_QUALITY_DESC != 'ERROR'")
+            # new_pids = [pid for pid in new_pids if CTX(pid).data_quality != 'ERROR']
+        if queries: 
+            return ind.query(" and ".join(queries)).PRODUCT_ID.values
+        else:
+            return ind.PRODUCT_ID.values
+        
+    @product_ids.setter
+    def product_ids(self, val):
+        self._product_ids = val
 
     def get_urls(self):
         """Get URLs for list of product_ids.
@@ -377,7 +397,7 @@ class CTXCollection:
         pid, overwrite = args
         ctx = CTX(pid)
         ctx.calib_pipeline(overwrite=overwrite)
-        
+
     def calibrate_collection(self, overwrite=False):
         "Calibrate all images in collection using tqdm wrapper around concurrent.future"
         print("Launching parallel calibration...")
@@ -386,18 +406,17 @@ class CTXCollection:
 
     def edr_exist_check(self):
         "Check if all source_paths exists, i.e. all EDR images are available."
-        return [(p_id, CTX(p_id).source_path.exists()) for p_id in self.product_ids]
+        return [
+            (p_id, CTX(p_id).source_path.exists()) for p_id in self.product_ids
+        ]
 
     def calib_exist_check(self):
         "Check if all cal_paths exist. (i.e. all calibrated ISIS cubes are available."
-        return [(p_id, CTX(p_id).cal_path.exists()) for p_id in self.product_ids]
+        return [(p_id, CTX(p_id).cal_path.exists()) for p_id in self.product_ids
+               ]
 
     def only_full_width(self):
         "Constrain the list of product_ids to those that have full width (i.e. line_samples == 5056)"
-        new_pids = [
-            pid for pid in self.product_ids if CTX(pid).meta.line_samples == 5056
-        ]
-        self.product_ids = new_pids
 
     def get_ctx_n(self, n):
         "Get CTX object for n-th product_id"
@@ -432,7 +451,21 @@ class CTXCollection:
             pid for pid in self.pids if CTX(pid).data_quality != "ERROR"
         ]
 
-# %% ../notebooks/api/03_ctx.ipynb 90
+    @property
+    def volumes_in_pids(self):
+        return edrindex[edrindex.PRODUCT_ID.isin(
+            self.product_ids)].VOLUME_ID.unique()
+    
+    @property
+    def count_per_volume(self):
+        g = edrindex.groupby("VOLUME_ID")
+        return g.size()[self.volumes_in_pids]
+
+    def sample(self, n):
+        "Return random sample of product_ids, size `n`."
+        return list(pd.Series(self.product_ids).sample(n))
+
+# %% ../notebooks/api/03_ctx.ipynb 98
 @call_parse
 def ctx_calib(
     id_: str,  # CTX product_id
