@@ -45,29 +45,13 @@ jobs:
 
       - run: cat environment.yml
 
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2
+      - name: Install conda env from environment.yml      
+        # You may pin to the exact commit or the version.
+        # uses: mamba-org/provision-with-micromamba@e2b397b12d0a38069451664382b769c9456e3d6d
+        uses: mamba-org/provision-with-micromamba@main
         with:
-          auto-update-conda: true
-          miniforge-variant: Mambaforge
-          miniforge-version: latest
-          python-version: "3.9"
-          activate-environment: my-env
-          use-mamba: true
-          channel-priority: strict
-
-      - name: Set cache date
-        run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-      - uses: actions/cache@v2
-        with:
-          path: ${{ matrix.prefix }}
-          key: ${{ matrix.label }}-conda-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
-        id: cache
-
-      - name: Update environment
-        run: mamba env update -n my-env -f environment.yml
-        if: steps.cache.outputs.cache-hit != 'true'
+          cache-downloads: true
+          cache-env: true
 
       - name: Install package
         run: |
@@ -84,24 +68,24 @@ jobs:
           pip install -Uq git+https://github.com/fastai/nbdev.git
           nbdev_docs
 
-      - name: Install ghapi
-        # this needs to be in the default shell so that below's default Python shell can activate GH pages
-        shell: bash
-        run: |
-          pip install -Uq git+https://github.com/fastai/ghapi.git # you need this for enabling pages
-          pip install -Uq git+https://github.com/fastai/nbdev.git
+      # - name: Install ghapi
+      #   # this needs to be in the default shell so that below's default Python shell can activate GH pages
+      #   shell: bash
+      #   run: |
+      #     pip install -Uq git+https://github.com/fastai/ghapi.git # you need this for enabling pages
+      #     pip install -Uq git+https://github.com/fastai/nbdev.git
 
-      - name: Enable GitHub Pages
-        shell: python
-        run: |
-          import ghapi.core,nbdev.config,sys
-          msg="Please enable GitHub Pages to publish from the root of the `gh-pages` branch per these instructions - https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-from-a-branch"
-          try:
-            api = ghapi.core.GhApi(owner=nbdev.config.get_config().user, repo=nbdev.config.get_config().repo, token="${{github.token}}")
-            api.enable_pages(branch='gh-pages')
-          except Exception as e: 
-            print(f'::error title="Could not enable GitHub Pages Automatically":: {msg}\n{e}')
-            sys.exit(1)
+      # - name: Enable GitHub Pages
+      #   shell: python
+      #   run: |
+      #     import ghapi.core,nbdev.config,sys
+      #     msg="Please enable GitHub Pages to publish from the root of the `gh-pages` branch per these instructions - https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-from-a-branch"
+      #     try:
+      #       api = ghapi.core.GhApi(owner=nbdev.config.get_config().user, repo=nbdev.config.get_config().repo, token="${{github.token}}")
+      #       api.enable_pages(branch='gh-pages')
+      #     except Exception as e: 
+      #       print(f'::error title="Could not enable GitHub Pages Automatically":: {msg}\n{e}')
+      #       sys.exit(1)
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
