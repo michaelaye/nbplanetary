@@ -51,7 +51,7 @@ class Index:
                 self.update_timestamp()
             else:
                 self.timestamp = None
-        self.new_timestamp = None  # filled by needs_download()
+        self._remote_timestamp = None
 
     def parse_key(
         self,
@@ -79,25 +79,21 @@ class Index:
         return self.timestamp.isoformat()
 
     @property
-    def needs_download(self) -> bool:  # Boolean indicating if download is required
-        """Property indicating if the index needs to be downloaded.
-
-        Need is True when
-        (1) no local timestamp was stored or
-        (2) when the remote timestamp is newer.
-        """
+    def remote_timestamp(self):
+        if self._remote_timestamp:
+            return self._remote_timestamp  # save the internet traffic if already checked before
         try:
-            self.remote_timestamp = utils.get_remote_timestamp(self.url)
+            self._remote_timestamp = utils.get_remote_timestamp(self.url)
         except URLError:
-            return None
-        if self.timestamp:
-            if self.remote_timestamp > self.timestamp:
-                return True
-            else:
-                return False
-        else:
-            # also return True when the timestamp is not valid
-            return True
+            print("Warning: Could not get the remote timestamp for update check.")
+        return self._remote_timestamp
+        
+    @property
+    def update_available(self) -> bool:  # Boolean indicating if there's a new index
+        "Property indicating if the index needs to be downloaded."
+        if not self.timestamp:
+            return True  # never downloaded
+        return True if self.remote_timestamp > self.timestamp else False
 
     @property
     def key_tokens(self):
@@ -169,16 +165,8 @@ class Index:
         return self.local_dir / self.label_filename
 
     @property
-    def local_hdf_path(self):
-        return self.local_table_path.with_suffix(".hdf")
-
-    @property
     def local_parq_path(self):
         return self.local_table_path.with_suffix(".parq")
-
-    @property
-    def df(self):
-        return pd.read_hdf(self.local_hdf_path)
 
     @property
     def parquet(self):
@@ -186,19 +174,9 @@ class Index:
 
     def download(
         self,
-        convert_to_hdf: bool = False,  # Switch to enable conversion to HDF
-        convert_to_parquet: bool = True,  # Switch to enable conversion to parquet
-        force_update: bool = False,  # Switch to enable a fresh download and conversion
     ):
         """Wrapping URLs for downloading PDS indices and their label files."""
         # check timestamp
-        ret = self.needs_download
-        if ret is None:
-            print("Could not check for any index updates, maybe server is offline?")
-            return
-        if not ret and not force_update:
-            print("Stored index is up-to-date.")
-            return
         label_url = self.url
         logger.info("Downloading %s." % label_url)
         utils.url_retrieve(label_url, self.local_label_path)
@@ -215,12 +193,7 @@ class Index:
             self.local_table_path.with_name("temp.tab").rename(self.local_table_path)
         self.timestamp = self.remote_timestamp
         self.update_timestamp()
-
-        if convert_to_hdf:
-            self.convert_to_hdf()
-            print(f"Converted to pandas HDF:\n{self.local_hdf_path}")
-        elif convert_to_parquet:
-            self.convert_to_parquet()
+        self.convert_to_parquet()
 
     def update_timestamp(self):
         # Note: the config object writes itself out after setting any value
@@ -234,16 +207,7 @@ class Index:
         df = self.label.read_index_data()
         return df
 
-    def convert_to_hdf(self):
-        df = self.read_index_data()
-        df.to_hdf(self.local_hdf_path, "df")
-
-    def convert_to_parquet(self, force_update=False):
-        if self.local_parq_path.exists() and not force_update:
-            print(
-                "Local parquet file exists. Use `force_update=True` to force recreation"
-            )
-            return
+    def convert_to_parquet(self):
         df = self.read_index_data()
         df = df.convert_dtypes()
         df.to_parquet(self.local_parq_path)
