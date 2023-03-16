@@ -42,6 +42,7 @@ storage_root = config.storage_root / "missions/mro/ctx"
 edrindex = get_index("mro.ctx", "edr")
 edrindex["short_pid"] = edrindex.PRODUCT_ID.map(lambda x: x[:15])
 edrindex["month_col"] = edrindex.PRODUCT_ID.map(lambda x: x[:3])
+edrindex.LINE_SAMPLES = edrindex.LINE_SAMPLES.astype(int)
 
 # %% ../notebooks/api/03_ctx.ipynb 9
 class CTXEDR:
@@ -464,8 +465,17 @@ class CTXCollection:
     def sample(self, n):
         "Return random sample of product_ids, size `n`."
         return list(pd.Series(self.product_ids).sample(n))
+    
+    def __str__(self):
+        s = f"# of product IDs: {self.n_items}\n"
+        s+= "Volumes contained in list of product_ids:\n"
+        s+= f"{self.volumes_in_pids}\n"
+        return s
+    
+    def __repr__(self):
+        return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 98
+# %% ../notebooks/api/03_ctx.ipynb 99
 @call_parse
 def ctx_calib(
     id_: str,  # CTX product_id
