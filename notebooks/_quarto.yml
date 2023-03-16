@@ -1,8 +1,5 @@
 project:
   type: website
-  preview: 
-    port: 3000
-    browser: false
 
 format:
   html:
@@ -18,14 +15,6 @@ website:
     background: primary
     search: true
   sidebar:
-    collapse-level: 1
-    style: docked
-    contents:
-      - section: Tutorials
-        contents: tutorials/*
-      - section: API / Reference
-        contents: api/*
-              
+    style: floating
 
-
-metadata-files: [nbdev.yml]
+metadata-files: [nbdev.yml, sidebar.yml]
