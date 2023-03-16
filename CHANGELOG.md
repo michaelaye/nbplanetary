@@ -2,6 +2,23 @@
 
 <!-- do not remove -->
 
+## 0.26.0
+
+### New Features
+
+- get Spicer running ([#37](https://github.com/michaelaye/nbplanetary/issues/37))
+  - Spicer is my small class-based framework around SPICE commands to make 
+illumination calculations more human-readable. I have used this for years and added it here now.﻿
+
+- add self rep for CTXCollection ([#36](https://github.com/michaelaye/nbplanetary/issues/36))
+
+- confusing/convoluted API for downloading indexes ([#35](https://github.com/michaelaye/nbplanetary/issues/35))
+  - downloading was safeguarded far too much to be useful.
+Removed a lot of code (always good), which also made `get_index` 
+much clearer and simpler.﻿
+
+
+
 ## 0.25.0
 
 ### New Features
