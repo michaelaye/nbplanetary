@@ -56,7 +56,8 @@ jobs:
       - name: Install package
         run: |
           pip install -e ".[dev]"
-
+          pip install planets
+          
       - name: Install tools and create docs
         run: |
           wget -nv https://www.quarto.org/download/latest/quarto-linux-amd64.deb
