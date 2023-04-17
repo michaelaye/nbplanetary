@@ -9,7 +9,6 @@ from string import Template
 
 import pandas as pd
 
-
 # %% ../../notebooks/api/02b_pds.ctx_index.ipynb 4
 @dataclass
 class CTXIndex:
@@ -21,12 +20,9 @@ class CTXIndex:
     From that latest volume the latest index URL is constructed.
     """
     volumes_url: str = "https://pds-imaging.jpl.nasa.gov/volumes/mro.html"
-    release_url_template: Template = Template(
-        "https://pds-imaging.jpl.nasa.gov/volumes/mro/release${release}.html"
-    )
+    release_url_template: Template = Template("https://pds-imaging.jpl.nasa.gov/volumes/mro/release${release}.html")
     volume_url_template: Template = Template(
-        "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_${volume}/"
-    )
+        "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_${volume}/")
     scraped_tables: bool = False
     release_scraped: bool = False
 

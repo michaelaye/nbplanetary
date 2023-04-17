@@ -4,6 +4,7 @@
 __all__ = ['config', 'reset_non_urls', 'Config']
 
 # %% ../notebooks/api/00_config.ipynb 3
+import copy
 import os
 import shutil
 from collections.abc import Mapping
@@ -11,15 +12,15 @@ from datetime import datetime
 from functools import reduce
 from importlib.resources import path as resource_path
 from typing import Union
-import copy
 
 import tomlkit as toml
+
 from fastcore.utils import AttrDict, Path
 
 # %% ../notebooks/api/00_config.ipynb 4
 def reset_non_urls(
-    source : dict,  # source dictionary 
-    reset:str = '',  # value to reset non URLs to
+        source: dict,  # source dictionary 
+        reset: str = '',  # value to reset non URLs to
 ) -> dict:
     """Reset all non-URL values in the config file.
     
@@ -78,7 +79,8 @@ class Config:
         return self.tomldoc
 
     def get_value(
-        self, key: str  # A nested key in dotted format, e.g. cassini.uvis.indexes
+            self,
+            key: str  # A nested key in dotted format, e.g. cassini.uvis.indexes
     ):
         """Get sub-dictionary by nested key."""
         if not key.startswith("missions"):
@@ -89,10 +91,10 @@ class Config:
             return None
 
     def set_value(
-        self,
-        nested_key: str,  # A nested key in dotted format, e.g. cassini.uvis.ring_summary
-        value: Union[float, str],  # Value for the given key to be stored
-        save: bool = True,  # Switch to control writing out to disk
+            self,
+            nested_key: str,  # A nested key in dotted format, e.g. cassini.uvis.ring_summary
+            value: Union[float, str],  # Value for the given key to be stored
+            save: bool = True,  # Switch to control writing out to disk
     ):
         """Set value in sub-dic using dotted key."""
         dic = self.tomldoc
@@ -125,9 +127,7 @@ class Config:
         at `Class.path`, either default or as given during init.
         `storage_root` attribute is set as well.
         """
-        path = input(
-            "Provide the root storage path where all downloaded and produced data will be stored:"
-        )
+        path = input("Provide the root storage path where all downloaded and produced data will be stored:")
         self.tomldoc["storage_root"] = path
         self.storage_root = Path(path)
         self.save()
@@ -143,8 +143,8 @@ class Config:
         return list(instruments.keys())
 
     def get_datalevels(
-        self,
-        mission_instrument,  # mission.instrument code, e.g. mro.hirise
+            self,
+            mission_instrument,  # mission.instrument code, e.g. mro.hirise
     ):
         """Return configured data levels available for an instrument.
 

@@ -9,17 +9,18 @@ from itertools import repeat
 from multiprocessing import Pool
 from pathlib import Path
 
-import hvplot.xarray  # noqa
 import rasterio
 import rioxarray as rxr
+from tqdm.auto import tqdm
+from tqdm.contrib.concurrent import process_map
+from yarl import URL
+
+import hvplot.xarray  # noqa
 from fastcore.basics import store_attr
 from fastcore.script import call_parse
 from .config import config
 from .pds.apps import get_index
 from .utils import catch_isis_error, file_variations, url_retrieve
-from tqdm.auto import tqdm
-from tqdm.contrib.concurrent import process_map
-from yarl import URL
 
 try:
     from kalasiris.pysis import (
@@ -53,18 +54,16 @@ class CTXEDR:
     with_volume = config.get_value("mro.ctx.datalevels.edr.with_volume")
 
     def __init__(
-        self,
-        id_: str,  # CTX product id (pid)
-        root: str = "",  # alternative root folder for EDR data
-        with_volume=None,  # does the storage path include the volume folder
-        with_pid_folder=None,  # control if stuff is stored inside PID folders
+            self,
+            id_: str,  # CTX product id (pid)
+            root: str = "",  # alternative root folder for EDR data
+            with_volume=None,  # does the storage path include the volume folder
+            with_pid_folder=None,  # control if stuff is stored inside PID folders
     ):
         self.pid = id_
         self.root = Path(root) if root else Path(self.root)
         self.with_volume = with_volume if with_volume is not None else self.with_volume
-        self.with_pid_folder = (
-            with_pid_folder if with_pid_folder is not None else self.with_pid_folder
-        )
+        self.with_pid_folder = (with_pid_folder if with_pid_folder is not None else self.with_pid_folder)
 
     @property
     def pid(self):
@@ -146,20 +145,20 @@ class CTX:
     proc_with_volume = config.get_value("mro.ctx.with_volume")
 
     def __init__(
-        self,
-        id_: str,  # CTX product id
-        source_dir: str = "",  # where the raw EDR data is stored, if not coming from plpy
-        proc_root: str = "",  # where to store processed, if not plpy
-        with_volume=None,  # store with extra volume subfolder?
-        with_id_dir=None,  # store with extra product_id subfolder?
+            self,
+            id_: str,  # CTX product id
+            source_dir: str = "",  # where the raw EDR data is stored, if not coming from plpy
+            proc_root: str = "",  # where to store processed, if not plpy
+            with_volume=None,  # store with extra volume subfolder?
+            with_id_dir=None,  # store with extra product_id subfolder?
     ):
         self.edr = CTXEDR(id_, root=source_dir, with_volume=with_volume)
         store_attr(but="source_dir,proc_root")
         self.proc_root = Path(proc_root) if proc_root else self.proc_root
 
-        (self.cub_name, self.cal_name, self.destripe_name) = file_variations(
-            self.edr.source_path.name, [".cub", self.calib_extension, ".dst.cal.cub"]
-        )
+        (self.cub_name, self.cal_name,
+         self.destripe_name) = file_variations(self.edr.source_path.name,
+                                               [".cub", self.calib_extension, ".dst.cal.cub"])
         self.is_read = False
         self.is_calib_read = False
         self.checked_destripe = False
@@ -359,11 +358,11 @@ class CTXCollection:
         if self.filter_error:
             queries.append("DATA_QUALITY_DESC != 'ERROR'")
             # new_pids = [pid for pid in new_pids if CTX(pid).data_quality != 'ERROR']
-        if queries: 
+        if queries:
             return ind.query(" and ".join(queries)).PRODUCT_ID.values
         else:
             return ind.PRODUCT_ID.values
-        
+
     @product_ids.setter
     def product_ids(self, val):
         self._product_ids = val
@@ -407,14 +406,11 @@ class CTXCollection:
 
     def edr_exist_check(self):
         "Check if all source_paths exists, i.e. all EDR images are available."
-        return [
-            (p_id, CTX(p_id).source_path.exists()) for p_id in self.product_ids
-        ]
+        return [(p_id, CTX(p_id).source_path.exists()) for p_id in self.product_ids]
 
     def calib_exist_check(self):
         "Check if all cal_paths exist. (i.e. all calibrated ISIS cubes are available."
-        return [(p_id, CTX(p_id).cal_path.exists()) for p_id in self.product_ids
-               ]
+        return [(p_id, CTX(p_id).cal_path.exists()) for p_id in self.product_ids]
 
     def only_full_width(self):
         "Constrain the list of product_ids to those that have full width (i.e. line_samples == 5056)"
@@ -448,15 +444,12 @@ class CTXCollection:
 
     def filter_error(self):
         "Filter the product_ids for the error flag from the PDS index."
-        self.product_ids = [
-            pid for pid in self.pids if CTX(pid).data_quality != "ERROR"
-        ]
+        self.product_ids = [pid for pid in self.pids if CTX(pid).data_quality != "ERROR"]
 
     @property
     def volumes_in_pids(self):
-        return edrindex[edrindex.PRODUCT_ID.isin(
-            self.product_ids)].VOLUME_ID.unique()
-    
+        return edrindex[edrindex.PRODUCT_ID.isin(self.product_ids)].VOLUME_ID.unique()
+
     @property
     def count_per_volume(self):
         g = edrindex.groupby("VOLUME_ID")
@@ -465,23 +458,23 @@ class CTXCollection:
     def sample(self, n):
         "Return random sample of product_ids, size `n`."
         return list(pd.Series(self.product_ids).sample(n))
-    
+
     def __str__(self):
         s = f"# of product IDs: {self.n_items}\n"
-        s+= "Volumes contained in list of product_ids:\n"
-        s+= f"{self.volumes_in_pids}\n"
+        s += "Volumes contained in list of product_ids:\n"
+        s += f"{self.volumes_in_pids}\n"
         return s
-    
+
     def __repr__(self):
         return self.__str__()
 
 # %% ../notebooks/api/03_ctx.ipynb 99
 @call_parse
 def ctx_calib(
-    id_: str,  # CTX product_id
-    source: str = "",  # path to where EDRs are stored if not from plpy
-    proc_root: str = "",  # path to where processed data is to be stored
-    overwrite: bool = False,  # overwrite processed data
+        id_: str,  # CTX product_id
+        source: str = "",  # path to where EDRs are stored if not from plpy
+        proc_root: str = "",  # path to where processed data is to be stored
+        overwrite: bool = False,  # overwrite processed data
 ):
     ctx = CTX(id_, source_dir=source, proc_root=proc_root)
     ctx.calib_pipeline(overwrite=overwrite)

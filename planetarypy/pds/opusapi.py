@@ -8,9 +8,10 @@ from pathlib import Path
 from urllib.parse import urlencode, urlparse
 from urllib.request import unquote, urlretrieve
 
-import pandas as pd
 import requests
 from IPython.display import HTML, display
+
+import pandas as pd
 
 base_url = "https://opus.pds-rings.seti.org/opus/api"
 metadata_url = base_url + "/metadata"
@@ -19,10 +20,7 @@ image_url = base_url + "/image/"
 dic = {"raw_data": "coiss_raw", "calibrated_data": "coiss_calib"}
 
 
-
-
 class OPUSImageURL(object):
-
     """Manage URLS from the OPUS response."""
 
     def __init__(self, jsonlist):
@@ -42,7 +40,6 @@ class OPUSImageURL(object):
 
 
 class OPUSObsID(object):
-
     """Manage observation IDs from OPUS responses."""
 
     def __init__(self, obsid_data):
@@ -102,7 +99,6 @@ class OPUSObsID(object):
 
 
 class OPUS(object):
-
     """Manage OPUS API requests.
 
 
@@ -179,10 +175,8 @@ class OPUS(object):
         if not self.silent:
             print("Found {} obsids.".format(len(obsids)))
             if len(obsids) == 1000:
-                print(
-                    "List is 1000 entries long, which is the pre-set limit, hence"
-                    " the real number of results might be longe."
-                )
+                print("List is 1000 entries long, which is the pre-set limit, hence"
+                      " the real number of results might be longe.")
 
     def get_radial_res_query(self, res1, res2):
         myquery = dict(
@@ -250,14 +244,11 @@ class OPUS(object):
             print("Allowed keys:", d.keys())
             return
         img_urls = [i._get_img_url(size) for i in self.obsids]
-        imagesList = "".join(
-            [
-                "<img style='width: {0}px; margin: 0px; float: "
-                "left; border: 1px solid black;' "
-                "src='{1}' />".format(width, s)
-                for s in img_urls
-            ]
-        )
+        imagesList = "".join([
+            "<img style='width: {0}px; margin: 0px; float: "
+            "left; border: 1px solid black;' "
+            "src='{1}' />".format(width, s) for s in img_urls
+        ])
         display(HTML(imagesList))
 
     def download_results(self, savedir=None, raw=True, calib=False, index=None):
@@ -303,4 +294,3 @@ class OPUS(object):
             basename = Path(obsid.medium_img_url).name
             print("Downloading", basename)
             urlretrieve(obsid.medium_img_url, str(pm.basepath / basename))
-

@@ -7,11 +7,12 @@ __all__ = ['hostname', 'headerstring', 'DataManager', 'parse_header_line', 'L1AH
 import socket
 from pathlib import Path
 
+from yarl import URL
+
 import hvplot.xarray  # noqa
 import pandas as pd
 from .config import config
 from .utils import url_retrieve
-from yarl import URL
 
 # %% ../notebooks/api/07_diviner.ipynb 4
 hostname = socket.gethostname()
@@ -22,6 +23,7 @@ else:
 
 # %% ../notebooks/api/07_diviner.ipynb 5
 class DataManager:
+
     def __init__(self, tstr):
         self.tstr = tstr
 
@@ -48,14 +50,11 @@ class DataManager:
     @property
     def base_url(self):
         return URL(
-            f"https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_{str(self.volume).zfill(4)}/data/"
-        )
+            f"https://pds-geosciences.wustl.edu/lro/lro-l-dlre-2-edr-v1/lrodlr_{str(self.volume).zfill(4)}/data/")
 
     @property
     def url(self):
-        return self.base_url / str(
-            Path(self.year, self.yearmonth, self.yearmonthday, f"{self.tstr}_edr.tab")
-        )
+        return self.base_url / str(Path(self.year, self.yearmonth, self.yearmonthday, f"{self.tstr}_edr.tab"))
 
     @property
     def local_path(self):
@@ -98,12 +97,8 @@ class L1AHeader:
     # beware: parse_header_line converts to lower case!
     columns = parse_header_line(headerstring)
 
-    tel1cols = [
-        "a{0}_{1}".format(i, str(j).zfill(2)) for i in range(1, 7) for j in range(1, 22)
-    ]
-    tel2cols = [
-        "b{0}_{1}".format(i, str(j).zfill(2)) for i in range(1, 4) for j in range(1, 22)
-    ]
+    tel1cols = ["a{0}_{1}".format(i, str(j).zfill(2)) for i in range(1, 7) for j in range(1, 22)]
+    tel2cols = ["b{0}_{1}".format(i, str(j).zfill(2)) for i in range(1, 4) for j in range(1, 22)]
 
     datacols = tel1cols + tel2cols
 

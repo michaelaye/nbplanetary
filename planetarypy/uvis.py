@@ -17,10 +17,11 @@ storage_root
 
 # %% ../notebooks/api/05_cassini_uvis.ipynb 5
 class DataManager:
+
     def __init__(
-        self, 
+        self,
         pid: str,  # Product ID. If longer than PDS_ID, will be cut in attribute `pds_id`
-        skip_download: bool=False  # skip trying to download
+        skip_download: bool = False  # skip trying to download
     ):
         self.pid = pid
         self.dict = None
@@ -112,9 +113,7 @@ def get_label_path(pid):
 
 # %% ../notebooks/api/05_cassini_uvis.ipynb 22
 def get_user_guide():
-    url = URL(
-        "https://pds-rings.seti.org/cassini/uvis/1-UVIS_Users_Guide_-2018-Jan%2015-For%20PDS-REV-2018-07-06.pdf"
-    )
+    url = URL("https://pds-rings.seti.org/cassini/uvis/1-UVIS_Users_Guide_-2018-Jan%2015-For%20PDS-REV-2018-07-06.pdf")
     local_path = storage_root / "uvis_user_guide.pdf"
     if not local_path.exists():
         url_retrieve(url, storage_root / "uvis_user_guide.pdf")

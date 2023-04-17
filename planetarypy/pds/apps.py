@@ -10,16 +10,16 @@ from .indexes import Index
 
 # %% ../../notebooks/api/02c_pds.apps.ipynb 4
 def find_indexes(
-    instrument: str,  # Dotted mission.instrument key, e.g. cassini.iss
-) -> list:            # List of configured index names
+        instrument: str,  # Dotted mission.instrument key, e.g. cassini.iss
+) -> list:  # List of configured index names
     "Find existing indexes for an instrument."
     return config.list_indexes(instrument)
 
 # %% ../../notebooks/api/02c_pds.apps.ipynb 6
 def get_index(
-    instr: str,  # Dotted instrument index, e.g. cassini.iss
-    index_name: str='',  # Index name, for exmample 'moon_summary. Optional'
-    refresh: bool=False,  # switch to force a refresh of an index
+        instr: str,  # Dotted instrument index, e.g. cassini.iss
+        index_name: str = '',  # Index name, for exmample 'moon_summary. Optional'
+        refresh: bool = False,  # switch to force a refresh of an index
 ) -> pd.DataFrame:  # The PDS index convert to pandas DataFrame
     """Example: get_index("cassini.iss", "index")"""
     if not index_name:
@@ -35,7 +35,7 @@ def get_index(
 
 # %% ../../notebooks/api/02c_pds.apps.ipynb 13
 def find_instruments(
-    mission: str,  # Mission string, e.g. "cassini"
+        mission: str,  # Mission string, e.g. "cassini"
 ) -> list:  # List of configured instrument names
     "Find existing instruments for a mission."
     return config.list_instruments(mission)

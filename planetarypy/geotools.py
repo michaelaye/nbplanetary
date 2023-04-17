@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.pyplot import figure, show
 from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
+
 try:
     from osgeo import gdal, osr
 except ImportError:
@@ -297,9 +298,8 @@ class Point:
         if geotransform is None:
             geotransform = self.geotrans
         if (self.x is None) or (self.y is None):
-            raise SomethingNotSetError(
-                (self.x, self.y), "Map coordinates not " "set for transformation."
-            )
+            raise SomethingNotSetError((self.x, self.y), "Map coordinates not "
+                                       "set for transformation.")
         tInverse = gdal.InvGeoTransform(geotransform)
         self.sample, self.line = gdal.ApplyGeoTransform(tInverse, self.x, self.y)
         return (self.sample, self.line)
@@ -363,10 +363,8 @@ class Window:
             elif ulPoint and width:
                 self.get_lr_from_width()
             else:
-                print(
-                    "Either upper left and lower right or upper left/"
-                    " centerPoint with width needs to be provided."
-                )
+                print("Either upper left and lower right or upper left/"
+                      " centerPoint with width needs to be provided.")
                 return
 
     def copy(self):
@@ -403,13 +401,11 @@ class Window:
         return self.lr
 
     def usage(self):
-        print(
-            """Usage: win = Window(pointObject1, pointObject2)
+        print("""Usage: win = Window(pointObject1, pointObject2)
         or
         win = Window(pointObject1, width_in_Pixel)
         or
-        win = Window(centerPoint, width_in_Pixel)"""
-        )
+        win = Window(centerPoint, width_in_Pixel)""")
         return
 
     def get_corners_from_center(self):
@@ -480,9 +476,7 @@ class ImgData:
         self.band = self.band1  # keep with older interface of just 1 band
         self.geotrans = self.dataset.GetGeoTransform()
         self.projection = self.dataset.GetProjection()
-        self.center = Point(
-            self.X // 2, self.Y // 2, geotrans=self.geotrans, proj=self.projection
-        )
+        self.center = Point(self.X // 2, self.Y // 2, geotrans=self.geotrans, proj=self.projection)
 
     def _read_data(self, band):
         band = getattr(self, band)
@@ -619,21 +613,17 @@ class ImgData:
         diffy = abs(extent[3] - extent[2]) * 1000
         diff = max(diffx, diffy)
         # get closed magnitude to 10 % of image extent
-        scalebarLength = 10 ** int(round(np.log10(diff / 10)))
+        scalebarLength = 10**int(round(np.log10(diff / 10)))
         scalebarLength /= 1000
-        d = dict(
-            [
-                (1, "1 km"),
-                (10, "10 m"),
-                (100, "100 m"),
-                (1000, "1 km"),
-                (10000, "10 km"),
-                (100000, "100 km"),
-                (1000000, "1000 km"),
-            ]
-        )
-        asb = AnchoredSizeBar(
-            self.ax.transData, scalebarLength, d[scalebarLength], loc=loc
-        )
+        d = dict([
+            (1, "1 km"),
+            (10, "10 m"),
+            (100, "100 m"),
+            (1000, "1 km"),
+            (10000, "10 km"),
+            (100000, "100 km"),
+            (1000000, "1000 km"),
+        ])
+        asb = AnchoredSizeBar(self.ax.transData, scalebarLength, d[scalebarLength], loc=loc)
         self.ax.add_artist(asb)
         self.ax.get_figure().canvas.draw()

@@ -80,15 +80,15 @@ datasets = df.set_index("shorthand")
 
 # %% ../../notebooks/api/10_spice.kernels.ipynb 10
 def is_start_valid(
-    mission: str,  # mission shorthand label of datasets dataframe
-    start: Time,  # start time in astropy.Time format
+        mission: str,  # mission shorthand label of datasets dataframe
+        start: Time,  # start time in astropy.Time format
 ):
     return Time(datasets.at[mission, "Start Time"]) <= start
 
 
 def is_stop_valid(
-    mission: str,  # mission shorthand label of datasets dataframe
-    stop: Time,  # stop time in astropy.Time format
+        mission: str,  # mission shorthand label of datasets dataframe
+        stop: Time,  # stop time in astropy.Time format
 ):
     return Time(datasets.at[mission, "Stop Time"]) >= stop
 
@@ -103,6 +103,7 @@ def download_one_url(url, local_path, overwrite: bool = False):
     local_path.parent.mkdir(exist_ok=True, parents=True)
     url_retrieve(url, local_path)
 
+
 class Subsetter:
     """Class to manage retrieving subset SPICE kernel lists
 
@@ -112,11 +113,11 @@ class Subsetter:
     """
 
     def __init__(
-        self,
-        mission: str,  # mission shorthand in datasets dataframe
-        start: str,  # start time in either ISO or yyyy-jjj format
-        stop=None,  # stop time in either ISO or yyyy-jjj format
-        save_location=None,  # overwrite default storing in planetarpy archive
+            self,
+            mission: str,  # mission shorthand in datasets dataframe
+            start: str,  # start time in either ISO or yyyy-jjj format
+            stop=None,  # stop time in either ISO or yyyy-jjj format
+            save_location=None,  # overwrite default storing in planetarpy archive
     ):
         store_attr()
         self.initialize()
@@ -172,13 +173,8 @@ class Subsetter:
         Time-unsupported yyyy-jjj format, which can be converted by `nasa_time_to_iso`
         from `planetarypy.utils`.
         """
-        if not (
-            is_start_valid(self.mission, self.start)
-            and is_stop_valid(self.mission, self.stop)
-        ):
-            raise ValueError(
-                "One of start/stop is outside the supported date-range. See `datasets`."
-            )
+        if not (is_start_valid(self.mission, self.start) and is_stop_valid(self.mission, self.stop)):
+            raise ValueError("One of start/stop is outside the supported date-range. See `datasets`.")
         p = {
             "dataset": dataset_ids[self.mission],
             "start": self.start.iso,
@@ -190,24 +186,18 @@ class Subsetter:
     @property
     def kernel_names(self):
         "Return list of names of kernels for the given time range."
-        return [
-            str(Path(URL(url).parent.name) / URL(url).name) for url in self.kernel_urls
-        ]
+        return [str(Path(URL(url).parent.name) / URL(url).name) for url in self.kernel_urls]
 
     def get_local_path(
-        self,
-        url,  # kernel url to determine local storage path
+            self,
+            url,  # kernel url to determine local storage path
     ) -> Path:  # full local path where kernel in URL will be stored
         """Calculate local storage path from Kernel URL, using `save_location` if given.
 
         If self.save_location is None, the `planetarypy` archive is being used.
         """
         u = URL(url)
-        basepath = (
-            KERNEL_STORAGE / self.mission
-            if not self.save_location
-            else self.save_location
-        )
+        basepath = (KERNEL_STORAGE / self.mission if not self.save_location else self.save_location)
         return basepath / u.parent.name / u.name
 
     def _non_blocking_download(self, overwrite: bool = False):
@@ -221,11 +211,11 @@ class Subsetter:
                 local_path.parent.mkdir(exist_ok=True, parents=True)
                 futures.append(client.submit(url_retrieve, url, local_path))
             return [f.result() for f in futures]
-        
+
     def _concurrent_download(self, overwrite: bool = False):
         paths = [self.get_local_path(url) for url in self.kernel_urls]
         args = zip(self.kernel_urls, paths, repeat(overwrite))
-        results = process_map(download_one_url, args, max_workers=cpu_count()-2)
+        results = process_map(download_one_url, args, max_workers=cpu_count() - 2)
 
     def download_kernels(
         self,
@@ -248,15 +238,9 @@ class Subsetter:
 
         Use `save_location` if given, otherwise `planetarypy` archive.
         """
-        basepath = (
-            KERNEL_STORAGE / self.mission
-            if not self.save_location
-            else self.save_location
-        )
+        basepath = (KERNEL_STORAGE / self.mission if not self.save_location else self.save_location)
         savepath = basepath / self.metakernel_file
-        with open(savepath, "w") as outfile, self.z.open(
-            self.metakernel_file
-        ) as infile:
+        with open(savepath, "w") as outfile, self.z.open(self.metakernel_file) as infile:
             for line in infile:
                 linestr = line.decode()
                 if "'./data'" in linestr:
@@ -266,10 +250,10 @@ class Subsetter:
 
 # %% ../../notebooks/api/10_spice.kernels.ipynb 43
 def get_metakernel_and_files(
-    mission: str,  # mission shorthand from datasets dataframe
-    start: str,  # start time as iso-string, or yyyy-jjj
-    stop: str,  # stop time as iso-string or yyyy-jjj
-    save_location: str = None,  # override storage into planetarypy archive
+        mission: str,  # mission shorthand from datasets dataframe
+        start: str,  # start time as iso-string, or yyyy-jjj
+        stop: str,  # stop time as iso-string or yyyy-jjj
+        save_location: str = None,  # override storage into planetarypy archive
 ) -> Path:  # pathlib.Path to metakernel file with corrected data path.
     "For a given mission and start/stop times, download the kernels and get metakernel path"
     subset = Subsetter(mission, start, stop, save_location)
@@ -278,9 +262,9 @@ def get_metakernel_and_files(
 
 # %% ../../notebooks/api/10_spice.kernels.ipynb 45
 def list_kernels_for_day(
-    mission: str,  # mission shorthand from datasets dataframe
-    start: str,  # start time as iso-string, or yyyy-jjj
-    stop: str = "",  # stop time as iso-string or yyyy-jjj
+        mission: str,  # mission shorthand from datasets dataframe
+        start: str,  # start time as iso-string, or yyyy-jjj
+        stop: str = "",  # stop time as iso-string or yyyy-jjj
 ) -> list:  # list of kernel names
     subset = Subsetter(mission, start, stop)
     return subset.kernel_names
@@ -297,9 +281,7 @@ generic_kernel_names = [
     "spk/planets/de430.bsp",
     "spk/satellites/mar097.bsp",
 ]
-generic_kernel_paths = [
-    GENERIC_STORAGE.joinpath(i) for i in generic_kernel_names
-]
+generic_kernel_paths = [GENERIC_STORAGE.joinpath(i) for i in generic_kernel_names]
 
 # %% ../../notebooks/api/10_spice.kernels.ipynb 52
 def download_generic_kernels(overwrite=False):
@@ -307,9 +289,7 @@ def download_generic_kernels(overwrite=False):
     dl_urls = [GENERIC_URL / i for i in generic_kernel_names]
     for dl_url, savepath in zip(dl_urls, generic_kernel_paths):
         if savepath.exists() and not overwrite:
-            print(
-                savepath.name,
-                "already downloaded. Use `overwrite=True` to download again.")
+            print(savepath.name, "already downloaded. Use `overwrite=True` to download again.")
             continue
         savepath.parent.mkdir(exist_ok=True, parents=True)
         url_retrieve(dl_url, savepath)

@@ -50,8 +50,7 @@ def make_axis_rotation_matrix(direction, angle):
 
     eye = np.eye(3, dtype=np.float64)
     ddt = np.outer(d, d)
-    skew = np.array([[0, d[2], -d[1]], [-d[2], 0, d[0]], [d[1], -d[0], 0]],
-                    dtype=np.float64)
+    skew = np.array([[0, d[2], -d[1]], [-d[2], 0, d[0]], [d[1], -d[0], 0]], dtype=np.float64)
 
     mtx = ddt + np.cos(angle) * (eye - ddt) + np.sin(angle) * skew
     return mtx
@@ -101,8 +100,8 @@ class IllumAngles:
 
     def __str__(self):
         s = "Print-out precision is '.2f'\n"
-        s += "Phase: {0:.2f}\nSolar Incidence: {1:.2f}\nEmission: {2:.2f}".format(
-            self.dphase, self.dsolar, self.demission)
+        s += "Phase: {0:.2f}\nSolar Incidence: {1:.2f}\nEmission: {2:.2f}".format(self.dphase, self.dsolar,
+                                                                                  self.demission)
         return s
 
     def __repr__(self):
@@ -139,9 +138,7 @@ class SurfaceCoords:
         lat: float
             Latitude
         """
-        return cls(radius=args[0],
-                   lon=np.degrees(args[1]),
-                   lat=np.degrees(args[2]))
+        return cls(radius=args[0], lon=np.degrees(args[1]), lat=np.degrees(args[2]))
 
     def __init__(self, lon=0, lat=0, radius=0):
         self.lon = (lon * u.deg).to(u.radian)
@@ -159,8 +156,7 @@ class SurfaceCoords:
 
     def __str__(self):
         "Return string with useful summary."
-        return "Longitude: {0}\nLatitude: {1}\nRadius: {2}".format(
-            self.dlon, self.dlat, self.radius)
+        return "Longitude: {0}\nLatitude: {1}\nRadius: {2}".format(self.dlon, self.dlat, self.radius)
 
     def __repr__(self):
         return self.__str__()
@@ -287,8 +283,7 @@ class Spicer(HasTraits):
 
         # TODO: spkezp would be faster, but it uses body codes instead of names
         """
-        output = spice.spkpos(target, self.et, self.ref_frame, self.corr,
-                              self.body)
+        output = spice.spkpos(target, self.et, self.ref_frame, self.corr, self.body)
         return output
 
     @property
@@ -350,8 +345,7 @@ class Spicer(HasTraits):
 
         """
         if func_str is not None and func_str not in ["subpnt", "sincpt"]:
-            raise NotImplementedError(
-                'Only "sincpt" and "subpnt" are supported at this time.')
+            raise NotImplementedError('Only "sincpt" and "subpnt" are supported at this time.')
         elif func_str is not None:
             raise NotImplementedError("not yet implemented.")
             # if not self.instrument or not self.obs:
@@ -415,17 +409,14 @@ class Spicer(HasTraits):
 
     @property
     def local_soltime(self):
-        return spice.et2lst(self.et, self.target_id, self.coords.lon.value,
-                            "PLANETOGRAPHIC")[3]
+        return spice.et2lst(self.et, self.target_id, self.coords.lon.value, "PLANETOGRAPHIC")[3]
 
     def _get_flux(self, vector):
         diff_angle = spice.vsep(vector, self.sun_direction)
-        if (self.illum_angles.dsolar > 90 * u.deg) or (np.degrees(diff_angle) >
-                                                       90):
+        if (self.illum_angles.dsolar > 90 * u.deg) or (np.degrees(diff_angle) > 90):
             return 0 * u.W / (u.m * u.m)
         else:
-            return (self.solar_constant * np.cos(diff_angle) *
-                    np.exp(-self.tau / np.cos(self.illum_angles.solar)))
+            return (self.solar_constant * np.cos(diff_angle) * np.exp(-self.tau / np.cos(self.illum_angles.solar)))
 
     @property
     def F_flat(self):
@@ -462,8 +453,7 @@ class Spicer(HasTraits):
 
         Angle `aspect` should be in degrees and is applied clockwise.
         """
-        rotmat = make_axis_rotation_matrix(self.snormal,
-                                           np.radians(self.aspect))
+        rotmat = make_axis_rotation_matrix(self.snormal, np.radians(self.aspect))
         return np.matrix.dot(rotmat, self.tilted_normal)
 
     @property
@@ -516,8 +506,7 @@ class Spicer(HasTraits):
             criteria = i < no_of_steps
 
         self.time = saved_time
-        energies = (np.array([e.value for e in energies]) *
-                    energies[0].unit).to("J/m**2")
+        energies = (np.array([e.value for e in energies]) * energies[0].unit).to("J/m**2")
         fluxes = np.array([f.value for f in fluxes]) * fluxes[0].unit
         if provide_times:
             return np.array(times), energies
@@ -614,10 +603,7 @@ class Spicer(HasTraits):
         coords = SurfaceCoords.fromtuple(spice.reclat(nB))
         return coords.dlon, coords.dlat
 
-    def fluxes_around_equator(
-        self,
-        deltalon=10
-    ):  # delta between points at equator where flux is calculated
+    def fluxes_around_equator(self, deltalon=10):  # delta between points at equator where flux is calculated
         longitudes = range(0, 360, deltalon)
         fluxes = []
         for lon in longitudes:
@@ -635,8 +621,7 @@ class MarsSpicer(Spicer):
     obs = Enum([None, "MRO", "MGS", "MEX"])
     instrument = Enum([None, "MRO_HIRISE", "MRO_CRISM", "MRO_CTX"])
     # Coords dictionary to store often used coords
-    location_coords = dict(inca=(220.09830399469547, -440.60853011059214,
-                                 -3340.5081261541495))
+    location_coords = dict(inca=(220.09830399469547, -440.60853011059214, -3340.5081261541495))
 
     def __init__(self, time=None, obs=None, inst=None, **kwargs):
         """ Initialising MarsSpicer class.
@@ -773,8 +758,7 @@ class MoonSpicer(Spicer):
             criteria = i < no_of_steps
 
         self.time = saved_time
-        energies = (np.array([e.value for e in energies]) *
-                    energies[0].unit).to("J/m**2")
+        energies = (np.array([e.value for e in energies]) * energies[0].unit).to("J/m**2")
         fluxes = np.array([f.value for f in fluxes]) * fluxes[0].unit
         if provide_times:
             return np.array(times), energies

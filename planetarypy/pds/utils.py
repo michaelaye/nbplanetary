@@ -4,13 +4,14 @@
 __all__ = ['IndexLabel', 'index_to_df', 'PVLColumn', 'decode_line', 'find_mixed_type_cols', 'fix_hirise_edrcumindex']
 
 # %% ../../notebooks/api/02f_pds.utils.ipynb 3
-from typing import Union
-from tqdm.auto import tqdm
-from fastcore.utils import Path
 import warnings
+from typing import Union
+
+from tqdm.auto import tqdm
 
 import pandas as pd
 import pvl
+from fastcore.utils import Path
 from .. import utils
 
 # %% ../../notebooks/api/02f_pds.utils.ipynb 4
@@ -99,9 +100,7 @@ def index_to_df(
     this reader should work for all PDS TAB files.
     """
     indexpath = Path(indexpath)
-    df = pd.read_fwf(
-        indexpath, header=None, names=label.colnames, colspecs=label.colspecs
-    )
+    df = pd.read_fwf(indexpath, header=None, names=label.colnames, colspecs=label.colspecs)
     if convert_times:
         for column in [col for col in df.columns if "TIME" in col]:
             if column in ["LOCAL_TIME", "DWELL_TIME"]:
@@ -109,9 +108,7 @@ def index_to_df(
             try:
                 df[column] = pd.to_datetime(df[column])
             except ValueError:
-                df[column] = pd.to_datetime(
-                    df[column], format=utils.nasa_dt_format_with_ms, errors="coerce"
-                )
+                df[column] = pd.to_datetime(df[column], format=utils.nasa_dt_format_with_ms, errors="coerce")
             except KeyError:
                 raise KeyError(f"{column} not in {df.columns}")
         print("Done.")
@@ -185,10 +182,8 @@ class PVLColumn:
 
 # %% ../../notebooks/api/02f_pds.utils.ipynb 7
 def decode_line(
-    linedata: str,  # One line of a .tab data file
-    labelpath: Union[
-        str, Path
-    ],  # Path to the appropriate label that describes the data.
+        linedata: str,  # One line of a .tab data file
+        labelpath: Union[str, Path],  # Path to the appropriate label that describes the data.
 ):
     "Decode one line of tabbed data with the appropriate label file."
     label = IndexLabel(labelpath)
@@ -221,8 +216,8 @@ def find_mixed_type_cols(
 
 # %% ../../notebooks/api/02f_pds.utils.ipynb 9
 def fix_hirise_edrcumindex(
-    infname: Union[str, Path],  # Path to broken EDRCUMINDEX.TAB
-    outfname: Union[str, Path],  # Path where to store the fixed TAB file
+        infname: Union[str, Path],  # Path to broken EDRCUMINDEX.TAB
+        outfname: Union[str, Path],  # Path where to store the fixed TAB file
 ):
     """Fix HiRISE EDRCUMINDEX.
 

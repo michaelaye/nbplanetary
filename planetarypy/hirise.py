@@ -12,10 +12,10 @@ import webbrowser
 import rasterio
 import rioxarray as rxr
 from dask import compute, delayed
-from fastcore.utils import Path
 from yarl import URL
 
 import hvplot.xarray  # noqa
+from fastcore.utils import Path
 from .config import config
 from .pds.apps import get_index
 from .utils import check_url_exists, url_retrieve
@@ -39,8 +39,8 @@ class OBSID:
     """
 
     def __init__(
-        self,
-        obsid: str,  # e.g. PSP_003092_0985
+            self,
+            obsid: str,  # e.g. PSP_003092_0985
     ):
         phase, orbit, targetcode = obsid.split("_")
         self._orbit = int(orbit)
@@ -64,8 +64,8 @@ class OBSID:
 
     @targetcode.setter
     def targetcode(
-        self,
-        value: str,  # e.g. "0985", must be 4 digits
+            self,
+            value: str,  # e.g. "0985", must be 4 digits
     ):
         if len(str(value)) != 4:
             raise ValueError("Targetcode must be exactly 4 characters.")
@@ -121,9 +121,9 @@ class ProductPathfinder:
         return cls(path.stem)
 
     def __init__(
-        self,
-        initstr: str,  # PRODUCT_ID string, e.g. PSP_003092_0985_RED
-        check_url: bool = True,  # for performance, the user might not want the url check
+            self,
+            initstr: str,  # PRODUCT_ID string, e.g. PSP_003092_0985_RED
+            check_url: bool = True,  # for performance, the user might not want the url check
     ):
         tokens = initstr.split("_")
         self._obsid = OBSID("_".join(tokens[:3]))
@@ -147,8 +147,8 @@ class ProductPathfinder:
 
     @kind.setter
     def kind(
-        self,
-        value: str,  # one of "RED", "BG", "IR", "COLOR", "IRB", "MIRB", "MRGB", "RGB", "RGB.NOMAP"
+            self,
+            value: str,  # one of "RED", "BG", "IR", "COLOR", "IRB", "MIRB", "MRGB", "RGB", "RGB.NOMAP"
     ):
         if value not in self.kinds:
             raise ValueError(f"kind must be in {self.kinds}")
@@ -165,9 +165,7 @@ class ProductPathfinder:
         return self.__str__()
 
     @property
-    def storage_stem(
-        self,
-    ) -> str:  # e.g. 'PSP/ORB_003000_003099/PSP_003092_0985/PSP_003092_0985_RED'
+    def storage_stem(self,) -> str:  # e.g. 'PSP/ORB_003000_003099/PSP_003092_0985/PSP_003092_0985_RED'
         return f"{self.obsid.storage_path_stem}/{self.product_id}"
 
     @property
@@ -288,6 +286,7 @@ class ProductPathfinder:
 
 # %% ../notebooks/api/04_hirise.ipynb 33
 class COLOR_PRODUCT:
+
     def __init__(self, obsid):
         self.obsid = obsid
         # this should be reset by the subclass
@@ -353,6 +352,7 @@ class COLOR_PRODUCT:
 
 # %% ../notebooks/api/04_hirise.ipynb 34
 class RGB_NOMAP(COLOR_PRODUCT):
+
     def __init__(self, obsid):
         super().__init__(obsid)
         self.name = "nomap_jp2"
@@ -460,9 +460,7 @@ class SOURCE_PRODUCT:
         return self.ccd[offset:]
 
     def __str__(self):
-        return "{}: {}{}_{}".format(
-            self.__class__.__name__, self.pid, self.ccdno, self.channel
-        )
+        return "{}: {}{}_{}".format(self.__class__.__name__, self.pid, self.ccdno, self.channel)
 
     def __repr__(self):
         return self.__str__()
@@ -521,12 +519,14 @@ class RED_PRODUCT(SOURCE_PRODUCT):
 
 # %% ../notebooks/api/04_hirise.ipynb 66
 class IR_PRODUCT(SOURCE_PRODUCT):
+
     def __init__(self, obsid, ccdno, channel):
         self.ccds = self.ir_ccds
         super().__init__(f"{obsid}_IR{ccdno}_{channel}", **kwargs)
 
 
 class BG_PRODUCT(SOURCE_PRODUCT):
+
     def __init__(self, obsid, ccdno, channel):
         self.ccds = self.ir_ccds
         super().__init__(f"{obsid}_BG{ccdno}_{channel}", **kwargs)

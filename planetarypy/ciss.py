@@ -30,6 +30,7 @@ opus_keys = [
 
 # %% ../notebooks/api/06_cassini_iss.ipynb 5
 class ISSOpus:
+
     def __init__(self, pid):
         self.pid = pid
         if have_internet():
