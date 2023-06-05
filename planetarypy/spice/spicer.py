@@ -197,8 +197,8 @@ class Spicer(HasTraits):
     method = "Near point:ellipsoid"
     corr = Unicode("none")
     target = ""
-    _body = Unicode
-    _ref_frame = Unicode
+    _body = Unicode()
+    _ref_frame = Unicode()
 
     def __init__(self, body, time=None, tilt=0, aspect=0, tau=0.0):
         self._body = body

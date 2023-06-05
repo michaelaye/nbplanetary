@@ -294,6 +294,7 @@ def fix_nb_metadata(fpath):
     f_in = Path(fpath).open(encoding="utf-8")
     nb = loads(f_in.read())
     nb['metadata']['kernelspec']['name'] = 'python3'
+    nb['metadata']['kernelspec']['display_name'] = 'python3'
     write_nb(nb, f_out)
 
 

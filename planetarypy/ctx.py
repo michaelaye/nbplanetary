@@ -138,9 +138,8 @@ class CTX:
     HAS a CTXEDR attribute as defined above.
     Attributes from CTXEDR are availalbe via __getattr__()
     """
-
-    proc_root = Path(config.get_value("mro.ctx.root")) or storage_root / "edr"
-    calib_extension = config.get_value("mro.ctx.calib_extension") or ".cal.cub"
+    proc_root = p if (p := Path(config.get_value("mro.ctx.root"))) is True else storage_root / "edr"
+    calib_extension = ext if (ext := config.get_value("mro.ctx.calib_extension")) is True else ".cal.cub"
     proc_with_pid_folder = config.get_value("mro.ctx.with_pid_folder")
     proc_with_volume = config.get_value("mro.ctx.with_volume")
 
@@ -194,6 +193,7 @@ class CTX:
     @catch_isis_error
     def isis_import(self) -> None:
         "Import EDR data into ISIS cube."
+        self.cub_path.parent.mkdir(exist_ok=True, parents=True)
         mroctx2isis(from_=self.source_path, to=self.cub_path)
 
     @catch_isis_error
@@ -305,7 +305,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 56
+# %% ../notebooks/api/03_ctx.ipynb 57
 class CTXCollection:
     """Class with several helpful methods to work with a set of CTX images.
 
@@ -468,7 +468,7 @@ class CTXCollection:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 99
+# %% ../notebooks/api/03_ctx.ipynb 100
 @call_parse
 def ctx_calib(
         id_: str,  # CTX product_id

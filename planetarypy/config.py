@@ -10,7 +10,7 @@ import shutil
 from collections.abc import Mapping
 from datetime import datetime
 from functools import reduce
-from importlib.resources import path as resource_path
+from importlib.resources import files
 from typing import Union
 
 import tomlkit as toml
@@ -53,8 +53,8 @@ class Config:
         if config_path is not None:
             self.path = Path(config_path)
         if not self.path.exists():
-            with resource_path("planetarypy.data", self.fname) as p:
-                shutil.copy(p, self.path)
+            p = files("planetarypy.data").joinpath(self.fname)
+            shutil.copy(p, self.path)
         self._read_config()
         self._update_configfile()
 
@@ -81,14 +81,14 @@ class Config:
     def get_value(
             self,
             key: str  # A nested key in dotted format, e.g. cassini.uvis.indexes
-    ):
+    ) -> str:  # Returning empty string if not existing, because Path('') is False which is handy (e.g. in ctx mod.)
         """Get sub-dictionary by nested key."""
         if not key.startswith("missions"):
             key = "missions." + key
         try:
             return reduce(lambda c, k: c[k], key.split("."), self.d)
         except toml.exceptions.NonExistentKey:
-            return None
+            return ''
 
     def set_value(
             self,
@@ -163,13 +163,12 @@ class Config:
     def _copy_clean_to_resource(self):
         """Copy a clean config file without timestamps or paths into resource path for repo commit."""
         dic = reset_non_urls(self.d, "")
-        with resource_path("planetarypy.data", self.fname) as p:
-            Path(p).write_text(toml.dumps(dic))
+        files("planetarypy.data").joinpath(self.fname).write_text(toml.dumps(dic))
 
     def _update_configfile(self):
         """Check if a new version with more URLs exist at resource path."""
-        with resource_path("planetarypy.data", self.fname) as p:
-            new = toml.loads(Path(p).read_text())["missions"]
+        p = files("planetarypy.data").joinpath(self.fname)
+        new = toml.loads(p.read_text())["missions"]
         old = self.tomldoc["missions"]
         for mission in new:
             missiondata = new[mission]
