@@ -203,8 +203,8 @@ class Index:
     def label(self):
         return IndexLabel(self.local_label_path)
 
-    def read_index_data(self):
-        df = self.label.read_index_data()
+    def read_index_data(self, convert_times=True):
+        df = self.label.read_index_data(convert_times=convert_times)
         return df
 
     def convert_to_parquet(self):
