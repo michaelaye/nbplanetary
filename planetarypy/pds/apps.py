@@ -20,6 +20,7 @@ def get_index(
         instr: str,  # Dotted instrument index, e.g. cassini.iss
         index_name: str = '',  # Index name, for exmample 'moon_summary. Optional'
         refresh: bool = False,  # switch to force a refresh of an index
+        check_update: bool = True,  # switch off for faster return time.
 ) -> pd.DataFrame:  # The PDS index convert to pandas DataFrame
     """Example: get_index("cassini.iss", "index")"""
     if not index_name:
@@ -28,12 +29,12 @@ def get_index(
         index = Index(instr + ".indexes." + index_name)
     if not index.local_table_path.exists() or refresh:
         index.download()
-    if index.update_available:
+    if check_update and index.update_available:
         print("An updated index is available.")
         print("Call `get_index` with `refresh=True` to get the updated version.")
     return index.parquet
 
-# %% ../../notebooks/api/02c_pds.apps.ipynb 13
+# %% ../../notebooks/api/02c_pds.apps.ipynb 14
 def find_instruments(
         mission: str,  # Mission string, e.g. "cassini"
 ) -> list:  # List of configured instrument names
