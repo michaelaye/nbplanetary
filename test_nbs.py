@@ -106,12 +106,12 @@ def nbdev_test_nbs(fname=None,flags=None,n_workers=None,verbose=True,timing=Fals
     "Test in parallel the notebooks matching `fname`, passing along `flags`"
     if flags is not None: flags = flags.split(' ')
     if fname is None: 
-        files = [f for f in Path(Config().nbs_path).glob('*.ipynb') if not f.name.startswith('_')]
+        files = [f for f in Path(Config(".", "planetarypy").config_path).glob('*.ipynb') if not f.name.startswith('_')]
     else: files = glob.glob(fname)
     files = [Path(f).absolute() for f in sorted(files)]
     if len(files)==1 and n_workers is None: n_workers=0
     # make sure we are inside the notebook folder of the project
-    os.chdir(Config().nbs_path)
+    os.chdir(Config(".", "planetarypy").config_path)
     results = parallel(_test_one, files, flags=flags, verbose=verbose, n_workers=n_workers)
     passed,times = [r[0] for r in results],[r[1] for r in results]
     if all(passed): print("All tests are passing!")
