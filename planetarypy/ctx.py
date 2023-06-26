@@ -500,11 +500,11 @@ class CTXCollection:
 # %% ../notebooks/api/03_ctx.ipynb 100
 @call_parse
 def ctx_calib(
-        id_: str,  # CTX product_id
+        pid: str,  # CTX product_id
         source: str = "",  # path to where EDRs are stored if not from plpy
         proc_root: str = "",  # path to where processed data is to be stored
         overwrite: bool = False,  # overwrite processed data
 ):
-    ctx = CTX(id_, source_dir=source, proc_root=proc_root)
+    ctx = CTX(pid, source_dir=source, proc_root=proc_root)
     ctx.calib_pipeline(overwrite=overwrite)
     print("Produced\n", ctx.cal_path)
