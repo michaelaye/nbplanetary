@@ -5,6 +5,7 @@ __all__ = ['CTXIndex']
 
 # %% ../../notebooks/api/02b_pds.ctx_index.ipynb 3
 from dataclasses import dataclass
+from ssl import SSLError
 from string import Template
 
 import pandas as pd
@@ -20,9 +21,11 @@ class CTXIndex:
     From that latest volume the latest index URL is constructed.
     """
     volumes_url: str = "https://pds-imaging.jpl.nasa.gov/volumes/mro.html"
-    release_url_template: Template = Template("https://pds-imaging.jpl.nasa.gov/volumes/mro/release${release}.html")
+    release_url_template: Template = Template(
+        "https://pds-imaging.jpl.nasa.gov/volumes/mro/release${release}.html")
     volume_url_template: Template = Template(
-        "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_${volume}/")
+        "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_${volume}/"
+    )
     scraped_tables: bool = False
     release_scraped: bool = False
 
@@ -36,7 +39,10 @@ class CTXIndex:
         This could be replaced by cached properties.
         """
         if not self.scraped_tables:
-            self._list_of_scraped_tables = pd.read_html(self.volumes_url)
+            try:
+                self._list_of_scraped_tables = pd.read_html(self.volumes_url)
+            except SSLError:
+                print(f"pd.read_html({self.volumes_url}) failed.")
             self.scraped_tables = True
         return self._list_of_scraped_tables
 
