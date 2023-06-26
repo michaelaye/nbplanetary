@@ -124,7 +124,7 @@ class Index:
     @property
     def table_url(self):
         if self.url:
-            return str(URL(index.url).with_suffix(".tab"))
+            return str(URL(self.url).with_suffix(".tab"))
         else:
             return ''
 
