@@ -35,6 +35,7 @@ KERNEL_STORAGE.mkdir(exist_ok=True, parents=True)
 
 # %% ../../notebooks/api/10_spice.kernels.ipynb 7
 dataset_ids = {
+    "bc": "bc/bc_spice",
     "cassini": "co-s_j_e_v-spice-6-v1.0/cosp_1000",
     "clementine": "clem1-l-spice-6-v1.0/clsp_1000",
     "dart": "dart/dart_spice",
@@ -221,6 +222,7 @@ class Subsetter:
         self,
         overwrite: bool = False,  # switch to control if kernels should be downloaded over existing ones
         non_blocking: bool = False,
+        quiet: bool = False,
     ):
         if non_blocking:
             return self._non_blocking_download(overwrite)
@@ -228,7 +230,8 @@ class Subsetter:
         for url in tqdm(self.kernel_urls, desc="Kernels downloaded"):
             local_path = self.get_local_path(url)
             if local_path.exists() and not overwrite:
-                print(local_path.parent.name, local_path.name, "locally available.")
+                if not quiet:
+                    print(local_path.parent.name, local_path.name, "locally available.")
                 continue
             local_path.parent.mkdir(exist_ok=True, parents=True)
             url_retrieve(url, local_path)
@@ -254,10 +257,11 @@ def get_metakernel_and_files(
         start: str,  # start time as iso-string, or yyyy-jjj
         stop: str,  # stop time as iso-string or yyyy-jjj
         save_location: str = None,  # override storage into planetarypy archive
+        quiet: bool = False,  # suppress kernel-wise feedback
 ) -> Path:  # pathlib.Path to metakernel file with corrected data path.
     "For a given mission and start/stop times, download the kernels and get metakernel path"
     subset = Subsetter(mission, start, stop, save_location)
-    subset.download_kernels(non_blocking=True)
+    subset.download_kernels(non_blocking=True, quiet=quiet)
     return subset.get_metakernel()
 
 # %% ../../notebooks/api/10_spice.kernels.ipynb 45
@@ -269,7 +273,7 @@ def list_kernels_for_day(
     subset = Subsetter(mission, start, stop)
     return subset.kernel_names
 
-# %% ../../notebooks/api/10_spice.kernels.ipynb 51
+# %% ../../notebooks/api/10_spice.kernels.ipynb 52
 GENERIC_STORAGE = KERNEL_STORAGE / "generic"
 GENERIC_STORAGE.mkdir(exist_ok=True, parents=True)
 GENERIC_URL = NAIF_URL / "pub/naif/generic_kernels/"
@@ -283,7 +287,7 @@ generic_kernel_names = [
 ]
 generic_kernel_paths = [GENERIC_STORAGE.joinpath(i) for i in generic_kernel_names]
 
-# %% ../../notebooks/api/10_spice.kernels.ipynb 52
+# %% ../../notebooks/api/10_spice.kernels.ipynb 53
 def download_generic_kernels(overwrite=False):
     "Download all kernels as required by generic_kernel_list."
     dl_urls = [GENERIC_URL / i for i in generic_kernel_names]
@@ -294,7 +298,7 @@ def download_generic_kernels(overwrite=False):
         savepath.parent.mkdir(exist_ok=True, parents=True)
         url_retrieve(dl_url, savepath)
 
-# %% ../../notebooks/api/10_spice.kernels.ipynb 54
+# %% ../../notebooks/api/10_spice.kernels.ipynb 55
 def load_generic_kernels():
     """Load all kernels in generic_kernels list.
 
@@ -307,7 +311,7 @@ def load_generic_kernels():
     for kernel in generic_kernel_paths:
         spice.furnsh(str(kernel))
 
-# %% ../../notebooks/api/10_spice.kernels.ipynb 57
+# %% ../../notebooks/api/10_spice.kernels.ipynb 58
 def show_loaded_kernels():
     "Print overview of loaded kernels."
     count = spice.ktotal("all")
