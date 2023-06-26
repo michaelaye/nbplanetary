@@ -117,14 +117,17 @@ class Index:
         return self.label_filename.suffix.isupper()
 
     @property
+    def tab_extension(self):
+        return ".TAB" if self.isupper else ".tab"
+        
+    @property
     def table_filename(self):
-        new_suffix = ".TAB" if self.isupper else ".tab"
-        return self.label_filename.with_suffix(new_suffix)
+        return self.label_filename.with_suffix(self.tab_extension)
 
     @property
     def table_url(self):
         if self.url:
-            return str(URL(self.url).with_suffix(".tab"))
+            return str(URL(self.url).with_suffix(self.tab_extension))
         else:
             return ''
 
