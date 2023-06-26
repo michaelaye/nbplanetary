@@ -9,13 +9,14 @@ from yarl import URL
 
 from .config import config
 from .pds.opusapi import OPUS
+from .pds.apps import get_index
 from .utils import url_retrieve
 
 # %% ../notebooks/api/05_cassini_uvis.ipynb 4
 storage_root = config.storage_root / "missions/cassini/uvis"
 storage_root
 
-# %% ../notebooks/api/05_cassini_uvis.ipynb 5
+# %% ../notebooks/api/05_cassini_uvis.ipynb 6
 class DataManager:
 
     def __init__(
@@ -101,7 +102,7 @@ class DataManager:
             s += f"Key: {k},\nValue(s):\n{v}\n\n"
         return s
 
-# %% ../notebooks/api/05_cassini_uvis.ipynb 19
+# %% ../notebooks/api/05_cassini_uvis.ipynb 20
 def get_data_path(pid, skip_download=False):
     dm = DataManager(pid, skip_download=skip_download)
     return dm.raw_data_path if dm.raw_data_path.exists() else None
@@ -111,7 +112,7 @@ def get_label_path(pid):
     dm = DataManager(pid)
     return dm.raw_label_path
 
-# %% ../notebooks/api/05_cassini_uvis.ipynb 22
+# %% ../notebooks/api/05_cassini_uvis.ipynb 23
 def get_user_guide():
     url = URL("https://pds-rings.seti.org/cassini/uvis/1-UVIS_Users_Guide_-2018-Jan%2015-For%20PDS-REV-2018-07-06.pdf")
     local_path = storage_root / "uvis_user_guide.pdf"
