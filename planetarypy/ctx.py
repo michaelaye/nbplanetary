@@ -168,11 +168,14 @@ class CTX:
             proc_root: str = "",  # where to store processed, if not plpy
             with_volume=None,  # store with extra volume subfolder?
             with_pid_folder=None,  # store with extra product_id subfolder?
+            use_preproc=False,  # use preproc for cal_da
     ):
         self.edr = CTXEDR(id_, root=source_dir, with_volume=with_volume)
         self.proc_root = Path(proc_root) if proc_root else self.proc_root
         self.with_volume = with_volume if with_volume else self.proc_with_volume
         self.with_pid_folder = with_pid_folder if with_pid_folder else self.proc_with_pid_folder
+        self.use_preproc = use_preproc
+        
         (self.cub_name, self.cal_name,
          self.destripe_name, self.map_name) = file_variations(self.edr.source_path.name,
                                                [".cub", ".cal.cub", ".dst.cal.cub", ".lev2.cub"])
@@ -309,7 +312,8 @@ class CTX:
         'da' stands for data-array.
         """
         if not self.is_calib_read:
-            self._cal_da = rxr.open_rasterio(self.cal_path, masked=True).sel(band=1, drop=True)
+            path = self.cal_path if not self.use_preproc else self.preproc_cal_path
+            self._cal_da = rxr.open_rasterio(path, masked=True).sel(band=1, drop=True)
             self._cal_da.name = f"{self.short_pid} calibrated"
             self.is_calibd_read = True
         return self._cal_da.drop_vars("spatial_ref")
@@ -350,7 +354,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 60
+# %% ../notebooks/api/03_ctx.ipynb 59
 class CTXCollection:
     """Class with several helpful methods to work with a set of CTX images.
 
@@ -517,7 +521,7 @@ class CTXCollection:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 103
+# %% ../notebooks/api/03_ctx.ipynb 102
 @call_parse
 def ctx_calib(
         pid: str,  # CTX product_id
