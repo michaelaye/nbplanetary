@@ -19,21 +19,23 @@ def find_indexes(
 def get_index(
         instr: str,  # Dotted instrument index, e.g. cassini.iss
         index_name: str = '',  # Index name, for exmample 'moon_summary. Optional'
-        refresh: bool = False,  # switch to force a refresh of an index
-        check_update: bool = True,  # switch off for faster return time.
+        # switch to refresh an index (i.e. download if update available).
+        # Set to False for faster return time to avoid web scraping
+        refresh: bool = True,  
+        force: bool = False,  # switch off for faster return time.
 ) -> pd.DataFrame:  # The PDS index convert to pandas DataFrame
     """Example: get_index("cassini.iss", "index")"""
     # I need to add the check_update switch to the constructor b/c of dynamic url setting that always
     # wants to go online to find the latest volume URL.
     if not index_name:
-        index = Index(instr, check_update=check_update)
+        index = Index(instr, check_update=refresh)
     else:
-        index = Index(instr + ".indexes." + index_name, check_update=check_update)
-    if not index.local_table_path.exists() or refresh:
+        index = Index(instr + ".indexes." + index_name, check_update=refresh)
+    if not index.local_table_path.exists() or force:
         index.download()
-    if check_update and index.update_available:
-        print("An updated index is available.")
-        print("Call `get_index` with `refresh=True` to get the updated version.")
+    elif refresh and index.update_available:
+        index.download()
+        print("An updated index is available. Downloading...")
     if not index.local_parq_path.exists():
         index.convert_to_parquet()
     return index.parquet
