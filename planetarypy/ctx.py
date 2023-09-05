@@ -44,11 +44,11 @@ storage_root = config.storage_root / "missions/mro/ctx"
 cache = dict()
 
 # %% ../notebooks/api/03_ctx.ipynb 7
-def get_edr_index(refresh=False, check_update=False):
+def get_edr_index(refresh=False):
     if 'edrindex' in cache:
         return cache['edrindex']
     else:
-        edrindex = get_index("mro.ctx", "edr", refresh=refresh, check_update=check_update)
+        edrindex = get_index("mro.ctx", "edr", refresh=refresh)
         edrindex["short_pid"] = edrindex.PRODUCT_ID.map(lambda x: x[:15])
         edrindex["month_col"] = edrindex.PRODUCT_ID.map(lambda x: x[:3])
         edrindex.LINE_SAMPLES = edrindex.LINE_SAMPLES.astype(int)
@@ -69,13 +69,13 @@ class CTXEDR:
             root: str = "",  # alternative root folder for EDR data
             with_volume=None,  # does the storage path include the volume folder
             with_pid_folder=None,  # control if stuff is stored inside PID folders
-            check_for_index_update:bool=False,  # check if newer index is available.
+            refresh_index=False
     ):
         self.pid = pid
         self.root = Path(root) if root else Path(self.root)
         self.with_volume = with_volume if with_volume is not None else self.with_volume
         self.with_pid_folder = (with_pid_folder if with_pid_folder is not None else self.with_pid_folder)
-        self.check_for_index_update = check_for_index_update
+        self.refresh_index = refresh_index
         self.edrindex = None
 
     @property
@@ -97,7 +97,7 @@ class CTXEDR:
     @property
     def meta(self):
         "get the metadata from the index table"
-        edrindex = get_edr_index(check_update=self.check_for_index_update)
+        edrindex = get_edr_index(refresh=self.refresh_index)
         s = edrindex.query("PRODUCT_ID == @self.pid").squeeze()
         s.index = s.index.str.lower()
         return s
@@ -146,17 +146,20 @@ class CTXEDR:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 29
+# %% ../notebooks/api/03_ctx.ipynb 30
 class CTX:
     """Class to manage dealing with CTX data.
 
     HAS a CTXEDR attribute as defined above.
     Attributes from CTXEDR are availalbe via __getattr__()
     """
-    proc_root = p if (p := Path(config.get_value("mro.ctx.root"))) is True else storage_root / "edr"
-    calib_extension = ext if (ext := config.get_value("mro.ctx.calib_extension")) is True else ".cal.cub"
-    proc_with_pid_folder = config.get_value("mro.ctx.with_pid_folder")
-    proc_with_volume = config.get_value("mro.ctx.with_volume")
+    proc_root = storage_root / "edr"
+    preproc_root = Path(config.get_value("mro.ctx.preproc_root"))
+    preproc_calib_extension = config.get_value("mro.ctx.calib_extension")
+    preproc_with_pid_folder = config.get_value("mro.ctx.preproc_with_pid_folder")
+    preproc_with_volume = config.get_value("mro.ctx.preproc_with_volume")
+    proc_with_pid_folder = config.get_value("mro.ctx.proc_with_pid_folder")
+    proc_with_volume = config.get_value("mro.ctx.proc_with_volume")
 
     def __init__(
             self,
@@ -164,16 +167,17 @@ class CTX:
             source_dir: str = "",  # where the raw EDR data is stored, if not coming from plpy
             proc_root: str = "",  # where to store processed, if not plpy
             with_volume=None,  # store with extra volume subfolder?
-            with_id_dir=None,  # store with extra product_id subfolder?
+            with_pid_folder=None,  # store with extra product_id subfolder?
     ):
         self.edr = CTXEDR(id_, root=source_dir, with_volume=with_volume)
-        store_attr(but="source_dir,proc_root")
         self.proc_root = Path(proc_root) if proc_root else self.proc_root
-
+        self.with_volume = with_volume if with_volume else self.proc_with_volume
+        self.with_pid_folder = with_pid_folder if with_pid_folder else self.proc_with_pid_folder
         (self.cub_name, self.cal_name,
          self.destripe_name, self.map_name) = file_variations(self.edr.source_path.name,
-                                               [".cub", self.calib_extension, ".dst.cal.cub", ".lev2.cub"])
+                                               [".cub", ".cal.cub", ".dst.cal.cub", ".lev2.cub"])
 
+        # status flags for caching
         self.is_read = False
         self.is_calib_read = False
         self.checked_destripe = False
@@ -183,13 +187,23 @@ class CTX:
 
     @property
     def proc_folder(self) -> Path:
-        "the folder for all processed data. could be same as source_dir"
-        base = self.proc_root
+        "the folder for foreign processed data, like pre-processed calibrated data, e.g."
+        path = self.proc_root
         if self.proc_with_volume:
-            base = base / self.volume
+            path = path / self.volume
         if self.proc_with_pid_folder:
-            base = base / self.pid
-        return base
+            path = path / self.pid
+        return path
+
+    @property
+    def preproc_folder(self) -> Path:
+        "the folder for foreign processed data, like pre-processed calibrated data, e.g."
+        path = self.preproc_root
+        if self.preproc_with_volume:
+            path = path / self.volume
+        if self.preproc_with_pid_folder:
+            path = path / self.pid
+        return path
 
     @property
     def cub_path(self) -> Path:
@@ -200,6 +214,12 @@ class CTX:
     def cal_path(self) -> Path:
         "Path to calibrated cube file. Also destriped files get this name."
         return self.proc_folder / self.cal_name
+
+    @property
+    def preproc_cal_path(self) -> Path:
+        "Path to a preprocessend calibrated file"
+        cal_name = file_variations(self.edr.source_path.name, [self.preproc_calib_extension])[0]
+        return self.preproc_folder / cal_name
 
     @property
     def destripe_path(self) -> Path:
@@ -330,7 +350,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 57
+# %% ../notebooks/api/03_ctx.ipynb 60
 class CTXCollection:
     """Class with several helpful methods to work with a set of CTX images.
 
@@ -497,7 +517,7 @@ class CTXCollection:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 100
+# %% ../notebooks/api/03_ctx.ipynb 103
 @call_parse
 def ctx_calib(
         pid: str,  # CTX product_id
