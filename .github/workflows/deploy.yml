@@ -50,7 +50,7 @@ jobs:
         # uses: mamba-org/provision-with-micromamba@e2b397b12d0a38069451664382b769c9456e3d6d
         uses: mamba-org/setup-micromamba@v1
         with:
-          micromamba-version: '1.3.1-0'
+          micromamba-version: 'latest'
           environment-file: environment.yml
           init-shell: bash
           cache-downloads: true
