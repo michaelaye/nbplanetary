@@ -54,7 +54,7 @@ jobs:
           environment-file: environment.yml
           init-shell: bash
           cache-downloads: true
-          cache-env: true
+          cache-environment: true
 
       - name: Install package
         run: |
