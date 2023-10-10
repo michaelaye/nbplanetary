@@ -55,7 +55,7 @@ def get_edr_index(refresh=False):
         cache['edrindex'] = edrindex
         return edrindex
 
-# %% ../notebooks/api/03_ctx.ipynb 8
+# %% ../notebooks/api/03_ctx.ipynb 9
 class CTXEDR:
     """Manage access to EDR data"""
 
@@ -146,7 +146,7 @@ class CTXEDR:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 30
+# %% ../notebooks/api/03_ctx.ipynb 31
 class CTX:
     """Class to manage dealing with CTX data.
 
@@ -342,6 +342,18 @@ class CTX:
         "Plot the calibrated xarray using hvplot."
         return self.plot_da(self.cal_da)
 
+    @property
+    def tif_path(self):
+        return self.proc_folder / self.map_name.with_suffix(".tif")
+        
+    def save_as_tif(self, refresh=False):
+        if self.tif_path.is_file() and not refresh:
+            print("File exists. Use `refresh=True` to force recreation.")
+            return
+        ds = gdal.Open(str(self.map_path))
+        gdal.Translate(str(self.tif_path), ds, format="GTiff")
+        print("Saving", self.tif_path)
+
     def __str__(self):
         "Print out some infos about yourself."
         s = self.edr.__str__()
@@ -354,7 +366,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 59
+# %% ../notebooks/api/03_ctx.ipynb 66
 class CTXCollection:
     """Class with several helpful methods to work with a set of CTX images.
 
@@ -521,7 +533,7 @@ class CTXCollection:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 102
+# %% ../notebooks/api/03_ctx.ipynb 109
 @call_parse
 def ctx_calib(
         pid: str,  # CTX product_id

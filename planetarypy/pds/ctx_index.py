@@ -8,81 +8,33 @@ from dataclasses import dataclass
 from ssl import SSLError
 from string import Template
 
+from yarl import URL
+
 import pandas as pd
 
 # %% ../../notebooks/api/02b_pds.ctx_index.ipynb 4
-@dataclass
 class CTXIndex:
-    """Class to determine the URL for the latest cumulative index.
+    url = 'https://planetarydata.jpl.nasa.gov/img/data/mro/mars_reconnaissance_orbiter/ctx/'
 
-    This is a 2 step process, where first the MRO release page is scraped
-    for the latest CTX release, and then the latest release page is scraped
-    for the latest volume.
-    From that latest volume the latest index URL is constructed.
-    """
-    volumes_url: str = "https://pds-imaging.jpl.nasa.gov/volumes/mro.html"
-    release_url_template: Template = Template(
-        "https://pds-imaging.jpl.nasa.gov/volumes/mro/release${release}.html")
-    volume_url_template: Template = Template(
-        "https://pds-imaging.jpl.nasa.gov/data/mro/mars_reconnaissance_orbiter/ctx/mrox_${volume}/"
-    )
-    scraped_tables: bool = False
-    release_scraped: bool = False
+    def __init__(self):
+        self._volumes_table = None
 
     @property
-    def web_tables_list(self):
-        """Use the pandas scraper to read in the MRO data release table.
-
-        The scraper returns several tables in a list and the last one
-        lists all the CTX volumes.
-
-        This could be replaced by cached properties.
-        """
-        if not self.scraped_tables:
-            try:
-                self._list_of_scraped_tables = pd.read_html(self.volumes_url)
-            except SSLError:
-                print(f"pd.read_html({self.volumes_url}) failed.")
-            self.scraped_tables = True
-        return self._list_of_scraped_tables
+    def volumes_table(self):
+        if self._volumes_table is None:
+            self._volumes_table = pd.read_html(self.url)[0].dropna(
+                how='all', axis=1).dropna(how='all', axis=0).iloc[1:, :-1]
+        return self._volumes_table
 
     @property
-    def release_number(self):
-        """Fishes out the release number.
-
-        This is needed to construct the exact URL to the latest cumulative index file.
-        """
-        alist = self.web_tables_list
-        return alist[-1].iloc[-1, 0].split()[-1]
+    def latest_release_folder(self):
+        return self.volumes_table.iloc[-2, 0]
 
     @property
-    def release_url(self):
-        "Constructs the release URL from the release number."
-        return self.release_url_template.substitute(release=self.release_number)
-
-    @property
-    def latest_volume_url(self):
-        """Scrape the Release URL for the latest volume URL in that.
-
-        This is necessary because a release usually has more that one volume.
-        """
-        if not self.release_scraped:
-            alist = pd.read_html(self.release_url)
-            # get last row of 4th table
-            row = alist[3].iloc[-1]
-            number = None
-            # first number that is NAN breaks the loop over last row of table
-            for elem in row.values:
-                try:
-                    number = int(elem.split()[-1])
-                except AttributeError:
-                    break
-            self.number = number
-            self.release_scraped = True
-        return self.volume_url_template.substitute(volume=self.number)
+    def latest_release_number(self):
+        return self.latest_release_folder.rstrip('/').split("_")[1]
 
     @property
     def latest_index_label_url(self):
-        "Construct the URL for the latest cumulative index."
+        return URL(self.url) / f"{self.latest_release_folder}/index/cumindex.lbl"
 
-        return self.latest_volume_url + "index/cumindex.lbl"
