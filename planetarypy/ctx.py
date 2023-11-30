@@ -85,9 +85,10 @@ class CTXEDR:
 
     @pid.setter
     def pid(self, value):
-        if len(value) == 15:
+        if len(value) < 26:
+            val = value[:15]  # use short_pid
             self.edrindex = get_edr_index()
-            value = self.edrindex.query(f"short_pid=='{value}'").PRODUCT_ID.iloc[0]
+            value = self.edrindex.query(f"short_pid=='{val}'").PRODUCT_ID.iloc[0]
         self._pid = value
 
     @property
@@ -146,7 +147,7 @@ class CTXEDR:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 31
+# %% ../notebooks/api/03_ctx.ipynb 34
 class CTX:
     """Class to manage dealing with CTX data.
 
@@ -366,7 +367,7 @@ class CTX:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 66
+# %% ../notebooks/api/03_ctx.ipynb 65
 class CTXCollection:
     """Class with several helpful methods to work with a set of CTX images.
 
@@ -533,7 +534,7 @@ class CTXCollection:
     def __repr__(self):
         return self.__str__()
 
-# %% ../notebooks/api/03_ctx.ipynb 109
+# %% ../notebooks/api/03_ctx.ipynb 108
 @call_parse
 def ctx_calib(
         pid: str,  # CTX product_id
