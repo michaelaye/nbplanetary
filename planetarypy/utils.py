@@ -170,7 +170,7 @@ def get_remote_timestamp(
 
     Useful for checking if there's an updated file available.
     """
-    with urlopen(url, timeout=10) as conn:
+    with urlopen(str(url), timeout=10) as conn:
         t = parse_http_date(conn.headers["last-modified"])
     return t
 

@@ -2,7 +2,7 @@
 
 # %% auto 0
 __all__ = ['logger', 'storage_root', 'baseurl', 'rdrindex', 'OBSID', 'ProductPathfinder', 'COLOR_PRODUCT', 'RGB_NOMAP',
-           'RGB_NOMAPCollection', 'SOURCE_PRODUCT', 'RED_PRODUCT', 'IR_PRODUCT', 'BG_PRODUCT']
+           'RGB_NOMAPCollection', 'SOURCE_PRODUCT', 'RED_PRODUCT', 'IR_PRODUCT', 'BG_PRODUCT', 'RedMosaic']
 
 # %% ../notebooks/api/04_hirise.ipynb 3
 import logging
@@ -14,6 +14,8 @@ import rioxarray as rxr
 from dask import compute, delayed
 from yarl import URL
 
+import hvplot
+hvplot.extension(inline=False)
 import hvplot.xarray  # noqa
 from fastcore.utils import Path
 from .config import config
@@ -184,10 +186,10 @@ class ProductPathfinder:
     def download_label(self, overwrite=False):
         """Download the label file."""
         self.local_label_path.parent.mkdir(exist_ok=True, parents=True)
-        if self.local_label_path.exists and not overwrite:
-            return
-        else:
+        if not self.local_label_path.exists() or overwrite:
             url_retrieve(self.label_url, self.local_label_path)
+        return self.local_label_path
+            
 
     def _make_url(self, obj):
         path = getattr(self, f"{obj}_path")
@@ -284,7 +286,7 @@ class ProductPathfinder:
     def go_to_homepage(self):
         webbrowser.open(self.homepage)
 
-# %% ../notebooks/api/04_hirise.ipynb 33
+# %% ../notebooks/api/04_hirise.ipynb 34
 class COLOR_PRODUCT:
 
     def __init__(self, obsid):
@@ -350,7 +352,7 @@ class COLOR_PRODUCT:
             flip_yaxis=True,
         )
 
-# %% ../notebooks/api/04_hirise.ipynb 34
+# %% ../notebooks/api/04_hirise.ipynb 35
 class RGB_NOMAP(COLOR_PRODUCT):
 
     def __init__(self, obsid):
@@ -358,7 +360,7 @@ class RGB_NOMAP(COLOR_PRODUCT):
         self.name = "nomap_jp2"
         self.pathfinder = ProductPathfinder(obsid + "_RGB")
 
-# %% ../notebooks/api/04_hirise.ipynb 45
+# %% ../notebooks/api/04_hirise.ipynb 46
 class RGB_NOMAPCollection:
     """Class to deal with a set of RGB_NOMAP products."""
 
@@ -397,7 +399,7 @@ class RGB_NOMAPCollection:
         compute(*lazys)
         print("Done.")
 
-# %% ../notebooks/api/04_hirise.ipynb 46
+# %% ../notebooks/api/04_hirise.ipynb 47
 class SOURCE_PRODUCT:
     """Manage SOURCE_PRODUCT id.
 
@@ -509,7 +511,7 @@ class SOURCE_PRODUCT:
             return
         url_retrieve(self.url, self.local_path)
 
-# %% ../notebooks/api/04_hirise.ipynb 61
+# %% ../notebooks/api/04_hirise.ipynb 67
 class RED_PRODUCT(SOURCE_PRODUCT):
     "This exists to support creating a RED_PRODUCT_ID from parts of a SOURCE_PRODUCT id."
 
@@ -517,7 +519,7 @@ class RED_PRODUCT(SOURCE_PRODUCT):
         self.ccds = self.red_ccds
         super().__init__(f"{obsid}_RED{ccdno}_{channel}", **kwargs)
 
-# %% ../notebooks/api/04_hirise.ipynb 66
+# %% ../notebooks/api/04_hirise.ipynb 73
 class IR_PRODUCT(SOURCE_PRODUCT):
 
     def __init__(self, obsid, ccdno, channel):
@@ -530,3 +532,17 @@ class BG_PRODUCT(SOURCE_PRODUCT):
     def __init__(self, obsid, ccdno, channel):
         self.ccds = self.ir_ccds
         super().__init__(f"{obsid}_BG{ccdno}_{channel}", **kwargs)
+
+# %% ../notebooks/api/04_hirise.ipynb 74
+class RedMosaic:
+    def __init__(self, obsid):
+        self.obsid = obsid
+
+    @property
+    def fname(self):
+        return f"{self.obsid}_RED.map.cub"
+
+    @property
+    def local_path(self):
+        savepath = storage_root / str(self.obsid) / self.fname
+        return savepath

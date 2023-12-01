@@ -45,7 +45,7 @@ cache = dict()
 
 # %% ../notebooks/api/03_ctx.ipynb 7
 def get_edr_index(refresh=False):
-    if 'edrindex' in cache:
+    if 'edrindex' in cache and not refresh:
         return cache['edrindex']
     else:
         edrindex = get_index("mro.ctx", "edr", refresh=refresh)

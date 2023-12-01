@@ -37,4 +37,3 @@ class CTXIndex:
     @property
     def latest_index_label_url(self):
         return URL(self.url) / f"{self.latest_release_folder}/index/cumindex.lbl"
-

@@ -108,7 +108,7 @@ class Index:
     @property
     def label_filename(self):
         if self.url:
-            return Path(self.url.split("/")[-1])
+            return Path(str(self.url).split("/")[-1])
         else:
             return Path.ls(self.local_dir, file_exts=[".lbl", ".LBL"])[0]
 
@@ -195,7 +195,6 @@ def parse_key(
     if subs[3] != "indexes":
         subs.insert(3, "indexes")
     return ".".join(subs)
-
 
 # %% ../../notebooks/api/02a_pds.indexes.ipynb 8
 @patch
