@@ -113,7 +113,7 @@ class Config:
     def current_backup_name(self):
         """Time-tagged backup filename"""
         now = datetime.now().isoformat()
-        return self.path.with_suffix(f".{now[:16]}.bak")
+        return self.path.with_suffix(f".{now[:11]}.bak")
 
     def make_backup_copy(self):
         now = datetime.now().isoformat()
