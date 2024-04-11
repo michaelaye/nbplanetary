@@ -5,28 +5,22 @@ __all__ = ['logger', 'nasa_date_format', 'nasa_dt_format', 'nasa_dt_format_with_
            'iso_dt_format_with_ms', 'nasa_time_to_datetime', 'nasa_time_to_iso', 'iso_to_nasa_time',
            'iso_to_nasa_datetime', 'replace_all_nasa_times', 'parse_http_date', 'get_remote_timestamp',
            'check_url_exists', 'url_retrieve', 'have_internet', 'height_from_shadow', 'get_gdal_center_coords',
-           'file_variations', 'catch_isis_error', 'fix_nb_metadata', 'fix_nb_metadata_folder']
+           'file_variations', 'catch_isis_error']
 
 # %% ../notebooks/api/01_utils.ipynb 3
 import datetime as dt
 import email.utils as eut
 import http.client as httplib
 import logging
-import os
 from math import radians, tan
 from pathlib import Path
-from time import sleep
 from typing import Tuple, Union
 from urllib.request import urlopen
 
+import pandas as pd
 import requests
-from astropy.time import Time as ASTROTIME
-from execnb.nbio import write_nb
 from requests.auth import HTTPBasicAuth
 from tqdm.auto import tqdm
-
-import pandas as pd
-from fastcore.xtras import globtastic, loads
 
 try:
     from osgeo import gdal
@@ -45,7 +39,9 @@ else:
 logger = logging.getLogger(__name__)
 
 if not GDAL_INSTALLED:
-    logger.warning("No GDAL found. Some planetary.utils functions not working, but okay.")
+    logger.warning(
+        "No GDAL found. Some planetary.utils functions not working, but okay."
+    )
 
 # %% ../notebooks/api/01_utils.ipynb 6
 nasa_date_format = "%Y-%j"
@@ -57,28 +53,28 @@ iso_dt_format_with_ms = iso_dt_format + ".%f"
 
 # %% ../notebooks/api/01_utils.ipynb 8
 def _nasa_date_to_datetime(
-        datestr: str,  # Date string of the form Y-j
+    datestr: str,  # Date string of the form Y-j
 ) -> dt.datetime:
     "Convert date string to datetime."
     return dt.datetime.strptime(datestr, nasa_date_format)
 
 
 def _nasa_datetime_to_datetime(
-        datetimestr: str,  # datetime string of the form Y-jTH:M:S
+    datetimestr: str,  # datetime string of the form Y-jTH:M:S
 ) -> dt.datetime:
     "Convert datetime up to seconds to datetime."
     return dt.datetime.strptime(datetimestr, nasa_dt_format)
 
 
 def _nasa_datetimems_to_datetime(
-        datetimestr: str,  # datetime string of the form Y-jTH:M:S.xxx
+    datetimestr: str,  # datetime string of the form Y-jTH:M:S.xxx
 ) -> dt.datetime:
     "Convert date with millisec to datetime."
     return dt.datetime.strptime(datetimestr, nasa_dt_format_with_ms)
 
 # %% ../notebooks/api/01_utils.ipynb 9
 def nasa_time_to_datetime(
-        inputstr,  # inputstr of format YYYY-jjj, YYYY-jjjTHH:MM:SS or YYYY-jjjTHH:MM:SS.ffffff
+    inputstr,  # inputstr of format YYYY-jjj, YYYY-jjjTHH:MM:SS or YYYY-jjjTHH:MM:SS.ffffff
 ) -> dt.datetime:
     "User function to convert all kinds of NASA PDS datestrings with day_of_year into datetimes."
     try:
@@ -91,8 +87,8 @@ def nasa_time_to_datetime(
 
 # %% ../notebooks/api/01_utils.ipynb 15
 def nasa_time_to_iso(
-        inputstr: str,
-        with_hours: bool = False,  # Switch if return is wanted with hours (i.e. isoformat)
+    inputstr: str,
+    with_hours: bool = False,  # Switch if return is wanted with hours (i.e. isoformat)
 ) -> str:  # Datestring in ISO-format.
     """Convert the day-number based NASA datetime format to ISO"""
     has_hours = False
@@ -109,7 +105,7 @@ def nasa_time_to_iso(
 
 # %% ../notebooks/api/01_utils.ipynb 22
 def iso_to_nasa_time(
-        inputstr: str,  # Date string of the form Y-m-d
+    inputstr: str,  # Date string of the form Y-m-d
 ) -> str:  # Datestring in NASA standard yyyy-jjj
     "Convert iso date to day-number based NASA date."
     try:
@@ -127,7 +123,7 @@ def iso_to_nasa_time(
 
 # %% ../notebooks/api/01_utils.ipynb 23
 def iso_to_nasa_datetime(
-        dtimestr: str,  # Datetime string of the form yyyy-mm-ddTHH-MM-SS
+    dtimestr: str,  # Datetime string of the form yyyy-mm-ddTHH-MM-SS
 ):  # Datestring in NASA standard yyyy-jjjTHH-MM-SS
     "Convert iso datetime to day-number based NASA datetime."
     try:
@@ -143,7 +139,7 @@ def iso_to_nasa_datetime(
 
 # %% ../notebooks/api/01_utils.ipynb 28
 def replace_all_nasa_times(
-        df: pd.DataFrame,  # DataFrame with NASA time columns
+    df: pd.DataFrame,  # DataFrame with NASA time columns
 ):
     """Find all NASA times in dataframe and replace with ISO.
 
@@ -157,14 +153,14 @@ def replace_all_nasa_times(
 
 # %% ../notebooks/api/01_utils.ipynb 30
 def parse_http_date(
-        text: str,  # datestring from urllib.request
+    text: str,  # datestring from urllib.request
 ) -> dt.datetime:  # dt.datetime object from given datetime string
     "Parse date string retrieved via urllib.request."
     return dt.datetime(*eut.parsedate(text)[:6])
 
 
 def get_remote_timestamp(
-        url: str,  # URL to check timestamp for
+    url: str,  # URL to check timestamp for
 ) -> dt.datetime:
     """Get the timestamp of a remote file.
 
@@ -184,11 +180,11 @@ def check_url_exists(url):
 
 
 def url_retrieve(
-        url: str,  # The URL to download
-        outfile: str,  # The path where to store the downloaded file.
-        chunk_size: int = 4096,  # def chunk size for the request.iter_content call
-        user: str = None,  # if provided, create HTTPBasicAuth object
-        passwd: str = None,  # if provided, create HTTPBasicAuth object
+    url: str,  # The URL to download
+    outfile: str,  # The path where to store the downloaded file.
+    chunk_size: int = 4096,  # def chunk size for the request.iter_content call
+    user: str = None,  # if provided, create HTTPBasicAuth object
+    passwd: str = None,  # if provided, create HTTPBasicAuth object
 ):
     """Improved urlretrieve with progressbar, timeout and chunker.
 
@@ -207,11 +203,11 @@ def url_retrieve(
     if R.status_code != 200:
         raise ConnectionError(f"Could not download {url}\nError code: {R.status_code}")
     with tqdm.wrapattr(
-            open(outfile, "wb"),
-            "write",
-            miniters=1,
-            total=int(R.headers.get("content-length", 0)),
-            desc=str(Path(outfile).name),
+        open(outfile, "wb"),
+        "write",
+        miniters=1,
+        total=int(R.headers.get("content-length", 0)),
+        desc=str(Path(outfile).name),
     ) as fd:
         for chunk in R.iter_content(chunk_size=chunk_size):
             fd.write(chunk)
@@ -233,8 +229,8 @@ def have_internet():
 
 # %% ../notebooks/api/01_utils.ipynb 33
 def height_from_shadow(
-        shadow_in_pixels: float,  # Measured length of shadow in pixels
-        sun_elev: float,  # Ange of sun over horizon in degrees
+    shadow_in_pixels: float,  # Measured length of shadow in pixels
+    sun_elev: float,  # Ange of sun over horizon in degrees
 ) -> float:  # Height [meter]
     """Calculate height of an object from its shadow length.
 
@@ -245,7 +241,7 @@ def height_from_shadow(
 
 
 def get_gdal_center_coords(
-        imgpath: Union[str, Path],  # Path to raster image that is readable by GDLA
+    imgpath: Union[str, Path],  # Path to raster image that is readable by GDLA
 ) -> Tuple[int, int]:  # center row/col coordinates.
     """Get center rows/cols pixel coordinate for GDAL-readable dataset.
 
@@ -287,17 +283,3 @@ def catch_isis_error(func):
             print(err.stderr)
 
     return inner
-
-# %% ../notebooks/api/01_utils.ipynb 41
-def fix_nb_metadata(fpath):
-    f_out = fpath
-    f_in = Path(fpath).open(encoding="utf-8")
-    nb = loads(f_in.read())
-    nb['metadata']['kernelspec']['name'] = 'python3'
-    nb['metadata']['kernelspec']['display_name'] = 'python3'
-    write_nb(nb, f_out)
-
-
-def fix_nb_metadata_folder(folder):
-    for f in globtastic(Path(folder).expanduser(), file_glob="*.ipynb", skip_folder_re='^[ .]'):
-        fix_nb_metadata(f)
