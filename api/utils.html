@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="General utilities. Should probably split up into utils.time and utils.download">
+
+<title>planetarypy - Utils</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="planetarypy - Utils">
+<meta property="og:description" content="General utilities. Should probably split up into utils.time and utils.download">
+<meta property="og:site_name" content="planetarypy">
+<meta name="twitter:title" content="planetarypy - Utils">
+<meta name="twitter:description" content="General utilities. Should probably split up into utils.time and utils.download">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">planetarypy</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../api/pds.crism_index.html">api</a></li><li class="breadcrumb-item"><a href="../api/utils.html">Utils</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlanetaryPy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../api/pds.crism_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">api</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Config</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/utils.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Utils</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/pds.indexes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PDS Indexes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/pds.apps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Apps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/pds.opusapi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPUSAPI class</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/pds.utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PDS Utils</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/ctx.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CTX</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/hirise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HiRISE</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/cassini_uvis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">UVIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/cassini_iss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cassini ISS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/diviner.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diviner</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/geotools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Geotools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/exceptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Package exceptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/spice.kernels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SPICE Kernels</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/pdw2023_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Demo of PlanetaryPy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/pdw_2023.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">On the way to a core PlanetaryPy Package</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/apps_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlanetaryPy Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/spice_howtos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SPICE with <code>planetarypy</code> HOWTO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#time-format-strings" id="toc-time-format-strings" class="nav-link active" data-scroll-target="#time-format-strings">Time format strings</a>
+  <ul class="collapse">
+  <li><a href="#nasa-date-to-datetime-and-iso" id="toc-nasa-date-to-datetime-and-iso" class="nav-link" data-scroll-target="#nasa-date-to-datetime-and-iso">NASA date to datetime and ISO</a></li>
+  <li><a href="#nasa_time_to_datetime" id="toc-nasa_time_to_datetime" class="nav-link" data-scroll-target="#nasa_time_to_datetime">nasa_time_to_datetime</a></li>
+  <li><a href="#nasa_time_to_iso" id="toc-nasa_time_to_iso" class="nav-link" data-scroll-target="#nasa_time_to_iso">nasa_time_to_iso</a></li>
+  <li><a href="#iso-date-to-nasa-format" id="toc-iso-date-to-nasa-format" class="nav-link" data-scroll-target="#iso-date-to-nasa-format">ISO date to “NASA-format”</a></li>
+  <li><a href="#iso_to_nasa_time" id="toc-iso_to_nasa_time" class="nav-link" data-scroll-target="#iso_to_nasa_time">iso_to_nasa_time</a></li>
+  <li><a href="#iso_to_nasa_datetime" id="toc-iso_to_nasa_datetime" class="nav-link" data-scroll-target="#iso_to_nasa_datetime">iso_to_nasa_datetime</a></li>
+  <li><a href="#replace_all_nasa_times" id="toc-replace_all_nasa_times" class="nav-link" data-scroll-target="#replace_all_nasa_times">replace_all_nasa_times</a></li>
+  </ul></li>
+  <li><a href="#network-utils" id="toc-network-utils" class="nav-link" data-scroll-target="#network-utils">Network utils</a>
+  <ul class="collapse">
+  <li><a href="#have_internet" id="toc-have_internet" class="nav-link" data-scroll-target="#have_internet">have_internet</a></li>
+  <li><a href="#url_retrieve" id="toc-url_retrieve" class="nav-link" data-scroll-target="#url_retrieve">url_retrieve</a></li>
+  <li><a href="#check_url_exists" id="toc-check_url_exists" class="nav-link" data-scroll-target="#check_url_exists">check_url_exists</a></li>
+  <li><a href="#get_remote_timestamp" id="toc-get_remote_timestamp" class="nav-link" data-scroll-target="#get_remote_timestamp">get_remote_timestamp</a></li>
+  <li><a href="#parse_http_date" id="toc-parse_http_date" class="nav-link" data-scroll-target="#parse_http_date">parse_http_date</a></li>
+  </ul></li>
+  <li><a href="#image-processing-helpers" id="toc-image-processing-helpers" class="nav-link" data-scroll-target="#image-processing-helpers">Image processing helpers</a>
+  <ul class="collapse">
+  <li><a href="#file_variations" id="toc-file_variations" class="nav-link" data-scroll-target="#file_variations">file_variations</a></li>
+  <li><a href="#get_gdal_center_coords" id="toc-get_gdal_center_coords" class="nav-link" data-scroll-target="#get_gdal_center_coords">get_gdal_center_coords</a></li>
+  <li><a href="#height_from_shadow" id="toc-height_from_shadow" class="nav-link" data-scroll-target="#height_from_shadow">height_from_shadow</a></li>
+  </ul></li>
+  <li><a href="#isis-helpers" id="toc-isis-helpers" class="nav-link" data-scroll-target="#isis-helpers">ISIS helpers</a>
+  <ul class="collapse">
+  <li><a href="#catch_isis_error" id="toc-catch_isis_error" class="nav-link" data-scroll-target="#catch_isis_error">catch_isis_error</a></li>
+  </ul></li>
+  <li><a href="#notebook-tools" id="toc-notebook-tools" class="nav-link" data-scroll-target="#notebook-tools">Notebook tools</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/michaelaye/nbplanetary/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../api/pds.crism_index.html">api</a></li><li class="breadcrumb-item"><a href="../api/utils.html">Utils</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Utils</h1>
+</div>
+
+<div>
+  <div class="description">
+    General utilities. Should probably split up into <code>utils.time</code> and <code>utils.download</code>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="time-format-strings" class="level2">
+<h2 class="anchored" data-anchor-id="time-format-strings">Time format strings</h2>
+<p>First, we define the different format strings these utils convert from and to.</p>
+<p>An identifier with <code>xxx_dt_format_xxx</code> in its name signifies a full <code>datetime</code> format as compared to dates only.</p>
+<section id="nasa-date-to-datetime-and-iso" class="level3">
+<h3 class="anchored" data-anchor-id="nasa-date-to-datetime-and-iso">NASA date to datetime and ISO</h3>
+<p>What we call NASA data, is the often used <code>YYYY-JJJ</code> based format in the Planetary Data System identifying dates via the running number of the day in the year, e.g.&nbsp;“2010-240”.</p>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L76" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="nasa_time_to_datetime" class="level3">
+<h3 class="anchored" data-anchor-id="nasa_time_to_datetime">nasa_time_to_datetime</h3>
+<blockquote class="blockquote">
+<pre><code> nasa_time_to_datetime (inputstr)</code></pre>
+</blockquote>
+<p><em>User function to convert all kinds of NASA PDS datestrings with day_of_year into datetimes.</em></p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>inputstr</td>
+<td></td>
+<td>inputstr of format YYYY-jjj, YYYY-jjjTHH:MM:SS or YYYY-jjjTHH:MM:SS.ffffff</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>datetime</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Example dates and times to test:</p>
+<div id="40b68759-b195-443c-8c6f-e6d085b737bd" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nasa_date <span class="op">=</span> <span class="st">"2010-110"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>iso_date <span class="op">=</span> <span class="st">"2010-4-20"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nasa_datetime <span class="op">=</span> <span class="st">"2010-110T10:12:14"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>nasa_datetime_with_ms <span class="op">=</span> nasa_datetime <span class="op">+</span> <span class="st">".123000"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>iso_datetime <span class="op">=</span> <span class="st">"2010-04-20T10:12:14"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>iso_datetime_with_ms <span class="op">=</span> iso_datetime <span class="op">+</span> <span class="st">".123000"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>nasa_times <span class="op">=</span> [nasa_date, nasa_datetime, nasa_datetime_with_ms]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>iso_times <span class="op">=</span> [iso_date, iso_datetime, iso_datetime_with_ms]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a453f80a-8a70-4b67-9d2e-2e8db734e8a9" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> nasa_time_to_datetime(nasa_date) <span class="op">==</span> dt.datetime(<span class="dv">2010</span>, <span class="dv">4</span>, <span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="866b3914-b575-4499-8ae7-4c45ddfb5d96" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> nasa_time_to_datetime(nasa_datetime) <span class="op">==</span> dt.datetime(<span class="dv">2010</span>, <span class="dv">4</span>, <span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d3fa34d5-f841-4747-a240-91ec44423c6a" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> nasa_time_to_datetime(nasa_datetime_with_ms) <span class="op">==</span> dt.datetime(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2010</span>, <span class="dv">4</span>, <span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">123000</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L89" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="nasa_time_to_iso" class="level3">
+<h3 class="anchored" data-anchor-id="nasa_time_to_iso">nasa_time_to_iso</h3>
+<blockquote class="blockquote">
+<pre><code> nasa_time_to_iso (inputstr:str, with_hours:bool=False)</code></pre>
+</blockquote>
+<p><em>Convert the day-number based NASA datetime format to ISO</em></p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>inputstr</td>
+<td>str</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>with_hours</td>
+<td>bool</td>
+<td>False</td>
+<td>Switch if return is wanted with hours (i.e.&nbsp;isoformat)</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td><strong>Datestring in ISO-format.</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Conversions to ISO format, but not providing hours if they are not in input:</p>
+<div id="bd341241-8ed0-466f-a7f7-b84775efa83b" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> nasa_times:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Input:"</span>, t)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(nasa_time_to_iso(t))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Input: 2010-110
+2010-04-20
+Input: 2010-110T10:12:14
+2010-04-20T10:12:14
+Input: 2010-110T10:12:14.123000
+2010-04-20T10:12:14.123000</code></pre>
+</div>
+</div>
+<p>If hours are wanted in the isostring, use <code>with_hours=True</code>:</p>
+<div id="0e8b7016-6e46-457d-9a3e-9553a372dc19" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> nasa_times:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Input:"</span>, t)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(nasa_time_to_iso(t, with_hours<span class="op">=</span><span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Input: 2010-110
+2010-04-20T00:00:00
+Input: 2010-110T10:12:14
+2010-04-20T10:12:14
+Input: 2010-110T10:12:14.123000
+2010-04-20T10:12:14.123000</code></pre>
+</div>
+</div>
+<div id="polar-bleeding" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> nasa_time_to_iso(nasa_date, with_hours<span class="op">=</span><span class="va">True</span>) <span class="op">==</span> <span class="st">"2010-04-20T00:00:00"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> nasa_time_to_iso(nasa_date) <span class="op">==</span> <span class="st">"2010-04-20"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="iso-date-to-nasa-format" class="level3">
+<h3 class="anchored" data-anchor-id="iso-date-to-nasa-format">ISO date to “NASA-format”</h3>
+<p>Again, with NASA-format, we mean the ofen used (in PDS and mission files) YYYY-JJJ format, e.g.&nbsp;“2010-240”.</p>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L107" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="iso_to_nasa_time" class="level3">
+<h3 class="anchored" data-anchor-id="iso_to_nasa_time">iso_to_nasa_time</h3>
+<blockquote class="blockquote">
+<pre><code> iso_to_nasa_time (inputstr:str)</code></pre>
+</blockquote>
+<p><em>Convert iso date to day-number based NASA date.</em></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>inputstr</td>
+<td>str</td>
+<td>Date string of the form Y-m-d</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>str</strong></td>
+<td><strong>Datestring in NASA standard yyyy-jjj</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L125" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="iso_to_nasa_datetime" class="level3">
+<h3 class="anchored" data-anchor-id="iso_to_nasa_datetime">iso_to_nasa_datetime</h3>
+<blockquote class="blockquote">
+<pre><code> iso_to_nasa_datetime (dtimestr:str)</code></pre>
+</blockquote>
+<p><em>Convert iso datetime to day-number based NASA datetime.</em></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dtimestr</td>
+<td>str</td>
+<td>Datetime string of the form yyyy-mm-ddTHH-MM-SS</td>
+</tr>
+</tbody>
+</table>
+<div id="57538342-f7c5-4bd3-ba03-fc58c3a0cdaa" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> iso_times:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Input:"</span>, t)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(iso_to_nasa_time(t))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Input: 2010-4-20
+2010-110
+Input: 2010-04-20T10:12:14
+2010-110T10:12:14
+Input: 2010-04-20T10:12:14.123000
+2010-110T10:12:14.123000</code></pre>
+</div>
+</div>
+<div id="ordered-wholesale" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> iso_to_nasa_time(iso_date) <span class="op">==</span> nasa_date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="emerging-italic" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> nasa_time_to_iso(nasa_datetime) <span class="op">==</span> iso_datetime</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> nasa_time_to_iso(nasa_datetime_with_ms) <span class="op">==</span> iso_datetime_with_ms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="blank-salem" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> iso_to_nasa_time(iso_datetime) <span class="op">==</span> nasa_datetime</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> iso_to_nasa_time(iso_datetime_with_ms) <span class="op">==</span> nasa_datetime_with_ms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L141" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="replace_all_nasa_times" class="level3">
+<h3 class="anchored" data-anchor-id="replace_all_nasa_times">replace_all_nasa_times</h3>
+<blockquote class="blockquote">
+<pre><code> replace_all_nasa_times (df:pandas.core.frame.DataFrame)</code></pre>
+</blockquote>
+<p>*Find all NASA times in dataframe and replace with ISO.</p>
+<p>Changes will be implemented on incoming dataframe!</p>
+<p>This will be done for all columns with the word TIME in the column name.*</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>df</td>
+<td>DataFrame</td>
+<td>DataFrame with NASA time columns</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="network-utils" class="level2">
+<h2 class="anchored" data-anchor-id="network-utils">Network utils</h2>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L216" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="have_internet" class="level3">
+<h3 class="anchored" data-anchor-id="have_internet">have_internet</h3>
+<blockquote class="blockquote">
+<pre><code> have_internet ()</code></pre>
+</blockquote>
+<p>*Fastest way to check for active internet connection.</p>
+<p>From https://stackoverflow.com/a/29854274/680232*</p>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L182" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="url_retrieve" class="level3">
+<h3 class="anchored" data-anchor-id="url_retrieve">url_retrieve</h3>
+<blockquote class="blockquote">
+<pre><code> url_retrieve (url:str, outfile:str, chunk_size:int=4096, user:str=None,
+               passwd:str=None)</code></pre>
+</blockquote>
+<p>*Improved urlretrieve with progressbar, timeout and chunker.</p>
+<p>This downloader has built-in progress bar using tqdm and using the <code>requests</code> package it improves standard <code>urllib</code> behavior by adding time-out capability.</p>
+<p>I tested different chunk_sizes and most of the time 128 was actually fastest, YMMV.</p>
+<p>Inspired by https://stackoverflow.com/a/61575758/680232*</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>url</td>
+<td>str</td>
+<td></td>
+<td>The URL to download</td>
+</tr>
+<tr class="even">
+<td>outfile</td>
+<td>str</td>
+<td></td>
+<td>The path where to store the downloaded file.</td>
+</tr>
+<tr class="odd">
+<td>chunk_size</td>
+<td>int</td>
+<td>4096</td>
+<td>def chunk size for the request.iter_content call</td>
+</tr>
+<tr class="even">
+<td>user</td>
+<td>str</td>
+<td>None</td>
+<td>if provided, create HTTPBasicAuth object</td>
+</tr>
+<tr class="odd">
+<td>passwd</td>
+<td>str</td>
+<td>None</td>
+<td>if provided, create HTTPBasicAuth object</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L174" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="check_url_exists" class="level3">
+<h3 class="anchored" data-anchor-id="check_url_exists">check_url_exists</h3>
+<blockquote class="blockquote">
+<pre><code> check_url_exists (url)</code></pre>
+</blockquote>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L162" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="get_remote_timestamp" class="level3">
+<h3 class="anchored" data-anchor-id="get_remote_timestamp">get_remote_timestamp</h3>
+<blockquote class="blockquote">
+<pre><code> get_remote_timestamp (url:str)</code></pre>
+</blockquote>
+<p>*Get the timestamp of a remote file.</p>
+<p>Useful for checking if there’s an updated file available.*</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>url</td>
+<td>str</td>
+<td>URL to check timestamp for</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>datetime</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L155" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="parse_http_date" class="level3">
+<h3 class="anchored" data-anchor-id="parse_http_date">parse_http_date</h3>
+<blockquote class="blockquote">
+<pre><code> parse_http_date (text:str)</code></pre>
+</blockquote>
+<p><em>Parse date string retrieved via urllib.request.</em></p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>text</td>
+<td>str</td>
+<td>datestring from urllib.request</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>datetime</strong></td>
+<td><strong>dt.datetime object from given datetime string</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="0a08fa6d-3fd7-45ec-90ba-9e8682bb5b15" class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>have_internet()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>True</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="image-processing-helpers" class="level2">
+<h2 class="anchored" data-anchor-id="image-processing-helpers">Image processing helpers</h2>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L259" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="file_variations" class="level3">
+<h3 class="anchored" data-anchor-id="file_variations">file_variations</h3>
+<blockquote class="blockquote">
+<pre><code> file_variations (filename:Union[str,pathlib.Path], extensions:list)</code></pre>
+</blockquote>
+<p>*Create a variation of file names.</p>
+<p>Generate a list of variations on a filename by replacing the extension with the provided list.</p>
+<p>Adapted from T. Olsens `file_variations of the pysis module for using pathlib.*</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>filename</td>
+<td>Union</td>
+<td>The original filename to use as a base.</td>
+</tr>
+<tr class="even">
+<td>extensions</td>
+<td>list</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>list</strong></td>
+<td><strong>list of Paths</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L243" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="get_gdal_center_coords" class="level3">
+<h3 class="anchored" data-anchor-id="get_gdal_center_coords">get_gdal_center_coords</h3>
+<blockquote class="blockquote">
+<pre><code> get_gdal_center_coords (imgpath:Union[str,pathlib.Path])</code></pre>
+</blockquote>
+<p>*Get center rows/cols pixel coordinate for GDAL-readable dataset.</p>
+<p>Check CLI <code>gdalinfo --formats</code> to see all formats that GDAL can open.*</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>imgpath</td>
+<td>Union</td>
+<td>Path to raster image that is readable by GDLA</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>Tuple</strong></td>
+<td><strong>center row/col coordinates.</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L231" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="height_from_shadow" class="level3">
+<h3 class="anchored" data-anchor-id="height_from_shadow">height_from_shadow</h3>
+<blockquote class="blockquote">
+<pre><code> height_from_shadow (shadow_in_pixels:float, sun_elev:float)</code></pre>
+</blockquote>
+<p>*Calculate height of an object from its shadow length.</p>
+<p>Note, that your image might have been binned. You need to correct <code>shadow_in_pixels</code> for that.*</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>shadow_in_pixels</td>
+<td>float</td>
+<td>Measured length of shadow in pixels</td>
+</tr>
+<tr class="even">
+<td>sun_elev</td>
+<td>float</td>
+<td>Ange of sun over horizon in degrees</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>float</strong></td>
+<td><strong>Height [meter]</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="af2766e4-724c-4308-88cc-741bcae6f75c" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fname <span class="op">=</span> <span class="st">"abc.txt"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e0e96b5a-6a79-416c-9314-aaa9dbc8bfa9" class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>extensions <span class="op">=</span> <span class="st">".cub .cal.cub .map.cal.cub"</span>.split()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="77119135-7450-4e69-acf7-297218a2052a" class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>file_variations(fname, extensions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[Path('abc.cub'), Path('abc.cal.cub'), Path('abc.map.cal.cub')]</code></pre>
+</div>
+</div>
+<div id="6725282d-24c8-4742-8b60-6f4d268d4a46" class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(extensions) <span class="op">==</span> <span class="bu">len</span>(file_variations(fname, extensions))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="isis-helpers" class="level2">
+<h2 class="anchored" data-anchor-id="isis-helpers">ISIS helpers</h2>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/utils.py#L273" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="catch_isis_error" class="level3">
+<h3 class="anchored" data-anchor-id="catch_isis_error">catch_isis_error</h3>
+<blockquote class="blockquote">
+<pre><code> catch_isis_error (func)</code></pre>
+</blockquote>
+<p><em>can be used as decorator for any ISIS function</em></p>
+</section>
+</section>
+<section id="notebook-tools" class="level2">
+<h2 class="anchored" data-anchor-id="notebook-tools">Notebook tools</h2>
+<div id="45bf053b-0aec-4717-90d5-c830ef19f849" class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nbdev <span class="im">import</span> nbdev_export</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>nbdev_export()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/michaelaye\.github\.io\/planetarypy");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/michaelaye/nbplanetary/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

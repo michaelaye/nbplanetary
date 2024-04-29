@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Tools to manage SPICE kernels">
+
+<title>planetarypy - SPICE Kernels</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="planetarypy - SPICE Kernels">
+<meta property="og:description" content="Tools to manage SPICE kernels">
+<meta property="og:site_name" content="planetarypy">
+<meta name="twitter:title" content="planetarypy - SPICE Kernels">
+<meta name="twitter:description" content="Tools to manage SPICE kernels">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">planetarypy</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../api/pds.crism_index.html">api</a></li><li class="breadcrumb-item"><a href="../api/spice.kernels.html">SPICE Kernels</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlanetaryPy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../api/pds.crism_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">api</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Config</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Utils</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/pds.indexes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PDS Indexes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/pds.apps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Apps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/pds.opusapi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">OPUSAPI class</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/pds.utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PDS Utils</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/ctx.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CTX</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/hirise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HiRISE</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/cassini_uvis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">UVIS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/cassini_iss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cassini ISS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/diviner.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diviner</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/geotools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Geotools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/exceptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Package exceptions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../api/spice.kernels.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">SPICE Kernels</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/pdw2023_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Demo of PlanetaryPy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/pdw_2023.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">On the way to a core PlanetaryPy Package</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/apps_demo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlanetaryPy Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/spice_howtos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SPICE with <code>planetarypy</code> HOWTO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorial</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#intro" id="toc-intro" class="nav-link active" data-scroll-target="#intro">Intro</a></li>
+  <li><a href="#identifying-and-downloading-kernel-sets" id="toc-identifying-and-downloading-kernel-sets" class="nav-link" data-scroll-target="#identifying-and-downloading-kernel-sets">Identifying and downloading kernel sets</a>
+  <ul class="collapse">
+  <li><a href="#is_stop_valid" id="toc-is_stop_valid" class="nav-link" data-scroll-target="#is_stop_valid">is_stop_valid</a></li>
+  <li><a href="#is_start_valid" id="toc-is_start_valid" class="nav-link" data-scroll-target="#is_start_valid">is_start_valid</a></li>
+  <li><a href="#subsetter" id="toc-subsetter" class="nav-link" data-scroll-target="#subsetter">Subsetter</a></li>
+  <li><a href="#download_one_url" id="toc-download_one_url" class="nav-link" data-scroll-target="#download_one_url">download_one_url</a></li>
+  <li><a href="#subsetter.kernel_names" id="toc-subsetter.kernel_names" class="nav-link" data-scroll-target="#subsetter.kernel_names">Subsetter.kernel_names</a></li>
+  <li><a href="#subsetter.get_local_path" id="toc-subsetter.get_local_path" class="nav-link" data-scroll-target="#subsetter.get_local_path">Subsetter.get_local_path</a></li>
+  <li><a href="#subsetter.download_kernels" id="toc-subsetter.download_kernels" class="nav-link" data-scroll-target="#subsetter.download_kernels">Subsetter.download_kernels</a></li>
+  <li><a href="#subsetter.get_metakernel" id="toc-subsetter.get_metakernel" class="nav-link" data-scroll-target="#subsetter.get_metakernel">Subsetter.get_metakernel</a></li>
+  </ul></li>
+  <li><a href="#user-functions" id="toc-user-functions" class="nav-link" data-scroll-target="#user-functions">User functions</a>
+  <ul class="collapse">
+  <li><a href="#get_metakernel_and_files" id="toc-get_metakernel_and_files" class="nav-link" data-scroll-target="#get_metakernel_and_files">get_metakernel_and_files</a></li>
+  <li><a href="#list_kernels_for_day" id="toc-list_kernels_for_day" class="nav-link" data-scroll-target="#list_kernels_for_day">list_kernels_for_day</a></li>
+  <li><a href="#generic-kernel-management" id="toc-generic-kernel-management" class="nav-link" data-scroll-target="#generic-kernel-management">Generic kernel management</a></li>
+  <li><a href="#download_generic_kernels" id="toc-download_generic_kernels" class="nav-link" data-scroll-target="#download_generic_kernels">download_generic_kernels</a></li>
+  <li><a href="#load_generic_kernels" id="toc-load_generic_kernels" class="nav-link" data-scroll-target="#load_generic_kernels">load_generic_kernels</a></li>
+  <li><a href="#show_loaded_kernels" id="toc-show_loaded_kernels" class="nav-link" data-scroll-target="#show_loaded_kernels">show_loaded_kernels</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/michaelaye/nbplanetary/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../api/pds.crism_index.html">api</a></li><li class="breadcrumb-item"><a href="../api/spice.kernels.html">SPICE Kernels</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">SPICE Kernels</h1>
+</div>
+
+<div>
+  <div class="description">
+    Tools to manage SPICE kernels
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="intro" class="level2">
+<h2 class="anchored" data-anchor-id="intro">Intro</h2>
+<p>Feature list for this module:</p>
+<ul>
+<li>Receive the list of supported datasets for automatic retrieval of archived SPICE kernels
+<ul>
+<li>The supported datasets are tabled here at NAIF: https://naif.jpl.nasa.gov/naif/data_archived.html</li>
+</ul></li>
+<li>Receive the list of required SPICE kernels for a given mission and time range</li>
+<li>Automatic download of kernels for a given mission and time range either into a given location or the <code>planetarypy</code> local archive.</li>
+</ul>
+<p>As always in <code>planetarypy</code> the general design philosophy is to first develop a management class to give the user full control over all the details, and then add easy-to-use function for the end-user that do the most frequently used things in one go. (See section “User Functions”)</p>
+</section>
+<section id="identifying-and-downloading-kernel-sets" class="level2">
+<h2 class="anchored" data-anchor-id="identifying-and-downloading-kernel-sets">Identifying and downloading kernel sets</h2>
+<p>One repeating task for SPICE calculations is the identification and retrieval of all SPICE kernels for a mission for a given time interval.</p>
+<p>The folks at NAIF offer a “Subset” feature at their servers. Here we set up a table of the currently supported datasets:</p>
+<div id="9e9eb278-d5b7-4aa8-9452-a74461045178" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>datasets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">path</th>
+<th data-quarto-table-cell-role="th">Mission Name</th>
+<th data-quarto-table-cell-role="th">PDS3 or PDS4</th>
+<th data-quarto-table-cell-role="th">Data Size (GB)</th>
+<th data-quarto-table-cell-role="th">Start Time</th>
+<th data-quarto-table-cell-role="th">Stop Time</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">shorthand</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">bc</td>
+<td>bc/bc_spice</td>
+<td>BepiColombo</td>
+<td>4</td>
+<td>1.1</td>
+<td>2018-10-20</td>
+<td>2023-01-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">cassini</td>
+<td>co-s_j_e_v-spice-6-v1.0/cosp_1000</td>
+<td>Cassini Orbiter</td>
+<td>3</td>
+<td>62.5</td>
+<td>1997-10-15</td>
+<td>2017-09-15</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">clementine</td>
+<td>clem1-l-spice-6-v1.0/clsp_1000</td>
+<td>Clementine</td>
+<td>3</td>
+<td>0.8</td>
+<td>1994-01-26</td>
+<td>1994-05-07</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">dart</td>
+<td>dart/dart_spice</td>
+<td>DART</td>
+<td>4</td>
+<td>9.1</td>
+<td>2021-11-09</td>
+<td>2050-01-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">dawn</td>
+<td>dawn-m_a-spice-6-v1.0/dawnsp_1000</td>
+<td>DAWN</td>
+<td>3</td>
+<td>86.4</td>
+<td>2007-09-27</td>
+<td>2018-10-31</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">di</td>
+<td>di-c-spice-6-v1.0/disp_1000</td>
+<td>Deep Impact</td>
+<td>3</td>
+<td>0.7</td>
+<td>2005-01-12</td>
+<td>2005-08-09</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ds1</td>
+<td>ds1-a_c-spice-6-v1.0/ds1sp_1000</td>
+<td>Deep Space 1</td>
+<td>3</td>
+<td>0.9</td>
+<td>1998-10-24</td>
+<td>2001-12-18</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">epoxi</td>
+<td>dif-c_e_x-spice-6-v1.0/epxsp_1000</td>
+<td>EPOXI</td>
+<td>3</td>
+<td>1.0</td>
+<td>2005-08-23</td>
+<td>2011-03-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">em16</td>
+<td>em16/em16_spice</td>
+<td>ExoMars TGO 2016</td>
+<td>4</td>
+<td>9.4</td>
+<td>2016-03-14</td>
+<td>2023-01-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">grail</td>
+<td>grail-l-spice-6-v1.0/grlsp_1000</td>
+<td>GRAIL</td>
+<td>3</td>
+<td>4.3</td>
+<td>2011-09-10</td>
+<td>2012-12-17</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hayabusa</td>
+<td>hay-a-spice-6-v1.0/haysp_1000</td>
+<td>Hayabusa</td>
+<td>3</td>
+<td>0.3</td>
+<td>2005-09-11</td>
+<td>2005-11-19</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">insight</td>
+<td>insight/insight_spice</td>
+<td>InSight</td>
+<td>4</td>
+<td>0.9</td>
+<td>2018-05-05</td>
+<td>2022-12-15</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">juno</td>
+<td>jno-j_e_ss-spice-6-v1.0/jnosp_1000</td>
+<td>JUNO</td>
+<td>3</td>
+<td>46.9</td>
+<td>2011-08-05</td>
+<td>2022-08-17</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">ladee</td>
+<td>ladee/ladee_spice</td>
+<td>LADEE</td>
+<td>4</td>
+<td>0.6</td>
+<td>2013-09-07</td>
+<td>2050-01-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">lro</td>
+<td>lro-l-spice-6-v1.0/lrosp_1000</td>
+<td>Lunar Reconnaissance Orbiter</td>
+<td>3</td>
+<td>595.7</td>
+<td>2009-06-18</td>
+<td>2023-03-15</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">maven</td>
+<td>maven/maven_spice</td>
+<td>MAVEN</td>
+<td>4</td>
+<td>54.4</td>
+<td>2013-11-18</td>
+<td>2023-04-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">opportunity</td>
+<td>mer1-m-spice-6-v1.0/mer1sp_1000</td>
+<td>MER 1 (Opportunity)</td>
+<td>3</td>
+<td>4.1</td>
+<td>2003-07-07</td>
+<td>2018-06-10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">spirit</td>
+<td>mer2-m-spice-6-v1.0/mer2sp_1000</td>
+<td>MER 2 (Spirit)</td>
+<td>3</td>
+<td>2.6</td>
+<td>2003-06-10</td>
+<td>2010-05-03</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">messenger</td>
+<td>mess-e_v_h-spice-6-v1.0/messsp_1000</td>
+<td>MESSENGER</td>
+<td>3</td>
+<td>44.8</td>
+<td>2004-08-03</td>
+<td>2015-04-30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mars2020</td>
+<td>mars2020/mars2020_spice</td>
+<td>Mars 2020</td>
+<td>4</td>
+<td>0.6</td>
+<td>2020-07-30</td>
+<td>2022-12-28</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">mex</td>
+<td>mex-e_m-spice-6-v2.0/mexsp_2000</td>
+<td>Mars Express</td>
+<td>3</td>
+<td>8.5</td>
+<td>2003-06-02</td>
+<td>2022-11-30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mgs</td>
+<td>mgs-m-spice-6-v1.0/mgsp_1000</td>
+<td>Mars Global Surveyor</td>
+<td>3</td>
+<td>15.4</td>
+<td>1996-11-06</td>
+<td>2006-11-02</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ody</td>
+<td>ody-m-spice-6-v1.0/odsp_1000</td>
+<td>Mars Odyssey</td>
+<td>3</td>
+<td>33.2</td>
+<td>2001-04-07</td>
+<td>2022-10-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mro</td>
+<td>mro-m-spice-6-v1.0/mrosp_1000</td>
+<td>Mars Reconnaissance Orbiter</td>
+<td>3</td>
+<td>314.9</td>
+<td>2005-08-12</td>
+<td>2023-04-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">msl</td>
+<td>msl-m-spice-6-v1.0/mslsp_1000</td>
+<td>Mars Science Laboratory</td>
+<td>3</td>
+<td>0.6</td>
+<td>2011-11-26</td>
+<td>2022-11-06</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">near</td>
+<td>near-a-spice-6-v1.0/nearsp_1000</td>
+<td>NEAR</td>
+<td>3</td>
+<td>2.4</td>
+<td>1996-05-30</td>
+<td>2001-02-28</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">nh</td>
+<td>nh-j_p_ss-spice-6-v1.0/nhsp_1000</td>
+<td>New Horizons</td>
+<td>3</td>
+<td>1.6</td>
+<td>2006-01-19</td>
+<td>2019-12-30</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">orex</td>
+<td>orex/orex_spice</td>
+<td>OSIRIS-REx</td>
+<td>4</td>
+<td>418.4</td>
+<td>2016-09-08</td>
+<td>2021-02-22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">rosetta</td>
+<td>ro_rl-e_m_a_c-spice-6-v1.0/rossp_1000</td>
+<td>Rosetta</td>
+<td>3</td>
+<td>5.9</td>
+<td>2004-03-02</td>
+<td>2017-01-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stardust</td>
+<td>sdu-c-spice-6-v1.0/sdsp_1000</td>
+<td>Stardust</td>
+<td>3</td>
+<td>1.9</td>
+<td>1999-02-07</td>
+<td>2011-05-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">venus_climate_orbiter</td>
+<td>vco/vco_spice</td>
+<td>Venus Climate Orbiter</td>
+<td>4</td>
+<td>1.7</td>
+<td>2010-05-21</td>
+<td>2022-01-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">vex</td>
+<td>vex-e_v-spice-6-v2.0/vexsp_2000</td>
+<td>Venus Express</td>
+<td>3</td>
+<td>5.0</td>
+<td>2005-11-09</td>
+<td>2015-02-06</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">vo</td>
+<td>vo1_vo2-m-spice-6-v1.0/vosp_1000</td>
+<td>Viking Orbiter</td>
+<td>3</td>
+<td>0.1</td>
+<td>1976-06-16</td>
+<td>1980-07-30</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<p>To receive this dataframe:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> planetarypy.spice.kernels <span class="im">import</span> datasets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Some validation helpers:</p>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L90" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="is_stop_valid" class="level3">
+<h3 class="anchored" data-anchor-id="is_stop_valid">is_stop_valid</h3>
+<blockquote class="blockquote">
+<pre><code> is_stop_valid (mission:str, stop:astropy.time.core.Time)</code></pre>
+</blockquote>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mission</td>
+<td>str</td>
+<td>mission shorthand label of datasets dataframe</td>
+</tr>
+<tr class="even">
+<td>stop</td>
+<td>Time</td>
+<td>stop time in astropy.Time format</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L83" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="is_start_valid" class="level3">
+<h3 class="anchored" data-anchor-id="is_start_valid">is_start_valid</h3>
+<blockquote class="blockquote">
+<pre><code> is_start_valid (mission:str, start:astropy.time.core.Time)</code></pre>
+</blockquote>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mission</td>
+<td>str</td>
+<td>mission shorthand label of datasets dataframe</td>
+</tr>
+<tr class="even">
+<td>start</td>
+<td>Time</td>
+<td>start time in astropy.Time format</td>
+</tr>
+</tbody>
+</table>
+<div id="2d03347e-6094-4ff4-9d6b-19ca639ea5e8" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> is_start_valid(<span class="st">"cassini"</span>, Time(<span class="st">"1998-01-01"</span>)) <span class="kw">is</span> <span class="va">True</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> is_start_valid(<span class="st">"cassini"</span>, Time(<span class="st">"1997-01-01"</span>)) <span class="kw">is</span> <span class="va">False</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> is_stop_valid(<span class="st">"cassini"</span>, <span class="st">"2017-01-01"</span>) <span class="kw">is</span> <span class="va">True</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> is_stop_valid(<span class="st">"cassini"</span>, <span class="st">"2018-01-01"</span>) <span class="kw">is</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we build a management class for wrapping the Perl script available at below’s URL for accessing subsets of these datasets.</p>
+<p>First, the basic URLs we will use:</p>
+<p>The Perl script <code>subsetds.pl</code> (the name at the end of the <code>BASE_URL</code>) requires as input:</p>
+<ul>
+<li>the dataset name</li>
+<li>start and stop of the time interval</li>
+<li>a constant named “Subset” to identify the action for this Perl script</li>
+</ul>
+<p>We can assemble these parameters into a payload dictionary for the <code>requests.get</code> call and we manage different potential actions on the zipfile with a <a href="https://michaelaye.github.io/planetarypy/api/spice.kernels.html#subsetter"><code>Subsetter</code></a> class, that only requires the mission identifier, start and stop as parameters.</p>
+<pre><code>/home/runner/micromamba/envs/my-env/lib/python3.12/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Attributes
+  else: warn(msg)</code></pre>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L108" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="subsetter" class="level3">
+<h3 class="anchored" data-anchor-id="subsetter">Subsetter</h3>
+<blockquote class="blockquote">
+<pre><code> Subsetter (mission:str, start:str, stop=None, save_location=None)</code></pre>
+</blockquote>
+<p><em>Class to manage retrieving subset SPICE kernel lists</em></p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mission</td>
+<td>str</td>
+<td></td>
+<td>mission shorthand in datasets dataframe</td>
+</tr>
+<tr class="even">
+<td>start</td>
+<td>str</td>
+<td></td>
+<td>start time in either ISO or yyyy-jjj format</td>
+</tr>
+<tr class="odd">
+<td>stop</td>
+<td>NoneType</td>
+<td>None</td>
+<td>stop time in either ISO or yyyy-jjj format</td>
+</tr>
+<tr class="even">
+<td>save_location</td>
+<td>NoneType</td>
+<td>None</td>
+<td>overwrite default storing in planetarpy archive</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L101" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="download_one_url" class="level3">
+<h3 class="anchored" data-anchor-id="download_one_url">download_one_url</h3>
+<blockquote class="blockquote">
+<pre><code> download_one_url (url, local_path, overwrite:bool=False)</code></pre>
+</blockquote>
+<div id="6289cefc-e6b7-45ae-aa82-1f880c332dbb" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>subset <span class="op">=</span> Subsetter(<span class="st">"cassini"</span>, <span class="st">"2014-270"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="aa04a242-8144-4880-9bbd-9197a5f814e6" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>subset.kernel_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['ck/14001_15001pa_gapfill_v14.bc',
+ 'ck/14212_14279py_as_flown.bc',
+ 'ck/14268_14273ra.bc',
+ 'ck/cas_cda_20150318.bc',
+ 'ck/cas_lemms_05109_20001_v2.bc',
+ 'fk/cas_dyn_v03.tf',
+ 'fk/cas_mimi_v202.tf',
+ 'fk/cas_rocks_v18.tf',
+ 'fk/cas_v41.tf',
+ 'ik/cas_caps_v03.ti',
+ 'ik/cas_cda_v01.ti',
+ 'ik/cas_cirs_v09.ti',
+ 'ik/cas_inms_v02.ti',
+ 'ik/cas_iss_v10.ti',
+ 'ik/cas_mag_v01.ti',
+ 'ik/cas_mimi_v11.ti',
+ 'ik/cas_radar_v11.ti',
+ 'ik/cas_rpws_v01.ti',
+ 'ik/cas_rss_v03.ti',
+ 'ik/cas_sru_v02.ti',
+ 'ik/cas_uvis_v06.ti',
+ 'ik/cas_vims_v06.ti',
+ 'lsk/naif0012.tls',
+ 'pck/pck00010.tpc',
+ 'sclk/cas00172.tsc',
+ 'spk/140809BP_IRRE_00256_25017.bsp',
+ 'spk/150122R_SCPSE_14251_14283.bsp',
+ 'spk/180927AP_RE_90165_18018.bsp']</code></pre>
+</div>
+</div>
+<div id="7e7b6827-9ec4-42b6-abb4-88ea13bfdcdb" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this should fail:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _failing():</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    Subsetter(<span class="st">"cassini"</span>, <span class="st">"2019-01-01"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>test_fail(_failing, contains<span class="op">=</span><span class="st">"start/stop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2c54fec7-ed64-4855-a23c-7fd522920f7b" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>subset <span class="op">=</span> Subsetter(<span class="st">"cassini"</span>, <span class="st">"2011-02-13"</span>, <span class="st">"2011-02-14"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e291ffb3-2c03-44a3-8513-b03c1858bbc4" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>subset.urls_file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'urls_cosp_1000_110213_110214.txt'</code></pre>
+</div>
+</div>
+<div id="a4cbe5f5-1757-41c2-8476-8218e8d6c426" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>subset.metakernel_file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'cas_2011_v17_110213_110214.tm'</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L188" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="subsetter.kernel_names" class="level3">
+<h3 class="anchored" data-anchor-id="subsetter.kernel_names">Subsetter.kernel_names</h3>
+<blockquote class="blockquote">
+<pre><code> Subsetter.kernel_names ()</code></pre>
+</blockquote>
+<p><em>Return list of names of kernels for the given time range.</em></p>
+<div id="57a2e0a4-0884-4438-a928-370b5a4fd13b" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>subset.kernel_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['ck/11001_12001pa_gapfill_v14.bc',
+ 'ck/11017_11066py_as_flown.bc',
+ 'ck/11044_11049ra.bc',
+ 'ck/cas_cda_20120517.bc',
+ 'ck/cas_lemms_05109_20001_v2.bc',
+ 'fk/cas_dyn_v03.tf',
+ 'fk/cas_mimi_v202.tf',
+ 'fk/cas_rocks_v18.tf',
+ 'fk/cas_v41.tf',
+ 'ik/cas_caps_v03.ti',
+ 'ik/cas_cda_v01.ti',
+ 'ik/cas_cirs_v09.ti',
+ 'ik/cas_inms_v02.ti',
+ 'ik/cas_iss_v10.ti',
+ 'ik/cas_mag_v01.ti',
+ 'ik/cas_mimi_v11.ti',
+ 'ik/cas_radar_v11.ti',
+ 'ik/cas_rpws_v01.ti',
+ 'ik/cas_rss_v03.ti',
+ 'ik/cas_sru_v02.ti',
+ 'ik/cas_uvis_v06.ti',
+ 'ik/cas_vims_v06.ti',
+ 'lsk/naif0012.tls',
+ 'pck/pck00010.tpc',
+ 'sclk/cas00172.tsc',
+ 'spk/110504R_SCPSE_11041_11093.bsp',
+ 'spk/140809BP_IRRE_00256_25017.bsp',
+ 'spk/180927AP_RE_90165_18018.bsp']</code></pre>
+</div>
+</div>
+<div id="bfc24353-a837-45b9-b63e-0eed3e12fced" class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>subset.kernel_urls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11001_12001pa_gapfill_v14.bc',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11017_11066py_as_flown.bc',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/11044_11049ra.bc',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/cas_cda_20120517.bc',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ck/cas_lemms_05109_20001_v2.bc',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_dyn_v03.tf',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_mimi_v202.tf',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_rocks_v18.tf',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/fk/cas_v41.tf',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_caps_v03.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_cda_v01.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_cirs_v09.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_inms_v02.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_iss_v10.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_mag_v01.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_mimi_v11.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_radar_v11.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_rpws_v01.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_rss_v03.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_sru_v02.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_uvis_v06.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/ik/cas_vims_v06.ti',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/lsk/naif0012.tls',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/pck/pck00010.tpc',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/sclk/cas00172.tsc',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/110504R_SCPSE_11041_11093.bsp',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/140809BP_IRRE_00256_25017.bsp',
+ 'https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000/data/spk/180927AP_RE_90165_18018.bsp']</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L192" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="subsetter.get_local_path" class="level3">
+<h3 class="anchored" data-anchor-id="subsetter.get_local_path">Subsetter.get_local_path</h3>
+<blockquote class="blockquote">
+<pre><code> Subsetter.get_local_path (url)</code></pre>
+</blockquote>
+<p>*Calculate local storage path from Kernel URL, using <code>save_location</code> if given.</p>
+<p>If self.save_location is None, the <code>planetarypy</code> archive is being used.*</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>url</td>
+<td></td>
+<td>kernel url to determine local storage path</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>Path</strong></td>
+<td><strong>full local path where kernel in URL will be stored</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="f9a42d38-f8cd-4b01-ad07-79725c0357f6" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>subset.get_local_path(subset.kernel_urls[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Path('/home/ayek72/mnt/slowdata/planetarypy/spice_kernels/cassini/ck/11001_12001pa_gapfill_v14.bc')</code></pre>
+</div>
+</div>
+<div id="0b1b0f92-5308-4282-bc0f-814d390c219d" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>subset.save_location <span class="op">=</span> Path(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="3b7e5703-c660-4ec7-b957-f549f7340245" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>subset.get_local_path(subset.kernel_urls[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Path('ck/11001_12001pa_gapfill_v14.bc')</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L221" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="subsetter.download_kernels" class="level3">
+<h3 class="anchored" data-anchor-id="subsetter.download_kernels">Subsetter.download_kernels</h3>
+<blockquote class="blockquote">
+<pre><code> Subsetter.download_kernels (overwrite:bool=False,
+                             non_blocking:bool=False, quiet:bool=False)</code></pre>
+</blockquote>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>overwrite</td>
+<td>bool</td>
+<td>False</td>
+<td>switch to control if kernels should be downloaded over existing ones</td>
+</tr>
+<tr class="even">
+<td>non_blocking</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>quiet</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div id="09ac7b78-2561-47c5-8818-60ff5244ab9a" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reset save_location to prevent additional download</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>subset.save_location <span class="op">=</span> <span class="va">None</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5d52c22a-234a-48e6-b811-a239dd9c33d3" class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>subset.download_kernels()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"7bf0f44a19c54b8ca60f8808c5ebdd6a","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ck 11001_12001pa_gapfill_v14.bc locally available.
+ck 11017_11066py_as_flown.bc locally available.
+ck 11044_11049ra.bc locally available.
+ck cas_cda_20120517.bc locally available.
+ck cas_lemms_05109_20001_v2.bc locally available.
+fk cas_dyn_v03.tf locally available.
+fk cas_mimi_v202.tf locally available.
+fk cas_rocks_v18.tf locally available.
+fk cas_v41.tf locally available.
+ik cas_caps_v03.ti locally available.
+ik cas_cda_v01.ti locally available.
+ik cas_cirs_v09.ti locally available.
+ik cas_inms_v02.ti locally available.
+ik cas_iss_v10.ti locally available.
+ik cas_mag_v01.ti locally available.
+ik cas_mimi_v11.ti locally available.
+ik cas_radar_v11.ti locally available.
+ik cas_rpws_v01.ti locally available.
+ik cas_rss_v03.ti locally available.
+ik cas_sru_v02.ti locally available.
+ik cas_uvis_v06.ti locally available.
+ik cas_vims_v06.ti locally available.
+lsk naif0012.tls locally available.
+pck pck00010.tpc locally available.
+sclk cas00172.tsc locally available.
+spk 110504R_SCPSE_11041_11093.bsp locally available.
+spk 140809BP_IRRE_00256_25017.bsp locally available.
+spk 180927AP_RE_90165_18018.bsp locally available.</code></pre>
+</div>
+</div>
+<div id="044238d3-5931-4c0c-9ee9-3174ec7a4d31" class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>subset.download_kernels(non_blocking<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"f2a04f913b4d407c810df6b9dc51c09a","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ck 11001_12001pa_gapfill_v14.bc locally available.
+ck 11017_11066py_as_flown.bc locally available.
+ck 11044_11049ra.bc locally available.
+ck cas_cda_20120517.bc locally available.
+ck cas_lemms_05109_20001_v2.bc locally available.
+fk cas_dyn_v03.tf locally available.
+fk cas_mimi_v202.tf locally available.
+fk cas_rocks_v18.tf locally available.
+fk cas_v41.tf locally available.
+ik cas_caps_v03.ti locally available.
+ik cas_cda_v01.ti locally available.
+ik cas_cirs_v09.ti locally available.
+ik cas_inms_v02.ti locally available.
+ik cas_iss_v10.ti locally available.
+ik cas_mag_v01.ti locally available.
+ik cas_mimi_v11.ti locally available.
+ik cas_radar_v11.ti locally available.
+ik cas_rpws_v01.ti locally available.
+ik cas_rss_v03.ti locally available.
+ik cas_sru_v02.ti locally available.
+ik cas_uvis_v06.ti locally available.
+ik cas_vims_v06.ti locally available.
+lsk naif0012.tls locally available.
+pck pck00010.tpc locally available.
+sclk cas00172.tsc locally available.
+spk 110504R_SCPSE_11041_11093.bsp locally available.
+spk 140809BP_IRRE_00256_25017.bsp locally available.
+spk 180927AP_RE_90165_18018.bsp locally available.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>[]</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L239" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="subsetter.get_metakernel" class="level3">
+<h3 class="anchored" data-anchor-id="subsetter.get_metakernel">Subsetter.get_metakernel</h3>
+<blockquote class="blockquote">
+<pre><code> Subsetter.get_metakernel ()</code></pre>
+</blockquote>
+<p>*Get metakernel file from NAIF and adapt path to match local storage.</p>
+<p>Use <code>save_location</code> if given, otherwise <code>planetarypy</code> archive.*</p>
+<div id="a66d6ddd-50c8-4c9a-9592-9c1f1fee25fe" class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>mkpath <span class="op">=</span> subset.get_metakernel()</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>mkpath</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Path('/home/ayek72/mnt/slowdata/planetarypy/spice_kernels/cassini/cas_2011_v17_110213_110214.tm')</code></pre>
+</div>
+</div>
+<div id="283507d5-581d-4741-acb5-2926e278e2d4" class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat {mkpath}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>KPL/MK
+
+   This meta-kernel lists a subset of kernels from the meta-kernel
+   cas_2011_v17.tm provided in the CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive,
+   covering the whole or a part of the customer requested time period
+   from 2011-02-13T00:00:00.000 to 2011-02-14T00:00:00.000.
+
+   The documentation describing these kernels can be found in the
+   complete CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive available at this URL
+
+   https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000
+
+   To use this meta-kernel users may need to modify the value of the
+   PATH_VALUES keyword to point to the actual location of the archive's
+   ``data'' directory on their system. Replacing ``/'' with ``\''
+   and converting line terminators to the format native to the user's
+   system may also be required if this meta-kernel is to be used on a
+   non-UNIX workstation.
+
+   This meta-kernel was created by the NAIF node's SPICE PDS archive
+   subsetting service version 2.1 on Mon Jun 19 08:13:34 PDT 2023.
+
+ 
+   \begindata
+ 
+      PATH_VALUES     = (
+                         '/home/ayek72/mnt/slowdata/planetarypy/spice_kernels/cassini'
+                        )
+ 
+      PATH_SYMBOLS    = (
+                         'KERNELS'
+                        )
+ 
+      KERNELS_TO_LOAD = (
+                         '$KERNELS/lsk/naif0012.tls'
+                         '$KERNELS/pck/pck00010.tpc'
+                         '$KERNELS/fk/cas_rocks_v18.tf'
+                         '$KERNELS/fk/cas_mimi_v202.tf'
+                         '$KERNELS/fk/cas_dyn_v03.tf'
+                         '$KERNELS/fk/cas_v41.tf'
+                         '$KERNELS/ik/cas_caps_v03.ti'
+                         '$KERNELS/ik/cas_cda_v01.ti'
+                         '$KERNELS/ik/cas_cirs_v09.ti'
+                         '$KERNELS/ik/cas_inms_v02.ti'
+                         '$KERNELS/ik/cas_iss_v10.ti'
+                         '$KERNELS/ik/cas_mag_v01.ti'
+                         '$KERNELS/ik/cas_mimi_v11.ti'
+                         '$KERNELS/ik/cas_radar_v11.ti'
+                         '$KERNELS/ik/cas_rpws_v01.ti'
+                         '$KERNELS/ik/cas_rss_v03.ti'
+                         '$KERNELS/ik/cas_sru_v02.ti'
+                         '$KERNELS/ik/cas_uvis_v06.ti'
+                         '$KERNELS/ik/cas_vims_v06.ti'
+                         '$KERNELS/sclk/cas00172.tsc'
+                         '$KERNELS/spk/180927AP_RE_90165_18018.bsp'
+                         '$KERNELS/spk/140809BP_IRRE_00256_25017.bsp'
+                         '$KERNELS/spk/110504R_SCPSE_11041_11093.bsp'
+                         '$KERNELS/ck/11001_12001pa_gapfill_v14.bc'
+                         '$KERNELS/ck/11017_11066py_as_flown.bc'
+                         '$KERNELS/ck/11044_11049ra.bc'
+                         '$KERNELS/ck/cas_cda_20120517.bc'
+                         '$KERNELS/ck/cas_lemms_05109_20001_v2.bc'
+                        )
+ 
+   \begintext
+ 
+</code></pre>
+</div>
+</div>
+<p>Loading the metakernel works! :</p>
+<div id="fc1f908c-2d91-4dc5-b14d-57d724b6beea" class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>spice.furnsh(<span class="bu">str</span>(mkpath))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or, with given <code>save_location</code>:</p>
+<div id="f3ad0619-5c38-4422-bc0d-5d6ddf53f111" class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>subset.save_location <span class="op">=</span> Path(<span class="st">"."</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>mkpath <span class="op">=</span> subset.get_metakernel()</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>mkpath</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Path('cas_2011_v17_110213_110214.tm')</code></pre>
+</div>
+</div>
+<p>The metakernel is correctly adapted, however for these tests, I didn’t download the kernels again</p>
+<div id="f834f517-eb7b-430f-92f1-c483ac3dc9b2" class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat {mkpath}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>KPL/MK
+
+   This meta-kernel lists a subset of kernels from the meta-kernel
+   cas_2011_v17.tm provided in the CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive,
+   covering the whole or a part of the customer requested time period
+   from 2011-02-13T00:00:00.000 to 2011-02-14T00:00:00.000.
+
+   The documentation describing these kernels can be found in the
+   complete CO-S/J/E/V-SPICE-6-V1.0 SPICE PDS3 archive available at this URL
+
+   https://naif.jpl.nasa.gov/pub/naif/pds/data/co-s_j_e_v-spice-6-v1.0/cosp_1000
+
+   To use this meta-kernel users may need to modify the value of the
+   PATH_VALUES keyword to point to the actual location of the archive's
+   ``data'' directory on their system. Replacing ``/'' with ``\''
+   and converting line terminators to the format native to the user's
+   system may also be required if this meta-kernel is to be used on a
+   non-UNIX workstation.
+
+   This meta-kernel was created by the NAIF node's SPICE PDS archive
+   subsetting service version 2.1 on Mon Jun 19 08:13:34 PDT 2023.
+
+ 
+   \begindata
+ 
+      PATH_VALUES     = (
+                         '.'
+                        )
+ 
+      PATH_SYMBOLS    = (
+                         'KERNELS'
+                        )
+ 
+      KERNELS_TO_LOAD = (
+                         '$KERNELS/lsk/naif0012.tls'
+                         '$KERNELS/pck/pck00010.tpc'
+                         '$KERNELS/fk/cas_rocks_v18.tf'
+                         '$KERNELS/fk/cas_mimi_v202.tf'
+                         '$KERNELS/fk/cas_dyn_v03.tf'
+                         '$KERNELS/fk/cas_v41.tf'
+                         '$KERNELS/ik/cas_caps_v03.ti'
+                         '$KERNELS/ik/cas_cda_v01.ti'
+                         '$KERNELS/ik/cas_cirs_v09.ti'
+                         '$KERNELS/ik/cas_inms_v02.ti'
+                         '$KERNELS/ik/cas_iss_v10.ti'
+                         '$KERNELS/ik/cas_mag_v01.ti'
+                         '$KERNELS/ik/cas_mimi_v11.ti'
+                         '$KERNELS/ik/cas_radar_v11.ti'
+                         '$KERNELS/ik/cas_rpws_v01.ti'
+                         '$KERNELS/ik/cas_rss_v03.ti'
+                         '$KERNELS/ik/cas_sru_v02.ti'
+                         '$KERNELS/ik/cas_uvis_v06.ti'
+                         '$KERNELS/ik/cas_vims_v06.ti'
+                         '$KERNELS/sclk/cas00172.tsc'
+                         '$KERNELS/spk/180927AP_RE_90165_18018.bsp'
+                         '$KERNELS/spk/140809BP_IRRE_00256_25017.bsp'
+                         '$KERNELS/spk/110504R_SCPSE_11041_11093.bsp'
+                         '$KERNELS/ck/11001_12001pa_gapfill_v14.bc'
+                         '$KERNELS/ck/11017_11066py_as_flown.bc'
+                         '$KERNELS/ck/11044_11049ra.bc'
+                         '$KERNELS/ck/cas_cda_20120517.bc'
+                         '$KERNELS/ck/cas_lemms_05109_20001_v2.bc'
+                        )
+ 
+   \begintext
+ 
+</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="user-functions" class="level2">
+<h2 class="anchored" data-anchor-id="user-functions">User functions</h2>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L255" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="get_metakernel_and_files" class="level3">
+<h3 class="anchored" data-anchor-id="get_metakernel_and_files">get_metakernel_and_files</h3>
+<blockquote class="blockquote">
+<pre><code> get_metakernel_and_files (mission:str, start:str, stop:str,
+                           save_location:str=None, quiet:bool=False)</code></pre>
+</blockquote>
+<p><em>For a given mission and start/stop times, download the kernels and get metakernel path</em></p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mission</td>
+<td>str</td>
+<td></td>
+<td>mission shorthand from datasets dataframe</td>
+</tr>
+<tr class="even">
+<td>start</td>
+<td>str</td>
+<td></td>
+<td>start time as iso-string, or yyyy-jjj</td>
+</tr>
+<tr class="odd">
+<td>stop</td>
+<td>str</td>
+<td></td>
+<td>stop time as iso-string or yyyy-jjj</td>
+</tr>
+<tr class="even">
+<td>save_location</td>
+<td>str</td>
+<td>None</td>
+<td>override storage into planetarypy archive</td>
+</tr>
+<tr class="odd">
+<td>quiet</td>
+<td>bool</td>
+<td>False</td>
+<td>suppress kernel-wise feedback</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>Path</strong></td>
+<td></td>
+<td><strong>pathlib.Path to metakernel file with corrected data path.</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="68deb5da-5bd5-44d8-be01-edba72037ce9" class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>mkpath <span class="op">=</span> get_metakernel_and_files(<span class="st">"cassini"</span>, <span class="st">"2011-02-13"</span>, <span class="st">"2011-02-14"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>mkpath</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/maye/mambaforge/envs/py39/lib/python3.9/site-packages/distributed/node.py:182: UserWarning: Port 8787 is already in use.
+Perhaps you already have a cluster running?
+Hosting the HTTP server on port 57624 instead
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"680c89484fe9447594f1d1ab0a819b77","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ck 11001_12001pa_gapfill_v14.bc locally available.
+ck 11017_11066py_as_flown.bc locally available.
+ck 11044_11049ra.bc locally available.
+ck cas_cda_20120517.bc locally available.
+ck cas_lemms_05109_20001_v2.bc locally available.
+fk cas_dyn_v03.tf locally available.
+fk cas_mimi_v202.tf locally available.
+fk cas_rocks_v18.tf locally available.
+fk cas_v41.tf locally available.
+ik cas_caps_v03.ti locally available.
+ik cas_cda_v01.ti locally available.
+ik cas_cirs_v09.ti locally available.
+ik cas_inms_v02.ti locally available.
+ik cas_iss_v10.ti locally available.
+ik cas_mag_v01.ti locally available.
+ik cas_mimi_v11.ti locally available.
+ik cas_radar_v11.ti locally available.
+ik cas_rpws_v01.ti locally available.
+ik cas_rss_v03.ti locally available.
+ik cas_sru_v02.ti locally available.
+ik cas_uvis_v06.ti locally available.
+ik cas_vims_v06.ti locally available.
+lsk naif0012.tls locally available.
+pck pck00010.tpc locally available.
+sclk cas00172.tsc locally available.
+spk 110504R_SCPSE_11041_11093.bsp locally available.
+spk 140809BP_IRRE_00256_25017.bsp locally available.
+spk 180927AP_RE_90165_18018.bsp locally available.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>Path('/Users/maye/planetarypy_data/spice_kernels/cassini/cas_2011_v17_110213_110214.tm')</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L268" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="list_kernels_for_day" class="level3">
+<h3 class="anchored" data-anchor-id="list_kernels_for_day">list_kernels_for_day</h3>
+<blockquote class="blockquote">
+<pre><code> list_kernels_for_day (mission:str, start:str, stop:str='')</code></pre>
+</blockquote>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mission</td>
+<td>str</td>
+<td></td>
+<td>mission shorthand from datasets dataframe</td>
+</tr>
+<tr class="even">
+<td>start</td>
+<td>str</td>
+<td></td>
+<td>start time as iso-string, or yyyy-jjj</td>
+</tr>
+<tr class="odd">
+<td>stop</td>
+<td>str</td>
+<td></td>
+<td>stop time as iso-string or yyyy-jjj</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>list</strong></td>
+<td></td>
+<td><strong>list of kernel names</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="bd5b05dd-3b42-4fa1-a738-bbddc1b01e5a" class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>list_kernels_for_day(<span class="st">"mro"</span>, <span class="st">"2015-02-13"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['ck/mro_crm_psp_150201_150228.bc',
+ 'ck/mro_hga_psp_150210_150216_v2.bc',
+ 'ck/mro_mcs_psp_150201_150228.bc',
+ 'ck/mro_sa_psp_150210_150216_v2.bc',
+ 'ck/mro_sc_psp_150210_150216_v2.bc',
+ 'fk/mro_v16.tf',
+ 'ik/mro_crism_v10.ti',
+ 'ik/mro_ctx_v11.ti',
+ 'ik/mro_hirise_v12.ti',
+ 'ik/mro_marci_v10.ti',
+ 'ik/mro_mcs_v10.ti',
+ 'ik/mro_onc_v10.ti',
+ 'lsk/naif0012.tls',
+ 'pck/pck00008.tpc',
+ 'sclk/mro_sclkscet_00095_65536.tsc',
+ 'spk/de421.bsp',
+ 'spk/mar097.bsp',
+ 'spk/mro_psp34.bsp',
+ 'spk/mro_psp34_ssd_mro95a.bsp',
+ 'spk/mro_struct_v10.bsp']</code></pre>
+</div>
+</div>
+<div id="1e1026c5-2223-4244-904d-61510813a5c6" class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this always takes much longer than other requests!</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>list_kernels_for_day(<span class="st">"maven"</span>, <span class="st">"2017-01-01"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['ck/mvn_app_rel_161226_170101_v01.bc',
+ 'ck/mvn_app_rel_170102_170108_v01.bc',
+ 'ck/mvn_iuvs_rem_170101_170331_v03.bc',
+ 'ck/mvn_sc_rel_161226_170101_v01.bc',
+ 'ck/mvn_sc_rel_170102_170108_v02.bc',
+ 'ck/mvn_swea_nom_131118_300101_v02.bc',
+ 'fk/maven_v09.tf',
+ 'ik/maven_ant_v10.ti',
+ 'ik/maven_euv_v10.ti',
+ 'ik/maven_iuvs_v11.ti',
+ 'ik/maven_ngims_v10.ti',
+ 'ik/maven_sep_v12.ti',
+ 'ik/maven_static_v11.ti',
+ 'ik/maven_swea_v11.ti',
+ 'ik/maven_swia_v10.ti',
+ 'lsk/naif0012.tls',
+ 'pck/pck00010.tpc',
+ 'sclk/mvn_sclkscet_00072.tsc',
+ 'spk/de430s.bsp',
+ 'spk/mar097s.bsp',
+ 'spk/maven_orb_rec_170101_170401_v1.bsp',
+ 'spk/maven_struct_v01.bsp']</code></pre>
+</div>
+</div>
+<div id="a36fcfff-6b13-4898-a375-dcf390099596" class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this always takes much longer than other requests!</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>list_kernels_for_day(<span class="st">"orex"</span>, <span class="st">"2018-11-30"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['ck/orx_sa_rel_181126_181202_v01.bc',
+ 'ck/orx_sc_rel_181126_181202_v01.bc',
+ 'ck/orx_struct_mapcam_v01.bc',
+ 'ck/orx_struct_polycam_v01.bc',
+ 'fk/orx_shape_v03.tf',
+ 'fk/orx_v14.tf',
+ 'ik/orx_lidar_v00.ti',
+ 'ik/orx_navcam_v02.ti',
+ 'ik/orx_ocams_v07.ti',
+ 'ik/orx_ola_v01.ti',
+ 'ik/orx_otes_v00.ti',
+ 'ik/orx_ovirs_v00.ti',
+ 'ik/orx_rexis_v01.ti',
+ 'ik/orx_stowcam_v00.ti',
+ 'ik/orx_struct_v00.ti',
+ 'lsk/naif0012.tls',
+ 'pck/bennu_v17.tpc',
+ 'pck/pck00010.tpc',
+ 'sclk/orx_sclkscet_00074.tsc',
+ 'spk/bennu_refdrmc_v1.bsp',
+ 'spk/de424.bsp',
+ 'spk/orx_180301_181201_180921_od044_v1.bsp',
+ 'spk/orx_180801_190302_181218_od077_v1.bsp',
+ 'spk/orx_181203_190302_190104_od085_v1.bsp',
+ 'spk/orx_struct_v04.bsp']</code></pre>
+</div>
+</div>
+<div id="fdece451-f66b-432f-95a5-6b5f5c39f38e" class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _test_mission_kernels_available(mission):</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Doing"</span>, mission)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> datasets.at[mission, <span class="st">"Start Time"</span>]</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> datasets.at[mission, <span class="st">"Stop Time"</span>]</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    half <span class="op">=</span> Time(start) <span class="op">+</span> (Time(end) <span class="op">-</span> Time(start)) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Half time:"</span>, half)</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>        found <span class="op">=</span> list_kernels_for_day(mission, half)</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">IndexError</span>:</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Problem with"</span>, mission)</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Found </span><span class="sc">{</span><span class="bu">len</span>(found)<span class="sc">}</span><span class="ss"> kernels for </span><span class="sc">{</span>mission<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> mission <span class="kw">in</span> datasets.index:</span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>    _test_mission_kernels_available(mission)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Doing bc
+Half time: 2020-11-25 00:00:00.000
+Found 41 kernels for bc
+Doing cassini
+Half time: 2007-09-30 12:00:01.000
+Found 32 kernels for cassini
+Doing clementine
+Half time: 1994-03-17 12:00:00.000
+Found 19 kernels for clementine
+Doing dart
+Half time: 2035-12-06 00:00:00.000
+Found 14 kernels for dart
+Doing dawn
+Half time: 2013-04-14 00:00:00.000
+Found 21 kernels for dawn
+Doing di
+Half time: 2005-04-26 12:00:00.000
+Found 16 kernels for di
+Doing ds1
+Half time: 2000-05-21 11:59:59.500
+Found 11 kernels for ds1
+Doing epoxi
+Half time: 2008-05-27 00:00:00.000
+Found 12 kernels for epoxi
+Doing em16
+Half time: 2019-08-07 23:59:59.500
+Found 27 kernels for em16
+Doing grail
+Half time: 2012-04-29 00:00:00.500
+Found 20 kernels for grail
+Doing hayabusa
+Half time: 2005-10-15 12:00:00.000
+Found 15 kernels for hayabusa
+Doing insight
+Half time: 2020-08-24 12:00:00.000
+Found 21 kernels for insight
+Doing juno
+Half time: 2017-02-08 23:59:58.500
+Found 25 kernels for juno
+Doing ladee
+Half time: 2031-11-04 11:59:59.000
+Found 12 kernels for ladee
+Doing lro
+Half time: 2016-04-30 23:59:59.500
+Found 24 kernels for lro
+Doing maven
+Half time: 2018-07-25 11:59:59.000
+Found 20 kernels for maven
+Doing opportunity
+Half time: 2010-12-23 00:00:00.500
+Found 23 kernels for opportunity
+Doing spirit
+Half time: 2006-11-20 12:00:00.000
+Found 24 kernels for spirit
+Doing messenger
+Half time: 2009-12-15 23:59:59.500
+Found 18 kernels for messenger
+Doing mars2020
+Half time: 2021-10-13 12:00:00.000
+Found 17 kernels for mars2020
+Doing mex
+Half time: 2013-03-01 11:59:59.500
+Found 39 kernels for mex
+Doing mgs
+Half time: 2001-11-03 23:59:59.500
+Found 20 kernels for mgs
+Doing ody
+Half time: 2012-01-03 12:00:00.500
+Found 14 kernels for ody
+Doing mro
+Half time: 2014-06-06 11:59:59.500
+Found 20 kernels for mro
+Doing msl
+Half time: 2017-05-16 23:59:58.500
+Found 50 kernels for msl
+Doing near
+Half time: 1998-10-14 12:00:00.000
+Found 15 kernels for near
+Doing nh
+Half time: 2013-01-08 12:00:00.000
+Found 28 kernels for nh
+Doing orex
+Half time: 2018-11-30 23:59:59.500</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  warnings.warn('ERFA function "{}" yielded {}'.format(func_name, wmsg),
+  warnings.warn('ERFA function "{}" yielded {}'.format(func_name, wmsg),
+  warnings.warn('ERFA function "{}" yielded {}'.format(func_name, wmsg),
+  warnings.warn('ERFA function "{}" yielded {}'.format(func_name, wmsg),</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>OSError: SPICE Server request returned status code: {r.status_code}</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>NOTE: Any ErfaWarnings above are caused by the LADEE mission using a kernel up to 2050, and the astropy.Time module warns about potential precicision issues regarding unknown leapseconds that will be put in in the future.</p>
+</blockquote>
+</section>
+<section id="generic-kernel-management" class="level3">
+<h3 class="anchored" data-anchor-id="generic-kernel-management">Generic kernel management</h3>
+<p>There are a few generic kernels that are required for basic illumination calculations as supported by this package.</p>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L291" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="download_generic_kernels" class="level3">
+<h3 class="anchored" data-anchor-id="download_generic_kernels">download_generic_kernels</h3>
+<blockquote class="blockquote">
+<pre><code> download_generic_kernels (overwrite=False)</code></pre>
+</blockquote>
+<p><em>Download all kernels as required by generic_kernel_list.</em></p>
+<div id="ebe088f9-33e3-4d43-bc24-a82846974d9b" class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>download_generic_kernels()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L302" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="load_generic_kernels" class="level3">
+<h3 class="anchored" data-anchor-id="load_generic_kernels">load_generic_kernels</h3>
+<blockquote class="blockquote">
+<pre><code> load_generic_kernels ()</code></pre>
+</blockquote>
+<p>*Load all kernels in generic_kernels list.</p>
+<p>Loads pure planetary bodies meta-kernel without spacecraft data.</p>
+<p>Downloads any missing generic kernels.*</p>
+<div id="02dbe7d7-46ec-4106-b8ff-ea9a907d9d24" class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>spice.kclear()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="40f0171d-30ff-4ec9-b889-264825db654a" class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>load_generic_kernels()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><a href="https://github.com/michaelaye/nbplanetary/blob/master/planetarypy/spice/kernels.py#L315" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="show_loaded_kernels" class="level3">
+<h3 class="anchored" data-anchor-id="show_loaded_kernels">show_loaded_kernels</h3>
+<blockquote class="blockquote">
+<pre><code> show_loaded_kernels ()</code></pre>
+</blockquote>
+<p><em>Print overview of loaded kernels.</em></p>
+<div id="5eeb3c4c-cf5f-467d-9b2e-0e0abc4476dd" class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>show_loaded_kernels()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e8b6bfbd-7bc6-4b0b-90ae-666f49b7f44b" class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nbdev <span class="im">import</span> nbdev_export</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>nbdev_export()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script type="application/vnd.jupyter.widget-state+json">
+{"state":{},"version_major":2,"version_minor":0}
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/michaelaye\.github\.io\/planetarypy");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/michaelaye/nbplanetary/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
