@@ -100,7 +100,7 @@ def index_to_df(
     this reader should work for all PDS TAB files.
     """
     indexpath = Path(indexpath)
-    df = pd.read_fwf(indexpath, header=None, names=label.colnames, colspecs=label.colspecs)
+    df = pd.read_csv(indexpath,header=None,names=label.colnames,)
     if convert_times:
         for column in [col for col in df.columns if "TIME" in col]:
             if column in ["LOCAL_TIME", "DWELL_TIME"]:
