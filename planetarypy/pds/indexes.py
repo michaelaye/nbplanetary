@@ -8,7 +8,7 @@ import logging
 from datetime import datetime
 from urllib.parse import urlsplit, urlunsplit
 from urllib.request import URLError
-
+from dask import dataframe as dd
 import tomlkit as toml
 from dateutil import parser
 from dateutil.parser import ParserError
@@ -21,7 +21,7 @@ from .. import utils
 from ..config import config
 from .ctx_index import CTXIndex
 from .lroc_index import LROCIndex
-from .utils import IndexLabel, fix_hirise_edrcumindex
+from .utils import IndexLabel, fix_hirise_edrcumindex, convert_times
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ storage_root = Path(config.storage_root)
 # %% ../../notebooks/api/02a_pds.indexes.ipynb 4
 dynamic_urls = {"mro.ctx": CTXIndex, "lro.lroc": LROCIndex}
 
-# %% ../../notebooks/api/02a_pds.indexes.ipynb 6
+# %% ../../notebooks/api/02a_pds.indexes.ipynb 7
 class Index:
     """Index manager class.
 
@@ -161,14 +161,17 @@ class Index:
     def label(self):
         return IndexLabel(self.local_label_path)
 
-    def read_index_data(self, convert_times=True):
-        df = self.label.read_index_data(convert_times=convert_times)
+    def read_index_data(self, do_convert_times=True):
+        df = self.label.read_index_data(do_convert_times=do_convert_times)
         return df
 
     def convert_to_parquet(self):
+        print("Reading index to memory for conversion to parquet. Will take up lots of memory for a bit.")
         df = self.read_index_data()
         df = df.convert_dtypes()
+        print("Storing into parquet.")
         df.to_parquet(self.local_parq_path)
+        print("Finished. Enjoy your freshly baked PDS Index. :")
 
     def __str__(self):
         s = f"Key: {self.key}\n"
@@ -179,7 +182,7 @@ class Index:
     def __repr__(self):
         return self.__str__()
 
-# %% ../../notebooks/api/02a_pds.indexes.ipynb 7
+# %% ../../notebooks/api/02a_pds.indexes.ipynb 8
 @patch
 def parse_key(
     self:Index,
@@ -196,9 +199,12 @@ def parse_key(
         subs.insert(3, "indexes")
     return ".".join(subs)
 
-# %% ../../notebooks/api/02a_pds.indexes.ipynb 8
+# %% ../../notebooks/api/02a_pds.indexes.ipynb 9
 @patch
-def download(self:Index):
+def download(
+    self:Index,  # the Index object defined in this module
+    convert_to_parquet:bool=True,  # set to False if you just want download the files
+):
     """Wrapping URLs for downloading PDS indices and their label files."""
     # check timestamp
     label_url = self.url
@@ -207,19 +213,20 @@ def download(self:Index):
     logger.info("Downloading %s.", self.table_url)
     utils.url_retrieve(self.table_url, self.local_table_path)
     print(f"Downloaded {self.local_label_path} and {self.local_table_path}")
-    if (
-        self.key == "missions.mro.hirise.indexes.edr"
-    ):  # HiRISE EDR index is broken on the PDS. Team knows.
-        print("Fixing broken EDR index...")
-        fix_hirise_edrcumindex(
-            self.local_table_path, self.local_table_path.with_name("temp.tab")
-        )
-        self.local_table_path.with_name("temp.tab").rename(self.local_table_path)
+    # if (
+    #     self.key == "missions.mro.hirise.indexes.edr"
+    # ):  # HiRISE EDR index is broken on the PDS. Team knows.
+    #     print("Fixing broken EDR index...")
+    #     fix_hirise_edrcumindex(
+    #         self.local_table_path, self.local_table_path.with_name("temp.tab")
+    #     )
+    #     self.local_table_path.with_name("temp.tab").rename(self.local_table_path)
     self.timestamp = self.remote_timestamp
     self.update_timestamp()
-    self.convert_to_parquet()
+    if convert_to_parquet:
+        self.convert_to_parquet()
 
-# %% ../../notebooks/api/02a_pds.indexes.ipynb 9
+# %% ../../notebooks/api/02a_pds.indexes.ipynb 10
 @patch(as_prop=True)
 def update_available(
         self: Index) -> bool:  # Boolean indicating if there's a new index
