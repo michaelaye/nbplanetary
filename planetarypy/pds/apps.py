@@ -40,7 +40,7 @@ def get_index(
         index.convert_to_parquet()
     return index.parquet
 
-# %% ../../notebooks/api/02c_pds.apps.ipynb 15
+# %% ../../notebooks/api/02c_pds.apps.ipynb 14
 def find_instruments(
         mission: str,  # Mission string, e.g. "cassini"
 ) -> list:  # List of configured instrument names
